@@ -28,6 +28,6 @@ Signal 不是 Opportunity，不得直接 Build。各 Sensor 先核对自身研�
 
 Market JSON 的 `signals[]` 使用上述字段的 snake_case。`magnitude` 记录量化幅度及历史分位（无历史为 null）；`data_quality` 记录 synthetic / history_points / history_sufficient / liquidity_verified / reliability。`evidence` 是 source / observed_at / fact 对象数组。
 
-运行级 `status / source / demo_only / rule / observations` 区分数据与规则来源、无数据和无匹配。当前所有 Market 产物都有 `demo_only: true`、`research_eligible: false` 及运行级 `research_blockers`，不得进入真实机会研究。仅行情记录和提供者接口说明不是两份独立市场证据，不能冒充满足正式研究条件。
+运行级 `status / source / demo_only / rule / observations` 区分来源、规则与状态。Market 0.3.0生产US Flow Shift在真实来源、时间、规则、工具与粗流动性门槛全部满足时为 demo_only=false / rule.status=trial / research_eligible=true，只表示可进入Researcher R1核验，不代表四Gate或策略有效性通过。fixture永远synthetic且eligible=false；旧单日demo和六股history仅legacy/demo，eligible=false。BLOCKED观察不得混入真实合格signals；完整输入、PIT、修订/去重、R1 packet与门槛见[需求revision 2](../docs/market-v1-requirements.md)。ICI数值与方法说明属同一提供者，发行人只支持工具事实，不独立证明流向或价格因果。本公共协议版本与Researcher观察键保持不变。
 
 `reviewed` 只指本地原稿核对，不意味着外部平台实测或 Market 正式规则验收。`0.1.0` 历史输出保留原版本，不能直接重标。

@@ -1,44 +1,69 @@
 # task_id: market-sensor
-# version: 0.2.0
+# version: 0.3.0
 # platform: github-actions
 # role_spec: docs/03-market-sensor.md
-# role_spec_status: reviewed
-# updated_at: 2026-10-19
+# implementation_spec: docs/market-v1-requirements.md revision 2
+# updated_at: 2026-10-20
 # Active configuration: .github/workflows/market-sensor.yml; keep both copies in sync.
 name: Market Sensor
 
 on:
+  schedule:
+    - cron: '17 8 * * 5'
+      timezone: Asia/Taipei
   workflow_dispatch:
     inputs:
-      source:
-        description: Data source (all rules are demo-only)
+      mode:
+        description: US Flow Shift (demo/history are legacy experiments)
         type: choice
-        options:
-          - fixture
-          - tushare
-        default: fixture
+        options: [flow, demo, history]
+        default: flow
         required: true
+      input_mode:
+        description: Flow source (fixture always synthetic)
+        type: choice
+        options: [live_http, supplied_snapshot, synthetic_fixture]
+        default: live_http
+        required: true
+      as_of:
+        description: Flow ISO date or timezone-aware timestamp; blank means actual run time
+        type: string
+        default: ''
+      snapshot_run_id:
+        description: Optional same-repository run artifact containing original source-manifest.json and sources
+        type: string
+        default: ''
+      previous_run_id:
+        description: Optional previous same-repository report artifact for deduplication
+        type: string
+        default: ''
+      source:
+        description: Legacy only
+        type: choice
+        options: [fixture, tushare]
+        default: fixture
       trade_date:
-        description: Tushare only - YYYYMMDD
+        description: Legacy demo YYYYMMDD / legacy history as_of_date
         type: string
         default: ''
       ts_code:
-        description: Tushare only - single instrument, e.g. 000001.SZ
+        description: Legacy demo only
         type: string
         default: ''
       demo_abs_pct:
-        description: Demo threshold in percent (not a production rule)
+        description: Legacy demo only
         type: string
         default: '5'
-        required: true
 
 permissions:
   contents: read
+  # Only restores public source snapshots / previous reports from native run artifacts.
+  actions: read
 
 jobs:
   sense:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -46,24 +71,49 @@ jobs:
           python-version: '3.11'
       - name: Verify offline behavior
         run: python3 -m unittest discover -s scripts/market -p 'test_*.py' -v
-      - name: Fetch and apply demo rule
+      - name: Restore supplied original snapshots
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.input_mode == 'supplied_snapshot' && inputs.snapshot_run_id != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ inputs.snapshot_run_id }}
+          github-token: ${{ github.token }}
+          path: inputs/snapshot
+          merge-multiple: true
+      - name: Restore previous report and originals for deduplication
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.previous_run_id != '' }}
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ inputs.previous_run_id }}
+          github-token: ${{ github.token }}
+          path: inputs/previous
+          merge-multiple: true
+      - name: Runner-only Tushare US permission and ETF coverage preflight
+        if: ${{ github.event_name == 'schedule' || (inputs.mode == 'flow' && inputs.input_mode == 'live_http') }}
         env:
-          SOURCE: ${{ inputs.source }}
-          TRADE_DATE: ${{ inputs.trade_date }}
-          TS_CODE: ${{ inputs.ts_code }}
-          DEMO_ABS_PCT: ${{ inputs.demo_abs_pct }}
           TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
-        run: >-
-          python3 scripts/market/market_sensor.py
-          --source "$SOURCE"
-          --trade-date "$TRADE_DATE"
-          --ts-code "$TS_CODE"
-          --demo-abs-pct "$DEMO_ABS_PCT"
-      - name: Save run report (including sensor errors)
+        run: python3 scripts/market/tushare_us_preflight.py
+      - name: Fetch public sources and evaluate selected mode
+        env:
+          INPUT_US_PREFLIGHT_REPORT: outputs/market/tushare-us-preflight.json
+          INPUT_MODE: ${{ inputs.mode }}
+          INPUT_INPUT_MODE: ${{ inputs.input_mode }}
+          INPUT_AS_OF: ${{ inputs.as_of }}
+          INPUT_SNAPSHOT_RUN_ID: ${{ inputs.snapshot_run_id }}
+          INPUT_PREVIOUS_RUN_ID: ${{ inputs.previous_run_id }}
+          INPUT_SOURCE: ${{ inputs.source }}
+          INPUT_AS_OF_DATE: ${{ inputs.trade_date }}
+          INPUT_TRADE_DATE: ${{ inputs.trade_date }}
+          INPUT_TS_CODE: ${{ inputs.ts_code }}
+          INPUT_DEMO_ABS_PCT: ${{ inputs.demo_abs_pct }}
+          # Empty for US/public-source mode; only legacy explicit Tushare requests need it.
+          TUSHARE_TOKEN: ${{ (inputs.mode == 'demo' || inputs.mode == 'history') && secrets.TUSHARE_TOKEN || '' }}
+        run: python3 scripts/market/actions_entry.py
+      - name: Save reports, R1 packet, original sources and preflight (including BLOCKED)
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: market-report-${{ github.run_id }}-${{ github.run_attempt }}
-          path: outputs/market/report.json
+          path: outputs/market/
           if-no-files-found: error
           retention-days: 14

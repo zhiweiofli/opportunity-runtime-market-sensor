@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "sources": {
+    "ici": {
+      "file": "ici-synthetic.html",
+      "source_url": "https://www.ici.org/research/stats/combined_flows",
+      "retrieved_at": "2026-10-15T12:00:00+00:00",
+      "sha256": "c0c43d26f69f2e54e54f0c7dd322a3b71524925a6a750be8c0272a1f974a1624"
+    },
+    "instrument": {
+      "file": "spy-synthetic.html",
+      "source_url": "https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-sp-500-etf-trust-spy",
+      "retrieved_at": "2026-10-15T12:00:00+00:00",
+      "sha256": "ffb91564e47f854d36975d705223f9d945e0ca920c072e8b6301c948f22026ae"
+    }
+  }
+}

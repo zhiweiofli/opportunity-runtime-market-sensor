@@ -1,0 +1,18 @@
+{
+  "kind": "public_reference_only_not_original_http_snapshot",
+  "source_url": "https://www.ici.org/research/stats/combined_flows",
+  "public_print_link": "https://www.ici.org/node/57009/printable/pdf",
+  "verification_date": "2026-10-20",
+  "verification_method": "Original public release read through connected web reference tool; native cloud HTTP blocked. No reconstructed HTML is supplied as original.",
+  "published_date": "2026-10-14",
+  "category": "Domestic equity",
+  "unit": "USD million",
+  "rows": [
+    {"period_end": "2026-09-16", "value_usd_million": "-11490"},
+    {"period_end": "2026-09-23", "value_usd_million": "5696"},
+    {"period_end": "2026-09-30", "value_usd_million": "-7282"},
+    {"period_end": "2026-10-07", "value_usd_million": "-18355"}
+  ],
+  "rule_hit": false,
+  "reason": "First two weeks have opposite signs; not this rule's reversal. No long-history percentile, native parse success or eligibility is claimed."
+}

@@ -1,0 +1,15 @@
+{
+  "task_version": "0.3.0",
+  "rule_id": "us_domestic_fund_flow_reversal_v1",
+  "ici_url": "https://www.ici.org/research/stats/combined_flows",
+  "instrument_url": "https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-sp-500-etf-trust-spy",
+  "category": "Domestic equity",
+  "unit": "USD million",
+  "instrument_ticker": "SPY",
+  "min_period_net_usd_million": 5000,
+  "min_week_gap_days": 5,
+  "max_week_gap_days": 9,
+  "max_age_days": 14,
+  "max_publication_lag_days": 14,
+  "min_notional_usd": 100000000
+}
