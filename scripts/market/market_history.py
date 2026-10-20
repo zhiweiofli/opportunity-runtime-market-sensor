@@ -14,7 +14,7 @@ from zoneinfo import ZoneInfo
 import market_sensor as sensor
 
 
-CONFIG = Path(__file__).resolve().parents[2] / "config/market-v1.json"
+CONFIG = Path(__file__).resolve().parents[2] / "config/legacy-market-history.json"
 COMPLETE = {"MATCH", "NO_MATCH", "LOW_LIQUIDITY"}
 INTEGER_KEYS = (
     "lookback_calendar_days", "return_window", "baseline_observations", "min_history",
@@ -197,7 +197,7 @@ def evaluate(rows, as_of_date, config):
 
 def make_signal(item, report):
     metric = item['evaluations'][-1]
-    synthetic = report['demo_only']
+    synthetic = report['source'] == 'fixture'
     code = item['ts_code']
     mechanism = '交易活跃度与重新定价同时增强，可能与信息重估/短期流动性压力有关；仅为待验证推测。'
     magnitude = {**metric, 'avg_amount_20_cny': item['avg_amount_20_cny']}
@@ -226,7 +226,7 @@ def make_signal(item, report):
                          'freshness_passed': True, 'reliability': '合成数据，非行情' if synthetic else '单一提供者，未经独立交叉核验；未验证容量/滑点。'},
         'next_question': '人工核验相应日期的信息事件、经济机制、历史重复性和表达成本；补足原稿研究条件后才交 Researcher。',
         'task_version': f'{sensor.TASK_ID}@{sensor.VERSION}', 'role_spec_status': 'reviewed',
-        'generated_at': report['generated_at'], 'demo_only': synthetic, 'research_eligible': False,
+        'generated_at': report['generated_at'], 'demo_only': True, 'research_eligible': False,
     }
 
 
@@ -234,10 +234,10 @@ def run_history(args):
     report = {
         'task_id': sensor.TASK_ID, 'task_version': sensor.VERSION, 'role_spec_status': 'reviewed',
         'mode': 'history', 'generated_at': utc_now(), 'source': args.source,
-        'demo_only': args.source != 'tushare', 'research_eligible': False,
+        'demo_only': True, 'legacy': True, 'research_eligible': False,
         'research_blockers': ['统计量价候选，非已验证错价/策略', '机制、独立数据可靠性、表达成本待人工核验'],
         'as_of_date': args.as_of_date or taipei_today(), 'trade_date': '', 'ts_code': '',
-        'rule': {'id': 'price_volume_stress_v1', 'status': 'trial' if args.source == 'tushare' else 'demo_only'},
+        'rule': {'id': 'price_volume_stress_v1', 'status': 'legacy_demo'},
         'config': None, 'config_sha256': None, 'request_range': None,
         'status': 'ERROR', 'observations': [], 'signals': [], 'instruments': [],
         'coverage_complete': False, 'coverage': {}, 'total_matches': 0, 'truncated_matches': 0,

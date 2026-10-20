@@ -1,5 +1,7 @@
 # Market Sensor 验证记录
 
+当前开发范围为末节0.3.0 revision 2美股Flow Shift；下列0.2.0及六股原型记录仅保留各阶段历史事实。
+
 业务版本：0.2.0。部署不代表正式异常规则或交易策略已验收。历史 GitHub 实跑基于部署提交 `cfc65c27fa084cd232dd037d4717687dc7f17aa3`；本次云端验证基线和结果见下文。
 
 | 阶段 | 状态与证据 |
@@ -116,3 +118,47 @@ assert all(s['demo_only'] is True and s['research_eligible'] is False
 用户要求修正定位偏差并明确优先美股。旧6股量价方案的31项离线/CI仅为技术原型证据，不能签完整Market V1；旧规则退出生产默认、重复滚动收益不作独立持续性证明、取消人先补机制的前置研究要求。新规格见market-v1-requirements.md：首条US国内股票基金Flow Shift，ICI估计净流向、具体机制/工具证据和R1交接；尚待实现/数据预检/实跑，不因新文档声称已部署。
 
 本机直接HTTP预检：ICI combined为403；SPY发行人页IncompleteRead。检索资料可读不等于原生采集可用；云端/Actions另验，无法取数须BLOCKED，可用合法原始快照人工输入回退（不把人工供数算自动），不扩大采集基础设施或购买权限。原始预检回执保存在主项目忽略目录outputs/acceptance/20261020/us-market-source-preflight/result.json。
+
+## 0.3.0 revision 2：美股 Flow Shift → R1（2026-10-20）
+
+**本节为当前业务范围；此前六股量价及其V1测试编号仅为已撤回原型的历史技术记录，不再签当前Market V1验收。** 按用户指令正常fetch并ff到需求提交 `66640ce03355b18a990ef78a76d1071b9088b249`，保留930a1b8现场与同一PR #2，未reset/丢改动、未合并或部署main。任务/code/workflow仍为未发布0.3.0。
+
+### 来源预检与真实业务反例
+
+- 云端实际正常HTTPS预检：ICI combined与State Street SPY原始HTML均为URLError，未取得有效正文；当前restricted网络规则未列两主机。不是已核实的来源端403，也不把检索可读当Python原生接入成功。预检元数据在忽略目录 `outputs/us-flow-preflight/`。
+- 产品live CLI实际执行：`python3 scripts/market/market_sensor.py --mode flow --input-mode live_http --output outputs/us-flow-live/report.json`，退出0，status=BLOCKED、signals=[]、eligible=false，两源coverage均BLOCKED。as_of=`2026-10-20T06:13:40.537024+00:00`；JSON、中文report.md与阻塞packet均生成。BLOCKED非ERROR，不能解释为无信号；没有换URL绕过限制或使用第三方JSON。
+- 通过连接的公开参考工具核对[ICI 2026-10-14发布](https://www.ici.org/research/stats/combined_flows)及其已公开链接的[打印PDF](https://www.ici.org/node/57009/printable/pdf)。Domestic equity最近四周：9/16=-11490、9/23=5696、9/30=-7282、10/7=-18355（USD million）。前两周符号相反，**不是本规则反转**；两区间净额-5794/-25637，差额-19843。此反例只证明业务判定，原生HTTP/原始HTML解析仍BLOCKED。
+- 可复核数字保存在 `examples/us-flow-public-reference.json`，明确reference_only；没有把检索文本重建成“原始HTML”，该JSON不能作为生产数值输入。公开基金数据是周估计、可能修订，不是月度实际或已证实股票买卖。
+- Tushare美股us_daily权限/SPY覆盖/volume单位真实预检 **NOT_RUN**：只允许runner持既有Secret；云端未读取真实token。已实现独立runner探测，API即使可响应也不推定ETF身份/成交量单位，不能据此冒充流动性通过。
+
+### 实际离线运行与产物
+
+Python 3.12.14，`python3 -m unittest discover -s scripts/market -p 'test_*.py' -v`退出0，**50/50通过**（31项既有回归+19项US/runner合同测试）；旧测试中定时/eligibility断言随revision 2纠偏，原8项demo回归保留。运行与测试只依赖标准库。
+
+| 命令/检查 | 退出码 | 实际结果 |
+| --- | --- | --- |
+| `python3 scripts/market/market_sensor.py --mode flow --input-mode synthetic_fixture --as-of 2026-10-20 --output outputs/us-flow-synthetic/report.json` | 0 | 4周+3000/+3000/-4000/-4000，区间+6000/-8000、差额-14000 USD million，1个outflow_reversal示例，demo_only=true / eligible=false；三份报告、来源manifest和两份哈希原文保存 |
+| `python3 scripts/market/market_sensor.py --mode flow --input-mode supplied_snapshot --snapshot-manifest outputs/us-flow-synthetic/source-manifest.json --as-of 2026-10-20 --output outputs/us-flow-replay/report.json` | 0 | 同一规范化指纹 `7bfc6b5af06c2e2749df51cb140c57a2372b48e1040f3be7922552012cf5ec17`；重放仍synthetic，不因改输入模式放行 |
+| 原有demo CLI/历史fixture回归 | 0 | 原demo 3输入/2演示输出；历史原型仅legacy_demo，非生产默认，eligible=false |
+| `python3 -m compileall -q scripts/market`、`git diff --check` | 0 | 编译及补丁检查通过 |
+| Python读取两份YAML/配置及source-import摘要 | 0 | 周五08:17 Asia/Taipei、flow/live_http默认、只读contents/actions、9项手动输入、副本一致；PROJECT_GUIDE与六份原稿SHA-256未变 |
+
+生产配置SHA-256：`b762b0cafa11f705f9bbca997dbeca0540dd7cc8f6575f8db462b20ab5f16200`。旧六代码配置移到config/legacy-market-history.json，生产配置不含universe。示例packet实际打开核对，位置 `outputs/us-flow-synthetic/researcher-packet.md`；可用README命令重建，不提交临时产物到Git。
+
+合法真实快照模板为 `examples/us-flow-snapshot-manifest.example.json`：必须填原始HTML、canonical来源URL、实际带时区取得时间和字节SHA-256；当前仓库不包含伪装真实的发布快照。未取得真实原始文件前，不能用模板或合成文件签真实supplied_snapshot数据验收。
+
+| 用例 | 当前证据与界限 |
+| --- | --- |
+| US-01 定位 | 默认/配置/任务均US Flow Shift；旧6股仅legacy，真实合格来源门槛通过才eligible=true交R1，不再要求人先研究 |
+| US-02 正反例 | 双向反转、单周翻转、持续同向、零值、区间不足离线通过；四周不重叠，与滚动收益无关 |
+| US-03 金额 | 两区间恰5000通过、略低拒绝；逗号/小数/负号/括号负数/缺值测试通过；单位漂移BLOCKED，不造历史分位 |
+| US-04 原始源解析 | HTML契约/登录/类别/单位漂移离线通过，单位绑定具体表前标签；真实原始HTML尚未取得，native接入BLOCKED，未签全项通过 |
+| US-05 时间 | 重复/缺周、排序、未来/陈旧发布、14/15日新鲜度、unknown日期、纽约日终精度与3月/11月DST边界通过 |
+| US-06 修订/PIT | 取得晚于as_of拒绝；相同指纹复用原Signal/Generated At，修订生成新观察；旧/新原文按内容哈希同时保留；缺前次报告dedup未核实 |
+| US-07 工具 | 发行人身份/USD/同日Closing Price与Shares、1亿美元恰等/略低、NAV/AUM/错单位/异日/陈旧/未来反例离线通过；真实完整发行人HTML及Tushare预检未签通过 |
+| US-08 交接 | 合成完整正例到独立R1 packet且false；模拟真实来源合同全部门槛通过时true，缺门槛BLOCKED；这是逻辑测试，不是实际真实Signal验收 |
+| US-09 故障 | 原8项demo及legacy回归、HTTP403/URLError、坏manifest/哈希、旧快照覆盖、第三份packet写失败清理三份报告和脱敏通过 |
+| US-10 Actions | schedule/dispatch参数、周频时区、只读权限、native artifact恢复及完整保存静态/离线通过；实际新版本dispatch/产物与首个自然schedule分开待验 |
+| US-11 业务案例 | 合成完整正例已读packet，公开真实发布数字反例已核对；真实原始抓取/解析受阻，不把参考核对代签原生源运行 |
+
+公开源live没有取得合法响应，因此本轮交付的是可审查实现、真实BLOCKED报告、快照回放路径和清楚边界，不签“完整美股数据源已上线”。合并后首个自然周频必须另有真实run回执；不等待定时阻塞PR交付，不自动合并或交易。

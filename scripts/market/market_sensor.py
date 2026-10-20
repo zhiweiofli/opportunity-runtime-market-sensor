@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministic Market monitoring: legacy demo and historical trial modes."""
+"""US Flow Shift monitoring and explicitly retained legacy/demo experiments."""
 
 import argparse
 from datetime import datetime, timezone
@@ -167,12 +167,16 @@ def detect(rows, threshold, source, generated_at):
 
 
 def run(args):
+    if getattr(args, 'mode', 'demo') == 'flow':
+        from us_flow import run_flow
+        return run_flow(args)
     if getattr(args, "mode", "demo") == "history":
         from market_history import run_history
         return run_history(args)
     report = {
         "task_id": TASK_ID, "task_version": VERSION,
         "mode": "demo",
+        "legacy": True,
         "role_spec_status": "reviewed",
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "source": args.source, "demo_only": True,
@@ -217,6 +221,9 @@ def run(args):
 
 def render_markdown(report, json_filename='report.json'):
     """Human handoff with explicit JSON locations and measurement boundaries."""
+    if report.get('mode') == 'flow':
+        from us_flow import render_report
+        return render_report(report)
     history = report.get("mode") == "history"
     lines = ["# Market Sensor 运行报告", "",
              f"- 任务版本：{report['task_version']}；状态：{report['status']}",
@@ -225,7 +232,9 @@ def render_markdown(report, json_filename='report.json'):
              "- research_eligible=false；统计候选不等于错价或交易策略，未核验机制不得交真实 Research。",
              "- 合成数据不是真实行情。" if report['source'] == 'fixture' else
              "- 真实数据、单日演示规则；数据尚未经独立来源交叉核验。" if not history else
-             "- 真实测量试运行；数据尚未经独立来源交叉核验。"]
+             "- 真实数据、legacy历史量价实验；重叠收益不证明独立冲击，数据未经独立交叉核验。"]
+    if report.get('legacy'):
+        lines += ['- LEGACY/DEMO：已退出生产规则，不作当前Market V1业务验收。']
     if history:
         lines += [f"- 目标日：{report['as_of_date']}（Asia/Taipei）；请求区间：{report['request_range']}",
                   f"- 配置 SHA-256：`{report.get('config_sha256')}`；完整配置：JSON `#/config`",
@@ -260,21 +269,36 @@ def render_markdown(report, json_filename='report.json'):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", choices=("demo", "history"), default="demo")
+    parser.add_argument("--mode", choices=("flow", "demo", "history"), help="Default flow; demo/history are legacy experiments")
     parser.add_argument("--source", default="fixture")
     parser.add_argument("--trade-date", default="")
     parser.add_argument("--ts-code", default="")
     parser.add_argument("--demo-abs-pct", help="Required positive percent; demo rule only")
     parser.add_argument("--as-of-date", default="", help="History YYYYMMDD; default today in Asia/Taipei")
-    parser.add_argument("--config", type=Path, default=Path(__file__).resolve().parents[2] / "config/market-v1.json")
+    parser.add_argument("--config", type=Path)
+    parser.add_argument("--input-mode", choices=("live_http", "supplied_snapshot", "synthetic_fixture"), default="live_http")
+    parser.add_argument("--snapshot-manifest", type=Path)
+    parser.add_argument("--as-of", default="", help="US flow: ISO date or timezone-aware timestamp")
+    parser.add_argument("--previous-report", type=Path)
+    parser.add_argument("--us-preflight-report", type=Path)
     parser.add_argument("--history-fixture", type=Path, default=Path(__file__).with_name("history-fixture.json"))
     parser.add_argument("--output", type=Path, default=Path("outputs/market/report.json"))
     args = parser.parse_args(argv)
-    outputs = (args.output, args.output.with_suffix(".md"))
-    if outputs[0] == outputs[1]:
+    args.mode = args.mode or ('demo' if args.demo_abs_pct is not None else 'flow')
+    root = Path(__file__).resolve().parents[2]
+    args.config = args.config or root / ('config/legacy-market-history.json' if args.mode == 'history' else 'config/market-v1.json')
+    args.snapshot_manifest = args.snapshot_manifest or Path(__file__).with_name('fixtures') / 'us-flow/manifest.json'
+    packet = args.output.with_name('researcher-packet.md' if args.output.name == 'report.json' else args.output.stem+'-researcher-packet.md')
+    outputs = (args.output, args.output.with_suffix(".md"), packet)
+    if len(set(outputs)) != 3:
         print("ERROR: JSON 输出路径不能与 Markdown 路径相同。", file=sys.stderr)
         return 1
     try:
+        previous_path = args.previous_report or args.output
+        try:
+            args.previous_report_data = json.loads(previous_path.read_text(encoding='utf-8'))
+        except (OSError, ValueError):
+            args.previous_report_data = None
         # Clear snapshots before fetching; later write failures cannot leave old success.
         for path in outputs:
             path.unlink(missing_ok=True)
@@ -282,13 +306,19 @@ def main(argv=None):
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
         outputs[1].write_text(render_markdown(report, args.output.name), encoding="utf-8")
-    except OSError:
+        if report.get('mode') == 'flow':
+            from us_flow import render_packet
+            packet_text = render_packet(report)
+        else:
+            packet_text = '# Legacy/demo：不交真实Research\n\n此入口仅作兼容实验；重叠收益不能证明多个独立冲击，research_eligible=false。\n'
+        packet.write_text(packet_text, encoding='utf-8')
+    except Exception:
         for path in outputs:
             try:
                 path.unlink(missing_ok=True)
             except OSError:
                 pass
-        print("ERROR: 无法写入报告。", file=sys.stderr)
+        print("ERROR: 报告生成或写入失败。", file=sys.stderr)
         return 1
     print(f"{report['status']}: {len(report['signals'])} candidate(s); {args.output}")
     if report["status"] == "ERROR":

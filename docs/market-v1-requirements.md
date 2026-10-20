@@ -125,3 +125,13 @@ CI离线；dispatch可用于公开源预检/真实报告。每轮覆盖当前快
 先做数据可用性预检及以上离线实现/测试，再做公开源Actions实跑；Tushare美股权限不足不阻塞公开ICI部分，但工具证据不足不得签合格Signal。只有当前有的数据可用性是已验证，其他项如实列待验；不假造会员长历史、独立来源或交易成本结论。后续若要引入EPS/相对价值/波动率，另写机制与数据契约，不一口气建设全站。
 
 交付更新同一PR #2，标题/说明重写成最终美股Flow Shift范围，附真实测试、原始来源、数据预检结果、公开源run、可复制命令、R1 packet样例及合并后定时待验。底座技术测试通过不等于业务定位通过。执行验证结果分层记录；不自动合并/交易。
+
+## 实现输入与时间约定
+
+生产入口为 `--mode flow`（无demo参数时默认），`--input-mode live_http|supplied_snapshot|synthetic_fixture`。快照 manifest 版本1，声明 synthetic，并逐源记录 file、source_url、retrieved_at（带时区）、原始字节sha256；原始HTML不改写，路径相对manifest。合法提供的原始资料才可标synthetic=false，示例夹具不能仅改模式就变成真实输入。缺元数据、哈希不符或不支持的HTML结构为BLOCKED。快照并非对来源真实性的密码学认证，提供者需如实声明来源；解析器不接受任意规范化数值JSON代替原始页。
+
+`--as-of` 的日期格式YYYY-MM-DD解释为截至该纽约日结束（次日纽约00:00）；带时区ISO时间保留真实时点。发布日期仅为date时，available_after为次日纽约00:00，NY夏令时由zoneinfo计算；同时要求原始快照retrieved_at<=as_of，防止今天的修订值冒充早期vintage。默认as_of在本次源采集完成后取实际时间。新鲜度按纽约日期计算，日终日期不计入次日。工具价格与Exchange Volume继承同一Fund Market Price区块明确的as-of日期，单位必须明确为USD和Shares；不是NAV、AUM或全市场成交量。
+
+规范化金额以十进制字符串保存，单位独立列出；指纹对4周数值、发布日、规则配置/版本做稳定序列化，不使用抓取时间充当新观察。`--previous-report` 可提供上次JSON，或在同一路径重跑时自动读旧报告；完全相同的Signal ID/指纹复用原Signal（包括Generated At），同ID新指纹标修订。没有上次资料则明确dedup未核实。原始源按内容哈希保留，报告和packet定位URL/时间/哈希；若跨run手动提供前次报告，应同时保留其原始来源artifact。V1不自动下载跨run artifact，也不新增actions权限，不声称全局去重。
+
+旧 `--mode history` 使用 `config/legacy-market-history.json`，始终为legacy/demo且research_eligible=false；原有显式`--demo-abs-pct`命令保持兼容。重叠5日收益仅是旧原型回归，不证明多个独立冲击。生产配置与定时中不再包含6股名单。

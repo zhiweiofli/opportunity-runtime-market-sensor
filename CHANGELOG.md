@@ -1,10 +1,12 @@
 # Changelog
 
-## 0.3.0 — 美股Flow Shift（需求已纠偏，实施待更新）
+## 0.3.0 — 美股Flow Shift → Researcher R1（未发布）
 
-- 用户明确美股优先；需求revision 2取代6股量价方案，首条规则监测国内股票基金净配置反转，使用ICI原始合并周报及工具/流动性证据，交Researcher R1。
-- 修复旧目标中经济机制缺位、滚动收益重叠误作持续、所有候选等待人先研究的问题。新增可独立读取的研究交接包、数据vintage/PIT约束与周五台北08:17调度需求。
-- 以上为新开发要求，当前尚未签实现/平台通过；不因未发布分支纠偏虚增0.3.1，后续按最终实现重写本节。
+- 按用户纠偏后的revision 2实现ICI合并周报Domestic equity四周净配置反转：前后各两周独立观察、两区间物质性、发布可得时间/新鲜度及SPY官方工具/美元粗流动性门槛，不用股票成交额替代基金流。
+- 新增live_http、合法supplied_snapshot和明确synthetic_fixture，保留原始HTML/URL/取得时间/哈希、数据vintage/PIT、稳定ID/指纹、前次Signal复用及修订观察。公开源受阻为BLOCKED，不以缺数据冒充无信号。
+- 真实合格Signal eligible=true交R1，packet内嵌4周原始事实、具体机制、反证/未知和KILL问题；不要求人先研究、不声称价格因果或策略有效。所有fixture和legacy仍false。
+- 生产默认退出六股量价，旧原型仅显式legacy/demo；重叠收益不证明独立冲击。每周五台北08:17配置，手动/原生artifact重放，JSON/中文报告/独立R1 packet及来源artifact。
+- 只读actions权限仅为恢复快照与前次报告；Tushare US权限/覆盖预检限制runner、Secret仅发Tushare主机。公开源本次云端HTTP受阻，真实来源/Actions/自然定时分别据实待验；PR不自动合并。
 
 ## 已撤回的旧原型（commit 930a1b8，未合并）
 

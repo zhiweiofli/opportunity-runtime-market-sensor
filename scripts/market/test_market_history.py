@@ -210,7 +210,7 @@ class HistoricalRuleTests(unittest.TestCase):
             subset = one['observations'][item['observations_start']:item['observations_start']+item['valid_rows']]
             self.assertTrue(all(row['ts_code'] == item['ts_code'] for row in subset))
 
-    def test_v1_08_sort_truncate_dedupe_and_real_trial_flags(self):
+    def test_legacy_sort_truncate_dedupe_always_demo_flags(self):
         data = {code: matching(code) for code in CODES}
         data[CODES[1]][-1]['pct_chg'] = 6
         data[CODES[2]][-1].update(pct_chg=6, amount=400000)
@@ -223,9 +223,9 @@ class HistoricalRuleTests(unittest.TestCase):
                          [CODES[2], CODES[1], CODES[0], CODES[3], CODES[4]])
         self.assertEqual(len(report['instruments']), 6)
         self.assertTrue(report['coverage_complete'])
-        self.assertFalse(report['demo_only'])
-        self.assertEqual(report['rule']['status'], 'trial')
-        self.assertTrue(all(not s['demo_only'] and not s['research_eligible'] for s in report['signals']))
+        self.assertTrue(report['demo_only'])
+        self.assertEqual(report['rule']['status'], 'legacy_demo')
+        self.assertTrue(all(s['demo_only'] and not s['research_eligible'] for s in report['signals']))
         # Percentile outranks a larger R5: this code has two larger historical windows.
         data[CODES[0]][3]['pct_chg'] = 30
         data[CODES[0]][-1]['pct_chg'] = 20
@@ -344,7 +344,7 @@ class HistoricalTransportTests(unittest.TestCase):
         self.assertEqual(report['status'], 'ERROR')
         self.assertEqual(report['signals'], [])
         self.assertEqual(report['coverage']['failed'], sorted(CODES))
-        self.assertFalse(report['demo_only'])
+        self.assertTrue(report['demo_only'])
 
     @patch.dict(os.environ, {'TUSHARE_TOKEN': 'SYNTHETIC_ONLY'}, clear=True)
     def test_network_failure_sanitized_and_http_retry_classified(self):
@@ -375,7 +375,7 @@ class HistoricalTransportTests(unittest.TestCase):
 class ActionsEntryTests(unittest.TestCase):
     def test_v1_09_schedule_ignores_dispatch_inputs(self):
         options = actions_entry.arguments('schedule', {'INPUT_MODE': 'demo', 'INPUT_SOURCE': 'fixture', 'INPUT_AS_OF_DATE': '19000101'})
-        self.assertEqual(options, ['--mode', 'history', '--source', 'tushare'])
+        self.assertEqual(options, ['--mode', 'flow', '--input-mode', 'live_http'])
         with patch.object(history, 'taipei_today', return_value='20261020'), \
                 patch.object(history.DailyClient, 'fetch', return_value=[]) as fetch:
             report = history.run_history(args(source='tushare', as_of_date=''))
@@ -384,7 +384,7 @@ class ActionsEntryTests(unittest.TestCase):
 
     def test_v1_09_manual_demo_and_replay(self):
         self.assertEqual(actions_entry.arguments('workflow_dispatch', {}),
-                         ['--mode', 'demo', '--source', 'fixture', '--trade-date', '', '--ts-code', '', '--demo-abs-pct', '5'])
+                         ['--mode', 'flow', '--source', 'fixture', '--input-mode', 'live_http', '--as-of', ''])
         self.assertEqual(actions_entry.arguments('workflow_dispatch', {'INPUT_MODE': 'history', 'INPUT_SOURCE': 'tushare', 'INPUT_AS_OF_DATE': TARGET}),
                          ['--mode', 'history', '--source', 'tushare', '--as-of-date', TARGET])
         with self.assertRaises(sensor.SensorError):
@@ -393,9 +393,9 @@ class ActionsEntryTests(unittest.TestCase):
     def test_v1_09_workflow_copies_schedule_permissions_and_artifact(self):
         active = (ROOT/'.github/workflows/market-sensor.yml').read_text()
         self.assertEqual(active, (ROOT/'tasks/github-actions/market-sensor.yml').read_text())
-        for fragment in ["cron: '17 20 * * 1-5'", 'timezone: Asia/Taipei', 'contents: read',
-                         'timeout-minutes: 15', 'if: ${{ always() }}', 'outputs/market/report.json',
-                         'outputs/market/report.md', 'if-no-files-found: error', 'retention-days: 14',
+        for fragment in ["cron: '17 8 * * 5'", 'timezone: Asia/Taipei', 'contents: read', 'actions: read',
+                         'timeout-minutes: 15', 'if: ${{ always() }}', 'path: outputs/market/',
+                         'if-no-files-found: error', 'retention-days: 14',
                          'TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}']:
             self.assertIn(fragment, active)
         self.assertEqual(active.count('permissions:'), 1)

@@ -32,7 +32,7 @@ jobs:
           assert report['demo_only'] is True
           assert report['research_eligible'] is False
           PY
-      - name: Historical fixture and Markdown smoke check
+      - name: Legacy historical regression (not Market V1 acceptance)
         run: |
           python3 scripts/market/market_sensor.py --mode history --source fixture --as-of-date 20261016
           python3 - <<'PY'
@@ -49,4 +49,21 @@ jobs:
           assert report['research_eligible'] is False
           assert report['task_version'] == '0.3.0'
           assert Path('outputs/market/report.md').is_file()
+          PY
+      - name: US Flow Shift synthetic positive and R1 packet
+        run: |
+          python3 scripts/market/market_sensor.py --mode flow --input-mode synthetic_fixture --as-of 2026-10-20
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('outputs/market/report.json').read_text())
+          assert report['status'] == 'SIGNALS'
+          assert report['rule']['id'] == 'us_domestic_fund_flow_reversal_v1'
+          assert report['signals'][0]['magnitude']['before_net_usd_million'] == '6000'
+          assert report['signals'][0]['magnitude']['after_net_usd_million'] == '-8000'
+          assert report['demo_only'] is True and report['research_eligible'] is False
+          assert report['task_version'] == '0.3.0'
+          packet = Path('outputs/market/researcher-packet.md').read_text()
+          assert 'SYNTHETIC' in packet and '2026-09-16' in packet and 'KILL' in packet
+          assert Path('outputs/market/source-manifest.json').is_file()
           PY

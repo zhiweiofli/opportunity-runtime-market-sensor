@@ -3,40 +3,45 @@ task_id: market-sensor
 version: 0.3.0
 platform: github-actions
 role_spec: docs/03-market-sensor.md
-implementation_spec: docs/market-v1-requirements.md
+implementation_spec: docs/market-v1-requirements.md revision 2
 role_spec_status: reviewed
-guide_basis: PROJECT_GUIDE.md §3.3, §6, §14, §19
 updated_at: 2026-10-20
 ---
 
-# Market Sensor：历史量价监测试运行
+# Market Sensor：美股基金配置 Flow Shift → R1
 
-确定性 Python 执行 fetch → validate → calculate → filter → report；不让 LLM 扫描行情。业务原稿保持原文，精确定义以 [V1需求](../../docs/market-v1-requirements.md) 为准，数据/调度依据见 [官方资料](../../docs/market-data-references.md)。本轮默认值是获授权的工程试运行选择，不是投资偏好、错价证明或已验证交易策略。
+确定性Python负责抓取、来源/时间校验、金额计算、规则及报告，不由LLM扫描行情。以[需求revision 2](../../docs/market-v1-requirements.md)和原Market/overview业务原稿为准。0.3.0为未发布开发版本，不因纠偏虚增0.3.1。
 
-## 两种入口
+## 首条规则与门槛
 
-- `--mode demo`（默认）：兼容原 fixture / 单日单代码 Tushare 命令，显式 `--demo-abs-pct`。所有结果 demo_only=true；fixture 为20261016的三条合成记录。
-- `--mode history`：按 [版本化配置](../../config/market-v1.json) 对固定6代码名单串行取数，最多20去重代码。可显式 `--as-of-date YYYYMMDD` 重放，默认是执行时 Asia/Taipei 当日。独立历史 fixture 也是合成材料，不能当真实行情。
-- history 不接受 demo 的 trade-date、ts-code、demo-abs-pct；手动表单按 mode 选用对应字段，历史名单由版本化配置决定。
+`us_domestic_fund_flow_reversal_v1`：ICI combined周报Domestic equity类别，同一发布最近4个不同且不重叠报告周，间隔5–9天。前2周各正、后2周各负或反向，两区间净额绝对值分别>=5000百万美元。零值、单周翻转、持续同向、物质性不足均不触发；不造长期分位。数据是共同基金净新现金流与ETF净发行的行业估计，可修订，不是全市场净流量或股票成交额。
 
-## 历史计算与过滤
+发布日与数据取得时间分开：发布日期只有date时保守等纽约该日结束；源发布时间/快照实际可得时间均须<=as_of。发布和工具日期新鲜度14天，最新报告周距发布日<=14天。回放只使用当时已保存/合法提供的vintage；不把当前修订值回填过去，不猜精确发布时间。
 
-向目标日前查询550自然日，至少259有效日线。5日收益由 pct_chg 复合，绝对值>=5%且相对每个评价日前252个 abs(R5) 的经验分位>=99%；成交额相对此前60个有效日中位数>=2倍。目标日必须命中，最近3个观察至少2次同向命中；最近3次跨度<=7自然日、最近60次跨度<=120自然日。此前20个有效日均成交额>=1亿元且当日成交额>0。amount 从千元乘1000转为元，不代表净流入。
+SPY仅作相关类别观测载体。官方身份须为美国上市/USD；同一Fund Market Price日期的Closing Price与Exchange Volume (Shares)计算美元成交额代理>=1亿美元。不是NAV/AUM或全市场成交量，不证明滑点、容量、成本或已选交易工具。缺工具事实只保存Flow观察并BLOCKED，不换A股。
 
-基准排除评价日及未来；日期、代码、重复、有限数值和 pct_chg>-100 严格校验。目标日无行记 NO_DATA，不借旧行情冒充今日，也不解释成已确认休市。按分位、abs(R5)、成交倍数降序，代码升序；稳定 ID 为规则/日期/代码，最多5候选，披露总命中和截断数。不建设跨运行去重数据库。
+具体机制：基金申赎/份额发行方向变化可能改变底层股票边际配置压力。现金缓冲、实物申赎、其他持有人吸收、季节性、载体迁移、估计修订或预先定价均可证伪；不能将相关性叫价格因果或错价。
 
-逐标的状态：MATCH / NO_MATCH / NO_DATA / INSUFFICIENT_HISTORY / LOW_LIQUIDITY / STALE_HISTORY / ERROR。仅 MATCH / NO_MATCH / LOW_LIQUIDITY 算完成评估。完整范围、失败名单及 coverage_complete 始终披露。整轮状态 SIGNALS / NO_MATCH / NO_DATA / INSUFFICIENT_DATA / ERROR；任何取数或契约错误都非零退出、整轮 signals 为空，保留其余诊断。
+## 输入、输出与R1
 
-真实历史为 demo_only=false、rule.status=trial；所有 fixture 和旧 demo 为 demo_only=true。所有候选 research_eligible=false。保留公共 Signal 字段、R5/分位/样本数/成交倍数/均成交额/逐日命中和历史范围。Possible Mechanism 明示待验证推测；人工补齐机制、可靠性和研究条件前，不交真实 Research，不提供买卖、仓位或目标价。
+默认 `flow/live_http` 正常请求ICI/发行人原始公开HTML，不带Tushare Secret，不抓第三方收藏站JSON。仅使用当前支持的HTML契约；登录、403、传输/格式/单位漂移均BLOCKED，不绕过限制、不买会员、不新增抓取服务。
 
-## Actions、Secret 与报告
+`supplied_snapshot`使用合法原始HTML+来源URL+实际取得时间+原始字节SHA-256；支持本地manifest和原生artifact重放。`synthetic_fixture`含完整机制与工具正例，始终demo_only=true、eligible=false；改输入模式不能把夹具升级成真数据。示例/可复制命令见[README](../../README.md)。
 
-生效 `.github/workflows/market-sensor.yml` 与本目录 yml 副本保持一致，contents:read，15分钟超时。手动默认 mode=demo / source=fixture / demo_abs_pct=5。历史合成重放需 mode=history / source=fixture / as_of_date=20261016；真实历史选 tushare 并填写核实的目标日期。
+来源、时间、反转/物质性及工具门槛全部通过的真实Signal：demo_only=false、rule.status=trial、research_eligible=true，只交Researcher R1核验Money/Mechanism，可KILL。用户不必先完成机制研究。不输出Hypothesis、买卖方向、目标价或仓位。未知的表达成本/工具匹配交后续研究，不假称四Gate已过。
 
-schedule 按 event_name 显式选择 history+tushare+版本化配置，不依赖 inputs 默认值。工作日台北20:17：cron `17 20 * * 1-5`，timezone Asia/Taipei。只有合并到默认分支后才会自然触发；可能延迟/丢弃，允许手动补跑，不加额外 scheduler。解析/自然触发是否通过，分别记录于 [验证记录](../../docs/validation.md)。
+每轮覆盖JSON、中文报告和researcher-packet.md，包内独立呈现4周日期/金额、区间变化、单位、估计/修订、URL/取得与发布日期/哈希、SPY事实、潜在机制、反证未知和R1下一问题。所有原始源按内容哈希保存到artifact；原始大页不入Git。真实合格packet可由人直接保存到Drive Signals/Market，不新增Drive服务。
 
-Secret 仅 runner 的 TUSHARE_TOKEN 环境变量引用；云端开发不读取或导出真实 Secret。只用 daily HTTPS，不依赖 trade_cal/stock_basic/daily_basic 或扩大权限。正常请求至少间隔2秒；30秒超时；仅临时传输错误额外重试2次，退避2/5秒；权限/契约错误不重试，不记录上游原始错误体。
+状态为SIGNALS / NO_SIGNAL / BLOCKED / ERROR。缺数据不是NO_SIGNAL；观察材料进observations/coverage，不混入真实合格Signal。参数/程序/写出错误非零；BLOCKED仍写三份诊断。写失败清理残留，不上传上轮成功快照。
 
-每轮先清理旧快照，再写 `outputs/market/report.json` 和中文 `report.md`。JSON 保存实际配置/文件SHA-256、目标和请求区间、逐标的范围/行数/时间、完整有效 observations、覆盖及候选。Markdown 定位 JSON 的配置、逐标的记录、原始行和证据，分列事实、推测与人工下一步。任一写入失败非零退出并清理残留，不能上传上轮成功快照。`always()` 尝试保存两份报告到 `market-report-<run_id>-<attempt>`，缺文件报错，保留14天；不写行情到Git、不自动上传Drive。
+稳定ID含规则/最新周/方向，observation_id指纹含4周数值、发布日、配置/版本；前次JSON可提供或原路径重跑读取。相同观察复用原Signal/Generated At，修订创建新观察；未取得历史则dedup未核实。Researcher原观察键协议不变，无全局去重服务。
 
-根目录 [README](../../README.md) 提供可复制命令。旧八项测试继续保留，仅任务版本断言跟随0.3.0；V1-01至V1-12逐项证据见验证记录。代码/离线通过、真实历史手动通过与自然定时通过分别验收。
+## Actions
+
+每周五08:17 Asia/Taipei，cron `17 8 * * 5` + timezone，schedule显式flow/live_http，不使用手动空inputs。默认分支合并前不启用；自然触发另验，平台可能延迟/丢弃，保留手动重放。
+
+手动flow输入input_mode、as_of、可选snapshot_run_id / previous_run_id。download-artifact使用内置GitHub token和新增actions:read，只为同仓库原始快照与前次报告恢复；缺前次报告不阻塞监测，但不能声称全局新证据。运行contents:read、15分钟超时；always尝试保存当前报告、packet、manifest、原文与runner预检，run_id/attempt唯一，保留14天。
+
+Tushare美股权限/SPY覆盖/量单位单独runner预检，既有Secret只发api.tushare.pro。公开抓取步骤不接收该Secret；us_daily响应成功也不推定volume单位/ETF覆盖，不用于冒充流动性证明。真实预检没跑就记NOT_RUN，不将token拉入云端，不扩大接口权限或购买。
+
+旧demo/history仍可显式选择；六股量价在legacy配置中，全部eligible=false，不再是正式目标。重叠收益不证明多个独立冲击。旧回归不代替US-01至US-11业务验收；实际分层证据、公开源BLOCKED及待验项见[validation](../../docs/validation.md)。不自动合并或交易。
