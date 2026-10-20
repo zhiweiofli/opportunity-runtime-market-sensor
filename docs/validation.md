@@ -162,3 +162,11 @@ Python 3.12.14，`python3 -m unittest discover -s scripts/market -p 'test_*.py' 
 | US-11 业务案例 | 合成完整正例已读packet，公开真实发布数字反例已核对；真实原始抓取/解析受阻，不把参考核对代签原生源运行 |
 
 公开源live没有取得合法响应，因此本轮交付的是可审查实现、真实BLOCKED报告、快照回放路径和清楚边界，不签“完整美股数据源已上线”。合并后首个自然周频必须另有真实run回执；不等待定时阻塞PR交付，不自动合并或交易。
+
+### 本轮GitHub执行与阻塞回执
+
+实现提交 `90a8a9bcecf4788e144c32851466adf9ad3f478e` 已推送同一开发分支。Market CI [push 39379810538](https://github.com/zhiweiofli/opportunity-runtime-market-sensor/actions/runs/39379810538) 与 [PR 39379814744](https://github.com/zhiweiofli/opportunity-runtime-market-sensor/actions/runs/39379814744) 均success；后者逐步核对Offline tests、旧demo、legacy历史回归及US合成正例/R1 packet smoke全部成功。这是离线CI，不是公开源实跑。
+
+实际尝试 `gh workflow run market-sensor.yml --repo zhiweiofli/opportunity-runtime-market-sensor --ref codex/market-history-v1 --field mode=flow --field input_mode=live_http`，退出1：读取Actions workflow元数据的GET即返回Forbidden，未创建dispatch run，故无该版本公开源runner run/artifact或真实Tushare US权限证据。没有改凭据/代理或把Secret拉到Cloud；当前可用的连接工具仅用于核对CI及更新PR。timezone字段尚无实际新Sensor dispatch解析回执，不能未经平台拒绝就改UTC回退。自然schedule仍是合并后待验。
+
+PR #2将按最终US Flow Shift范围恢复ready供审查；ready只表示实现可审查，不代表来源阻塞已解除或已合并部署。
