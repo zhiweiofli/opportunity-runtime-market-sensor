@@ -11,10 +11,10 @@
 | 真实 HTTPS 首次尝试 | [39350190556](https://github.com/zhiweiofli/opportunity-runtime-market-sensor/actions/runs/39350190556) 缺 TUSHARE_TOKEN，ERROR / 0 Signal；错误报告正常保存，无合成数据回退 |
 | Secret 修正/真实 HTTPS 重跑 | 用户在本仓库配置 Secret 后，[39350480874](https://github.com/zhiweiofli/opportunity-runtime-market-sensor/actions/runs/39350480874) 成功；下载核对 20261016 / 000001.SZ、1 条 observation、NO_MATCH / 0 Signal，source=tushare；demo_only=true、research_eligible=false |
 | 正式规则/定时行情 | 用户将提供规则，具体市场/标的范围、历史基准、阈值、频率未收到；没有 schedule，不签正式异常识别/交易策略通过 |
-| Codex Cloud | CLI 已有账户环境，但此次未找到本仓库环境；浏览器需要登录，用户自行初始化。尚未提交云端任务，不签云端执行通过 |
+| Codex Cloud | 用户报告初始化完成并提供环境 ID；CLI 选择器无目标，直接指定 ID 提交返回 environment not found、退出 1，没有创建任务。Chrome 界面访问未获批准，桌面应用界面控制被系统安全限制拦截；[完整交接任务](cloud-handoff.md) 已准备，可在该环境手动启动 |
 
 真实 API 输入为 source=tushare、trade_date=20261016、ts_code=000001.SZ、demo_abs_pct=5，只是接线样例，不是标的/规则决策。重跑报告 generated_at=2026-10-20T00:55:22.780395+00:00（台北 08:55），数据 close=11.5、pct_chg=0.7888%、vol=1111850.79 手、amount=1281599.06332 千元；仅来自 Tushare 单一提供者，未做独立行情交叉核验、历史或流动性研究。
 
 每次 Market run 的 artifact 为 market-report-<run_id>-1，保留 14 天；如需长期保存请及时下载。主项目已保存三次报告并核对，路径为 outputs/acceptance/20261020/github-market/{fixture,tushare,tushare-retry}/market-report-<run_id>-1/report.json（本机忽略目录）；本文件的脱敏摘要和链接长期入 Git。报告仅用于管线验收，不放入真实机会研究。
 
-后续：用户完成本仓库 Codex Cloud 环境初始化并提供正式规则后，按 AGENTS 和 docs/deployment.md 接手；业务变化遵循 spec → task/code → version → CHANGELOG。当前不把 Tushare Secret 传给 Cloud 开发任务，不自动上传 Drive。
+后续：用户在已初始化的本仓库 Cloud 环境中选择 Start a new task，粘贴 docs/cloud-handoff.md 的完整 text 代码块，取得真实任务链接；正式规则具体内容仍待提供，先复现云端管线并只修复实际缺陷。按 AGENTS 和 docs/deployment.md 接手；业务变化遵循 spec → task/code → version → CHANGELOG。当前不把 Tushare Secret 传给 Cloud 开发任务，不自动上传 Drive。

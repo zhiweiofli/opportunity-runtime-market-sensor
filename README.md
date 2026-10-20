@@ -28,6 +28,8 @@ python3 scripts/market/market_sensor.py --source fixture --demo-abs-pct 5
 
 ## Codex Cloud 接手
 
+[完整开发交接任务](docs/cloud-handoff.md) 已准备。用户已完成环境初始化，本地 CLI 直接指定该环境 ID 仍返回 environment not found，尚未创建任务；可在已初始化环境点 Start a new task，粘贴交接文件中的 text 代码块。
+
 先选择本仓库对应的 Cloud environment，然后读取 `AGENTS.md`、`PROJECT_GUIDE.md`、`docs/deployment.md`、Market 原稿与当前验证记录。验收命令即上面的本地测试和 fixture CLI。无需数据库、队列、MCP 或 API Key 才能开发离线管线。
 
 Cloud 执行不应获得 Tushare Secret；真实 API 验证在 GitHub Actions 里进行。正式规则未定时保持演示边界，需求变化按 spec → task/code → version → CHANGELOG。各阶段实际状态见 [验证记录](docs/validation.md)。
