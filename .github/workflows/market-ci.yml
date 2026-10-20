@@ -1,0 +1,33 @@
+name: Market CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Offline tests
+        run: python3 -m unittest discover -s scripts/market -p 'test_*.py' -v
+      - name: CLI fixture smoke check
+        run: |
+          python3 scripts/market/market_sensor.py --source fixture --demo-abs-pct 5
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('outputs/market/report.json').read_text())
+          assert report['status'] == 'SIGNALS'
+          assert len(report['observations']) == 3
+          assert len(report['signals']) == 2
+          assert report['demo_only'] is True
+          assert report['research_eligible'] is False
+          PY

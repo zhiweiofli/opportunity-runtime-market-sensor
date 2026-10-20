@@ -1,0 +1,9 @@
+{
+  "description": "Synthetic pipeline fixture. Not real quotes or economic evidence.",
+  "trade_date": "20261016",
+  "observations": [
+    {"ts_code": "DEMO_A", "trade_date": "20261016", "close": 10.6, "pct_chg": 6.0, "vol": 1000, "amount": 1060},
+    {"ts_code": "DEMO_B", "trade_date": "20261016", "close": 9.5, "pct_chg": -5.0, "vol": 800, "amount": 760},
+    {"ts_code": "DEMO_C", "trade_date": "20261016", "close": 20.0, "pct_chg": 1.0, "vol": 500, "amount": 1000}
+  ]
+}

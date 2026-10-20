@@ -1,0 +1,69 @@
+# task_id: market-sensor
+# version: 0.2.0
+# platform: github-actions
+# role_spec: docs/03-market-sensor.md
+# role_spec_status: reviewed
+# updated_at: 2026-10-19
+# Active configuration: .github/workflows/market-sensor.yml; keep both copies in sync.
+name: Market Sensor
+
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: Data source (all rules are demo-only)
+        type: choice
+        options:
+          - fixture
+          - tushare
+        default: fixture
+        required: true
+      trade_date:
+        description: Tushare only - YYYYMMDD
+        type: string
+        default: ''
+      ts_code:
+        description: Tushare only - single instrument, e.g. 000001.SZ
+        type: string
+        default: ''
+      demo_abs_pct:
+        description: Demo threshold in percent (not a production rule)
+        type: string
+        default: '5'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  sense:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify offline behavior
+        run: python3 -m unittest discover -s scripts/market -p 'test_*.py' -v
+      - name: Fetch and apply demo rule
+        env:
+          SOURCE: ${{ inputs.source }}
+          TRADE_DATE: ${{ inputs.trade_date }}
+          TS_CODE: ${{ inputs.ts_code }}
+          DEMO_ABS_PCT: ${{ inputs.demo_abs_pct }}
+          TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
+        run: >-
+          python3 scripts/market/market_sensor.py
+          --source "$SOURCE"
+          --trade-date "$TRADE_DATE"
+          --ts-code "$TS_CODE"
+          --demo-abs-pct "$DEMO_ABS_PCT"
+      - name: Save run report (including sensor errors)
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: market-report-${{ github.run_id }}-${{ github.run_attempt }}
+          path: outputs/market/report.json
+          if-no-files-found: error
+          retention-days: 14

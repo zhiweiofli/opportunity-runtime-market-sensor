@@ -1,0 +1,25 @@
+{
+  "source_project_commit": "a102070645b168f4a81f84aa04092a2664decc3f",
+  "source_sha256": {
+    "PROJECT_GUIDE.md": "6bfe0178be3bd8e761c5f4aaa23af433144496bf6b8b2e25eaf1b268a65c6496",
+    "AGENTS.md": "6c743108ebae9459fbd92ae5037e20a105273bfc00f328ca73ca2ea87971f850",
+    "schemas/signal.md": "01dd16144351713962c6377cd769f7c3c14316c5498b4616761f19f7af029def",
+    "schemas/opportunity-hypothesis.md": "d90d0d25705c32afdc1e4157bf8bbbb1438f29388b31901ad366a7f2effa494c",
+    "scripts/market/market_sensor.py": "39652a8cbbed89f2bdb18b255967dc349f340940e6cae763f88567958494a361",
+    "scripts/market/test_market_sensor.py": "1ad5e59c91e4d013ec83909894c85e4e07c7f9387e3d715749dc8d5d5a44bb65",
+    "scripts/market/fixture.json": "1861e37ad11cb8709fba7202621a8352e78e2a36345bfc1ec3ee8a744ec62e49",
+    "tasks/github-actions/market-sensor.yml": "bd47ffa593981c48a84bda4269ef9a8a901d605c97f9a0096a74b14b5a102f58",
+    "tasks/github-actions/market-sensor.md": "686fd3075d1d0355369a4e85dbdbac4bd68a0014000cf11bf5de808cffea6aaf",
+    "docs/00-overview.md": "a7d79f394342f5fff5e56a377d02590986f8d0fbdd072b63ca78cf07f98442fa",
+    "docs/01-business-money-sensor.md": "2fab864a4e36255028e1aa70bd21db477b4f780e2cef6cac5aa67f7396025064",
+    "docs/05-judge.md": "61a34c619ddb06394fdb78215fc553497470ec0779c275cec4c1fd6dd6bfc189",
+    "docs/03-market-sensor.md": "7023f981d82f7f2ccb87cd237539ae3ebd9fae71b7e44de122fdeb2e43bb4516",
+    "docs/02-friction-sensor.md": "226eef8e2ea329feb1084ee21393a08b521420106586efb2f54434330bf93997",
+    "docs/04-researcher.md": "6f9b9a37803668bab53d69e6c32f9ae1fab931dcd196e665fe0c3a61220f321a",
+    "docs/research-intake.md": "b90a948c4c0c2b1430618e7c795707bf4ccb067847a511031dc8b4c0a96e53e7"
+  },
+  "local_adaptations": [
+    "tasks/github-actions/market-sensor.md: deployment navigation and activation instructions",
+    "tasks/github-actions/market-sensor.yml: activation comment only"
+  ]
+}
