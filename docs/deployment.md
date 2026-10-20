@@ -11,3 +11,7 @@
 - Codex Cloud 必须绑定此仓库对应的环境；不能借用其他项目环境冒充切换成功。云端是否提交/运行及其输出另存证据，代码推送或 Actions 成功不等于 Codex Cloud 已运行。
 
 验证以本地测试、GitHub commit/run/artifact、真实 API 和 Cloud 执行分别记录，见 validation.md。
+
+## 已授权的下一阶段
+
+用户已授权由本会话完善需求并让云端开工，原“正式参数未定”的等待条件已由 [Market V1需求](market-v1-requirements.md) 解除。按该规格实现0.3.0的历史量价监测试运行与定时；以上0.2.0边界保留为当前部署/历史事实，不能用其禁止新授权范围。真实数据不再称合成演示，但统计候选仍须机制核验，不自动交Research。实施后同步任务/code/version/CHANGELOG，先交PR，不把目标能力说成已部署。

@@ -7,3 +7,7 @@
 - [验证记录](validation.md)：本地、GitHub、API、Cloud 分别记事实。
 
 研究状态协调沿用完整项目：Final Status 为 KILL/HYPOTHESIS_READY/BLOCKED，WATCH 是阶段结果；Market 当前全为演示且不可研究。正式异常参数须先明确，再实现和单独验收。
+
+## 下一阶段：历史量价监测试运行
+
+用户已授权补齐参数并启动开发。[Market V1 可执行需求](market-v1-requirements.md) 给出6代码名单、历史基准、复合收益/成交额阈值、持续/流动性过滤、台北定时、兼容与12项验收；接口/时区依据见 [资料核验](market-data-references.md)。这是0.3.0开发目标；线上0.2.0状态与已合并PR #1不因此改变。原六份业务文档不改写。

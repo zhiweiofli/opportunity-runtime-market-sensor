@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased — Market 0.3.0 开发需求
+
+- 用户授权补齐历史量价异常、固定观察名单、质量/流动性过滤、台北工作日调度及人工候选核验需求，见 docs/market-v1-requirements.md。
+- 此条只记录已入Git的开发规格；实现、实际任务版本和部署仍待开发PR，不代表正式策略有效或定时已实跑。
+
 ## Deployment — 2026-10-20
 
 - 导入 Opportunity Runtime 的指南、六份业务原稿、协议和 Market 0.2.0 代码/任务。
