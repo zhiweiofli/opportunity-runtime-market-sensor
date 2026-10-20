@@ -110,3 +110,9 @@ assert all(s['demo_only'] is True and s['research_eligible'] is False
 | V1-12 人工交接 | 中文报告与JSON追溯离线核对通过，research_eligible=false；未补机制/独立可靠性/成本证据，不交真实Research |
 
 串行节流与重试使用虚构时钟验证：两个临时失败后成功，等待2/5秒，下一正常请求再间隔2秒；总请求上限3次，API拒绝不重试，错误不含虚构凭据。20代码测试仅证明离线批处理/截断与覆盖逻辑，15分钟下的20代码真实网络运行尚未实测。
+
+## 需求纠偏（revision 2，尚未完成新业务验收）
+
+用户要求修正定位偏差并明确优先美股。旧6股量价方案的31项离线/CI仅为技术原型证据，不能签完整Market V1；旧规则退出生产默认、重复滚动收益不作独立持续性证明、取消人先补机制的前置研究要求。新规格见market-v1-requirements.md：首条US国内股票基金Flow Shift，ICI估计净流向、具体机制/工具证据和R1交接；尚待实现/数据预检/实跑，不因新文档声称已部署。
+
+本机直接HTTP预检：ICI combined为403；SPY发行人页IncompleteRead。检索资料可读不等于原生采集可用；云端/Actions另验，无法取数须BLOCKED，可用合法原始快照人工输入回退（不把人工供数算自动），不扩大采集基础设施或购买权限。原始预检回执保存在主项目忽略目录outputs/acceptance/20261020/us-market-source-preflight/result.json。

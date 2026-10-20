@@ -1,5 +1,7 @@
 # Opportunity Runtime · Market Sensor
 
+**开发范围已纠偏（需求revision 2）**：用户明确美股优先。[当前规格](docs/market-v1-requirements.md)是基于ICI基金净配置变化的Flow Shift → Researcher R1；下方6股量价实现/命令属于930a1b8旧原型，保留供复用，不作为完整Market V1或生产默认验收。新规格尚待实现，PR #2未合并。
+
 Market Sensor 的独立私有仓库，使用 **GitHub Actions + Python + Tushare Pro**。原始边界见 [项目指南](PROJECT_GUIDE.md) 和 [Market 原稿](docs/03-market-sensor.md)，0.3.0 实现口径见 [历史量价监测试运行需求](docs/market-v1-requirements.md)。本仓库只实施 Market 组件。
 
 当前开发版本 **0.3.0**：固定6代码历史量价监测，保留单日演示。真实 Tushare history 为 `demo_only=false`、`rule.status=trial`；所有 fixture 和 demo 仍 `demo_only=true`。所有统计候选 `research_eligible=false`，机制、可靠性及表达成本须人工核验，不是荐股或已验证交易策略。部署和自然定时实跑状态以 [验证记录](docs/validation.md) 为准。

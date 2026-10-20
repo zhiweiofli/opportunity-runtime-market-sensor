@@ -12,10 +12,10 @@
 
 验证以本地测试、GitHub commit/run/artifact、真实 API 和 Cloud 执行分别记录，见 validation.md。
 
-## 已授权的下一阶段
+## 已授权的下一阶段：纠偏后的美股Flow Shift
 
-用户已授权由本会话完善需求并让云端开工，原“正式参数未定”的等待条件已由 [Market V1需求](market-v1-requirements.md) 解除。本开发分支已实现0.3.0历史量价监测试运行与定时配置；以上0.2.0边界保留为历史事实，不能用其禁止新授权范围。真实历史数据不再称合成演示，但统计候选仍须机制核验，不自动交Research。实际部署和自然触发分别验收，先交PR，不把配置已提交说成已上线。
+用户要求纠正量价原型偏差，已明确优先美股。当前执行以[需求revision 2](market-v1-requirements.md)为准；旧六A股、量价阈值、全false等待人工补机制及工作日晚间定时不再是生产目标。旧原型仅保留现场，PR #2未合并，新增定时未在默认分支启用。
 
-- 手动默认 demo+fixture；history 模式按 config/market-v1.json 使用小名单和明确目标日。schedule 显式 history+tushare，不依赖手动 inputs。
-- 工作日台北20:17，IANA timezone 配置；只读权限、15分钟超时、JSON/Markdown artifact 保留14天。首个自然 schedule 必须在默认分支合并后另验。
-- 真实历史 API 可在开发分支 workflow_dispatch 验收，仅 runner 使用既有 Secret，不将其传给云端。受权限或平台限制时保留真实阻塞，不扩大接口或账户权限。
+新增ICI公开合并周报与已核对的工具身份/流动性证据作为原始来源；Tushare Pro保留现有入口，美股权限/ETF覆盖须预检，不能按A股daily成功推定。真实合格Signal进入Researcher R1，机制验证由Researcher承担，不新增人先研究的门槛。缺数据或工具证据仍不放行。
+
+新周频为周五08:17 Asia/Taipei；业务实现、来源预检和自然触发分开记录。GitHub Actions+Python不变，不新增Runtime/Drive服务或交易；0.3.0仅为未发布目标，修订后再更新task/code/version/CHANGELOG并交同一PR审查。

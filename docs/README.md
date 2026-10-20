@@ -6,8 +6,10 @@
 - [部署约定](deployment.md)：本轮获授权范围、CI/手动 workflow、Secret 和 Cloud 边界。
 - [验证记录](validation.md)：本地、GitHub、API、Cloud 分别记事实。
 
-研究状态协调沿用完整项目：Final Status 为 KILL/HYPOTHESIS_READY/BLOCKED，WATCH 是阶段结果。Market 旧演示和所有 fixture 不可作为真实研究输入；0.3.0真实历史测量为 trial，仍须机制核验，research_eligible=false。
+研究状态协调沿用完整项目：Final Status为KILL/HYPOTHESIS_READY/BLOCKED，WATCH是阶段结果。合成输入不能成为真实机会；合格真实Signal可交Researcher R1，不等于通过四Gate。
 
-## 下一阶段：历史量价监测试运行
+## 当前开发：美股Flow Shift（需求revision 2）
 
-用户已授权补齐参数并启动开发。[Market V1 可执行需求](market-v1-requirements.md) 给出6代码名单、历史基准、复合收益/成交额阈值、持续/流动性过滤、台北定时、兼容与12项验收；接口/时区依据见 [资料核验](market-data-references.md)。本分支实现0.3.0，实际部署、真实历史与自然定时分别见验证记录，不能从代码版本推定已上线。原六份业务文档不改写。
+用户要求纠偏并明确美股优先。[新需求](market-v1-requirements.md)取代旧6股量价目标：从基金申赎与ETF净发行的行业估计中识别国内股票基金配置方向的持续反转，附具体机制、工具/流动性与R1 packet。参考页价值和口径风险见[页面评估](market-page-assessment.md)、[美股数据边界](market-etf-mechanism-references.md)。不复制仪表盘、不把EPS/估值/量价阈值当错价结论。
+
+本分支930a1b8的量价代码作为旧原型保留，PR #2未合并；业务目标已撤回，不按其技术测试签完整Market V1验收。新实现和公开源实跑尚待完成，目标仍为未发布0.3.0，原六份文档不改写。
