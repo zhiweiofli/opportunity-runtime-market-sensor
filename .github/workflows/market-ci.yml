@@ -28,6 +28,25 @@ jobs:
           assert report['status'] == 'SIGNALS'
           assert len(report['observations']) == 3
           assert len(report['signals']) == 2
+          assert report['task_version'] == '0.3.0'
           assert report['demo_only'] is True
           assert report['research_eligible'] is False
+          PY
+      - name: Historical fixture and Markdown smoke check
+        run: |
+          python3 scripts/market/market_sensor.py --mode history --source fixture --as-of-date 20261016
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('outputs/market/report.json').read_text())
+          assert report['status'] == 'SIGNALS'
+          assert len(report['instruments']) == 6
+          assert len(report['signals']) == 1
+          assert report['signals'][0]['instrument'] == '000001.SZ'
+          assert report['signals'][0]['magnitude']['r5'] == 0.1025
+          assert report['coverage_complete'] is False
+          assert report['demo_only'] is True
+          assert report['research_eligible'] is False
+          assert report['task_version'] == '0.3.0'
+          assert Path('outputs/market/report.md').is_file()
           PY

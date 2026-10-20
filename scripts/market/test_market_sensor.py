@@ -27,7 +27,7 @@ class MarketSensorTests(unittest.TestCase):
         self.assertEqual(len(report["signals"]), 2)  # +6 and -5; excludes +1
         for signal in report["signals"]:
             self.assertEqual(signal["type"], "Market")
-            self.assertEqual(signal["task_version"], "market-sensor@0.2.0")
+            self.assertEqual(signal["task_version"], "market-sensor@0.3.0")
             self.assertEqual(signal["role_spec_status"], "reviewed")
             self.assertTrue(signal["demo_only"])
             self.assertEqual(len(signal["evidence"]), 2)

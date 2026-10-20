@@ -28,6 +28,6 @@ Signal 不是 Opportunity，不得直接 Build。各 Sensor 先核对自身研�
 
 Market JSON 的 `signals[]` 使用上述字段的 snake_case。`magnitude` 记录量化幅度及历史分位（无历史为 null）；`data_quality` 记录 synthetic / history_points / history_sufficient / liquidity_verified / reliability。`evidence` 是 source / observed_at / fact 对象数组。
 
-运行级 `status / source / demo_only / rule / observations` 区分数据与规则来源、无数据和无匹配。当前所有 Market 产物都有 `demo_only: true`、`research_eligible: false` 及运行级 `research_blockers`，不得进入真实机会研究。仅行情记录和提供者接口说明不是两份独立市场证据，不能冒充满足正式研究条件。
+运行级 `status / source / demo_only / rule / observations` 区分数据与规则来源、无数据和无匹配。Market 旧单日 demo 与所有 fixture 为 `demo_only: true`；0.3.0 的真实 Tushare history 为 `demo_only: false`、`rule.status: trial`。所有当前候选继续 `research_eligible: false` 并保留运行级 `research_blockers`，量价统计不替代机制与成本核验。历史模式的配置摘要、逐标的覆盖、INSUFFICIENT_DATA、稳定 ID/排序及完整报告约定见 [Market V1 需求](../docs/market-v1-requirements.md)，不改变本公共协议版本。仅行情记录和提供者接口说明不是两份独立市场证据，不能冒充满足正式研究条件。
 
 `reviewed` 只指本地原稿核对，不意味着外部平台实测或 Market 正式规则验收。`0.1.0` 历史输出保留原版本，不能直接重标。

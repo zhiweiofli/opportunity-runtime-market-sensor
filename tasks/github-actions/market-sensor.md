@@ -1,81 +1,42 @@
 ---
 task_id: market-sensor
-version: 0.2.0
+version: 0.3.0
 platform: github-actions
 role_spec: docs/03-market-sensor.md
+implementation_spec: docs/market-v1-requirements.md
 role_spec_status: reviewed
 guide_basis: PROJECT_GUIDE.md §3.3, §6, §14, §19
-updated_at: 2026-10-19
+updated_at: 2026-10-20
 ---
 
-# Market Sensor（已核对原稿，演示骨架）
+# Market Sensor：历史量价监测试运行
 
-负责 fetch → calculate → filter → detect anomaly。确定性工作只用 Python；不交给 LLM 凭感觉扫描市场。
-依据 `docs/03-market-sensor.md`、`docs/00-overview.md` 及指南完成角色边界核对。`reviewed` 仅代表对照过原稿，不代表正式异常规则、账户/API 或平台已验收。
+确定性 Python 执行 fetch → validate → calculate → filter → report；不让 LLM 扫描行情。业务原稿保持原文，精确定义以 [V1需求](../../docs/market-v1-requirements.md) 为准，数据/调度依据见 [官方资料](../../docs/market-data-references.md)。本轮默认值是获授权的工程试运行选择，不是投资偏好、错价证明或已验证交易策略。
 
-## 搭配与验收
+## 两种入口
 
-[仓库设置手册](../../README.md) 给出本地运行、Secret、Actions 表单及报告保存步骤；[验证记录](../../docs/validation.md) 区分本地、Actions 与真实 API 证据。此角色只运行确定性代码。正式规则待用户提供，接线通过不代表真实机会。
+- `--mode demo`（默认）：兼容原 fixture / 单日单代码 Tushare 命令，显式 `--demo-abs-pct`。所有结果 demo_only=true；fixture 为20261016的三条合成记录。
+- `--mode history`：按 [版本化配置](../../config/market-v1.json) 对固定6代码名单串行取数，最多20去重代码。可显式 `--as-of-date YYYYMMDD` 重放，默认是执行时 Asia/Taipei 当日。独立历史 fixture 也是合成材料，不能当真实行情。
+- history 不接受 demo 的 trade-date、ts-code、demo-abs-pct；手动表单按 mode 选用对应字段，历史名单由版本化配置决定。
 
-## 当前边界
+## 历史计算与过滤
 
-- 只演示 `abs(pct_chg) >= 显式阈值`。`pct_chg` 直接使用 Tushare 基于除权昨收计算的百分数，不用未复权价格自行推导收益率。
-- 阈值参数名为 `--demo-abs-pct`，所有结果有 `demo_only: true`、`rule.status: demo_only`、`research_eligible: false`。原稿未指定正式市场、标的、指标、比较基准、阈值、频率，不能把本骨架称作正式异常策略。
-- 只实现 daily 的单日单标的接入；flow/spread/carry/volatility/relative value/valuation/regime change 等在指南关注范围内，但本阶段没有实现。
-- `fixture` 是合成数据（不是行情），固定日期 2026-10-16；应产生两个演示 Signal。真实 Tushare 数据也仅检验接线，不能当真实机会输入 Researcher。
-- `persistence: 一次性` 只描述本次单日观察，实际持续性未知；不能凭单日跳动推断持续/正在扩大。未识别具体钱流与机制，明确未知。
+向目标日前查询550自然日，至少259有效日线。5日收益由 pct_chg 复合，绝对值>=5%且相对每个评价日前252个 abs(R5) 的经验分位>=99%；成交额相对此前60个有效日中位数>=2倍。目标日必须命中，最近3个观察至少2次同向命中；最近3次跨度<=7自然日、最近60次跨度<=120自然日。此前20个有效日均成交额>=1亿元且当日成交额>0。amount 从千元乘1000转为元，不代表净流入。
 
-## 原稿规则与输出核对
+基准排除评价日及未来；日期、代码、重复、有限数值和 pct_chg>-100 严格校验。目标日无行记 NO_DATA，不借旧行情冒充今日，也不解释成已确认休市。按分位、abs(R5)、成交倍数降序，代码升序；稳定 ID 为规则/日期/代码，最多5候选，披露总命中和截断数。不建设跨运行去重数据库。
 
-正式类型为 Flow Shift / Relative Mispricing / Carry / Basis / Volatility Mispricing / Positioning Extreme / Regime Shift。本演示不强行归类为其中任何一种。
+逐标的状态：MATCH / NO_MATCH / NO_DATA / INSUFFICIENT_HISTORY / LOW_LIQUIDITY / STALE_HISTORY / ERROR。仅 MATCH / NO_MATCH / LOW_LIQUIDITY 算完成评估。完整范围、失败名单及 coverage_complete 始终披露。整轮状态 SIGNALS / NO_MATCH / NO_DATA / INSUFFICIENT_DATA / ERROR；任何取数或契约错误都非零退出、整轮 signals 为空，保留其余诊断。
 
-正式输入优先结构化行情、量、期货/期权、ETF Flow、利率、FX、商品、基本面、宏观、仓位数据；文本仅解释异常，不生成核心 Signal。本阶段只覆盖单日行情入口，未实现其余观察指标。
+真实历史为 demo_only=false、rule.status=trial；所有 fixture 和旧 demo 为 demo_only=true。所有候选 research_eligible=false。保留公共 Signal 字段、R5/分位/样本数/成交倍数/均成交额/逐日命中和历史范围。Possible Mechanism 明示待验证推测；人工补齐机制、可靠性和研究条件前，不交真实 Research，不提供买卖、仓位或目标价。
 
-报告中每条演示 Signal 保留原稿的 `anomaly / instrument / magnitude / persistence / possible_mechanism / data_quality / next_question`，并保留指南统一字段和任务版本。`data_quality` 披露合成/实连未验、单点、无历史基准及流动性未验证；百分比变化不是历史分位或错价结论。
+## Actions、Secret 与报告
 
-正式交 Research 必须同时具备：可量化异常、足够历史背景、非单个价格跳动、潜在经济机制、可交易工具、流动性不明显不足。本骨架不满足，报告显式禁止升级。快速 Kill 条件：数据不足、异常不可重复、流动性不足、成本吃掉收益、无 convergence/catalyst、仅“价格便宜”、纯宏观叙事、依赖拿不到的数据。
+生效 `.github/workflows/market-sensor.yml` 与本目录 yml 副本保持一致，contents:read，15分钟超时。手动默认 mode=demo / source=fixture / demo_abs_pct=5。历史合成重放需 mode=history / source=fixture / as_of_date=20261016；真实历史选 tushare 并填写核实的目标日期。
 
-交易研究须回答 What is mispriced / Why / Why does it persist / What closes the gap / How long / What does it cost to express / What invalidates it，然后进入 Backtest / Walk-forward / Out-of-sample / Slippage / Transaction Cost / Capacity / Risk 数据验证；本阶段仅声明交接边界，不实现这些验证或交易。
+schedule 按 event_name 显式选择 history+tushare+版本化配置，不依赖 inputs 默认值。工作日台北20:17：cron `17 20 * * 1-5`，timezone Asia/Taipei。只有合并到默认分支后才会自然触发；可能延迟/丢弃，允许手动补跑，不加额外 scheduler。解析/自然触发是否通过，分别记录于 [验证记录](../../docs/validation.md)。
 
-## 运行与输出
+Secret 仅 runner 的 TUSHARE_TOKEN 环境变量引用；云端开发不读取或导出真实 Secret。只用 daily HTTPS，不依赖 trade_cal/stock_basic/daily_basic 或扩大权限。正常请求至少间隔2秒；30秒超时；仅临时传输错误额外重试2次，退避2/5秒；权限/契约错误不重试，不记录上游原始错误体。
 
-见根目录 README 的离线及 Tushare 命令。Python 3.9+，标准库实现，无第三方依赖。
+每轮先清理旧快照，再写 `outputs/market/report.json` 和中文 `report.md`。JSON 保存实际配置/文件SHA-256、目标和请求区间、逐标的范围/行数/时间、完整有效 observations、覆盖及候选。Markdown 定位 JSON 的配置、逐标的记录、原始行和证据，分列事实、推测与人工下一步。任一写入失败非零退出并清理残留，不能上传上轮成功快照。`always()` 尝试保存两份报告到 `market-report-<run_id>-<attempt>`，缺文件报错，保留14天；不写行情到Git、不自动上传Drive。
 
-输出 JSON 包括 `task_id / task_version / role_spec_status / generated_at / source / demo_only / research_eligible / research_blockers / trade_date / ts_code / rule / status / observations / signals`。
-
-| status | 含义 |
-| --- | --- |
-| `SIGNALS` | 数据有效且匹配演示规则；不是机会结论 |
-| `NO_MATCH` | 有数据但未匹配演示规则 |
-| `NO_DATA` | 数据源返回空，不能断言休市或无异常 |
-| `ERROR` | 参数、凭据、网络/API 或数据校验失败，退出码非零 |
-
-完成命令行解析后的每次运行写入完整快照，运行错误时也覆盖旧快照并输出空 Signal，防止把上次成功当本次成功。未知选项/缺少选项值等命令行语法错误在运行前退出，不生成新报告；须核对退出码和报告时间。报告写入失败仍非零退出，控制台报错，不宣称输出成功。非有限数值、缺失字段、日期/单标的不符都会失败，不将坏数据悄悄过滤为无异常。Token 仅从 `TUSHARE_TOKEN` 读取，不保存在报告，不回显服务端原始错误体。
-
-Evidence 保留当前原始行情记录和接口字段定义；两条来自同一数据提供者，**不是两个独立市场证据**。合成样本引用本地 fixture，绝不伪造外部行情出处。
-
-## Actions 人工配置
-
-1. `.github/workflows/market-sensor.yml` 是本仓库生效配置，`tasks/github-actions/market-sensor.yml` 保留同步副本。
-2. 配置提交到默认分支后，在 Actions → Market Sensor → Run workflow 手动运行。实际部署/验收状态见 `docs/validation.md`。
-3. 默认 source=`fixture`、demo_abs_pct=`5`，无密钥。先检查离线测试、报告和 artifact。
-4. 如需实连，在仓库 Actions Secret 中配置 `TUSHARE_TOKEN`，选择 `tushare`，填写 `trade_date`（YYYYMMDD）和 `ts_code`（单一标的）。接口权限、HTTPS 可达性及实际返回需另验。
-5. 下载 `market-report-<run_id>-<attempt>` artifact；人工放 `Signals/Market/` 或附给 Researcher。演示结果仅验管线，不能用于真实判断。
-
-没有默认 schedule；周期待正式规则及试跑确认后，在生效 workflow 里人工添加，遵循平台当前时区和默认分支规则。不建立额外 scheduler。
-
-## 人工运行卡（可复制）
-
-```text
-Task: market-sensor@0.2.0
-Role Spec Status: reviewed
-Source: fixture / tushare
-Trade Date: <Tushare 必填 YYYYMMDD；fixture 固定 20261016>
-TS Code: <Tushare 必填，单一标的；fixture 留空>
-Demo Abs Pct: <正数，单位百分数，如 5 代表 5%；只作管线演示>
-Output: outputs/market/report.json 或显式不同文件名
-核对：source、demo_only、status、日期、标的、原始 observations、signals、任务版本。
-交接：演示产物不进入真实机会判断；保留未验证项并人工保存报告。
-```
-
-技术依据及未验证项见 `docs/validation.md`。不实现交易、回测策略、自动上传、自动提交数据或自动平台部署。
+根目录 [README](../../README.md) 提供可复制命令。旧八项测试继续保留，仅任务版本断言跟随0.3.0；V1-01至V1-12逐项证据见验证记录。代码/离线通过、真实历史手动通过与自然定时通过分别验收。

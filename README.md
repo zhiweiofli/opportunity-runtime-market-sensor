@@ -1,35 +1,45 @@
 # Opportunity Runtime · Market Sensor
 
-Market Sensor 的独立私有仓库，使用 **GitHub Actions + Python + Tushare Pro**。需求来源为 [完整项目指南](PROJECT_GUIDE.md) 和 [Market 业务原稿](docs/03-market-sensor.md)；本仓库只实施 Market 组件。
+Market Sensor 的独立私有仓库，使用 **GitHub Actions + Python + Tushare Pro**。原始边界见 [项目指南](PROJECT_GUIDE.md) 和 [Market 原稿](docs/03-market-sensor.md)，0.3.0 实现口径见 [历史量价监测试运行需求](docs/market-v1-requirements.md)。本仓库只实施 Market 组件。
 
-当前业务版本 `0.2.0`：可验证数据接入与筛选管线，所有规则/输出仍为演示，`demo_only=true`、`research_eligible=false`。正式异常规则尚未确定，不能据演示结果生成真实机会或下单。
+当前开发版本 **0.3.0**：固定6代码历史量价监测，保留单日演示。真实 Tushare history 为 `demo_only=false`、`rule.status=trial`；所有 fixture 和 demo 仍 `demo_only=true`。所有统计候选 `research_eligible=false`，机制、可靠性及表达成本须人工核验，不是荐股或已验证交易策略。部署和自然定时实跑状态以 [验证记录](docs/validation.md) 为准。
 
-## 本地验证
+## 离线运行
 
-Python 3.9+，只用标准库：
+Python 3.9+，运行与单测均只依赖标准库，不需要真实 token：
 
 ```sh
 python3 -m unittest discover -s scripts/market -p 'test_*.py' -v
 python3 scripts/market/market_sensor.py --source fixture --demo-abs-pct 5
+python3 scripts/market/market_sensor.py --mode history --source fixture --as-of-date 20261016
 ```
 
-应得到 8 项离线测试通过、3 observations 和 2 条演示 Signal。默认报告 `outputs/market/report.json` 每轮覆盖；保留历史时用 `--output` 指定不同路径。outputs、环境文件和 Python 缓存不入 Git。
+第一条包含原八项兼容测试与历史边界测试；旧 demo 为3 observations / 2演示输出。独立历史 fixture 为1552条合成记录，六个代码分别展示 MATCH、NO_MATCH、LOW_LIQUIDITY、NO_DATA、INSUFFICIENT_HISTORY、STALE_HISTORY，仅000001.SZ产生候选；这不是实际行情。
+
+每轮覆盖 `outputs/market/report.json` 和中文 `report.md`，包含配置/摘要、逐标的覆盖/失败及原始数据定位。保留历史时用 `--output outputs/market/replay.json`（同时生成 replay.md）。输出、环境文件、Python缓存不入Git。语法解析错误在运行前退出；运行错误会写空候选错误快照；写入失败非零退出并清理残留报告。
+
+## 真实历史与默认参数
+
+配置集中在 [config/market-v1.json](config/market-v1.json)：6个种子代码、550自然日查询、252个此前历史样本、至少259行、5日复合收益绝对值>=5%且分位>=99%、成交倍数>=2、3次观察至少2次同向命中，以及流动性/新鲜度限制。阈值/名单是本轮试运行默认值，改动走 spec → task/code/config → version → CHANGELOG。
+
+真实运行仅在已配置 Secret 的 Actions runner 中执行（开发云端不读取 Secret）：
+
+```sh
+python3 scripts/market/market_sensor.py --mode history --source tushare --as-of-date 20261016
+```
+
+省略 `--as-of-date` 时取运行时台北日期。目标日无记录记 NO_DATA，不借用旧日期、不确认休市；不新增日历或估值接口权限依赖。单日兼容入口为 `--source tushare --trade-date YYYYMMDD --ts-code 单一代码 --demo-abs-pct 5`，只用于 demo。
 
 ## GitHub Actions
 
-- **Market CI**：每次 push/PR 自动执行离线测试和 CLI 管线，无密钥、无真实行情调用。
-- **Market Sensor**：Actions → Market Sensor → Run workflow。首次保持 `source=fixture`、`demo_abs_pct=5`，日期/标的留空；成功后下载 `market-report-<run_id>-<attempt>` artifact。
-- **真实 API 接线**：仓库 Settings → Secrets and variables → Actions 新增 `TUSHARE_TOKEN`，再选 `source=tushare`，填本人核实的 `trade_date=YYYYMMDD`、单一 `ts_code` 和演示阈值。token 不能放到普通变量、输入参数或聊天。
-- `SIGNALS` / `NO_MATCH` / `NO_DATA` / `ERROR` 含义不同。NO_DATA 不能证明休市；真实数据命中演示阈值仍不是可研究的真实机会。
-- 传输采用 HTTPS；实连失败要处理权限/额度/可达性，不降级明文传 token。
-- 暂无正式定时行情任务；台北 `Asia/Taipei` 是用户指定显示/操作时区，现有 JSON 的 generated_at 为带时区的 UTC 时间，可直接换算。
+- **Market CI**：push/PR 自动跑离线单测及两种 fixture CLI，无 Secret、无真实行情调用。
+- **Market Sensor**：Actions → Market Sensor → Run workflow。默认 mode=demo / source=fixture / demo_abs_pct=5。历史合成重放选 history / fixture / as_of_date=20261016；真实历史选 history / tushare / 核实日期。
+- 真实 Secret 仅使用仓库既有 `TUSHARE_TOKEN`，不放入普通变量、表单、聊天或开发云端，不更改权限/凭据。Secret 只注入抓取步骤；错误不会回显原始服务端内容。
+- schedule 使用 `timezone: Asia/Taipei`，工作日20:17显式运行 history+tushare，默认日期为执行时当地日。合并到默认分支后才启用；延迟/丢弃可手动重放，不以手动实跑代签自然定时验收。
+- 下载 `market-report-<run_id>-<attempt>` artifact，含 JSON 和中文Markdown，保留14天。ERROR 非零且整轮候选清空，仍尝试保存诊断；NO_DATA、INSUFFICIENT_DATA、NO_MATCH 互不等同，不构成“没有机会”的结论。
 
-执行结构在 [.github/workflows/](.github/workflows/)；保留原位置 [任务模板](tasks/github-actions/market-sensor.yml) 供项目导航，修改时保持与生效 Market workflow 一致。CI 与 Market 均只读仓库权限，不自动提交行情数据或上传 Drive。
+工作流只读仓库，15分钟超时；正常请求间隔>=2秒、30秒单次超时，临时网络错误最多额外重试2次。生效文件 [.github/workflows/market-sensor.yml](.github/workflows/market-sensor.yml) 与 [任务副本](tasks/github-actions/market-sensor.yml) 同步。实际规则、公式、覆盖状态、报告与人工交接细节见 [任务说明](tasks/github-actions/market-sensor.md)。无交易、新Runtime、数据库、自动提交数据或Drive后端。
 
-## Codex Cloud 接手
+## 云端开发与验收
 
-[完整开发交接任务](docs/cloud-handoff.md) 已准备。用户已完成环境初始化，本地 CLI 直接指定该环境 ID 仍返回 environment not found，尚未创建任务；可在已初始化环境点 Start a new task，粘贴交接文件中的 text 代码块。
-
-先选择本仓库对应的 Cloud environment，然后读取 `AGENTS.md`、`PROJECT_GUIDE.md`、`docs/deployment.md`、Market 原稿与当前验证记录。验收命令即上面的本地测试和 fixture CLI。无需数据库、队列、MCP 或 API Key 才能开发离线管线。
-
-Cloud 执行不应获得 Tushare Secret；真实 API 验证在 GitHub Actions 里进行。正式规则未定时保持演示边界，需求变化按 spec → task/code → version → CHANGELOG。各阶段实际状态见 [验证记录](docs/validation.md)。
+[0.2.0历史交接材料](docs/cloud-handoff.md) 保留历史事实；本轮以 [0.3.0需求](docs/market-v1-requirements.md) 为准，参数等待条件已解除。先读 AGENTS、指南、原稿和部署约定。真实API只在runner验收，离线、手动Actions和自然定时分别记录，不把资料/代码准备完毕写成已上线。原稿摘要见 [source-import.json](docs/source-import.json)。

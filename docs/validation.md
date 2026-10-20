@@ -79,3 +79,34 @@ assert all(s['demo_only'] is True and s['research_eligible'] is False
 ### 仍未验收的正式规则
 
 正式市场范围、标的池、历史基准、异常指标与阈值、运行频率仍待用户明确。输出继续 demo_only=true / research_eligible=false；不进入真实机会研究，不签正式策略、交易或行情定时验收。显示/操作时区沿用 Asia/Taipei，报告保留带时区的 UTC 时间。
+
+## 0.3.0 历史量价监测试运行 — 2026-10-20
+
+本节记录新授权范围，前面的0.2.0记录保留为历史；不再以旧版未给参数阻止新需求。开发分支 `codex/market-history-v1`，合并后 main 基线 `2331743`，需求提交 `dcf82e3efa36167bb2af4a2f4c35322ff3a10ec3`。初始工作区干净；正常 fetch 并检出该分支，没有改代理/凭据或重构Git对象。远端 fetch 配置最初未包含需求分支，随后显式 fetch 该分支并成功检出。
+
+### 云端离线证据
+
+- Python 3.12.14；`python3 -m unittest discover -s scripts/market -p 'test_*.py' -v` 退出0，31/31通过（原八项仅更新实际生成版本断言，新增23项）。计算和测试仅依赖标准库；没有读取真实Tushare token。
+- `python3 scripts/market/market_sensor.py --source fixture --demo-abs-pct 5 --output outputs/market/demo-report.json` 退出0，3 observations / 2 demo signals，task_version=0.3.0，demo_only=true / research_eligible=false；JSON/Markdown均生成。
+- `python3 scripts/market/market_sensor.py --mode history --source fixture --as-of-date 20261016` 退出0，1552条合成历史 / 6代码 / 1候选。顺序状态为 MATCH、NO_MATCH、LOW_LIQUIDITY、NO_DATA、INSUFFICIENT_HISTORY、STALE_HISTORY，coverage_complete=false。样本与计数不代表真实行情。
+- 独立数值期望：最后两日各+5%，R5分别0.05、0.1025；当前成交倍数3、此前60日成交额中位数1亿元、此前20日均额1.1亿元。252历史基准严格在各评价日前，当前日计数252/252；分位边界250/252通过、249/252未通过，额外100样本核对精确99%边界。相等计入，未复权close跳变不改变收益。
+- 使用环境已有PyYAML BaseLoader检查两份workflow副本、只读权限、15分钟超时、台北cron/timezone；配置 SHA-256 `265cce06dfdcb793e83e8b9cd23251dc63cf6c3cf4d190f16992bb891f4fb5c3` 与报告一致。PyYAML只用于本次检查，不是运行/单测/CI依赖。
+- PROJECT_GUIDE与六份原稿的SHA-256继续匹配source-import.json；公共Signal协议只补Market模式说明，不提升公共协议或其他角色版本。`git diff --check`退出0。
+- 中文报告已打开核对：覆盖/失败、配置哈希、候选指标、事实/推测、人工下一步及JSON原始行定位齐全。所有输出留在忽略目录，不提交Git。
+
+| 验收项 | 本轮实际证据/状态 |
+| --- | --- |
+| V1-01 兼容 | 原8项测试与旧demo CLI通过；生成版本0.3.0，旧报告不改写 |
+| V1-02 正例/单位 | 独立合成历史、十进制复合收益/此前基准/中位数/千元转元核对通过 |
+| V1-03 反例 | 单次命中、当前不命中、反向、低流动性和全零均不输出；保留过滤原因 |
+| V1-04 边界 | 5%/99%/2倍/1亿元相等及略低、偶数中位数通过 |
+| V1-05 防未来 | 三个评价日基准均排除自己/未来，改变未来不影响固定评价；越界API行报错 |
+| V1-06 历史/日期 | 258/259行、目标日缺失、7/8天与120/121天跨度、未来日期通过 |
+| V1-07 错误 | 乱序归一化；重复/坏代码/缺字段/非有限或布尔值/缺Secret/网络/写入错误均拒绝；错误快照清空候选，写失败清理两份文件 |
+| V1-08 批次 | 6混合状态、6命中截断5、配置名单去重、四级稳定排序/ID、20代码离线批次通过；未签20代码真实网络完整运行 |
+| V1-09 Actions | event选择离线通过：schedule无视dispatch inputs，固定history+tushare，日期取运行时台北日；手动默认demo、历史显式日期；YAML静态通过，平台解析另记 |
+| V1-10 真实历史 | 待开发分支runner实跑；不以单日旧API或合成历史代签 |
+| V1-11 自然定时 | 未执行；必须合并默认分支后观察真实schedule run，本PR不合并，不等待定时阻塞交付 |
+| V1-12 人工交接 | 中文报告与JSON追溯离线核对通过，research_eligible=false；未补机制/独立可靠性/成本证据，不交真实Research |
+
+串行节流与重试使用虚构时钟验证：两个临时失败后成功，等待2/5秒，下一正常请求再间隔2秒；总请求上限3次，API拒绝不重试，错误不含虚构凭据。20代码测试仅证明离线批处理/截断与覆盖逻辑，15分钟下的20代码真实网络运行尚未实测。

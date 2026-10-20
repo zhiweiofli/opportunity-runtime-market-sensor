@@ -14,4 +14,8 @@
 
 ## 已授权的下一阶段
 
-用户已授权由本会话完善需求并让云端开工，原“正式参数未定”的等待条件已由 [Market V1需求](market-v1-requirements.md) 解除。按该规格实现0.3.0的历史量价监测试运行与定时；以上0.2.0边界保留为当前部署/历史事实，不能用其禁止新授权范围。真实数据不再称合成演示，但统计候选仍须机制核验，不自动交Research。实施后同步任务/code/version/CHANGELOG，先交PR，不把目标能力说成已部署。
+用户已授权由本会话完善需求并让云端开工，原“正式参数未定”的等待条件已由 [Market V1需求](market-v1-requirements.md) 解除。本开发分支已实现0.3.0历史量价监测试运行与定时配置；以上0.2.0边界保留为历史事实，不能用其禁止新授权范围。真实历史数据不再称合成演示，但统计候选仍须机制核验，不自动交Research。实际部署和自然触发分别验收，先交PR，不把配置已提交说成已上线。
+
+- 手动默认 demo+fixture；history 模式按 config/market-v1.json 使用小名单和明确目标日。schedule 显式 history+tushare，不依赖手动 inputs。
+- 工作日台北20:17，IANA timezone 配置；只读权限、15分钟超时、JSON/Markdown artifact 保留14天。首个自然 schedule 必须在默认分支合并后另验。
+- 真实历史 API 可在开发分支 workflow_dispatch 验收，仅 runner 使用既有 Secret，不将其传给云端。受权限或平台限制时保留真实阻塞，不扩大接口或账户权限。

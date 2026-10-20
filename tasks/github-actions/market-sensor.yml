@@ -1,33 +1,44 @@
 # task_id: market-sensor
-# version: 0.2.0
+# version: 0.3.0
 # platform: github-actions
 # role_spec: docs/03-market-sensor.md
-# role_spec_status: reviewed
-# updated_at: 2026-10-19
+# implementation_spec: docs/market-v1-requirements.md
+# updated_at: 2026-10-20
 # Active configuration: .github/workflows/market-sensor.yml; keep both copies in sync.
 name: Market Sensor
 
 on:
+  schedule:
+    - cron: '17 20 * * 1-5'
+      timezone: Asia/Taipei
   workflow_dispatch:
     inputs:
-      source:
-        description: Data source (all rules are demo-only)
+      mode:
+        description: Demo or historical trial monitoring
         type: choice
-        options:
-          - fixture
-          - tushare
+        options: [demo, history]
+        default: demo
+        required: true
+      source:
+        description: Data source (fixture is always synthetic)
+        type: choice
+        options: [fixture, tushare]
         default: fixture
         required: true
+      as_of_date:
+        description: History only - YYYYMMDD (blank means today in Asia/Taipei)
+        type: string
+        default: ''
       trade_date:
-        description: Tushare only - YYYYMMDD
+        description: Demo Tushare only - YYYYMMDD
         type: string
         default: ''
       ts_code:
-        description: Tushare only - single instrument, e.g. 000001.SZ
+        description: Demo Tushare only - single instrument
         type: string
         default: ''
       demo_abs_pct:
-        description: Demo threshold in percent (not a production rule)
+        description: Demo only - threshold in percent
         type: string
         default: '5'
         required: true
@@ -38,7 +49,7 @@ permissions:
 jobs:
   sense:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -46,24 +57,23 @@ jobs:
           python-version: '3.11'
       - name: Verify offline behavior
         run: python3 -m unittest discover -s scripts/market -p 'test_*.py' -v
-      - name: Fetch and apply demo rule
+      - name: Fetch and evaluate selected mode
         env:
-          SOURCE: ${{ inputs.source }}
-          TRADE_DATE: ${{ inputs.trade_date }}
-          TS_CODE: ${{ inputs.ts_code }}
-          DEMO_ABS_PCT: ${{ inputs.demo_abs_pct }}
+          INPUT_MODE: ${{ inputs.mode }}
+          INPUT_SOURCE: ${{ inputs.source }}
+          INPUT_AS_OF_DATE: ${{ inputs.as_of_date }}
+          INPUT_TRADE_DATE: ${{ inputs.trade_date }}
+          INPUT_TS_CODE: ${{ inputs.ts_code }}
+          INPUT_DEMO_ABS_PCT: ${{ inputs.demo_abs_pct }}
           TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
-        run: >-
-          python3 scripts/market/market_sensor.py
-          --source "$SOURCE"
-          --trade-date "$TRADE_DATE"
-          --ts-code "$TS_CODE"
-          --demo-abs-pct "$DEMO_ABS_PCT"
-      - name: Save run report (including sensor errors)
+        run: python3 scripts/market/actions_entry.py
+      - name: Save JSON and Chinese Markdown (including sensor errors)
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: market-report-${{ github.run_id }}-${{ github.run_attempt }}
-          path: outputs/market/report.json
+          path: |
+            outputs/market/report.json
+            outputs/market/report.md
           if-no-files-found: error
           retention-days: 14
