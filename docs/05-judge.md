@@ -213,3 +213,10 @@ Decision after
 Judge 的价值是：
 
 > **把大量研究结果压缩成极少数值得人认真看的对象。**
+
+
+---
+
+## 9. 运行节奏与展示（2026-11-14）
+
+Judge 每 3 天在 Asia/Taipei 19:00 运行，每次回看最近 7 天变化并复核历史候选，Source Signal/Research version 跨轮去重。**每自然周最多 1 个新 Opportunity 主动推进名额**不因运行频次提高而重置。Google Drive 为主归档；GitHub 的 `or-archive/` 是正文镜像；GitHub Pages 的 `site/` 仅展示脱敏的人类决策看板。镜像/发布失败不得被当作成功。
