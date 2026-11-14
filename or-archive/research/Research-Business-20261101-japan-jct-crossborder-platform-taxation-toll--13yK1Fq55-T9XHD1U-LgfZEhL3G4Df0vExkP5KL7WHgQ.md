@@ -1,0 +1,145 @@
+<!-- Google Doc: https://docs.google.com/document/d/13yK1Fq55-T9XHD1U-LgfZEhL3G4Df0vExkP5KL7WHgQ/edit?usp=drivesdk
+Drive ID: 13yK1Fq55-T9XHD1U-LgfZEhL3G4Df0vExkP5KL7WHgQ
+Modified: 2026-11-02T09:21:33.767Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime Research Record
+* Source Signal IDs: Business-20261101-japan-jct-crossborder-platform-taxation-toll
+
+
+* Source Signal References:
+
+
+   * Signal ID: Business-20261101-japan-jct-crossborder-platform-taxation-toll
+   * Generated At: 2026-11-02T09:59:07+08:00
+   * Task Version: business-sensor@0.2.1
+   * Source File URL: https://docs.google.com/document/d/1jQzPlKtPzY_c31PALPbO9vL1ZiYRANs2z50Q709doNw/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-02T10:02:26+08:00
+
+
+* Research Level: R2 — Economic Underwriting
+
+
+* Stage Result: HYPOTHESIS_READY
+
+
+* Unknown Ledger:
+
+
+   * Known: 2026年11月1日 日本国税厅（NTA）正式对跨境电商实施税制合规改革并开启全面执法：1）终结跨境直邮 10,000 日元（约 65 美元）以下免税漏洞；2）正式落地“平台课税制度”（Platform Taxation / プラットフォーム課税），海外卖家通过 Amazon Japan、乐天、Yahoo 拍卖、Mercari 等数字平台向日本个人邮购销售 ≤10,000 日元商品时，法定纳税义务由海外卖家强制转移给数字平台运营者，平台在结算时统一按 10%（食品 8%）代扣 JCT 消费税并集中汇缴；3）同步取消访日游客店内即时免税，全面转为机场海关退税；涉及全球对日跨境电商数万亿日元直邮资金池，年销 5,000 万日元的中型跨境店铺每年被强制截留扣缴 500 万日元消费税，且独立站（Shopify/WooCommerce）面临清关二次征税及买家被索要税费弃件的断流风险。
+   * Unknown: 亚马逊日本与乐天等平台对未提交 QIS 发票税号（T-Number）的海外跨境卖家在 11 月后实施的搜索流量权重降幅。
+   * Decision-Critical Unknown: 面向日本市场销售的中小型跨境电商与独立站卖家（年 GMV 1,000 万–1 亿日元），对于一款“提供 Shopify/WooCommerce 日本 JCT 自动拆税与 DDP 清关运单生成插件，并对多平台 JCT 代扣明细与退税自动对账的财税中间件（定价 $39–$99/月）”的直接订阅意愿。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。涉及全球出口日本数万亿日元小额直邮流水；10% 平台刚性扣缴使得中型卖家年扣税达数百万日元，独立站面临清关税费不合规引发的退运风险，合规软件采购意愿刚性。
+   * Mechanism: 通过。法定收费站（New Toll Booth）与平台连带纳税责任不可绕过：日本国税局通过平台集中代征堵死漏税通道；轻量独立站插件在结账页自动计算并标记 JCT，生成符合日本海关通关格式的完税交货数据，技术路径清晰。
+   * Persistence: 通过。日本国会与财务省正式颁布的法定税改法案，2026年11月1日 属于硬性生效节点，且将无缝衔接至未来更严苛的 QIS 发票抵扣细则。
+   * Capture: 通过。1-3 人小团队构建轻量级跨境电商结账插件与多平台对账 SaaS，纯代码与 API 交付，零实体库存、零线下履约、高毛利。
+
+
+* Final Status: HYPOTHESIS_READY
+
+
+* Evidence:
+
+
+   1. Stripe 官方全球税务与商业合规专栏《What Is the Japan Consumption Tax (JCT)?》（2026-10-19 更新，2026-11-01 生效）：明确证实 10,000 日元免税额度取消、平台课税制度生效及向平台转移征税责任的法定事实。
+   2. Global Blue 国际退税官方报告《Japan Announces Full Reform of Tax Free Shopping》（2026）：证实 11月1日 日本全面转向机场海关退税模式与数字监管链条闭环。
+   3. Works Applications 日本财税权威分析《Explanation of the FY2026 Tax Reform Proposal for Accountants》：深度解析平台课税（Platform Taxation）的适用范围与海外小额直邮税改条款。
+
+
+* Counter Evidence:
+
+
+   1. 纯 B2B 线下传统海运大宗集装箱贸易走一般贸易报关，不受小额直邮平台课税约束。
+   2. 超大型出海跨国集团已在日本设立全资子公司（Kabushiki Kaisha）并由四大会计所代理本地记账。
+
+
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，法定义务不可逆，跨境卖家刚性成本与对账痛点明确，小团队轻资产切入点极佳。
+
+
+* Resume Condition: 不适用（已完成）。
+
+
+* What became more likely: 对日跨境独立站将普遍配置 DDP 日本消费税合规网关以避免消费者到付拒签。
+
+
+* What became less likely: 海外跨境卖家能够继续利用 10,000 日元免税小包漏洞向日本消费者进行低价免税倾销。
+
+
+* What did we rule out: 排除了在 11月1日 之后海外卖家通过亚马逊日本等数字平台销售小额实物商品可以不被代扣 10% JCT 的可能。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-02T17:17:16+08:00
+
+
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向对日跨境电商的 JCT 平台代扣自动对账与独立站 DDP 清关税费网关（Japan JCT Cross-Border Gateway）
+* Source Signal IDs: Business-20261101-japan-jct-crossborder-platform-taxation-toll
+
+
+* Source Signal References:
+
+
+   * Signal ID: Business-20261101-japan-jct-crossborder-platform-taxation-toll
+   * Generated At: 2026-11-02T09:59:07+08:00
+   * Task Version: business-sensor@0.2.1
+   * Source File URL: https://docs.google.com/document/d/1jQzPlKtPzY_c31PALPbO9vL1ZiYRANs2z50Q709doNw/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-02T10:02:26+08:00
+
+
+* Money: 全球对日跨境出口数万家中小型电商卖家（年销数千万至上亿日元）；面对平台强制截留 10% 税款与独立站清关二次征税弃件风险，卖家愿按月支付 $39–$99 订阅自动化财税网关与对账工具。
+
+
+* Mechanism: 针对日本 2026-11-01 起全面执行平台课税（10,000 日元以下强制代扣 10% JCT）的新政，工具提供：1）Shopify/WooCommerce 轻量结算插件，自动识别 ≤10,000 日元订单并精准拆分 10%（或食品 8%）税率，直接生成符合日本海关电子通关标准的 DDP 运单数据，防止买家收货时被索税退单；2）多平台对账 SaaS，自动拉取 Amazon JP、乐天、Mercari 每月结算单，自动剔除代扣税款中的退货退款，并比对 QIS 合格发票申报进项抵扣，自动输出符合国税厅格式的申报附表。
+
+
+* Capture: 1-3 人小团队构建轻量电商插件与 Web 对账后台，纯数据与 API 交付，零实体仓储、零线下履约、高毛利。
+
+
+* Durability: 日本国家税收法定改革，跨境电商纳税合规属于不可逆长期制度，具有持续稳定的高粘性订阅生命周期。
+
+
+* Evidence:
+
+
+   1. Stripe 全球税务指南（2026-10-19）：https://stripe.com/resources/more/what-is-japanese-consumption-tax 确认平台课税与取消 10,000 日元免税额度。
+   2. Global Blue 报告（2026）：https://www.globalblue.com/en/business/newsroom/japan-tax-free-shopping-reform 确认 11月1日 制度改革。
+   3. Works Applications 权威解析：https://en.worksap.co.jp/insights/tax-reform-outline-fy2026/ 深度确认法案条文。
+
+
+* Counter Evidence:
+
+
+   1. 大型跨国出海品牌已设立日本现地法人全托管申报。
+   2. 传统大宗集装箱 B2B 货物不通过平台零售邮寄。
+
+
+* Critical Unknown: 亚马逊日本与乐天开放给第三方开发者提取 JCT 扣缴行项字段的报表 API 格式稳定性与数据延迟天数。
+
+
+* Falsification: 若日本国税厅宣布暂缓执行对电商平台的平台课税制度，重新恢复 10,000 日元以下个人自用邮递包裹全额免税。
+
+
+* Next Test: 为 2 家主营日本乐天与独立站的服装/家居跨境卖家审计其 11 月首周对账单，测试 Shopify 订单 DDP 税率自动计算与海关运单接口对接通畅度。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-02T17:17:16+08:00
+
+
+* Role Spec Status: reviewed
