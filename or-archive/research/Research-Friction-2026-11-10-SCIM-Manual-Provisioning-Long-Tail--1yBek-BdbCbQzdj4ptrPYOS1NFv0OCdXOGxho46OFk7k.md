@@ -1,0 +1,65 @@
+<!-- Google Doc: https://docs.google.com/document/d/1yBek-BdbCbQzdj4ptrPYOS1NFv0OCdXOGxho46OFk7k/edit?usp=drivesdk
+Drive ID: 1yBek-BdbCbQzdj4ptrPYOS1NFv0OCdXOGxho46OFk7k
+Modified: 2026-11-10T09:24:57.431Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime Research Record
+Evaluation Overview
+Parameter
+	Details
+	Research Level
+	R1 — Quick Structure
+	Stage Result
+	KILL
+	Final Status
+	KILL
+	Stop Reason
+	存在足够强反证可 KILL。该领域已被多家成熟专业厂商（400–720 个现成连接器）全面覆盖，源信号实为厂商营销争夺战，且重度依赖企业级安全认证与高维护 RPA 管道，不符合小团队轻资产约束。
+	Resume Condition
+	不适用（已 KILL）
+	Task Version
+	researcher@0.2.2
+	Role Spec Status
+	reviewed
+	Source Signal References
+Attribute
+	Value
+	Signal ID
+	Friction-2026-11-10-SCIM-Manual-Provisioning-Long-Tail
+	Generated At
+	2026-11-10T09:37:40+08:00
+	Task Version
+	friction-sensor@0.2.1
+	Source File URL
+	https://drive.google.com/file/d/1LGOIg7ivT1GT7c7q20c80QnJSQ7DlIhM/view?usp=drivesdk
+	Source File Modified At
+	2026-11-10T09:38:06+08:00
+	Gate Checks Assessment
+* Money: 通过。企业 IT 确实在为长尾应用手动配置支付工时与闲置许可费用。
+* Mechanism: 未通过。该场景已有成熟专门品类与多家成熟商业产品（AccessOwl、Stitchflow、Serval、Lumos）全面覆盖，不存在未解决的结构性机制断层；源信号本质为既有竞品的获客内容营销。
+* Persistence: 未评估（R1 阶段终止）。
+* Capture: 未通过。维护数百个非 SCIM 应用的脆弱 UI/API 自动化管道需要庞大维护团队与重度 SOC 2 合规保障，小团队无法轻资产切入与防御。
+Unknown Ledger
+Known Findings
+中大型企业在部署 Okta/Entra IdP 时，确实面临长尾应用未集成 SCIM（或被 SaaS 厂商将 SCIM 锁在 Enterprise 套餐内，即所谓 "SCIM Tax"）导致 IT Helpdesk 需手动开通/回收账号的现实痛点；但深入商业与竞争环境调研证实：
+
+
+1. 市场上针对非 SCIM 长尾应用自动化的专用商业解决方案早已高度成熟并形成了专有品类（如 AccessOwl 支持 400+ 应用免 SCIM/SAML 自动化开通与回收，Stitchflow 支持 720+ 应用的托管自动化工作流，Serval 提供 AI 原生访问治理工作流，以及 Lumos、Zluri、Torii 等企业级 SaaS 治理平台）。
+2. 源信号引用的核心论据（NHI Mgmt Group 2026-11 社区讨论）实质为 Serval 商业博文《Best user provisioning tools for IT, including non-SCIM apps》与 Stitchflow 的营销白皮书《SCIM Gap Report》，属于既有竞品争夺客户的公关内容营销，而非市场上缺乏有效供给的真实商业真空。
+3. 商业模式与独立小团队约束发生严重冲突：要实现跨数百个非标 SaaS 的无 SCIM 自动化账号开通与回收，必须依赖脆弱的 RPA 模拟登录、反向工程私有 API 或常驻代理。这需要承担极其繁重的持续工程维护（应对数百个 SaaS 后台 UI 变更与 MFA 阻断）、极高的企业级安全合规准入壁垒（SOC 2 Type II、处理企业员工主密码与权限凭证的法律责任）以及高触达的重度企业销售与客服支持。这与个人/小团队"轻资产、不接受大团队、高客服/售后、重维护"的核心约束完全相悖。
+Unknown Status
+* Unknown: 无。
+* Decision-Critical Unknown: 无（已在 R1 确认强反证并推翻）。
+Key Evidence & Synthesis
+Supporting Evidence
+1. AccessOwl 官方产品架构《Provisioning Without SCIM/SAML》（2026-10）：已实现连接 400+ 款非 SCIM 应用，通过服务账号与 RPA 自动化完成入职开通与离职回收。
+2. Stitchflow 目录《SCIM Directory across 720 apps》（2026-01 至 2026-10）：已构建覆盖 720 款应用的托管 IT 自动化服务，起步价 $1,000/月。
+3. Serval 官方技术文档《Custom Access Provisioning Guide》（2026-11）：成熟提供针对非 SCIM 系统的 AI 原生工作流编排与审批审计。
+Counter Evidence
+1. 细分市场已存在多家成熟且具备数百万融资的专业平台（AccessOwl, Stitchflow, Serval），供给高度充分。
+2. 属于高维护、高法务合规壁垒的企业级 IAM 基础设施赛道，小团队无法轻量捕获。
+Analytical Shift & Conclusions
+* What became more likely: 中型企业 IT 将采购 AccessOwl 或 Stitchflow 等现有托管中间件来补充其 Okta/Entra 堆栈。
+* What became less likely: 独立小团队能够凭单点轻量工具在企业 IAM 账号开通管理领域与成熟平台竞争。
+* What did we rule out: 彻底排除了将企业级 SaaS 账号开通治理（SCIM Tax）视作小团队轻资产软件机会的可能。

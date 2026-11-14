@@ -1,0 +1,100 @@
+<!-- Google Doc: https://docs.google.com/document/d/1iWn7C1s1mykjrQnaBKJUKEHjihVz39tWpyklteNY-40/edit?usp=drivesdk
+Drive ID: 1iWn7C1s1mykjrQnaBKJUKEHjihVz39tWpyklteNY-40
+Modified: 2026-11-10T09:25:47.401Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime Research Record
+Source Metadata
+Property
+	Value
+	Signal ID
+	IBF-20261110-Windows11-24H2-SMBSigning-ScanToFolderLockout
+	Generated At
+	2026-11-10T17:15:00+08:00
+	Task Version
+	installed-base-friction@0.2
+	Source File URL
+	https://docs.google.com/document/d/1gLSSgppjVoqyRTDDfSe9E_J1Yt0qaUET1scF8r3n78M/edit?usp=drivesdk&ouid=101589702958564347595
+	Source File Modified At
+	2026-11-10T09:10:33+08:00
+	Research Level
+	R2 — Economic Underwriting
+	Stage Result
+	HYPOTHESIS_READY
+	Unknown Ledger
+Known
+微软在 Windows 11 24H2（Pro、Enterprise 与 Education 版）及后续安全累积更新（如 KB5066470）中强制执行入站与出站 SMB 签名（SMB Signing Required），并彻底阻断 NTLMv1 认证与不安全 Guest 访问；全球有数以千万计在 2012–2020 年间生产的经典商用多功能数码复合机（MFP，如柯尼卡美能达 Bizhub、理光 Ricoh MP/IM 系列、施乐 Xerox AltaLink/WorkCentre、佳能 imageRUNNER、京瓷 Kyocera 等）其嵌入式 Linux/VxWorks 固件停更且硬件芯片算力无法支持现代 SMB 签名计算；当目标电脑升级 Win11 24H2 后，原本作为日常办公第一高频核心的"网络扫描到文件夹（Scan to Folder / Scan to SMB）"功能 100% 报错（报 0xc000a000 签名无效或认证失败）；设备经销商（Dealers）借机推销整机换新（单台报价 $4,000–$10,000 或每月 $150–$300 新租约）；微软与安全专家严厉警告"禁止在 Windows 端全局关闭 SMB 签名"，否则会破坏整机内网安全基线并在企业网络安全保险（Cyber Insurance）年审中被一票否决；中小型律所、会计所、诊所、物流报关行每日严重依赖扫描纸质凭证，业务停摆痛感极强。
+Unknown
+全球遭遇 Windows 11 24H2 扫描断流的中小办公室中，其复合机支持 Scan-to-FTP / WebDAV 备用网络协议的存量占比。
+Decision-Critical Unknown
+正在为 Windows 11 24H2 复合机无法扫描入网而焦头烂额的中小微企业行政主管、律所/会计所所长或外包 MSP 运维工程师，对于一款"单文件免安装、在局域网常开 PC/服务器上 3 分钟一键拉起隔离安全中继代理（老复合机免签名直投，后台自动安全分发至 Win11 用户目录，完全不破坏系统安全基线与网络安全保险合规）"的软件工具（单 PC 个人版 $49，办公室多用户共享版 $99）的购买转化率。
+Gate Checks
+* Money: 通过。经销商单台换新报价 $4,000–$10,000，MSP 现场排障时薪 $150/h（通常耗费 3–5 工时仍无法合规解决）；$99 软件方案对比数千美元硬件换代具备 40 倍以上绝对资金杠杆。
+* Mechanism: 通过。底层操作系统安全策略不可逆收紧与外设机械硬件长寿（10–15 年）形成硬性技术断层；在局域网内部署单文件轻量旁路中继微服务（以独立隔离端口接收复合机免签名传输流，经本地白名单校验后直接调用 Windows 本地 API 投递至目标用户文件夹），既完全保留 Win11 全局 SMB 签名要求，又无感复活老机器扫描能力。
+* Persistence: 通过。Windows 11 24H2 强制 SMB 签名属于长期安全架构演进（并已同步至 Windows Server 2025），绝无回退可能；存量老复合机机械寿命仍有 5–10 年，痛点将在未来数年内持续扩散。
+* Capture: 通过。纯软件交付（单文件 Go/Python 跨平台轻量服务），零硬件库存、零物理折旧、无需入室拆机，1–3 人小团队极度适配。
+Research Conclusions
+* Final Status: HYPOTHESIS_READY
+* Evidence:
+   1. DO Partners 办公 IT 指南《Scan to Folder (SMB) Not Working on Windows 11: Causes and Fixes》（2026-10-27）：证实 Windows 11 24H2 强制入站与出站 SMB 签名阻断老款 Xerox/Lexmark 等设备，并严厉警告切勿在系统上全局关闭 SMB 签名。
+   2. Farbtoner 技术白皮书《Setting up Scan-to-Folder / Scan-to-SMB: Windows & NAS》：确认 24H2 强制 SMB 签名导致老款多功能复合机连接 100% 失败，指出原厂固件断更且不推荐降级 Windows 安全基线。
+   3. NetLeverage 行业深度分析《SMB Signing Now Required: NAS and Old Client Access Failures》：指出微软对第三方老外设客户端的强制签名引发大面积入站扫描断流，老机器无法计算签名是物理硬伤。
+* Counter Evidence:
+   1. 极少数近期高端机型可通过刷官方最新固件开启 SMBv3 签名与 Kerberos 支持。
+   2. 部分低风控意识的个人家庭用户直接在本地组策略粗暴关闭 RequireSecuritySignature。
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，Windows 11 24H2 底层安全基线永久性收紧，老外设机械长寿与协议断代机制清晰，单文件轻量中继软件切入点极佳。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 中小企业与 MSP 将普遍采用独立的局域网扫描安全中继服务来绕过 Windows 11 24H2 SMB 签名壁垒。
+* What became less likely: 微软会在后续补丁中放弃 SMB 强制签名，或复印机厂商会为十年前的停产机型重写并免费分发现代网络固件。
+* What did we rule out: 排除了在不破坏 Cyber Insurance 合规前提下通过在 Win11 全局禁用 SMB 签名来解决扫描问题的方案。
+Execution Metadata
+Parameter
+	Value
+	Task Version
+	researcher@0.2.2
+	Generated At
+	2026-11-10T17:21:40+08:00
+	Role Spec Status
+	reviewed
+	Opportunity Hypothesis
+面向中小微企业的 Windows 11 24H2 复合机"Scan-to-Folder"免降级安全旁路中继服务（Scan-to-SMB Relay Agent）
+Signal Traceability
+Field
+	Value
+	Source Signal ID
+	IBF-20261110-Windows11-24H2-SMBSigning-ScanToFolderLockout
+	Generated At
+	2026-11-10T17:15:00+08:00
+	Task Version
+	installed-base-friction@0.2
+	Source File URL
+	https://docs.google.com/document/d/1gLSSgppjVoqyRTDDfSe9E_J1Yt0qaUET1scF8r3n78M/edit?usp=drivesdk&ouid=101589702958564347595
+	Source File Modified At
+	2026-11-10T09:10:33+08:00
+	Core Strategic Pillars
+* Money: 全球数以千万计在办公室内服役的经典数码复合机（Ricoh, Konica Minolta, Xerox, Canon, Kyocera 等）；经销商换代开销单台 $4,000–$10,000，MSP 上门排障工时费（$150/h），纸质凭据积压引发行政停摆。客户愿支付 $49（单 PC 个人版）或 $99（办公室多用户网络共享版）买断该中继软件。
+* Mechanism: 针对 Windows 11 24H2 强制要求 SMB 签名且不能关闭（违背网络安全保险合规）的硬性冲突，工具提供：一个单文件独立运行的后台微服务程序（Go 编译无依赖 exe）。该程序在局域网内部署并监听专有的隔离端口，接收来自老复合机使用经典 SMB/FTP 协议投递的扫描 PDF 流；程序在内存中完成来源白名单校验后，直接利用本地操作系统文件 API 自动将 PDF 安全投递至 Windows 11 目标用户的个人"已扫描文件"目录。整个过程完全无需修改 Windows 11 系统的全局 SMB 签名与组策略安全基线，实现 3 分钟即插即用，立即可用。
+* Capture: 1–3 人小团队开发轻量 Go/Python 后台服务，纯代码交付，零实体库存、零硬件风险、高毛利标准化软件。
+* Durability: Windows 11 24H2 与 Windows Server 2025 安全策略具有长期强制性，老复合机机械寿命长达 10–15 年，中继方案在未来 5–8 年内具备稳固生命周期。
+Evidence & Validation
+* Supporting Evidence:
+   1. DO Partners（2026-10-27）：https://www.dopartners.be/en/blog/scan-to-folder-smb-not-working-on-windows-11-causes-and-fixes/ 确认 24H2 强制签名与老复合机扫描全面受阻。
+   2. Farbtoner（2026）：https://www.farbtoner.shop/en/Setting-up-Scan-to-Folder-Scan-to-SMB-Windows-NAS-Brother-HP-Epson:_:328.html 确认不建议关闭 SMB 签名，需通过独立方案接收。
+   3. NetLeverage（2026）：https://netleverage.com/ffb9917-articles/smb-signing-required-nas-legacy-access-failures.html 确认入站客户端签名是破坏老款打印机扫描的根本机制。
+* Counter Evidence:
+   1. 部分高规格大企业直接由租约公司强制每年置换最新一代 MFP。
+   2. 极少数企业完全无纸化不依赖纸质凭证扫描。
+Risk Analysis & Next Steps
+* Critical Unknown: 在遭遇扫描断流的中小办公室中，其现有网络环境对于在常开电脑或简易 NAS 上安装一个后台单文件常驻进程的 IT 准入接受度。
+* Falsification: 若微软突然发布补丁，允许 Windows 11 针对特定本地局域网 MAC 地址或 IP 地址白名单免除入站 SMB 签名要求。
+* Next Test: 构建一个 500 行 Go 语言编写的原型服务并在局域网测试老款 Ricoh/Konica 复合机扫描投递，发布至 Reddit r/printers 与 r/sysadmin 验证真实采购意向。
+Hypothesis Metadata
+Parameter
+	Value
+	Task Version
+	researcher@0.2.2
+	Generated At
+	2026-11-10T17:21:40+08:00
+	Role Spec Status
+	reviewed
