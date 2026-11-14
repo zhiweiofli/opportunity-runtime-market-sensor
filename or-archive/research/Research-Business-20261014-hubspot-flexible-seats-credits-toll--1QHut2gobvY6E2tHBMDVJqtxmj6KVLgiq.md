@@ -1,0 +1,71 @@
+<!-- Google Doc: https://drive.google.com/file/d/1QHut2gobvY6E2tHBMDVJqtxmj6KVLgiq/view?usp=drivesdk
+Drive ID: 1QHut2gobvY6E2tHBMDVJqtxmj6KVLgiq
+Modified: 2026-10-21T09:28:15.753Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+# Opportunity Runtime Research Record
+
+- **Source Signal IDs**: Business-20261014-hubspot-flexible-seats-credits-toll
+- **Source Signal References**:
+  - Signal ID: Business-20261014-hubspot-flexible-seats-credits-toll
+  - Generated At: 2026-10-21T09:35:08+08:00
+  - Task Version: business-sensor@0.2.1
+  - Source File URL: https://docs.google.com/document/d/1i-hZX5ArhDVQ9tSfK_a4NEMHq48fg6T-678Ozg1pEgw/edit?usp=drivesdk&ouid=101589702958564347595
+  - Source File Modified At: 2026-10-21T01:41:30.985Z
+- **Research Level**: R2 — Economic Underwriting
+- **Stage Result**: HYPOTHESIS_READY
+- **Unknown Ledger**:
+  - Known: HubSpot 于 2026 年 10 月面向 EMEA 区域新门户全面上线 Flexible Seats-and-Credits 定价；将 73 个独立 SKU 压缩为 23 个；引入统一 GTM 席位（€20/€100/€175/月）与平台通用货币 HubSpot Credits（超额 €0.010/点，Capacity Pack €10/1,000点）；邮件群发（15~0.5点/封）、工作流动作（3~0.1点/步，Breeze 工作流 10点/步）、AI Agent（50~1,000点/次）全面计量扣点；Credits 按月清零不顺延。
+  - Unknown: 存量老客户（非 EMEA 新门户）被强制切换至 Seats-and-Credits 架构的确切时间表；企业在面临按步扣点时，是将工作流外包给 Make/n8n 还是选择直接加购 Capacity Pack。
+  - Decision-Critical Unknown: 拥有 10+ 复杂工作流的 HubSpot 中型企业客户，对于能够通过代码化合并与 Webhook 旁路处理将月度 Credits 消耗削减 50% 以上的优化插件/审计工具的月费付费意愿阈值（如 €50~€200/月）。
+- **Gate Checks**:
+  - Money: 通过。全球使用 HubSpot 的数十万家企业核心 CRM/GTM 预算，超额直接折算为现金硬成本（1,000 Credits = €10）。高频自动化客户单月新增数百至数千欧元账单支出。
+  - Mechanism: 通过。此前套餐内工作流步数无限次免费触发，新架构变为按步计费。企业历史遗留的大量多层嵌套、轮询判断与碎片化工作流产生严重的点数浪费；通过工作流结构压缩（将多步合并为单步复合动作或通过外部 Webhook 批处理后再写回），能够直接按比例为企业节省现金支出，具备明确的 ROI。
+  - Persistence: 通过。HubSpot 已在官方法律条款补充目录（Catalog Supplement）与 EMEA 伙伴销售规范中落地，属于不可逆的长期商业化架构转型。
+  - Capture: 通过。1-3 人小团队可开发轻量级“HubSpot 工作流点数审计与压缩器”或“外部轻量 Agent 路由网关”（以 HubSpot App 形式上架 Marketplace），纯 API/Webhook 驱动，零重资产、零线下交付。
+- **Final Status**: HYPOTHESIS_READY
+- **Evidence**:
+  1. HubSpot 官方条款文件《Flexible Seats-and-Credits Pricing Product and Services Catalog Supplement》（2026-10 更新）：https://www.hubspot.com/flexible-seats-and-credits-pricing-supplement 锁定 GTM/Ops 席位价格、超额扣费率及工作流/邮件/Agent 扣点 Rate Sheet。
+  2. 核心伙伴分析报告《HubSpot's New Pricing Model Explained (Oct 2026)》（The Growth Agency，2026-10-14）：https://thegrowthagency.co.uk/news/hubspots-new-pricing-model-explained-oct-2026-the-growth-agency 证实 EMEA 新门户已实测落地，点数按月清零且超额自动计费。
+  3. IV-Lead 深度解析《HubSpot seats-and-credits pricing, explained (2026)》（2026-10-05）：https://www.iv-lead.com/blog/hubspot-seats-and-credits-pricing 详述统一版本与单点 Credits 经济学模型。
+- **Counter Evidence**:
+  1. 当前地域与存量缓冲：目前优先在 EMEA 区域新门户实施，美洲区存量企业暂未强制全量重签，初始目标市场受限。
+  2. 官方提供 Capacity Packs：官方 €10/1,000 点的容量包可能被部分富裕企业视为直接采购成本，从而降低对第三方精细化优化工具的需求。
+- **Stop Reason**: 四 Gate（Money, Mechanism, Persistence, Capture）均已通过充分独立证据核实，机制清晰，反证明确，小团队切入路径具备高可行性。
+- **Resume Condition**: 不适用（已完成）。
+- **What became more likely**: 营销与运维团队在设计 HubSpot 工作流时将精打细算动作步数，并加速采纳 Webhook 旁路微服务来替代原生高扣点动作。
+- **What became less likely**: 企业客户会继续在 HubSpot 内部肆意运行数十步长链式轮询工作流。
+- **What did we rule out**: 排除了 HubSpot 将 Credits 允许跨月滚存（Roll-over）的可能性（官方明确当月清零）。
+- **Task Version**: researcher@0.2.2
+- **Generated At**: 2026-10-21T17:26:13+08:00
+- **Role Spec Status**: reviewed
+
+---
+
+## Opportunity Hypothesis: 面向 HubSpot Flexible Pricing 的工作流点数审计与步数压缩中间件
+
+- **Source Signal IDs**: Business-20261014-hubspot-flexible-seats-credits-toll
+- **Source Signal References**:
+  - Signal ID: Business-20261014-hubspot-flexible-seats-credits-toll
+  - Generated At: 2026-10-21T09:35:08+08:00
+  - Task Version: business-sensor@0.2.1
+  - Source File URL: https://docs.google.com/document/d/1i-hZX5ArhDVQ9tSfK_a4NEMHq48fg6T-678Ozg1pEgw/edit?usp=drivesdk&ouid=101589702958564347595
+  - Source File Modified At: 2026-10-21T01:41:30.985Z
+- **Money**: 企业在 HubSpot 平台上按月支付的 HubSpot Credits 超额账单（€0.010/点）与 Capacity Pack（€10/1,000点）预算；企业愿支付节省账单的 20%~30% 作为优化软件订阅费。
+- **Mechanism**: 将臃肿、多层分支的工作流动作（每步扣 0.1~3 点，Breeze 扣 10 点）重构成单个外部 Webhook 聚合调用，在外部轻量容器内完成条件计算与数据富化后单次写回，将单次工作流执行的 Credits 消耗由 15~30 点压缩至 1~2 点。
+- **Capture**: 1-3 人小团队开发 HubSpot Marketplace App，提供“工作流 Credits 消耗雷达”一键扫描高耗点链路，并提供“一键生成 Webhook 压缩节点”的无状态中间件服务。
+- **Durability**: 官方正式将 73 个 SKU 统一为 Credits 体系，商业模式不可逆。
+- **Evidence**:
+  1. HubSpot 官方条款补充（2026-10）：https://www.hubspot.com/flexible-seats-and-credits-pricing-supplement
+  2. The Growth Agency 分析报告（2026-10-14）：https://thegrowthagency.co.uk/news/hubspots-new-pricing-model-explained-oct-2026-the-growth-agency
+  3. IV-Lead 计费模型拆解（2026-10-05）：https://www.iv-lead.com/blog/hubspot-seats-and-credits-pricing
+- **Counter Evidence**:
+  1. 新模式首发局限于 EMEA 新门户，存量客户逐步过渡。
+  2. 非技术营销人员对接入外部 Webhook 架构存在理解与安全审批阻力。
+- **Critical Unknown**: 中型 HubSpot 客户在工作流触达月度限额后，是更倾向于简单加购官方 Capacity Pack，还是愿意引入第三方 Webhook 优化工具以实现长期降本。
+- **Falsification**: 若 HubSpot 官方后续大幅降低工作流动作的点数单价或为 Professional/Enterprise 客户提供无限次基础工作流步数配额。
+- **Next Test**: 为 3-5 家已切换至新模式的 EMEA HubSpot 客户提供免费工作流点数审计脚本，测算其历史工作流中冗余步数占比及重构后的理论点数节约率。
+- **Task Version**: researcher@0.2.2
+- **Generated At**: 2026-10-21T17:26:13+08:00
+- **Role Spec Status**: reviewed

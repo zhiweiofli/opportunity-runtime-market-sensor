@@ -1,0 +1,71 @@
+<!-- Google Doc: https://drive.google.com/file/d/16TJcVWwOlpDgP6NlpPZzcAteGeGwArsw/view?usp=drivesdk
+Drive ID: 16TJcVWwOlpDgP6NlpPZzcAteGeGwArsw
+Modified: 2026-10-20T09:55:02.470Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+# Opportunity Runtime Research Record
+
+- **Source Signal IDs**: Business-20261015-github-agentic-autofix-metered-toll
+- **Source Signal References**:
+  - Signal ID: Business-20261015-github-agentic-autofix-metered-toll
+  - Generated At: 2026-10-20T09:25:46+08:00
+  - Task Version: business-sensor@0.2.1
+  - Source File URL: https://docs.google.com/document/d/1t0m8zgAe6r174zr-vN2wisrOMKbLrabMhm2BQpxHZQg/edit?usp=drivesdk&ouid=101589702958564347595
+  - Source File Modified At: 2026-10-20T09:28:55+08:00
+- **Research Level**: R2 — Economic Underwriting
+- **Stage Result**: HYPOTHESIS_READY
+- **Unknown Ledger**:
+  - Known: GitHub 官方于 2026-10-15 宣布 Agentic autofix 与 PR AI Scan 全面 GA；原免费 Generate Fix 功能被全面取代为 Assign to Copilot；强制要求绑定 Copilot billing method；每次执行从企业 Code Security 预算中扣减 AI Credits 并计费消耗 GitHub Actions 计算分钟数；支持通过 REST API 指派给 `copilot-swe-agent[bot]` 并单次批量聚类最多 25 条 alerts。
+  - Unknown: 企业在日常开发中对 Copilot 生成的修复 PR 的人工合并接受率（Merge Rate）与误报引入率；不同代码库规模下每千行代码的平均月度 AI Credit 消耗中位数。
+  - Decision-Critical Unknown: 企业安全与工程团队在面临积压漏洞时，对于通过第三方轻量网关进行“本地误报初筛、依赖聚类去重与批量 25 条打包”以降低 50%+ AI Credits 消耗的采购意愿。
+- **Gate Checks**:
+  - Money: 通过。全球使用 GitHub Enterprise Cloud 和 GHAS 的中大型企业已建立明确的 Code Security 预算，计量卡点导致企业面临新增的 AI Credits 与 Actions runner 账单支出。
+  - Mechanism: 通过。从平台免费吸收推理转变为按任务消耗计量。企业面对海量历史安全告警，盲目触发 Copilot 修复会导致预算极速耗尽；引入预检、去噪与批量聚合（满额 25 条触发一次）中间件，具有极高且直观的成本节约 ROI。
+  - Persistence: 通过。GitHub 官方将 Agentic autofix 正式列为 GA，并在 Enterprise Cloud 账单大盘中建立了独立的 Code Security 计量体系，属于长期确定性商业架构演进。
+  - Capture: 通过。1-3 人小团队可利用 GitHub App 或开源 GitHub Action，以纯 API/Webhook 方式开发“AI Credits 预算熔断器与漏洞修复预筛选网关”，零重资产基础设施，符合高毛利自动化偏好。
+- **Final Status**: HYPOTHESIS_READY
+- **Evidence**:
+  1. GitHub Changelog 官方发布《Agentic autofix for code scanning alerts general availability》（2026-10-15）：https://github.blog/changelog/2026-10-15-agentic-autofix-for-code-scanning-alerts-general-availability/ 明确取代免费 Generate Fix，消耗 Code Security AI Credits 与 Actions 分钟数，支持 REST API 批量指派至多 25 条。
+  2. GitHub Docs 官方文档《About autofix for code scanning》（2026-10-15）：https://docs.github.com/en/code-security/concepts/code-scanning/autofix-for-code-scanning 载明详细计费机制与企业级配额限制。
+  3. 网络安全独立分析《GitHub AI Scan vs agentic autofix: GA, limits and billing》（2026-10-16）：https://www.pk-sharma.com/briefing/github-ai-scan-pull-requests-agentic-autofix-security-comparison 分析企业安全主管面临的预算风控与计量成本压力。
+- **Counter Evidence**:
+  1. 原生配额工具存在：GitHub Enterprise 自身提供了基础的 Budgets and alerts 以及 Cost centers 策略，粗粒度的硬预算熔断无需第三方软件。
+  2. 修复代码质量风险：若 Copilot 修复产生的代码经常导致编译失败或单元测试不通过，企业会直接停用自主修复，使得优化工具失去调用基础。
+- **Stop Reason**: 四 Gate（Money, Mechanism, Persistence, Capture）均已通过充分独立证据核实，痛点清晰、机制坚固、反证可控。
+- **Resume Condition**: 不适用（已完成）。
+- **What became more likely**: 企业将更加审慎地开启自动化修复，急需更细粒度的漏洞修复价值分级与批处理聚合网关。
+- **What became less likely**: GitHub 会恢复针对代码扫描告警的无限制免费单轮修复建议。
+- **What did we rule out**: 排除了在无预筛选机制下企业能够无顾虑全量开启 Assign to Copilot 的假设。
+- **Task Version**: researcher@0.2.2
+- **Generated At**: 2026-10-20T17:48:14+08:00
+- **Role Spec Status**: reviewed
+
+---
+
+## Opportunity Hypothesis: 面向 GitHub Enterprise 的 Code Security AI Credits 预检降噪与修复批处理网关
+
+- **Source Signal IDs**: Business-20261015-github-agentic-autofix-metered-toll
+- **Source Signal References**:
+  - Signal ID: Business-20261015-github-agentic-autofix-metered-toll
+  - Generated At: 2026-10-20T09:25:46+08:00
+  - Task Version: business-sensor@0.2.1
+  - Source File URL: https://docs.google.com/document/d/1t0m8zgAe6r174zr-vN2wisrOMKbLrabMhm2BQpxHZQg/edit?usp=drivesdk&ouid=101589702958564347595
+  - Source File Modified At: 2026-10-20T09:28:55+08:00
+- **Money**: 企业在 GitHub Advanced Security / Copilot 账单中设立的 Code Security AI Credits 预算池与 Actions runner 计算账单。
+- **Mechanism**: Agentic autofix 改为计量计费后，单条指派成本高昂；网关在本地先运行轻量规则和误报模型，滤除低置信度告警，并将同模块漏洞聚合满 25 条上限后单次调用 `copilot-swe-agent[bot]`，帮助企业在消除同等漏洞数量下节约 50%~70% 的 Credits 与 CI 消耗。
+- **Capture**: 1-3 人小团队构建 GitHub App / Marketplace Action，提供“漏洞初筛打分器 + 智能批处理打包器 + 仓库级预算熔断看板”，纯 SaaS/订阅模式，零重资产。
+- **Durability**: GitHub GA 确立按量计量模式，企业长期面临 AppSec 成本控制与漏洞清零的双重 KPI 压力。
+- **Evidence**:
+  1. GitHub Changelog 官方（2026-10-15）：https://github.blog/changelog/2026-10-15-agentic-autofix-for-code-scanning-alerts-general-availability/ 载明按次计量与 25 条聚合上限。
+  2. GitHub Docs 官方（2026-10-15）：https://docs.github.com/en/code-security/concepts/code-scanning/autofix-for-code-scanning 详细计费结构。
+  3. 独立安全治理简报（2026-10-16）：https://www.pk-sharma.com/briefing/github-ai-scan-pull-requests-agentic-autofix-security-comparison 证实企业预算管控痛点。
+- **Counter Evidence**:
+  1. GitHub 原生 Enterprise 策略已具备全局预算硬限额。
+  2. 若 Copilot 自主修复单次成功率不高，企业工程团队可能直接弃用该功能。
+- **Critical Unknown**: 企业工程团队对通过轻量网关自动打包并触发批量 PR 的审查接受度与合并通过率。
+- **Falsification**: 若 GitHub 后续推出企业无限制免费修复包，或第三方预筛选导致高危真实漏洞被误判阻断。
+- **Next Test**: 开发一个开源 GitHub Action 原型，在 5 个中大型开源仓库测试对 100 条历史 CodeQL 告警进行规则初筛与批处理打包，验证其实际能合并的 PR 质量与虚拟 Credits 节约率。
+- **Task Version**: researcher@0.2.2
+- **Generated At**: 2026-10-20T17:48:14+08:00
+- **Role Spec Status**: reviewed
