@@ -9,10 +9,10 @@ The six original business documents are in `docs/00-overview.md` through `docs/0
 For behavior changes: update the relevant spec first, affected tasks/code second, and `CHANGELOG.md`; trace changes through Git.
 
 ## Architecture
-Fixed roles: Business Sensor → Gemini; Friction Sensor → Grok; Market Sensor → GitHub Actions + Python + Tushare Pro; Researcher → Gemini; Judge → GPT (weekly; manual is acceptable).
+Fixed roles: Business Sensor → Gemini; Friction Sensor → Grok; Market Sensor → GitHub Actions + Python + Tushare Pro; Researcher → Gemini; Judge → GPT (every 3 days in Asia/Taipei; manual fallback).
 No additional roles without a concrete requirement.
 Prefer existing scheduled tasks > small scripts / GitHub Actions > Cloudflare Workers > long-running agents.
-No database, queue, orchestration system, dashboard, MCP server, custom runtime, or platform deployment API without an observed need.
+No database, queue, orchestration system, MCP server, custom runtime, or platform deployment API without an observed need. A static read-only Judge Pages dashboard is explicitly requested; avoid growing it into a backend.
 
 ## Deterministic Work and Human Control
 Use code for fetching, calculations, filtering, deduplication and backtests; use LLMs for research, interpretation, falsification and judgment.
