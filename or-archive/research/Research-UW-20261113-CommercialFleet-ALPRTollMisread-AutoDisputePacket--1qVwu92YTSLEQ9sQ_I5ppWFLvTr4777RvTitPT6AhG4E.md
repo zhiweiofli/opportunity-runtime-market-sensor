@@ -1,0 +1,86 @@
+<!-- Source Google Doc: https://docs.google.com/document/d/1qVwu92YTSLEQ9sQ_I5ppWFLvTr4777RvTitPT6AhG4E/edit?usp=drivesdk
+Drive ID: 1qVwu92YTSLEQ9sQ_I5ppWFLvTr4777RvTitPT6AhG4E
+Modified: 2026-11-13T09:59:40.832Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime Research Record & Opportunity Hypothesis
+Signal UW-20261113-CommercialFleet-ALPRTollMisread-AutoDisputePacket
+Metadata Attribute
+	Details
+	Signal ID
+	UW-20261113-CommercialFleet-ALPRTollMisread-AutoDisputePacket
+	Generated At
+	2026-11-13T00:40:00+08:00
+	Task Version
+	uneconomic-work@0.1
+	Source File URL
+	UW-20261113-CommercialFleet-ALPRTollMisread-AutoDisputePacket.md
+	Source File Modified At
+	2026-11-13T00:44:29+08:00
+	Research Level
+	R2 — Economic Underwriting
+	Stage & Final Status
+	HYPOTHESIS_READY
+	Part 1: Opportunity Runtime Research Record
+1. Unknown Ledger
+Known
+全美主要收费公路（佛州 SunPass/CFX、纽约 E-ZPass/MTA、加州 The Toll Roads、德州 TxTag）全面转向全电子车牌抓拍收费（All-Electronic Toll-by-Plate）。车牌自动识别（ALPR/OCR）相机受反光、污损、阴影或相似字符（0/O、8/B）及外州车牌影响，存在 1%–3% 系统性误识率。拥有 10–50 辆商用轻卡或服务车的中小车队（水暖、暖通、城市配送）每月零散收到 10–30 张带 $25–$100 行政滞纳金的幽灵违章单（虚假罚费 $500–$2,500/月，年流失 $6,000–$30,000）。若逾期不处理，60 天后直接触发州 DMV 牌照注册锁死（Registration Hold），导致商用车停运（单车日损失 $500–$1,000）。各收费局均赋予 30–60 天内对"Wrong Plate / Wrong Car"提起行政争议并全额撤销罚金的权利；但人工调取 Samsara/Geotab GPS 轨迹、比对车型并逐一登录收费局网站申诉单张耗时 30–45 分钟，调度员因工作饱和普遍认定"不值得费时间"而直接报销或拖延至锁车。
+Unknown
+在拥有 10–50 辆商用车的中小工程车队收到的收费公路违章账单中，真正属于 ALPR 相机误读/异地同号（而非车队自身车辆 ETC 余额不足或未装标签通行）的准确占比。
+Decision-Critical Unknown
+中小商用车队老板或调度主管，对于一款"上传违章催缴单 PDF 并授权只读 Samsara/Geotab GPS，10 秒筛出不在场误读单并一键生成各收费局标准行政申诉包（单车月费 $5–$10 或按撤销罚款 15% 分成）"的付费意愿。
+2. Gate Checks
+* Money: 通过。中小车队每年因误读罚单流失 $6,000–$30,000，且面临 DMV 锁车导致单车 $500–$1,000/天停驶损失；$5–$10/车/月（10 辆车即 $50–$100/月）对比数千美元罚款具备极高 ROI。
+* Mechanism: 通过。ALPR 误识率（Business Insider 2026-03 等多篇报道确认）客观存在，而商用车队普遍已装有 Samsara/Geotab 等 GPS 车联网硬件；多模态 OCR 解析账单时间与门架经纬度，自动拉取同秒级 GPS 轨迹生成不可辩驳的"不在场证明"与车型对比图，技术闭环极强。
+* Persistence: 通过。全美全电子无亭化收费不可逆转，ALPR 在恶劣天气与车牌污损下的物理误识率长期存在，商业车队高频通行痛点持续。
+* Capture: 通过。1–3 人小团队构建轻量 SaaS（PDF 解析 + Telematics API 对接 + 收费局争议表单生成），纯软件交付，零实体硬件与库存。
+3. Evidence & Counter Evidence
+Supporting Evidence
+1. Ticket Toro 佛州违章争议指南：证实 ALPR OCR 误读必须在 30 天内提出照片比对争议，逾期 60 天升级为 UTC 传票并触发 DMV 注册锁死。
+2. Barton Sobel 纽约交通律所实务：证实"Wrong Plate, Wrong Car, Wrong Bill"是官方明确受理的抗辩理由，商业车队积压罚单极易滚雪球至上万美元并导致营运中断。
+3. Reddit r/Austin 车主实测讨论（2025-09-22）：证实即使抓拍照片显示车型细节不符，手工申诉极其耗时（"likely not worth the time"）。
+4. Business Insider ALPR 误读深度调查（2026-03-09）：独立媒体实证全美 ALPR 相机系统性误读导致无辜车主承担后果的普遍现象。
+Counter Evidence
+1. 若车辆在涉案时刻确实经过该门架且属于车队自身 ETC 账户欠费/标签失效，则不能免除过路费本金（仅能尝试减免行政滞纳金）。
+2. 若企业将非 ETC 违章罚款直接从司机工资中扣除（付费主体动力错配），老板缺乏采购动力。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，ALPR 误读机制与 Telematics GPS 不在场证明结合具备强确定性。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 中小商用车队将采用 GPS 轨迹与违章账单自动对账工具，批量清零误读罚单并预防 DMV 锁车。
+* What became less likely: 车队调度员会继续在繁忙派工之余花费 30–45 分钟人工翻找轨迹截图去逐个收费局网站申诉。
+* What did we rule out: 排除了"ALPR 相机误读率可忽略不计"的假设，多篇 2026 年媒体与律师实务证实其系统性存在。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-13T17:57:15+08:00
+* Role Spec Status: reviewed
+Part 2: Opportunity Hypothesis
+Title: 面向中小商用车队的 ALPR 电子收费误读 GPS 时空不在场申诉引擎
+Source Signal References
+* Signal ID: UW-20261113-CommercialFleet-ALPRTollMisread-AutoDisputePacket
+* Generated At: 2026-11-13T00:40:00+08:00
+* Task Version: uneconomic-work@0.1
+* Source File URL: UW-20261113-CommercialFleet-ALPRTollMisread-AutoDisputePacket.md
+* Source File Modified At: 2026-11-13T00:44:29+08:00
+Money
+全美数十万拥有 10–50 辆商用轻卡/服务车的中小承包商与配送车队，每年流失 $6,000–$30,000 误读罚金并面临 DMV 停运风险。车队老板愿支付 $5–$10/车/月或按撤销罚款金额 15% 分成。
+Mechanism
+1. 违章账单 OCR 与门架定位：上传各州收费局催缴单 PDF，自动提取违章精确时间戳、门架经纬度与识别车牌号。
+2. GPS 时空不在场校验：通过只读 API 对接 Samsara/Geotab/Motive 等车联网平台，检索涉案时刻该车牌车辆的真实 GPS 坐标，若距离门架 >1 英里即自动标记为"不在场误读单"。
+3. 批量申诉包生成：自动截取带时间戳的卫星轨迹图并比对行驶证车型，生成符合 SunPass/E-ZPass/TxTag 等收费局格式的标准《行政复核申诉包 PDF》。
+Capture
+1–3 人小团队构建轻量 Web 应用与 Telematics API 适配器，纯软件与文档输出，零硬件库存、高毛利月度订阅。
+Durability
+全美全电子无亭收费全面普及，ALPR 在复杂路况下的字符误识长期存在，商用车队高频通行与 DMV 年检约束构成刚性复购。
+Evidence
+1. Ticket Toro：证实 30 天争议期、60 天升级传票与 DMV 注册锁死机制。
+2. Barton Sobel Law：证实车牌误读是官方全额撤销罚金的法定理由。
+3. Business Insider (2026-03)：证实 ALPR 系统性误读的普遍性。
+Counter Evidence
+1. 车辆确在现场但因 ETC 欠费/标签失效导致违章（仅可减免部分滞纳金）。
+2. 部分车队将罚单直接转嫁给司机工资，老板缺乏付费动力。
+Critical Unknown
+中小工程车队月度违章账单中，通过 GPS 轨迹实际能被证实为"物理不在场误读"的比例与老板直接付费意愿。
+Falsification
+若全美收费局全面强制实施双模态车辆识别（强制绑定车内加密电子标签 + 车型 AI 复核），将误读率降至 0.01% 以下。
+Next Test
+联络 2 家本地水暖或暖通工程车队（15–30 辆车），获取其上月 5–10 张违章单与 Samsara/Geotab 导出日志，免费生成 GPS 不在场申诉包并追踪收费局撤销结果。

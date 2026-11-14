@@ -1,0 +1,93 @@
+<!-- Source Google Doc: https://docs.google.com/document/d/1QA8_JBgfkJmvFsYQ_3ugl4jxWWaowNsMHEexoIxwOFw/edit?usp=drivesdk
+Drive ID: 1QA8_JBgfkJmvFsYQ_3ugl4jxWWaowNsMHEexoIxwOFw
+Modified: 2026-11-13T10:00:20.211Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime Research Record
+* Source Signal IDs: IBF-20261113-QuickBooksDesktop-Sunset-DataLockoutArchive
+* Source Signal References:
+   * Signal ID: IBF-20261113-QuickBooksDesktop-Sunset-DataLockoutArchive
+   * Generated At: 2026-11-13T17:45:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: IBF-20261113-QuickBooksDesktop-Sunset-DataLockoutArchive.md
+   * Source File Modified At: 2026-11-13T17:44:11+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+Intuit 已于 2024 年停售 QuickBooks Desktop (QBDT) Pro/Premier 新订阅，并将在 2027 年按用户订阅到期日彻底关停 Pro/Premier；同时 QBDT 2021 永久版激活服务器已关闭，且 2026 年出现提前切断此前承诺的"停续费后 1 年只读访问权限"的案例，要求退订用户每年支付 $999–$1,200 续费（或升级至 $2,000+/席位/年的 Enterprise）才能重新打开自己的历史账套。
+
+
+此外，Intuit 官方迁移工具在高交易量账户中存在静默丢数问题，且 QuickBooks Desktop for Mac 账套普遍不被 Windows 系转换器支持。现有商业归档软件 FinJinni Professional 单用户买断价高达 $1,499（另加每增加 1 家公司 $200、每增加 1 用户 $200 及 $999–$1,499 支持费），且仍需 Windows 下运行活跃 QuickBooks 客户端，定位于重度企业 BI，缺乏面向迁往 Xero/Zoho/FreshBooks/Puzzle 的小企业主与独立记账师的轻量化"7 年离线审计归档 + 跨系统期初/期末 Tie-Out 自动核对"工具。
+Unknown
+在计划于 2026–2027 年退订并迁出 QBDT 的小微企业中，尚未遭遇只读锁死、仍来得及导出 CSV/IIF 报表但尚未购买 $1,499 归档软件的比例。
+Decision-Critical Unknown
+正在制定 2027 停服前迁出计划的中小企业主与多账套独立记账师（Bookkeepers），对于一款"本地运行、读取 QBDT（含 Windows 与 Mac）导出的 GL/TB/AR/AP/IIF 数据，一键生成永久免授权离线 SQLite + 静态 HTML 审计检索档案，并自动比对 Xero/Zoho/QBO 导出数据出具逐期 Tie-Out 差异报告（单账套 $79–$99 买断，记账师 10 账套包 $299）"的付费转化率。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过
+	QBDT 被动续费"赎金"达 $999–$1,200/年（Enterprise $2,000+/席位/年），现有竞品 FinJinni 买断价 $1,499 起；$79–$99 一次性买断工具对比首年续费或竞品具备 12–15 倍成本优势。
+	Mechanism
+	通过
+	税务合规要求保留 6–7 年可查验账簿，而 Intuit 通过关闭激活服务器和收紧只读期锁死专有 .qbw 格式；在停订前通过标准报表/IIF 导出抽取全量明细，构建本地离线 SQLite + HTML 全文检索档案及跨平台确定性 Tie-Out 对账脚本，完全摆脱 Intuit 客户端依赖，且零云端敏感财务数据托管风险。
+	Persistence
+	通过
+	2026–2027 年为 QBDT 退市集中迁出窗口期，税务档案需保存 6–7 年，离网可查归档与跨系统对账属于刚性需求。
+	Capture
+	通过
+	1–3 人小团队开发纯本地 Python/桌面打包工具，零云端服务器运维压力、零实体库存、零敏感财务数据托管合规包袱，高毛利买断交付。
+	3. Evidence & Counter Evidence
+Supporting Evidence
+1. Reddit r/Accounting 停服讨论（2026-07-01）：会计师确认 QBDT Pro/Premier 将在 2027 年按订阅周年日终止，Enterprise 涨至 $2,000+/席位/年，停续费后数据将被锁死。
+2. Reddit r/QuickBooks 只读锁死投诉（2026-04-24）：24 年老用户反馈 1 年期只读访问被提前切断，客服要求续费 $1,200/年才能恢复读取历史账套。
+3. Reddit r/QuickBooks 迁移丢数实录（2026-08-12）：证实官方迁移工具在高交易量下静默跳过数据，必须按期间、科目与借贷总额做试算平衡 Tie-Out 核对。
+4. FinJinni 官方商店定价：证实 FinJinni Professional 基础买断价为 $1,499.00（每增加 1 公司/1 用户各加 $200，技术支持 $999–$1,499），且要求活跃 QuickBooks 客户端。
+Counter Evidence
+1. 若用户已完全遭遇 .qbw 只读锁死且此前未导出任何 CSV/IIF，纯导出解析工具无法直接解密专有二进制文件（需先临时续费 1 个月或通过第三方读取器）。
+2. 部分小企业主选择直接接受 Intuit 涨价续费或放弃历史明细仅保留零散 PDF 报表。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，2027 退市时间线、$1,200 续费锚点及 $1,499 竞品定价缺口明确。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 迁出 QBDT 的小企业与 Bookkeeper 将在停订前采用百美元级本地离线归档与跨系统 Tie-Out 校验工具。
+* What became less likely: 独立记账师与小微企业主愿意为已停用的 QBDT 历史账套每年支付 $1,200 续费或 $1,499 重型 BI 工具。
+* What did we rule out: 排除了 Intuit 官方 QBO 迁移工具能 100% 无损迁移高交易量历史账套的假设。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-13T17:57:15+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+面向 QuickBooks Desktop 迁出企业的 7 年离线审计归档与跨系统 Tie-Out 核对工具
+Source Signal References
+* Signal ID: IBF-20261113-QuickBooksDesktop-Sunset-DataLockoutArchive
+* Generated At: 2026-11-13T17:45:00+08:00
+* Task Version: installed-base-friction@0.2
+* Source File URL: IBF-20261113-QuickBooksDesktop-Sunset-DataLockoutArchive.md
+* Source File Modified At: 2026-11-13T17:44:11+08:00
+Money
+北美仍在运行 QBDT Pro/Premier/Mac 的数以十万计中小企业及多账套独立记账师，面临 $999–$1,200/年续费"赎金"或 $1,499 FinJinni 门槛。客户愿支付 $79–$99 买断单账套工具，或 $299 购买记账师 10 账套授权包。
+Mechanism
+1. Windows/Mac 通用导出解析：本地读取 QBDT 导出的 General Ledger、Trial Balance、AR/AP 明细及 IIF/CSV 文件，彻底兼容被 Windows 工具忽略的 Mac 版 QBDT。
+2. 零授权离线审计档案：自动打包生成加密本地 SQLite + 免安装静态 HTML 检索界面，支持按科目、往来单位、发票号与金额毫秒级钻取并导出 Excel，永久满足 7 年税务审计要求。
+3. 跨系统确定性 Tie-Out：导入 Xero/Zoho Books/QBO/Puzzle 新系统导出表，自动逐期比对借贷总额与交易 ID，100% 标出官方迁移工具静默丢数导致的试算不平差异行。
+Capture
+1–3 人小团队打包单文件本地桌面应用/Python CLI，纯软件买断交付，零云端数据托管隐私风险、零实体库存。
+Durability
+2026–2027 年 QBDT 退市潮集中爆发，7 年税务法定保存周期确保已归档账簿长期有效且新迁出客户持续涌现。
+Evidence
+1. Reddit r/Accounting (2026-07)：证实 2027 退市与数据锁死。
+2. Reddit r/QuickBooks (2026-04)：证实 $1,200/年续费读取旧数据门槛。
+3. Reddit r/QuickBooks (2026-08)：证实官方迁移丢数与 Tie-Out 刚需。
+4. FinJinni Store：证实商业归档竞品 $1,499 起步高价。
+Counter Evidence
+1. 已被完全锁死且未事先导出任何 CSV/IIF 的 .qbw 账套无法直接离线提取。
+2. 部分用户直接接受涨价续费。
+Critical Unknown
+计划迁出 QBDT 的中小微企业与 Bookkeeper 中，对"本地离线 HTML+SQLite 归档包 + 跨平台 Tie-Out 核对"组合方案（$99）的直接购买转化率。
+Falsification
+若 Intuit 免费向所有已退订的 QBDT 用户永久开放无限制的只读离线查看器与标准 JSON/SQLite 全量导出工具。
+Next Test
+用脱敏 QBDT GL/TB 导出 CSV 与 Xero/QBO 模拟导出数据构建 Python 原型，在 r/QuickBooks 与 r/Accounting 招募 3 位正在迁出的 Bookkeeper 免费试用并验证 Tie-Out 准确率与付费意愿。
