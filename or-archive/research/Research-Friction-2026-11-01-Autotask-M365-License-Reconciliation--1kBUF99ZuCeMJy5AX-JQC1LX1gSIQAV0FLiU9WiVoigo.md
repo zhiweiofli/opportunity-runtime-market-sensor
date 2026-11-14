@@ -1,0 +1,90 @@
+<!-- Google Doc: https://docs.google.com/document/d/1kBUF99ZuCeMJy5AX-JQC1LX1gSIQAV0FLiU9WiVoigo/edit?usp=drivesdk
+Drive ID: 1kBUF99ZuCeMJy5AX-JQC1LX1gSIQAV0FLiU9WiVoigo
+Modified: 2026-11-01T09:49:49.003Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime Research Record
+* Source Signal IDs: Friction-2026-11-01-Autotask-M365-License-Reconciliation
+
+
+* Source Signal References:
+
+
+   * Signal ID: Friction-2026-11-01-Autotask-M365-License-Reconciliation
+   * Generated At: 2026-11-01T09:45:00+08:00
+   * Task Version: friction-sensor@0.2.1
+   * Source File URL: https://drive.google.com/file/d/1Mvg3wUFfn8zY_86rjHJyrHOcupsPpWV4/view?usp=drivesdk
+   * Source File Modified At: 2026-11-01T09:39:10+08:00
+
+
+* Research Level: R1 — Quick Structure
+
+
+* Stage Result: KILL
+
+
+* Unknown Ledger:
+
+
+   * Known: 小型与中型托管服务提供商（MSP）在使用 Autotask PSA 管理客户 Microsoft 365 订阅时，确实存在因用户增减、SKU/NCE 变更未自动同步至 Autotask 合同而导致未计费或多计费的对账摩擦（正如 Proxuma 博客所述）；但深入调研证实：
+      1. 市场上针对“Microsoft 365 许可证与 Autotask PSA 自动化计费对账”早已存在极其成熟、广泛普及的行业标准商业软件（例如 Sync 365 License、Gradient MSP Synthesize、Work 365、Zomentum Connect，以及主流云分销商 Pax8、Sherweb、Ingram Micro 官方内置的直接推送到 Autotask 合同的计费同步层）。
+      2. 这些成熟竞品已深度打通 Microsoft CSP Partner Center API 与 Autotask REST API，提供一键自动差异对比、审批流推送与周期计费平摊规则。
+      3. 商业空间与小团队约束冲突：该赛道属于已被专门性独立软件与分销商平台完全解决的成熟红海领域，缺乏未被满足的结构性技术真空，新进入的 1–3 人小团队在缺乏分销商合作关系与 API 深度绑定的情况下获客难度极高。
+
+
+* Unknown: 无。
+
+
+* Decision-Critical Unknown: 无（已在 R1 确认强反证并终止）。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。MSP 愿意为避免未计费许可证损失和减少对账工时支付软件费用。
+   * Mechanism: 未通过。该摩擦已有成熟的行业标准商业答案（Sync 365, Gradient MSP, Pax8 原生同步），不存在未被覆盖的结构性机制真空。
+   * Persistence: 未评估（R1 阶段终止）。
+   * Capture: 未通过。面对已有成熟深厚集成的竞品及 CSP 分销商原生同步工具，小团队单独构建一个对账工具缺乏差异化切入点，竞争壁垒高。
+
+
+* Final Status: KILL
+
+
+* Evidence:
+
+
+   1. Proxuma 博客分析《Autotask Microsoft 365 License Billing》（2026-10-27）：详细拆解 M365 许可未同步痛点，并在文中直接列举了市场上已有的 Sync 365、Work 365 等成熟解决方案。
+   2. Sync 365 License 官方产品架构《Microsoft CSP Billing Automation for MSPs》：成熟支持将 Microsoft 365、Azure 实际许可数自动与 Autotask、ConnectWise、HaloPSA 合同核对同步。
+   3. Reddit r/msp 自动化计费讨论《Automating billing for small MSP》：社区同行普遍推荐成熟的 Gradient MSP Synthesize 作为直接抓取 M365 许可证并推送到 PSA 的标准方案。
+
+
+* Counter Evidence:
+
+
+   1. 商业竞品成熟完备：Sync 365, Gradient MSP, Pax8 等完全覆盖该需求。
+   2. 源信号本质为厂商营销文：源文章实为商业对账软件厂商的客情教育文章，非市场供给缺失。
+
+
+* Stop Reason: 存在足够强反证可 KILL。该场景属于已有成熟公认行业标准商业软件（Sync 365, Gradient MSP 等）与主流云分销商（Pax8）完全覆盖的领域，不满足小团队切入未解决结构性摩擦的标准。
+
+
+* Resume Condition: 不适用（已 KILL）。
+
+
+* What became more likely: 遇到该对账痛点的 MSP 将直接采购市场上现成的 Sync 365、Gradient MSP 或通过其 M365 分销商（如 Pax8）开启自动同步。
+
+
+* What became less likely: 独立第三方小团队通过单独重造一个 Autotask-M365 对账微工具能获取可持续商业空间。
+
+
+* What did we rule out: 彻底排除了将已有现成成熟 SaaS 解决的单一 PSA-SaaS 许可对账摩擦当作未开垦产品机会的可能。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-01T17:47:41+08:00
+
+
+* Role Spec Status: reviewed

@@ -1,0 +1,90 @@
+<!-- Google Doc: https://docs.google.com/document/d/14PL-WbhBWpW5PaxVelIbpu9JySo-f2jAUJvWcUFa4Hk/edit?usp=drivesdk
+Drive ID: 14PL-WbhBWpW5PaxVelIbpu9JySo-f2jAUJvWcUFa4Hk
+Modified: 2026-10-31T09:19:54.966Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime Research Record
+* Source Signal IDs: Friction-2026-10-31-IdentityProofing-OnboardingDropoff
+
+
+* Source Signal References:
+
+
+   * Signal ID: Friction-2026-10-31-IdentityProofing-OnboardingDropoff
+   * Generated At: 2026-10-31T09:45:00+08:00
+   * Task Version: friction-sensor@0.2.1
+   * Source File URL: https://drive.google.com/file/d/13ErG6ADLzb2aA-fv_pIpVWuRbJjMzTgi/view?usp=drivesdk
+   * Source File Modified At: 2026-10-31T09:38:07+08:00
+
+
+* Research Level: R1 — Quick Structure
+
+
+* Stage Result: KILL
+
+
+* Unknown Ledger:
+
+
+   * Known: 在数字金融与受监管产品的客户开户（Onboarding）流程中，要求申请人进行证件拍照（Document photos）与活体人脸识别（Selfie scans）确实存在 20%–40% 的高流失率（Drop-off）；但深入调研证实：
+      1. 身份核验与入职编排（Identity Verification & KYC/AML Orchestration）属于极度成熟且由数十亿美元独角兽与上市公司深度垄断的企业级市场（包括 Jumio KYX Platform、Persona Dynamic Inquiries & Routing、Onfido/Entrust、Veriff、Trulioo、Sumsub、Socure 等）。
+      2. 这些成熟巨头早已将“动态路由（Method Routing，先尝试 BankID / Open Banking / 电子钱包路线，失败后优雅降级至证件扫描）”与“可复用凭证（Reusable KYC Credentials）”作为原生平台标配功能提供。
+      3. 商业模式与小团队约束严重冲突：身份验证与反洗钱合规高度依赖跨国合规牌照、政府数据库专线特许接入、严格的生物识别安全认证（iBeta PAD Level 1/2 活体防伪认证）及沉重的 SOC 2 Type II 企业级合规审核；1–3 人小团队无法在此类重资质、重法务、长销售周期的企业合规基础设施赛道中建立轻资产闭环。
+
+
+* Unknown: 无。
+
+
+* Decision-Critical Unknown: 无（已在 R1 确认强反证并终止）。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。金融科技与大型平台愿为提高入职转化率支付费用。
+   * Mechanism: 未通过。该摩擦在行业内已有极其成熟的标准商业答案（Jumio、Persona、Veriff 等的动态编排引警），不存在未被覆盖的结构性机制真空。
+   * Persistence: 未评估（R1 阶段终止）。
+   * Capture: 未通过。受监管身份核验属于重合规、重资质、重销售周期领域，且面临头部巨头全包围竞争，严重违背 1–3 人小团队“轻资产、低客服、高毛利”的核心约束。
+
+
+* Final Status: KILL
+
+
+* Evidence:
+
+
+   1. NHIMG 行业分析《Identity check friction is driving onboarding drop-off》（2026-10-27）：详述身份核验流失机制，核心建议即采用已有的方法路由（Method Routing）与可复用凭证。
+   2. Jumio 官方平台架构《End-to-End Identity Orchestration with KYX Platform》：证实主流厂商早已提供端到端自适应动态路由与风控编排。
+   3. Persona 官方动态核验指引《Dynamic Inquiries and Verification Routing》：展示成熟 SaaS 如何根据用户风险等级自动分流核验路径。
+
+
+* Counter Evidence:
+
+
+   1. 巨头解决方案完备：头部厂商已提供完整的动态路由降本增效工具。
+   2. 资质与合规壁垒极高：小团队无法承担生物识别与金融合规重任。
+
+
+* Stop Reason: 存在足够强反证可 KILL。该摩擦属于已有成熟行业标准答案（Persona, Jumio 等）垄断的企业合规基础设施领域，且需要沉重牌照资质与企业级重度销售，完全不符合小团队轻资产偏好。
+
+
+* Resume Condition: 不适用（已 KILL）。
+
+
+* What became more likely: 金融科技企业将直接采购现有头部厂商（如 Persona、Jumio）的动态编排功能解决流失问题。
+
+
+* What became less likely: 独立第三方小团队能在高门槛的身份核验与合规基础设施市场中建立生存空间。
+
+
+* What did we rule out: 彻底排除了将重合规属性的通用身份核验转化率优化当作轻资产小团队软件机会的可能。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-10-31T17:16:31+08:00
+
+
+* Role Spec Status: reviewed
