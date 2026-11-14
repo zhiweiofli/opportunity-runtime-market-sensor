@@ -1,0 +1,90 @@
+<!-- Google Doc: https://docs.google.com/document/d/1Rz1MkIGVjcLuF_Q7cODjzBXizbGxJs4ADDTVgbmKQ2I/edit?usp=drivesdk
+Drive ID: 1Rz1MkIGVjcLuF_Q7cODjzBXizbGxJs4ADDTVgbmKQ2I
+Modified: 2026-11-05T09:41:21.171Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime Research Record
+* Source Signal IDs: Friction-20261105-GoogleFormsPaymentReconciliation
+
+
+* Source Signal References:
+
+
+   * Signal ID: Friction-20261105-GoogleFormsPaymentReconciliation
+   * Generated At: 2026-11-05T09:45:00+08:00
+   * Task Version: friction-sensor@0.2.1
+   * Source File URL: https://drive.google.com/file/d/1gTjACfUTAuaCVRNgAy7N5eBs7qaHyf4e/view?usp=drivesdk
+   * Source File Modified At: 2026-11-05T09:38:54+08:00
+
+
+* Research Level: R1 — Quick Structure
+
+
+* Stage Result: KILL
+
+
+* Unknown Ledger:
+
+
+   * Known: 小型企业、社区俱乐部、PTA 与活动组织者在使用免费的 Google Forms 收集订单或报名时，若仅在提交确认页附带普通 PayPal/Stripe 付款链接，确实存在表单回复与支付账单记录割裂、需要人工在 Google Sheets 中核对“谁填了表但没付钱”的对账工时消耗；但深入调研证实：
+      1. 针对 Google Forms 的自动化支付对账早已存在极其成熟且广泛普及的官方商店插件解决方案（如 Google Workspace Marketplace 排名第一的 Payable Forms 插件及 Neartail 等），能够直接将 Stripe/PayPal 结账流程嵌入表单并在用户付款后实时自动将已付款状态（Paid/Unpaid、金额及交易号）回写至 Google Sheets 对应行，彻底消除了人工对账工时。
+      2. 整个表单市场早已存在数十家原生内置支付网关的平价/免费替代工具（如 Tally.so 免费原生支持 Stripe 结账、Fillout、Jotform、FormNX 等），用户只需切换工具即可获得原生结账体验。
+      3. 商业空间与小团队约束严重冲突：原帖与博客所反映的对账摩擦，本质是用户为追求 $0 软件成本、执意使用未配置插件的原始 Google Forms 并口头粘贴付款链接引发的个别操作习惯问题；针对该场景的第三方插件与替代表单生态已高度成熟饱和，缺乏小团队可持续捕获的结构性市场真空。
+
+
+* Unknown: 无。
+
+
+* Decision-Critical Unknown: 无（已在 R1 确认强反证并终止）。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。活动举办方与小商家愿意为避免未付款逃单和省去人工对账工时支付少许费用。
+   * Mechanism: 未通过。该摩擦已有成熟的行业标准商业答案（Payable Forms 插件已实现表单与表格自动关联，Tally.so/Jotform 原生内置支付），不存在未被覆盖的结构性机制真空。
+   * Persistence: 未评估（R1 阶段终止）。
+   * Capture: 未通过。面对已有成熟免费/极低抽成插件（Payable Forms）及主流表单 SaaS 的竞争壁垒，小团队单独开发 Google 表单对账工具缺乏差异化切入点与护城河。
+
+
+* Final Status: KILL
+
+
+* Evidence:
+
+
+   1. Reddit r/FormNX 讨论帖《What we learned about Google Forms payment integration》（2026-10-22）：指出手动对账工时是真实成本，并直接对比了 Payable Forms 与原生支付表单的成熟替代方案。
+   2. Checkout Page 实操指南《How to accept payments on Google Forms》（2026-11-04）：详细列举了使用 Payable Forms 等插件实现表格自动回写或迁移到专用支付页的成熟工作流。
+   3. Noobpreneur 商业测评《Google Forms Payment Integration Made Simple with Payable》：证实 Payable Forms 插件早已成熟实现自动计算金额、实时在线结算并将支付凭证直接同步至 Google Sheets。
+
+
+* Counter Evidence:
+
+
+   1. 商业插件成熟完备：Payable Forms 等已彻底解决 Google 表单与表格自动对账问题。
+   2. 个人习惯替代商业付费：手动对账仅发生在坚持不装插件且不换原生支付表单的个别极小微用户身上，非市场供给缺失。
+
+
+* Stop Reason: 存在足够强反证可 KILL。该场景属于已有成熟公认行业标准插件（Payable Forms）与海量原生支付表单（Tally.so, Jotform）完全解决的领域，不满足小团队切入未解决结构性摩擦的标准。
+
+
+* Resume Condition: 不适用（已 KILL）。
+
+
+* What became more likely: 遇到该对账痛点的用户将直接安装现成的 Payable Forms 插件或切换到免费的 Tally.so 表单。
+
+
+* What became less likely: 独立第三方小团队通过单独重造一个针对 Google Forms 的对账工具能获得可持续的付费订阅空间。
+
+
+* What did we rule out: 彻底排除了将已有成熟免费插件覆盖的单一表单操作摩擦当作未开垦软件机会的可能。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-05T17:39:45+08:00
+
+
+* Role Spec Status: reviewed

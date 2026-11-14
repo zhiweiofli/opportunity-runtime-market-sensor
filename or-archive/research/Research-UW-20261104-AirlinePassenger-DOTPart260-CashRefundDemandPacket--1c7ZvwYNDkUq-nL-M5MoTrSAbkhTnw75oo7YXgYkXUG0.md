@@ -1,0 +1,145 @@
+<!-- Google Doc: https://docs.google.com/document/d/1c7ZvwYNDkUq-nL-M5MoTrSAbkhTnw75oo7YXgYkXUG0/edit?usp=drivesdk
+Drive ID: 1c7ZvwYNDkUq-nL-M5MoTrSAbkhTnw75oo7YXgYkXUG0
+Modified: 2026-11-04T09:05:09.376Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261104-AirlinePassenger-DOTPart260-CashRefundDemandPacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261104-AirlinePassenger-DOTPart260-CashRefundDemandPacket
+   * Generated At: 2026-11-04T01:15:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/18-hY5ONUHA0penPtiwbkpdKz5HuIPXJGZOyG7bpIh5A/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-04T01:19:11+08:00
+
+
+* Research Level: R2 — Economic Underwriting
+
+
+* Stage Result: HYPOTHESIS_READY
+
+
+* Unknown Ledger:
+
+
+   * Known: 美国交通部 DOT 强制现金退款联邦法案（14 CFR Part 260，§ 260.6）明确规定：凡遭遇航班取消、严重延误（国内超 3 小时、国际超 6 小时）或重大时刻变动的乘客，只要拒绝替代改签，承运航司必须在 7 个工作日内自动原路退还现金，严禁默认以旅行代金券（Vouchers/Credits）替代；然而全美主流航司（American, Delta, United, Frontier 等）在 APP 退改交互中普遍设计暗黑套路，默认诱导点击“接受代金券”，或将退现金入口深埋在 45–60 分钟的人工客服电话排队后；全美航司每年发行的代金券中有超 20% 最终在 12 个月内过期作废，沉淀数十亿美元资金；单张机票退款金额在 $150–$650，乘客面对单笔数百美元退款花 1–2 小时争辩认为“太麻烦不划算”而被迫妥协。
+   * Unknown: 遭遇国内航班延误超 3 小时且拒绝改签的旅客中，航司 APP 默认成功诱导接受代金券并最终逾期作废的精确比例。
+   * Decision-Critical Unknown: 处于航班严重延误或取消后 72 小时黄金维权期内的受挫旅客，对于一款“输入 6 位预订码（PNR），10 秒核验延误超 3 小时法定事实，一键生成引用 14 CFR § 260.6 的法定退款公函与发卡行 Chargeback 拒付争议包（收费 $19 买断或成功到账后收取 10% 分成）”的工具的购买转化率。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。单票涉及 $150–$650 真实美金现金；全美每年因严重延误取消受波及旅客数以千万计，避免代金券过期损失具有极强驱动力。
+   * Mechanism: 通过。联邦法典 14 CFR § 260.6 赋予绝对法定全额退款权；工具通过输入 PNR 或行程单邮件解析，结合航班历史 API 验证实际延误事实，自动对齐 Part 260 法条生成正式书面追偿函，并附带针对信用卡发卡行的《公平信用结账法》（FCBA）拒付证据链，使航司无法以“特价票不退”口头糊弄。
+   * Persistence: 通过。DOT Part 260 属于永久性联邦法规，航司通过暗黑设计保留现金沉淀属于长期博弈惯性。
+   * Capture: 通过。1-3 人小团队开发轻量 Web/移动端工具，纯数据核验与法律公函模板生成，零实体资产、零硬件、高毛利。
+
+
+* Final Status: HYPOTHESIS_READY
+
+
+* Evidence:
+
+
+   1. 美国交通部 DOT 官方公告《What Airline Passengers Need to Know About DOT's Automatic Refund Rule》：确认 14 CFR Part 260 核心条款，7 个工作日内现金退款、延误超 3 小时标准以及禁止未经明示同意发放代金券。
+   2. GST Munshi 2026 航空维权指南《US DOT Automatic Airline Refund Guide》（2026-10-15）：指出航司在实际操作中普遍设置障碍优先塞代金券，乘客需书面引用法条反制。
+   3. Consumer Affairs 航空投诉实录《Frontier Airlines Reviews & Complaints》：真实记录乘客在航班延误后遭航司推脱发放代金券，直到向 DOT 投诉才追回 $543 现金。
+
+
+* Counter Evidence:
+
+
+   1. 旅客自愿接受了改签航班并实际登机出行（退款权利灭失）。
+   2. 纯里程积分兑换的奖励机票（退还受常旅客规则约束）。
+
+
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，法定义务明确，航司暗黑套路与法条反制机制清晰，小团队轻资产切入点极佳。
+
+
+* Resume Condition: 不适用（已完成）。
+
+
+* What became more likely: 旅客将普遍使用自动化法条引用函迫使航司在 7 天内交还现金。
+
+
+* What became less likely: 航司能够继续靠客服电话排队拖延让大部分延误旅客默默接受 1 年易过期代金券。
+
+
+* What did we rule out: 排除了在不可抗力天气原因下航司可以合法拒退现金给放弃出行的旅客的借口（DOT Part 260 适用于所有延误原因）。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-04T17:01:33+08:00
+
+
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向美国航空旅客的 DOT 14 CFR Part 260 航班延误取消强制现金退款索赔与拒付证据包生成器
+* Source Signal IDs: UW-20261104-AirlinePassenger-DOTPart260-CashRefundDemandPacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261104-AirlinePassenger-DOTPart260-CashRefundDemandPacket
+   * Generated At: 2026-11-04T01:15:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/18-hY5ONUHA0penPtiwbkpdKz5HuIPXJGZOyG7bpIh5A/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-04T01:19:11+08:00
+
+
+* Money: 全美每年遭遇航班延误超 3 小时或取消的数千万旅客；单票索回 $150–$650 现金，旅客愿支付 $19 买断法律函或按成功退款金额的 10% 提成。
+
+
+* Mechanism: 针对航司通过 APP 暗黑引导给代金券或让客服电话排队 1 小时的痛点，工具提供：旅客输入 6 位订票码（PNR）或上传订票邮件，系统调用航班运行数据库秒级核验延误超 3 小时事实；一键生成符合美国交通部 14 CFR § 260.6 规范的《强制现金退款法定索赔函》，直发航司退款部门；若航司仍耍赖，同步输出符合美国《公平信用结账法》（FCBA）的信用卡拒付申诉证据链（Chargeback Packet），一击必杀强制银行原路退回现金。
+
+
+* Capture: 1-3 人小团队构建轻量 Web/H5 工具，纯 API 数据调用与法律文书生成，零实体资产、零库存、高毛利。
+
+
+* Durability: 联邦法典 14 CFR Part 260 长期生效，民航延误高频发生，需求长效持续。
+
+
+* Evidence:
+
+
+   1. 美国交通部 DOT 官网：https://www.transportation.gov/briefing-room/what-airline-passengers-need-know-about-dots-automatic-refund-rule 确认 7 天退现规则与 3 小时门槛。
+   2. GST Munshi（2026-10-15）：https://www.gstmunshi.com/us/blog/us-dot-automatic-airline-refund-cancelled-delayed-flights-guide 确认实操维权断层。
+   3. Consumer Affairs 实录：https://www.consumeraffairs.com/travel/frontier.html?page=12 确认旅客受阻案例。
+
+
+* Counter Evidence:
+
+
+   1. 旅客已登机改签航班。
+   2. 纯里程积分免票。
+
+
+* Critical Unknown: 在恶劣天气航班大面积延误的 72 小时窗口期内，触达滞留机场旅客的社交与搜索获客转化效率。
+
+
+* Falsification: 若各大航空公司在手机 APP 内主动取消所有代金券诱导选项，并在航班延误 3 小时瞬间自动将现金退还至原信用卡。
+
+
+* Next Test: 获取 3 份遭遇国内延误超 3 小时但被航司发放代金券的真实票号，运行原型生成 14 CFR Part 260 正式要求函并提交航司，验证 7 个工作日内现金退还到账率。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-04T17:01:33+08:00
+
+
+* Role Spec Status: reviewed

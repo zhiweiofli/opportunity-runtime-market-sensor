@@ -1,0 +1,145 @@
+<!-- Google Doc: https://docs.google.com/document/d/1uXGgdI9UbktKvNuefHkkRZXSlbpGMLmqnQbF43dAmWs/edit?usp=drivesdk
+Drive ID: 1uXGgdI9UbktKvNuefHkkRZXSlbpGMLmqnQbF43dAmWs
+Modified: 2026-11-04T09:03:37.247Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime Research Record
+* Source Signal IDs: IBF-20261103-Salesforce-LegacyAPIRetirement-410GoneAudit
+
+
+* Source Signal References:
+
+
+   * Signal ID: IBF-20261103-Salesforce-LegacyAPIRetirement-410GoneAudit
+   * Generated At: 2026-11-03T17:45:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: https://docs.google.com/document/d/1N0km57Il1dldHG5F58C5Tl4VPLrrYscyHjmRRt417BY/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-03T17:54:53+08:00
+
+
+* Research Level: R2 — Economic Underwriting
+
+
+* Stage Result: HYPOTHESIS_READY
+
+
+* Unknown Ledger:
+
+
+   * Known: Salesforce 官方已正式执行 Platform API 版本 21.0 至 30.0 的完全退役，REST 请求直接返回 410: GONE，SOAP 请求返回 500: UNSUPPORTED_API_VERSION；全球超过 15 万家企业级客户中，大量在 2011–2018 年间搭建的外部 ERP 对账（SAP、Sage）、数据仓库 ETL 及自建 Python/Java 定时同步脚本深度硬编码调用上述退役端点；由于此类接口多在夜间后台运行且 Salesforce 前台不提供直接映射调用源 IP 与代码行的原生视图，退役直接导致订单同步中断、发票未对账等静默失败；外部咨询顾问（Slalom、埃森哲等）人工排查日志与重构报价达 $175–$250/小时（项目均价 $3,500–$25,000）。
+   * Unknown: 遭遇 410 GONE 报错的 Salesforce 企业中，由于历史交接文档缺失而无法定位外部脚本部署宿主机的具体比例。
+   * Decision-Critical Unknown: 正在经历集成断流或收到 Salesforce 警告邮件的系统管理员（Admin），对于一款能够“通过 OAuth 一键接入自动分析过去 30 天 EventLogFile，3 分钟输出《退役 API 调用源拓扑报告》并提供无侵入透明重定向反向代理配置（单次扫描 $99，带代理方案 $199）”的工具的购买转化率。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。核心 CRM 与 ERP 断流直接导致收入对账与发票同步停摆；外部顾问基础审计收费 $3,500+，自动化诊断工具 $149 具备 23 倍高杠杆比。
+   * Mechanism: 通过。Salesforce 平台强制清退不可逆；通过分析系统底层 EventLogFile（RestApi 与 ApiTotalUsage）及 ConnectedAppOAuthUsage，自动匹配客户端 IP、App 名称、URI 与用户标识，并生成轻量反向代理将 /services/data/v29.0 透明路由至兼容高版本，技术路径清晰稳定。
+   * Persistence: 通过。API 21.0–30.0 清退已成定局，且 31.0–40.0 清退正在推进，企业 API 生命周期治理长期存在。
+   * Capture: 通过。1-3 人小团队构建基于 Python/CLI 的一键审计脚本与反向代理中间件模板，纯软件与 API 处理，零实体资产、零库存、高毛利。
+
+
+* Final Status: HYPOTHESIS_READY
+
+
+* Evidence:
+
+
+   1. Salesforce 官方知识库公告《Salesforce Platform API Versions 21.0 through 30.0 Retirement》（文章 ID: 000389618）：官方明确确认调用已退役版本 REST API 返回 410 GONE，SOAP 返回 500 UNSUPPORTED_API_VERSION，并详述通过 EventLogFile 导出 CSV 进行分析的标准排查流程。
+   2. Salesforce 官方指南《Event Monitoring and API Total Usage》（2026-09-30 更新）：确认管理员排查外部调用方必须借助 Event Log Browser 或复杂 SOQL 查询。
+   3. Reddit r/salesforce 社区实录《Benefit to being on most up to date API version》：披露大量企业由于老旧 Linux 定时脚本未维护而在收到 410 报错时陷入混乱。
+
+
+* Counter Evidence:
+
+
+   1. 纯原生运行、没有任何外部 Connected Apps 与私有脚本的简单初级租户。
+   2. 少数拥有顶级自建 DevOps 监控平台的超大型科技企业。
+
+
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，政策确定、痛点刚性且排查日志机制明确，小团队轻资产切入点极佳。
+
+
+* Resume Condition: 不适用（已完成）。
+
+
+* What became more likely: 企业系统管理员将普遍采用基于 EventLogFile 分析的一键式外部调用拓扑排查脚本。
+
+
+* What became less likely: 外部实施商能继续靠人工手动翻看 CSV 文本向客户按天计收昂贵的 API 审计排查工时。
+
+
+* What did we rule out: 排除了在不升级调用端或不部署中间代理的前提下 Salesforce 允许老旧 API 21–30 恢复调用的可能。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-04T17:01:33+08:00
+
+
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向 Salesforce 企业客户的退役 API 410 断流自动嗅探与透明兼容反向代理套件
+* Source Signal IDs: IBF-20261103-Salesforce-LegacyAPIRetirement-410GoneAudit
+
+
+* Source Signal References:
+
+
+   * Signal ID: IBF-20261103-Salesforce-LegacyAPIRetirement-410GoneAudit
+   * Generated At: 2026-11-03T17:45:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: https://docs.google.com/document/d/1N0km57Il1dldHG5F58C5Tl4VPLrrYscyHjmRRt417BY/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-03T17:54:53+08:00
+
+
+* Money: 全球超过 15 万家使用 Salesforce 的企业租户；面对外部实施商动辄 $3,500+ 的排查报价与业务数据停摆损失，企业愿支付 $99（单次扫描自查）或 $199（包含兼容反向代理配置代码）。
+
+
+* Mechanism: 针对 Salesforce 强制注销老 API 导致外部集成收到 410 GONE 但管理员无法从 UI 定位调用源的痛点，工具提供：1）单文件 Python/CLI 脚本通过 OAuth 连接租户 Org，自动拉取过去 30 天的 EventLogFile（RestApi 与 ApiTotalUsage）和 ConnectedAppOAuthUsage，在 3 分钟内输出《低版本 API 调用源拓扑与代码映射清单》（精准列出调用方 IP、App 名称、URI 及调用频次）；2）提供轻量级反向代理部署模板，在老代码来不及重写时，透明拦截 /services/data/v29.0 请求并自动映射到新版本 API 规范，实现业务零停机过渡。
+
+
+* Capture: 1-3 人小团队构建标准化命令行脚本与代理模板，纯软件交付，零实体资产、零硬件、高毛利。
+
+
+* Durability: Salesforce 官方强制清退是长期政策（涵盖未来的 31–40 系列），API 现代化治理是企业 IT 的长期持续需求。
+
+
+* Evidence:
+
+
+   1. Salesforce 官方知识库（000389618）：https://help.salesforce.com/s/articleView?id=000389618&language=en_US&type=1 证实 410 GONE 阻断与 EventLogFile 排查规范。
+   2. Salesforce 监控指南：https://help.salesforce.com/s/articleView?id=005321531&language=no&type=1 确认复杂排查现状。
+   3. Reddit r/salesforce：https://www.reddit.com/r/salesforce/comments/1itmizw/benefit_to_being_on_most_up_to_date_api_version/ 证实企业夜间老脚本断流痛点。
+
+
+* Counter Evidence:
+
+
+   1. 纯开箱即用无任何定制代码的极简租户。
+   2. 少数跨国科技巨头已自建内部网关。
+
+
+* Critical Unknown: 缺乏日志分析权限的普通 Salesforce 管理员向企业申请临时 Event Monitoring 授权的合规流程阻力。
+
+
+* Falsification: 若 Salesforce 官方突然宣布无限期保留所有老版本 API 的全功能转发，且永不报错 410。
+
+
+* Next Test: 在带有老版本 API 调用的开发者 Sandbox Org 中运行原型脚本，验证自动提取 EventLogFile 并生成调用源报告的时效与反向代理转发成功率。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-04T17:01:33+08:00
+
+
+* Role Spec Status: reviewed
