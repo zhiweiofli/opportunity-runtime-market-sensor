@@ -1,0 +1,146 @@
+<!-- Google Doc: https://docs.google.com/document/d/1qLRsuGL4Sql3b46Fyat4d8N8ottVh_rCTInsLdIb9Wg/edit?usp=drivesdk
+Drive ID: 1qLRsuGL4Sql3b46Fyat4d8N8ottVh_rCTInsLdIb9Wg
+Modified: 2026-10-30T09:23:01.146Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261030-AutoTotalLoss-CCCONE-ValuationRebuttalPacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261030-AutoTotalLoss-CCCONE-ValuationRebuttalPacket
+   * Generated At: 2026-10-30T01:30:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/193SYox8vU88j95i9lbuC2vVD2rxzvkBHhoxgzuNMj80/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-30T01:11:52+08:00
+
+
+* Research Level: R2 — Economic Underwriting
+
+
+* Stage Result: HYPOTHESIS_READY
+
+
+* Unknown Ledger:
+
+
+   * Known: 全美每年超 400 万起车辆全损理赔普遍依赖 CCC ONE 与 Mitchell 自动估值软件；报告普遍通过成色默认降级（Average 评级较 Good 扣减 3%–5% 即 $660–$1,100）、低配 Trim 错配、幽灵车源与保司专属折价（State Farm TNA、Progressive PSA）使实际现金价值（ACV）系统性低估 $1,000–$3,500；保单仲裁条款（Appraisal Clause）要求聘请独立持牌评估师（收费 $350–$600 且需分摊公断费），加之 30 天代步车停供压力，导致车主在 $1,000–$2,500 差额下被迫妥协签字。
+   * Unknown: 车主在第一阶段向理赔员提交标准化书面 Rebuttal 函后，保司不进入正式第三方仲裁直接提价和解的全国平均比例。
+   * Decision-Critical Unknown: 处于 7–14 天理赔谈判黄金窗口期的全损车主，对于一款售价 $39 买断（或免费基础版 + 成功多拿赔偿后收取 10% 分成）的“CCC 估值报告漏洞自动筛查与同区域真实高价 Comps 反驳包”的付费转化率。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。单案被低估 $1,000–$3,500，全美数十亿美元流失；$39 工具对比 $400 人工评估师具有极强经济吸引力。
+   * Mechanism: 通过。CCC 报告漏洞（成色无依据打折、低配 Trim、远距离车源）存在确定性规则破绽；多模态解析 PDF 并通过二手车 Listing API 拉取同邮编 50 英里真实在售 Comps，几分钟内一键生成符合州保险厅（DOI）规范的书面抗辩信，将数十工时或数小时高昂咨询费压缩至美分级。
+   * Persistence: 通过。全美车险理赔全损估值体系与 CCC ONE/Mitchell 市场垄断格局长期存在，属于制度性顽疾。
+   * Capture: 通过。1-3 人小团队构建轻量 Web 工具（上传 CCC PDF -> 提取 VIN 与 Comps -> API 比对 -> 导出抗辩信），纯软件交付，零实体资产、零硬件、高毛利。
+
+
+* Final Status: HYPOTHESIS_READY
+
+
+* Evidence:
+
+
+   1. Total Loss Toolkit 行业实务《What Is Actual Cash Value and How Is It Calculated?》（2026-05 发布，2026-10 持续更新）：拆解成色降级扣除机制与真实车况举证规则。
+   2. Total Loss Toolkit 州法解析《Rhode Island Total Loss Law Explained》（2026-10-25）：实证指出成色从 Clean 降至 Average 直接导致车主净损失 $2,700。
+   3. Reddit r/Insurance 理赔实录《Appraisal clause or just accept what's offered》（2026-07）：证实车况扣除 $548、评估师要价 $400 导致车主犹豫，但启动抗辩后保司提价 $2,366。
+   4. SnapClaim 实操指南《How to Fight CCC Valuation Report》（2026-01）：指明必须提供 10 份同区域匹配车源及规范书面 Rebuttal。
+
+
+* Counter Evidence:
+
+
+   1. 车辆本身存在严重事故史（Salvage/重大碰撞）无法抗辩。
+   2. 少数极端强硬理赔员坚持必须走正式 Appraisal Clause 签字。
+
+
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，痛点普遍、经济机制与漏洞翻转逻辑高度成立，小团队切入路径清晰。
+
+
+* Resume Condition: 不适用（已完成）。
+
+
+* What became more likely: 全损车主将加速引入基于多模态 PDF 解析的自动估值审计与 Comps 生成工具。
+
+
+* What became less likely: 车主会继续依赖耗时数周且花费几百美元的线下单点评估师处理小额估值分歧。
+
+
+* What did we rule out: 排除了车主单靠口头电话抱怨能够迫使保司修改 CCC 估值报告的假设。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-10-30T17:20:52+08:00
+
+
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向汽车全损车主的 CCC ONE 估值漏洞审计与真实 Comps 反驳信生成器
+* Source Signal IDs: UW-20261030-AutoTotalLoss-CCCONE-ValuationRebuttalPacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261030-AutoTotalLoss-CCCONE-ValuationRebuttalPacket
+   * Generated At: 2026-10-30T01:30:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/193SYox8vU88j95i9lbuC2vVD2rxzvkBHhoxgzuNMj80/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-30T01:11:52+08:00
+
+
+* Money: 全美每年 400 万起全损车主因保司 CCC ONE 软件压价而损失的数十亿美元合法现金赔偿（单案多收回 $1,000–$2,500）；车主愿支付 $39 买断反驳包或按成功多赔金额的 10% 提成。
+
+
+* Mechanism: 针对车主面对 15–20 页 CCC 报告中成色降级（扣 $500–$800）、低配 Trim 与远距离车源无从下手的痛点，工具通过多模态解析提取报告全部 Comps 与扣减明细，自动调用全网在售二手车 API 匹配本地同款真实车源，自动标出不合规扣减，一键生成符合州保险厅（DOI）规范的书面 Rebuttal 函，让申诉维权在代步车到期前即时完成。
+
+
+* Capture: 1-3 人小团队构建轻量 Web 工具，纯文档解析与 API 数据聚合，零实体资产、零库存、高毛利。
+
+
+* Durability: 车险全损理赔流程全美统一且制度化延续，估值软件压价属于保险精算底层惯性，需求长效存在。
+
+
+* Evidence:
+
+
+   1. Total Loss Toolkit（2026-05）：https://www.totallosstoolkit.com/knowledge-base/what-is-actual-cash-value-how-is-it-calculated 证实成色降级机制。
+   2. Total Loss Toolkit（2026-10-25）：https://www.totallosstoolkit.com/knowledge-base/rhode-island-total-loss-law-explained 证实单案降级损失超 $2,700。
+   3. Reddit r/Insurance（2026-07）：https://www.reddit.com/r/Insurance/comments/1vb517p/appraisal_clause_or_just_accept_whats_offered/ 证实提价 $2,366 与评估师高费用卡点。
+
+
+* Counter Evidence:
+
+
+   1. 车辆严重事故史无法提高估值。
+   2. 强硬保司可能坚持启动正式评估条款。
+
+
+* Critical Unknown: 精准触达处于交通事故后 7–14 天理赔谈判黄金期的全损车主的线上获客渠道与成本（CAC）。
+
+
+* Falsification: 若州监管机构全面立法禁止保险公司在全损理赔中使用 CCC ONE 任何未经验证的成色调整折价。
+
+
+* Next Test: 获取 5 份真实全损理赔的 CCC ONE 估值报告 PDF，运行原型脚本解析并抓取当地 Dealer Comps，生成正式 Rebuttal 包并协助车主提交，测试保司首次书面回复提价幅度。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-10-30T17:20:52+08:00
+
+
+* Role Spec Status: reviewed
