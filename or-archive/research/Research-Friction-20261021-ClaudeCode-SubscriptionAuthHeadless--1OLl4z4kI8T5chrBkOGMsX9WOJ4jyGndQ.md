@@ -1,0 +1,42 @@
+<!-- Google Doc: https://drive.google.com/file/d/1OLl4z4kI8T5chrBkOGMsX9WOJ4jyGndQ/view?usp=drivesdk
+Drive ID: 1OLl4z4kI8T5chrBkOGMsX9WOJ4jyGndQ
+Modified: 2026-10-21T09:28:49.888Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+# Opportunity Runtime Research Record
+
+- **Source Signal IDs**: Friction-20261021-ClaudeCode-SubscriptionAuthHeadless
+- **Source Signal References**:
+  - Signal ID: Friction-20261021-ClaudeCode-SubscriptionAuthHeadless
+  - Generated At: 2026-10-21T09:45:00+08:00
+  - Task Version: friction-sensor@0.2.1
+  - Source File URL: https://drive.google.com/file/d/1Fak1HXRDQR8aAFvBPxmEWGvGhtcfuluc/view?usp=drivesdk
+  - Source File Modified At: 2026-10-21T01:38:27.645Z
+- **Research Level**: R1 — Quick Structure
+- **Stage Result**: KILL
+- **Unknown Ledger**:
+  - Known: 付费 Claude Max/Pro 用户在将账号凭证导出至无头服务器（Headless server）或自托管智能体平台（如 Paperclip）时，面临 OAuth 交互中断、8 小时短寿命 access token 不刷新、setup-token 权限范围被拒等阻碍；Anthropic 官方在服务条款（Terms of Service）与安全政策中明确界定个人订阅 OAuth 仅限交互式桌面/终端个人使用，严禁将个人订阅凭证用于自动化/无头服务；对于后台与机器调用，官方强制要求走计量计费的 ANTHROPIC_API_KEY。
+  - Unknown: 社区自制 token 刷新脚本（如轮询/模拟登录）被 Anthropic 风控系统检测并封号的具体触发时间与召回率。
+  - Decision-Critical Unknown: 无（已在 R1 确认强反证并终止）。
+- **Gate Checks**:
+  - Money: 未通过。用户诉求本质上是利用 $100~$200/月的个人消费级固定套餐额度套利逃避商用 API 的计量费用，本身不愿为该调用支付正常的 API 成本；第三方若针对该漏洞收费，用户支付意愿脆弱且极度不稳定。
+  - Mechanism: 未通过。Anthropic 在底层架构与风控策略上对无头环境刻意设置了验证码（CAPTCHA）、短时效凭证与会话作用域检查。任何第三方“无头长效授权中间件”均属于直接对抗平台安全规则与 ToS 的黑灰产猫鼠游戏，不存在正当、稳定的商业套利机制。
+  - Persistence: 未通过。平台方持续修补 setup-token 绕过逻辑并强化对非交互凭证的主动封禁（近期已发生多起因无头运行 Claude Code 导致 Max 账号被永久封停的案例），技术方案生命周期以天或周计。
+  - Capture: 未通过。开发此类凭证轮转工具面临极高的平台法律诉讼风险与用户封号连带责任，且伴随极其沉重的断连维护客服负担，严重违背 1-3 人小团队“轻资产、低客服、合规安全”的核心准则。
+- **Final Status**: KILL
+- **Evidence**:
+  1. GitHub anthropics/claude-code 官方 Issue #103056（2026-10-17 开，10-20 更新）：https://github.com/anthropics/claude-code/issues/103056 记录了 Max 用户在 CLI/Desktop 与 Linux headless 模式下被 CAPTCHA 拦截且 setup-token 失效的现象。
+  2. GitHub paperclipai/paperclip 官方 Issue #14182 / #16459（2026-09 至 2026-10）：https://github.com/paperclipai/paperclip/issues/14182 详述自托管平台无法自动刷新 8 小时短寿命订阅 token，强制降级或手工干预。
+  3. Claude Code 官方文档与合规说明（2026-10）：https://code.claude.com/docs/en/authentication 明确个人订阅 OAuth 必须通过交互式浏览器会话，无头自动化应使用 API Key。
+- **Counter Evidence**:
+  1. 违背平台服务协议与明确风控政策：用户行为属于消费级包月订阅对高频机器调用的违规套利，Anthropic 主动实施 CAPTCHA 拦截与账号封停。
+  2. 极高封号风险与服务脆弱性：社区反馈已有多个 Max 账号因无头调用被直接封停，无法作为可持续商业服务交付。
+- **Stop Reason**: 存在足够强反证可 KILL。该摩擦本质为用户尝试突破平台服务协议以规避正常商业 API 计费所引发的对抗性防御，不属于合规可产品化的商业真空；且对抗平台风控具有极高法务风险与极重客服负担，完全不符合小团队投资准则。
+- **Resume Condition**: 不适用（已 KILL）。
+- **What became more likely**: Anthropic 将进一步收紧对 Claude Code OAuth 凭证的机器行为检测与自动化调用限制。
+- **What became less likely**: 存在一种长期稳定、合规且不被封禁的将消费级 Max 订阅转为无头 24/7 Agent 调用的商业化第三方中间件。
+- **What did we rule out**: 彻底排除了将“个人 AI 订阅无头凭证绕过与代理”作为小团队正向软件产品机会的可能。
+- **Task Version**: researcher@0.2.2
+- **Generated At**: 2026-10-21T17:26:13+08:00
+- **Role Spec Status**: reviewed
