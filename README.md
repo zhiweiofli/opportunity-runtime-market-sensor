@@ -33,3 +33,13 @@ python3 scripts/market/market_sensor.py --source fixture --demo-abs-pct 5
 先选择本仓库对应的 Cloud environment，然后读取 `AGENTS.md`、`PROJECT_GUIDE.md`、`docs/deployment.md`、Market 原稿与当前验证记录。验收命令即上面的本地测试和 fixture CLI。无需数据库、队列、MCP 或 API Key 才能开发离线管线。
 
 Cloud 执行不应获得 Tushare Secret；真实 API 验证在 GitHub Actions 里进行。正式规则未定时保持演示边界，需求变化按 spec → task/code → version → CHANGELOG。各阶段实际状态见 [验证记录](docs/validation.md)。
+
+
+## Judge · 三日评审与可视化（2026-11-14）
+
+原 Market Sensor 仍保持暂停/演示边界；单独增加 Judge 的只读可视化，不更改 Market 数据或交易权限。
+
+- Judge 定时：每 3 天 Asia/Taipei 19:00，仍回看最近 7 天 Research；每自然周最多主动推进 1 个新机会。
+- [私有 Google Docs 镜像](or-archive/README.md)：`or-archive/research/` 和 `or-archive/judge/`，查看 [manifest](or-archive/manifest.json) 的已同步与待回填数。
+- [Pages 看板源码](site/index.html)：数据来自脱敏的 `site/data/latest.json`。只发布 `site/`，不得发布原始 Research。
+- [Pages 发布工作流](.github/workflows/judge-pages.yml)：Settings → Pages 中启用 GitHub Actions 发布源后确认实际部署。私有仓库不保证 Pages 当前已可用；站点一旦发布可能公开访问。
