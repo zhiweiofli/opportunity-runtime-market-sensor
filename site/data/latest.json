@@ -1,0 +1,107 @@
+{
+  "schema_version": "or-dashboard@0.1",
+  "snapshot_at": "2026-11-14T15:36:00+08:00",
+  "review_at": "2026-11-08T18:57:00+08:00",
+  "review_window": "2026-11-01 → 2026-11-08",
+  "source": "OR Weekly Judge / judge@0.2.2",
+  "cadence": "每 3 天 · 19:00 Asia/Taipei（计划）",
+  "next_review_at": "2026-11-15T19:00:00+08:00",
+  "headline": "本轮不新增立项，先验证真实成本而非堆积假设",
+  "summary": "11 月 8 日的 Judge 选择沿用 Cloudflare AI Search 账单审计作为低成本验证对象；11 月 14 日的人类决策明确本周暂缓，上周执行情况尚未确认。因此当前不应把暂缓误判为 DROP，也不自动启动替代项目。",
+  "decision": {
+    "status": "本周暂缓",
+    "topic": "Cloudflare AI Search 成本验证",
+    "execution": "上周执行情况尚未确认",
+    "recorded_at": "2026-11-14",
+    "note": "后续轮次重新根据证据和时间预算评估；未确认不等于未执行或已执行"
+  },
+  "metrics": {
+    "research_reviewed": 17,
+    "research_label_ready": 16,
+    "research_label_kill": 1,
+    "new_projects_recommended": 0
+  },
+  "opportunities": [
+    {
+      "id": "cf",
+      "rank": 1,
+      "title": "AI 搜索账单优化",
+      "subtitle": "Cloudflare AI Search · 平台收费改变",
+      "category": "New Toll / FinOps",
+      "status": "暂缓",
+      "event": "托管 RAG / Agent 检索从免费过渡为按量计费",
+      "who": "Cloudflare 搜索、知识库与 Agent 团队",
+      "money": "存储、摄入和查询的额外费用可能形成审计预算",
+      "capture": "只读账单审计，优先于新建代理 SaaS",
+      "unknown": "真实可安全节省的月度费用够不够大？",
+      "why": "验证成本低，但已由人类决定本周暂缓"
+    },
+    {
+      "id": "aws",
+      "rank": 2,
+      "title": "旧版数据库的扩展支持费",
+      "subtitle": "AWS RDS MySQL · 老系统持续付费",
+      "category": "Installed-base Friction",
+      "status": "NEXT",
+      "event": "旧版 MySQL 进入扩展支持收费阶段",
+      "who": "仍运行旧版数据库的小型 SaaS 与企业",
+      "money": "支付额外支持费或承担迁移风险",
+      "capture": "只读兼容风险、迁移路径和费用诊断",
+      "unknown": "客户会否为独立诊断报告付费？",
+      "why": "成本可量化，但升级风险与平台原生替代需验证"
+    },
+    {
+      "id": "atlassian",
+      "rank": 3,
+      "title": "服务台迁云后的数据完整性",
+      "subtitle": "Atlassian · 迁移资产关系的校验",
+      "category": "Installed-base Friction",
+      "status": "NEXT",
+      "event": "服务台及资产对象迁云时可能丢失关联或映射",
+      "who": "Jira Service Management 迁移实施商与客户",
+      "money": "迁移后修复和业务中断的返工成本",
+      "capture": "资产关系只读审计与差异报告",
+      "unknown": "实施商是否愿意采购第三方校验？",
+      "why": "强工作流切口，但付费与客户触达未经验证"
+    },
+    {
+      "id": "copilot",
+      "rank": 4,
+      "title": "企业 Agent 的费用失控",
+      "subtitle": "Microsoft Copilot · 按量费用治理",
+      "category": "Agent-era FinOps",
+      "status": "WATCH",
+      "event": "企业 Agent 使用量可能变成难预测的持续账单",
+      "who": "部署 Copilot 和自定义 Agents 的企业",
+      "money": "Agent 调用和运行预算，可能侵蚀团队费用控制",
+      "capture": "预算异常预警与只读费用报表",
+      "unknown": "微软原生治理功能是否已足够？",
+      "why": "结构性值得追踪，缺少真实购买证据"
+    },
+    {
+      "id": "smartthings",
+      "rank": 5,
+      "title": "民宿智能门锁的远程自动化",
+      "subtitle": "SmartThings · 云端 API 变化",
+      "category": "Installed-base Friction",
+      "status": "WATCH",
+      "event": "云端接口与兼容性变化可能影响远程管理",
+      "who": "民宿运营者、楼宇自动化集成者",
+      "money": "运营中断、替换硬件和人工维护成本",
+      "capture": "依赖清单和迁移诊断",
+      "unknown": "替代方案能否可靠且安全地运行？",
+      "why": "高兼容和安全风险，不宜抢占执行资源"
+    }
+  ],
+  "patterns": [
+    {
+      "title": "New Toll → FinOps",
+      "detail": "平台改变计费单位后，技术配置变成现金账单；但真实付费意愿必须独立验证"
+    },
+    {
+      "title": "Installed-base Friction",
+      "detail": "平台退出或升级，而用户仍想保留旧资产；桥接和审计可能有价值，但要检查免费方案与安全合规"
+    }
+  ],
+  "runtime_feedback": "本轮 17 份 Research 中 16 份被标记为 HYPOTHESIS_READY；这是源研究的状态，不代表 16 个经过付款验证的生意。"
+}
