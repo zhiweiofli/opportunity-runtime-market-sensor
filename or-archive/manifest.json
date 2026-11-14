@@ -1,0 +1,680 @@
+{
+  "schema_version": "or-drive-mirror@0.1",
+  "source_folders": {
+    "research": "1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9",
+    "judge": "1-fRzmIOMtYvZDWljCiyBDvTWmwcmPD69"
+  },
+  "inventory_at": "2026-11-14T15:36:00+08:00",
+  "totals": {
+    "research": 78,
+    "judge": 5,
+    "mirrored": 22,
+    "backfill_pending": 61
+  },
+  "entries": [
+    {
+      "doc_id": "170cimHp4EsjsvprmMZ9yCMU8LUBVTyz37RlHC_UsDtY",
+      "title": "Research-IBF-20261113-DynamicsGP-2026StopSell-HistoricalArchiveAndTieOut.md",
+      "drive_url": "https://docs.google.com/document/d/170cimHp4EsjsvprmMZ9yCMU8LUBVTyz37RlHC_UsDtY/edit?usp=drivesdk",
+      "modified_at": "2026-11-13T10:00:58.376Z",
+      "path": "or-archive/research/Research-IBF-20261113-DynamicsGP-2026StopSell-HistoricalArchiveAndTieOut--170cimHp4EsjsvprmMZ9yCMU8LUBVTyz37RlHC_UsDtY.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1QA8_JBgfkJmvFsYQ_3ugl4jxWWaowNsMHEexoIxwOFw",
+      "title": "Research-IBF-20261113-QuickBooksDesktop-Sunset-DataLockoutArchive.md",
+      "drive_url": "https://docs.google.com/document/d/1QA8_JBgfkJmvFsYQ_3ugl4jxWWaowNsMHEexoIxwOFw/edit?usp=drivesdk",
+      "modified_at": "2026-11-13T10:00:20.211Z",
+      "path": "or-archive/research/Research-IBF-20261113-QuickBooksDesktop-Sunset-DataLockoutArchive--1QA8_JBgfkJmvFsYQ_3ugl4jxWWaowNsMHEexoIxwOFw.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1qVwu92YTSLEQ9sQ_I5ppWFLvTr4777RvTitPT6AhG4E",
+      "title": "Research-UW-20261113-CommercialFleet-ALPRTollMisread-AutoDisputePacket.md",
+      "drive_url": "https://docs.google.com/document/d/1qVwu92YTSLEQ9sQ_I5ppWFLvTr4777RvTitPT6AhG4E/edit?usp=drivesdk",
+      "modified_at": "2026-11-13T09:59:40.832Z",
+      "path": "or-archive/research/Research-UW-20261113-CommercialFleet-ALPRTollMisread-AutoDisputePacket--1qVwu92YTSLEQ9sQ_I5ppWFLvTr4777RvTitPT6AhG4E.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1UFCoUntqjsV__k15o1OdJRJloc2pQFmINMrNpn8lMVM",
+      "title": "Research-UW-20261113-RealEstate-ExpiredMechanicsLien-CloudReleaseDemand.md",
+      "drive_url": "https://docs.google.com/document/d/1UFCoUntqjsV__k15o1OdJRJloc2pQFmINMrNpn8lMVM/edit?usp=drivesdk",
+      "modified_at": "2026-11-13T09:59:06.560Z",
+      "path": "or-archive/research/Research-UW-20261113-RealEstate-ExpiredMechanicsLien-CloudReleaseDemand--1UFCoUntqjsV__k15o1OdJRJloc2pQFmINMrNpn8lMVM.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "19_edcm_hD03dA-L5MkHvjBRDvIeURARAHWwiJQBFhTM",
+      "title": "Research-UW-20261113-ASC-ImplantCarveOut-UnderpaymentAudit.md",
+      "drive_url": "https://docs.google.com/document/d/19_edcm_hD03dA-L5MkHvjBRDvIeURARAHWwiJQBFhTM/edit?usp=drivesdk",
+      "modified_at": "2026-11-13T09:58:30.078Z",
+      "path": "or-archive/research/Research-UW-20261113-ASC-ImplantCarveOut-UnderpaymentAudit--19_edcm_hD03dA-L5MkHvjBRDvIeURARAHWwiJQBFhTM.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1CiFVsl5i7hWiQz-1Rv9dNw6ZYrG4Szy69_zHc4odvKg",
+      "title": "Research-Business-20261112-google-gemini-decisions-api-costcurve.md",
+      "drive_url": "https://docs.google.com/document/d/1CiFVsl5i7hWiQz-1Rv9dNw6ZYrG4Szy69_zHc4odvKg/edit?usp=drivesdk",
+      "modified_at": "2026-11-12T10:00:28.519Z",
+      "path": "or-archive/research/Research-Business-20261112-google-gemini-decisions-api-costcurve--1CiFVsl5i7hWiQz-1Rv9dNw6ZYrG4Szy69_zHc4odvKg.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1QvKuITfhK6ZCpGbQpr5vKMwexDDpAxy0MeYB6Js7m4Q",
+      "title": "Research-Friction-20261111-agency-multisass-onboarding.md",
+      "drive_url": "https://docs.google.com/document/d/1QvKuITfhK6ZCpGbQpr5vKMwexDDpAxy0MeYB6Js7m4Q/edit?usp=drivesdk",
+      "modified_at": "2026-11-11T09:07:03.979Z",
+      "path": "or-archive/research/Research-Friction-20261111-agency-multisass-onboarding--1QvKuITfhK6ZCpGbQpr5vKMwexDDpAxy0MeYB6Js7m4Q.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1kR-wcZPenRkIrnhyOpxvI02ll8oVRY2LFVBHqmgRQJM",
+      "title": "Research-UW-20261111-SmallBusiness-ZombieUCC1-TerminationDemandPacket.md",
+      "drive_url": "https://docs.google.com/document/d/1kR-wcZPenRkIrnhyOpxvI02ll8oVRY2LFVBHqmgRQJM/edit?usp=drivesdk",
+      "modified_at": "2026-11-11T09:06:39.586Z",
+      "path": "or-archive/research/Research-UW-20261111-SmallBusiness-ZombieUCC1-TerminationDemandPacket--1kR-wcZPenRkIrnhyOpxvI02ll8oVRY2LFVBHqmgRQJM.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1v2HmsqZ5Lm6xm1CPne6H054b4mu4CCbous2PVrt2Qdg",
+      "title": "Research-UW-20261111-MedicalClinic-P2PAppeal-RescueDossier.md",
+      "drive_url": "https://docs.google.com/document/d/1v2HmsqZ5Lm6xm1CPne6H054b4mu4CCbous2PVrt2Qdg/edit?usp=drivesdk",
+      "modified_at": "2026-11-11T09:06:10.182Z",
+      "path": "or-archive/research/Research-UW-20261111-MedicalClinic-P2PAppeal-RescueDossier--1v2HmsqZ5Lm6xm1CPne6H054b4mu4CCbous2PVrt2Qdg.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1gC0VDrv1ROr_Uwus_lnI-LWz92NDj2-5BuWOFp2BYt4",
+      "title": "Research-UW-20261111-HOAResale-StatutoryFeeCap-OverchargeClawback.md",
+      "drive_url": "https://docs.google.com/document/d/1gC0VDrv1ROr_Uwus_lnI-LWz92NDj2-5BuWOFp2BYt4/edit?usp=drivesdk",
+      "modified_at": "2026-11-11T09:04:42.624Z",
+      "path": "or-archive/research/Research-UW-20261111-HOAResale-StatutoryFeeCap-OverchargeClawback--1gC0VDrv1ROr_Uwus_lnI-LWz92NDj2-5BuWOFp2BYt4.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1Q-cZTmaFKTvPEzqftclB7ezSd60tz2Zizc6HgJnhm2k",
+      "title": "Research-IBF-20261110-DentalSensors-Win11-CoreIsolation-DriverLockout.md",
+      "drive_url": "https://docs.google.com/document/d/1Q-cZTmaFKTvPEzqftclB7ezSd60tz2Zizc6HgJnhm2k/edit?usp=drivesdk",
+      "modified_at": "2026-11-10T09:26:36.602Z",
+      "path": "or-archive/research/Research-IBF-20261110-DentalSensors-Win11-CoreIsolation-DriverLockout--1Q-cZTmaFKTvPEzqftclB7ezSd60tz2Zizc6HgJnhm2k.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1iWn7C1s1mykjrQnaBKJUKEHjihVz39tWpyklteNY-40",
+      "title": "Research-IBF-20261110-Windows11-24H2-SMBSigning-ScanToFolderLockout.md",
+      "drive_url": "https://docs.google.com/document/d/1iWn7C1s1mykjrQnaBKJUKEHjihVz39tWpyklteNY-40/edit?usp=drivesdk",
+      "modified_at": "2026-11-10T09:25:47.401Z",
+      "path": "or-archive/research/Research-IBF-20261110-Windows11-24H2-SMBSigning-ScanToFolderLockout--1iWn7C1s1mykjrQnaBKJUKEHjihVz39tWpyklteNY-40.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1yBek-BdbCbQzdj4ptrPYOS1NFv0OCdXOGxho46OFk7k",
+      "title": "Research-Friction-2026-11-10-SCIM-Manual-Provisioning-Long-Tail.md",
+      "drive_url": "https://docs.google.com/document/d/1yBek-BdbCbQzdj4ptrPYOS1NFv0OCdXOGxho46OFk7k/edit?usp=drivesdk",
+      "modified_at": "2026-11-10T09:24:57.431Z",
+      "path": "or-archive/research/Research-Friction-2026-11-10-SCIM-Manual-Provisioning-Long-Tail--1yBek-BdbCbQzdj4ptrPYOS1NFv0OCdXOGxho46OFk7k.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1d4JD0oYH8i7m-BL4PTWEmLzyQpn94anfK5aArZv9rCA",
+      "title": "Research-Friction-2026-11-09-Stripe-Fulfillment-Webhook-Mismatch.md",
+      "drive_url": "https://docs.google.com/document/d/1d4JD0oYH8i7m-BL4PTWEmLzyQpn94anfK5aArZv9rCA/edit?usp=drivesdk",
+      "modified_at": "2026-11-09T09:24:41.125Z",
+      "path": "or-archive/research/Research-Friction-2026-11-09-Stripe-Fulfillment-Webhook-Mismatch--1d4JD0oYH8i7m-BL4PTWEmLzyQpn94anfK5aArZv9rCA.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "14jGKNjkZLV_oCRBJ7fo0GNWnMixl1WTzHL0kgdZCjxM",
+      "title": "Research-UW-20261109-B2BDistributor-ResaleCertAudit-TaxPenaltyShield.md",
+      "drive_url": "https://docs.google.com/document/d/14jGKNjkZLV_oCRBJ7fo0GNWnMixl1WTzHL0kgdZCjxM/edit?usp=drivesdk",
+      "modified_at": "2026-11-09T09:24:40.050Z",
+      "path": "or-archive/research/Research-UW-20261109-B2BDistributor-ResaleCertAudit-TaxPenaltyShield--14jGKNjkZLV_oCRBJ7fo0GNWnMixl1WTzHL0kgdZCjxM.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "17S8LKL6xb6z5LJRvd_jno1h1zgpIVadTo53v1amsNLg",
+      "title": "Research-UW-20261109-UnclaimedProperty-SmallBalance-HeirClaimPacket.md",
+      "drive_url": "https://docs.google.com/document/d/17S8LKL6xb6z5LJRvd_jno1h1zgpIVadTo53v1amsNLg/edit?usp=drivesdk",
+      "modified_at": "2026-11-09T09:21:38.210Z",
+      "path": "or-archive/research/Research-UW-20261109-UnclaimedProperty-SmallBalance-HeirClaimPacket--17S8LKL6xb6z5LJRvd_jno1h1zgpIVadTo53v1amsNLg.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1ardFJPoIcskIRcRC8WR1csHoeR2qRFAeNeMcmuz1qnI",
+      "title": "Research-UW-20261109-SmallBusiness-EIDLLienSubordination-BankLoanPacket.md",
+      "drive_url": "https://docs.google.com/document/d/1ardFJPoIcskIRcRC8WR1csHoeR2qRFAeNeMcmuz1qnI/edit?usp=drivesdk",
+      "modified_at": "2026-11-09T09:21:37.515Z",
+      "path": "or-archive/research/Research-UW-20261109-SmallBusiness-EIDLLienSubordination-BankLoanPacket--1ardFJPoIcskIRcRC8WR1csHoeR2qRFAeNeMcmuz1qnI.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1rnTawhn-D6qx0m7moYm9XUxzYO0fuDm7ham0TWaxRzE",
+      "title": "Research-IBF-20261106-Atlassian-JCMA-JSM-AssetsRelationalSchemaLoss.md",
+      "drive_url": "https://docs.google.com/document/d/1rnTawhn-D6qx0m7moYm9XUxzYO0fuDm7ham0TWaxRzE/edit?usp=drivesdk",
+      "modified_at": "2026-11-06T09:49:25.591Z",
+      "path": "or-archive/research/Research-IBF-20261106-Atlassian-JCMA-JSM-AssetsRelationalSchemaLoss--1rnTawhn-D6qx0m7moYm9XUxzYO0fuDm7ham0TWaxRzE.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1bvz5g-5cNo-G7i87--SNUSijeUxo8EV-1s9YgTGy9_Y",
+      "title": "Research-IBF-20261106-AWSRDS-MySQL-ExtendedSupport-ZombieTax.md",
+      "drive_url": "https://docs.google.com/document/d/1bvz5g-5cNo-G7i87--SNUSijeUxo8EV-1s9YgTGy9_Y/edit?usp=drivesdk",
+      "modified_at": "2026-11-06T09:49:24.919Z",
+      "path": "or-archive/research/Research-IBF-20261106-AWSRDS-MySQL-ExtendedSupport-ZombieTax--1bvz5g-5cNo-G7i87--SNUSijeUxo8EV-1s9YgTGy9_Y.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1Ct7neNjOMgRa-H6oLnpx9eKSUpDn1LyiMGMLEWxkiXQ",
+      "title": "Research-Business-20261105-microsoft-copilot-ubb-credits-throttling.md",
+      "drive_url": "https://docs.google.com/document/d/1Ct7neNjOMgRa-H6oLnpx9eKSUpDn1LyiMGMLEWxkiXQ/edit?usp=drivesdk",
+      "modified_at": "2026-11-06T09:47:57.673Z",
+      "path": "or-archive/research/Research-Business-20261105-microsoft-copilot-ubb-credits-throttling--1Ct7neNjOMgRa-H6oLnpx9eKSUpDn1LyiMGMLEWxkiXQ.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1M0CNAgx1G7ULJ7ghRtFJ1gIj7bK6gJPcIw8T2CUJ434",
+      "title": "Research-UW-20261106-Subcontractor-72HourExtraWork-PCOFieldDirectivePacket.md",
+      "drive_url": "https://docs.google.com/document/d/1M0CNAgx1G7ULJ7ghRtFJ1gIj7bK6gJPcIw8T2CUJ434/edit?usp=drivesdk",
+      "modified_at": "2026-11-06T09:47:57.264Z",
+      "path": "or-archive/research/Research-UW-20261106-Subcontractor-72HourExtraWork-PCOFieldDirectivePacket--1M0CNAgx1G7ULJ7ghRtFJ1gIj7bK6gJPcIw8T2CUJ434.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1itLijXUHh-UCtzqbwv4tQKlQ-abHi25DMVjDciT3oRQ",
+      "title": "Research-UW-20261106-OceanShipping-FMC541-DemurrageDetentionDisputePacket.md",
+      "drive_url": "https://docs.google.com/document/d/1itLijXUHh-UCtzqbwv4tQKlQ-abHi25DMVjDciT3oRQ/edit?usp=drivesdk",
+      "modified_at": "2026-11-06T09:46:39.190Z",
+      "path": "or-archive/research/Research-UW-20261106-OceanShipping-FMC541-DemurrageDetentionDisputePacket--1itLijXUHh-UCtzqbwv4tQKlQ-abHi25DMVjDciT3oRQ.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1sQBFuNd0Q7x7gN4zfSYsUsflWFQ7445GfsH4y5nhgJU",
+      "title": "Research-UW-20261106-MunicipalWater-LeakAdjustment-SewerAbatementPacket.md",
+      "drive_url": "https://docs.google.com/document/d/1sQBFuNd0Q7x7gN4zfSYsUsflWFQ7445GfsH4y5nhgJU/edit?usp=drivesdk",
+      "modified_at": "2026-11-06T09:46:38.749Z",
+      "path": "or-archive/research/Research-UW-20261106-MunicipalWater-LeakAdjustment-SewerAbatementPacket--1sQBFuNd0Q7x7gN4zfSYsUsflWFQ7445GfsH4y5nhgJU.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1UcNQjbfaa_B4v7NhcPv2a8kllBMveaPC3fGYlx8R3SI",
+      "title": "Research-Business-20261104-smartthings-cloud-api-paid-toll.md",
+      "drive_url": "https://docs.google.com/document/d/1UcNQjbfaa_B4v7NhcPv2a8kllBMveaPC3fGYlx8R3SI/edit?usp=drivesdk",
+      "modified_at": "2026-11-05T09:42:11.841Z",
+      "path": "or-archive/research/Research-Business-20261104-smartthings-cloud-api-paid-toll--1UcNQjbfaa_B4v7NhcPv2a8kllBMveaPC3fGYlx8R3SI.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1Rz1MkIGVjcLuF_Q7cODjzBXizbGxJs4ADDTVgbmKQ2I",
+      "title": "Research-Friction-20261105-GoogleFormsPaymentReconciliation.md",
+      "drive_url": "https://docs.google.com/document/d/1Rz1MkIGVjcLuF_Q7cODjzBXizbGxJs4ADDTVgbmKQ2I/edit?usp=drivesdk",
+      "modified_at": "2026-11-05T09:41:21.171Z",
+      "path": "or-archive/research/Research-Friction-20261105-GoogleFormsPaymentReconciliation--1Rz1MkIGVjcLuF_Q7cODjzBXizbGxJs4ADDTVgbmKQ2I.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "19Ci6sQxFZyYuf6QpuBZGsqiPvtNJkZasReKMjsoOMxY",
+      "title": "Research-UW-20261104-IndependentPharmacy-PBM-MACAppealPacket.md",
+      "drive_url": "https://docs.google.com/document/d/19Ci6sQxFZyYuf6QpuBZGsqiPvtNJkZasReKMjsoOMxY/edit?usp=drivesdk",
+      "modified_at": "2026-11-04T09:06:07.940Z",
+      "path": "or-archive/research/Research-UW-20261104-IndependentPharmacy-PBM-MACAppealPacket--19Ci6sQxFZyYuf6QpuBZGsqiPvtNJkZasReKMjsoOMxY.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1c7ZvwYNDkUq-nL-M5MoTrSAbkhTnw75oo7YXgYkXUG0",
+      "title": "Research-UW-20261104-AirlinePassenger-DOTPart260-CashRefundDemandPacket.md",
+      "drive_url": "https://docs.google.com/document/d/1c7ZvwYNDkUq-nL-M5MoTrSAbkhTnw75oo7YXgYkXUG0/edit?usp=drivesdk",
+      "modified_at": "2026-11-04T09:05:09.376Z",
+      "path": "or-archive/research/Research-UW-20261104-AirlinePassenger-DOTPart260-CashRefundDemandPacket--1c7ZvwYNDkUq-nL-M5MoTrSAbkhTnw75oo7YXgYkXUG0.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "152D1weH3_EhAVm1CEnBOWKEzAjZWO38lGZc5ZRNiQT0",
+      "title": "Research-UW-20261104-SMBImporter-DutyDrawback-UnusedExportPacket.md",
+      "drive_url": "https://docs.google.com/document/d/152D1weH3_EhAVm1CEnBOWKEzAjZWO38lGZc5ZRNiQT0/edit?usp=drivesdk",
+      "modified_at": "2026-11-04T09:05:08.591Z",
+      "path": "or-archive/research/Research-UW-20261104-SMBImporter-DutyDrawback-UnusedExportPacket--152D1weH3_EhAVm1CEnBOWKEzAjZWO38lGZc5ZRNiQT0.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1uXGgdI9UbktKvNuefHkkRZXSlbpGMLmqnQbF43dAmWs",
+      "title": "Research-IBF-20261103-Salesforce-LegacyAPIRetirement-410GoneAudit.md",
+      "drive_url": "https://docs.google.com/document/d/1uXGgdI9UbktKvNuefHkkRZXSlbpGMLmqnQbF43dAmWs/edit?usp=drivesdk",
+      "modified_at": "2026-11-04T09:03:37.247Z",
+      "path": "or-archive/research/Research-IBF-20261103-Salesforce-LegacyAPIRetirement-410GoneAudit--1uXGgdI9UbktKvNuefHkkRZXSlbpGMLmqnQbF43dAmWs.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1BfERSvUN_FZcJmNR_065Soqt_OdyWdW7TnFyFuKLEGY",
+      "title": "Research-IBF-20261103-LabInstruments-LegacySoftwareLockout-VMSpoof.md",
+      "drive_url": "https://docs.google.com/document/d/1BfERSvUN_FZcJmNR_065Soqt_OdyWdW7TnFyFuKLEGY/edit?usp=drivesdk",
+      "modified_at": "2026-11-04T09:03:36.749Z",
+      "path": "or-archive/research/Research-IBF-20261103-LabInstruments-LegacySoftwareLockout-VMSpoof--1BfERSvUN_FZcJmNR_065Soqt_OdyWdW7TnFyFuKLEGY.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "13yK1Fq55-T9XHD1U-LgfZEhL3G4Df0vExkP5KL7WHgQ",
+      "title": "Research-Business-20261101-japan-jct-crossborder-platform-taxation-toll.md",
+      "drive_url": "https://docs.google.com/document/d/13yK1Fq55-T9XHD1U-LgfZEhL3G4Df0vExkP5KL7WHgQ/edit?usp=drivesdk",
+      "modified_at": "2026-11-02T09:21:33.767Z",
+      "path": "or-archive/research/Research-Business-20261101-japan-jct-crossborder-platform-taxation-toll--13yK1Fq55-T9XHD1U-LgfZEhL3G4Df0vExkP5KL7WHgQ.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1yEHHVaWrR1ABC_xE3MiT34dYKBGWtAPnjvzjlv2D63M",
+      "title": "Research-UW-20261102-IndieMusic-MLC-UnmatchedMechanicalRoyaltiesClaimPacket.md",
+      "drive_url": "https://docs.google.com/document/d/1yEHHVaWrR1ABC_xE3MiT34dYKBGWtAPnjvzjlv2D63M/edit?usp=drivesdk",
+      "modified_at": "2026-11-02T09:21:33.641Z",
+      "path": "or-archive/research/Research-UW-20261102-IndieMusic-MLC-UnmatchedMechanicalRoyaltiesClaimPacket--1yEHHVaWrR1ABC_xE3MiT34dYKBGWtAPnjvzjlv2D63M.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "13BW9a63yQUt4Lzo8-L4eQMcgRmVziTMJ1FBd3sOPam0",
+      "title": "Research-UW-20261102-SmallTenant-EstoppelSNDA-DiscrepancyAudit.md",
+      "drive_url": "https://docs.google.com/document/d/13BW9a63yQUt4Lzo8-L4eQMcgRmVziTMJ1FBd3sOPam0/edit?usp=drivesdk",
+      "modified_at": "2026-11-02T09:20:07.370Z",
+      "path": "or-archive/research/Research-UW-20261102-SmallTenant-EstoppelSNDA-DiscrepancyAudit--13BW9a63yQUt4Lzo8-L4eQMcgRmVziTMJ1FBd3sOPam0.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "13zyKMYy-wb21HDNOzks0MMiva71kxjKfK-994vFqZNs",
+      "title": "Research-UW-20261102-SmallBusiness-EquipmentLease-EvergreenAutoRenewalAudit.md",
+      "drive_url": "https://docs.google.com/document/d/13zyKMYy-wb21HDNOzks0MMiva71kxjKfK-994vFqZNs/edit?usp=drivesdk",
+      "modified_at": "2026-11-02T09:20:06.998Z",
+      "path": "or-archive/research/Research-UW-20261102-SmallBusiness-EquipmentLease-EvergreenAutoRenewalAudit--13zyKMYy-wb21HDNOzks0MMiva71kxjKfK-994vFqZNs.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "12LVUrNapy8oTjQMDWTzgvJixgqfChppurkDZw_gaZhg",
+      "title": "Research-Friction-2026-11-01-Web3-Checkout-Gas-Dropoff.md",
+      "drive_url": "https://docs.google.com/document/d/12LVUrNapy8oTjQMDWTzgvJixgqfChppurkDZw_gaZhg/edit?usp=drivesdk",
+      "modified_at": "2026-11-01T09:50:22.399Z",
+      "path": "or-archive/research/Research-Friction-2026-11-01-Web3-Checkout-Gas-Dropoff--12LVUrNapy8oTjQMDWTzgvJixgqfChppurkDZw_gaZhg.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1kBUF99ZuCeMJy5AX-JQC1LX1gSIQAV0FLiU9WiVoigo",
+      "title": "Research-Friction-2026-11-01-Autotask-M365-License-Reconciliation.md",
+      "drive_url": "https://docs.google.com/document/d/1kBUF99ZuCeMJy5AX-JQC1LX1gSIQAV0FLiU9WiVoigo/edit?usp=drivesdk",
+      "modified_at": "2026-11-01T09:49:49.003Z",
+      "path": "or-archive/research/Research-Friction-2026-11-01-Autotask-M365-License-Reconciliation--1kBUF99ZuCeMJy5AX-JQC1LX1gSIQAV0FLiU9WiVoigo.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1nQjhYDQqjBdYPJKlHs9JzboZwDr--R-qpMUZPjYGEho",
+      "title": "Research-Business-20261101-cloudflare-ai-search-metered-toll.md",
+      "drive_url": "https://docs.google.com/document/d/1nQjhYDQqjBdYPJKlHs9JzboZwDr--R-qpMUZPjYGEho/edit?usp=drivesdk",
+      "modified_at": "2026-11-01T09:49:48.680Z",
+      "path": "or-archive/research/Research-Business-20261101-cloudflare-ai-search-metered-toll--1nQjhYDQqjBdYPJKlHs9JzboZwDr--R-qpMUZPjYGEho.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "14PL-WbhBWpW5PaxVelIbpu9JySo-f2jAUJvWcUFa4Hk",
+      "title": "Research-Friction-2026-10-31-IdentityProofing-OnboardingDropoff.md",
+      "drive_url": "https://docs.google.com/document/d/14PL-WbhBWpW5PaxVelIbpu9JySo-f2jAUJvWcUFa4Hk/edit?usp=drivesdk",
+      "modified_at": "2026-10-31T09:19:54.966Z",
+      "path": "or-archive/research/Research-Friction-2026-10-31-IdentityProofing-OnboardingDropoff--14PL-WbhBWpW5PaxVelIbpu9JySo-f2jAUJvWcUFa4Hk.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1ebs5-u9TO7sj6aXrBmclkTUQZfT_un1O09xMMT51c1E",
+      "title": "Research-Business-20261030-visa-installment-credential-plt-expansion.md",
+      "drive_url": "https://docs.google.com/document/d/1ebs5-u9TO7sj6aXrBmclkTUQZfT_un1O09xMMT51c1E/edit?usp=drivesdk",
+      "modified_at": "2026-10-31T09:19:54.052Z",
+      "path": "or-archive/research/Research-Business-20261030-visa-installment-credential-plt-expansion--1ebs5-u9TO7sj6aXrBmclkTUQZfT_un1O09xMMT51c1E.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1FxkAAgxfWb-8fJjaHpnH_sJ_WONuaikhbBQGNQhI_fw",
+      "title": "Research-IBF-20261030-WooCommerce-PHP82-LegacyGatewayCheckoutFailure.md",
+      "drive_url": "https://docs.google.com/document/d/1FxkAAgxfWb-8fJjaHpnH_sJ_WONuaikhbBQGNQhI_fw/edit?usp=drivesdk",
+      "modified_at": "2026-10-31T09:18:54.104Z",
+      "path": "or-archive/research/Research-IBF-20261030-WooCommerce-PHP82-LegacyGatewayCheckoutFailure--1FxkAAgxfWb-8fJjaHpnH_sJ_WONuaikhbBQGNQhI_fw.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1be9rhDj8mRxSJ4tYbwH1iU96iVyErWUWSdhFKCg4uLI",
+      "title": "Research-IBF-20261030-NiagaraAX-JACE6-JavaAppletLockout.md",
+      "drive_url": "https://docs.google.com/document/d/1be9rhDj8mRxSJ4tYbwH1iU96iVyErWUWSdhFKCg4uLI/edit?usp=drivesdk",
+      "modified_at": "2026-10-31T09:18:54.073Z",
+      "path": "or-archive/research/Research-IBF-20261030-NiagaraAX-JACE6-JavaAppletLockout--1be9rhDj8mRxSJ4tYbwH1iU96iVyErWUWSdhFKCg4uLI.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1HE3lkIv4LicJ3oBY7RXPtQPrAylxAtvul1fqz2JhHkU",
+      "title": "Research-Business-20261029-googleplay-agentic-purchases-billing-toll.md",
+      "drive_url": "https://docs.google.com/document/d/1HE3lkIv4LicJ3oBY7RXPtQPrAylxAtvul1fqz2JhHkU/edit?usp=drivesdk",
+      "modified_at": "2026-10-30T09:24:16.638Z",
+      "path": "or-archive/research/Research-Business-20261029-googleplay-agentic-purchases-billing-toll--1HE3lkIv4LicJ3oBY7RXPtQPrAylxAtvul1fqz2JhHkU.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1Fl1kroSodk9Mt0vUowi132I9LDYY4akUIwTI2EMMtwo",
+      "title": "Research-UW-20261030-PropertyTax-SmallCommercial-AssessmentAppealPacket.md",
+      "drive_url": "https://docs.google.com/document/d/1Fl1kroSodk9Mt0vUowi132I9LDYY4akUIwTI2EMMtwo/edit?usp=drivesdk",
+      "modified_at": "2026-10-30T09:24:16.200Z",
+      "path": "or-archive/research/Research-UW-20261030-PropertyTax-SmallCommercial-AssessmentAppealPacket--1Fl1kroSodk9Mt0vUowi132I9LDYY4akUIwTI2EMMtwo.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1gahGU1kHKNw0uExOHEA6ous_3071nzm8CPlvf5r7k7g",
+      "title": "Research-UW-20261030-Subcontractor-20DayPrelimNotice-LienRightsPacket.md",
+      "drive_url": "https://docs.google.com/document/d/1gahGU1kHKNw0uExOHEA6ous_3071nzm8CPlvf5r7k7g/edit?usp=drivesdk",
+      "modified_at": "2026-10-30T09:23:02.048Z",
+      "path": "or-archive/research/Research-UW-20261030-Subcontractor-20DayPrelimNotice-LienRightsPacket--1gahGU1kHKNw0uExOHEA6ous_3071nzm8CPlvf5r7k7g.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1qLRsuGL4Sql3b46Fyat4d8N8ottVh_rCTInsLdIb9Wg",
+      "title": "Research-UW-20261030-AutoTotalLoss-CCCONE-ValuationRebuttalPacket.md",
+      "drive_url": "https://docs.google.com/document/d/1qLRsuGL4Sql3b46Fyat4d8N8ottVh_rCTInsLdIb9Wg/edit?usp=drivesdk",
+      "modified_at": "2026-10-30T09:23:01.146Z",
+      "path": "or-archive/research/Research-UW-20261030-AutoTotalLoss-CCCONE-ValuationRebuttalPacket--1qLRsuGL4Sql3b46Fyat4d8N8ottVh_rCTInsLdIb9Wg.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1ALdHlHJSzCMFa1SUJhE5CS4OmASO8BOmlciTb3BsDLc",
+      "title": "Research-Business-20261028-github-enterprise-copilot-dollar-entitlement.md",
+      "drive_url": "https://docs.google.com/document/d/1ALdHlHJSzCMFa1SUJhE5CS4OmASO8BOmlciTb3BsDLc/edit?usp=drivesdk",
+      "modified_at": "2026-10-29T09:32:39.499Z",
+      "path": "or-archive/research/Research-Business-20261028-github-enterprise-copilot-dollar-entitlement--1ALdHlHJSzCMFa1SUJhE5CS4OmASO8BOmlciTb3BsDLc.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1Vu7fyi02vq7jQFOpKzBwppTb3lgGQGEzuZjZVsgrn2Y",
+      "title": "Research-Friction-2026-10-29-MSP-Autotask-Manual-Contracts-Onboarding.md",
+      "drive_url": "https://docs.google.com/document/d/1Vu7fyi02vq7jQFOpKzBwppTb3lgGQGEzuZjZVsgrn2Y/edit?usp=drivesdk",
+      "modified_at": "2026-10-29T09:32:38.906Z",
+      "path": "or-archive/research/Research-Friction-2026-10-29-MSP-Autotask-Manual-Contracts-Onboarding--1Vu7fyi02vq7jQFOpKzBwppTb3lgGQGEzuZjZVsgrn2Y.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1Lk0Y_5oFT5BouOkjtaJ1wc7JOcUYv60HlEPPvAitFW4",
+      "title": "Research-Business-20261025-aws-shield-waf-antiddos-migration-toll.md",
+      "drive_url": "https://docs.google.com/document/d/1Lk0Y_5oFT5BouOkjtaJ1wc7JOcUYv60HlEPPvAitFW4/edit?usp=drivesdk",
+      "modified_at": "2026-10-28T09:56:42.878Z",
+      "path": "or-archive/research/Research-Business-20261025-aws-shield-waf-antiddos-migration-toll--1Lk0Y_5oFT5BouOkjtaJ1wc7JOcUYv60HlEPPvAitFW4.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1rRIgbR6GJEmL6MN4m0EPkv9F93K-wghDo59SyKDCVtI",
+      "title": "Research-UW-20261028-AmazonFBA-60DayWindow-MicroReimbursementAudit.md",
+      "drive_url": "https://docs.google.com/document/d/1rRIgbR6GJEmL6MN4m0EPkv9F93K-wghDo59SyKDCVtI/edit?usp=drivesdk",
+      "modified_at": "2026-10-28T09:54:08.693Z",
+      "path": "or-archive/research/Research-UW-20261028-AmazonFBA-60DayWindow-MicroReimbursementAudit--1rRIgbR6GJEmL6MN4m0EPkv9F93K-wghDo59SyKDCVtI.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1yzZ2GaMwnLgiKDHp2UK1NF-OBKM3yFc2-CqC_d0e-uI",
+      "title": "Research-UW-20261028-DentalClinic-Sub50Denial-BatchReconsideration.md",
+      "drive_url": "https://docs.google.com/document/d/1yzZ2GaMwnLgiKDHp2UK1NF-OBKM3yFc2-CqC_d0e-uI/edit?usp=drivesdk",
+      "modified_at": "2026-10-28T09:53:23.513Z",
+      "path": "or-archive/research/Research-UW-20261028-DentalClinic-Sub50Denial-BatchReconsideration--1yzZ2GaMwnLgiKDHp2UK1NF-OBKM3yFc2-CqC_d0e-uI.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1Zyt7oOWc7Y-h6QDwBckP3mcuILJHCIv7gjTMRCeUOus",
+      "title": "Research-IBF-20261027-LegacyCNC-RS232-WirelessDNCBridge.md",
+      "drive_url": "https://docs.google.com/document/d/1Zyt7oOWc7Y-h6QDwBckP3mcuILJHCIv7gjTMRCeUOus/edit?usp=drivesdk",
+      "modified_at": "2026-10-27T09:43:30.105Z",
+      "path": "or-archive/research/Research-IBF-20261027-LegacyCNC-RS232-WirelessDNCBridge--1Zyt7oOWc7Y-h6QDwBckP3mcuILJHCIv7gjTMRCeUOus.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1OSRkFTC7PHl42YVbsBD3WASlCF0gba_5vZhujHifMWI",
+      "title": "Research-IBF-20261027-Shopify-AdditionalScripts-CustomPixelMigration.md",
+      "drive_url": "https://docs.google.com/document/d/1OSRkFTC7PHl42YVbsBD3WASlCF0gba_5vZhujHifMWI/edit?usp=drivesdk",
+      "modified_at": "2026-10-27T09:42:52.299Z",
+      "path": "or-archive/research/Research-IBF-20261027-Shopify-AdditionalScripts-CustomPixelMigration--1OSRkFTC7PHl42YVbsBD3WASlCF0gba_5vZhujHifMWI.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1wMvc8rsLTx5_ZO-soy7j4Hsu34SO89X2flbWEicZBb0",
+      "title": "Research-Friction-20261027-payment-recovery.md",
+      "drive_url": "https://docs.google.com/document/d/1wMvc8rsLTx5_ZO-soy7j4Hsu34SO89X2flbWEicZBb0/edit?usp=drivesdk",
+      "modified_at": "2026-10-27T09:42:05.276Z",
+      "path": "or-archive/research/Research-Friction-20261027-payment-recovery--1wMvc8rsLTx5_ZO-soy7j4Hsu34SO89X2flbWEicZBb0.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1fEilcJDO9YgO9eCRFTddyj6r_THnMwfHYN22MgQAhAM",
+      "title": "Research-Business-20261022-openai-decisions-api-costcurve.md",
+      "drive_url": "https://docs.google.com/document/d/1fEilcJDO9YgO9eCRFTddyj6r_THnMwfHYN22MgQAhAM/edit?usp=drivesdk",
+      "modified_at": "2026-10-27T09:41:32.988Z",
+      "path": "or-archive/research/Research-Business-20261022-openai-decisions-api-costcurve--1fEilcJDO9YgO9eCRFTddyj6r_THnMwfHYN22MgQAhAM.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1mFsHW8eJZo4hoVsADeYeeRcUReIQWzHDyOaZaeHCQwo",
+      "title": "Research-UW-20261026-SmallRetail-SB1103-CAMOverchargeAuditPacket.md",
+      "drive_url": "https://docs.google.com/document/d/1mFsHW8eJZo4hoVsADeYeeRcUReIQWzHDyOaZaeHCQwo/edit?usp=drivesdk",
+      "modified_at": "2026-10-27T09:40:52.274Z",
+      "path": "or-archive/research/Research-UW-20261026-SmallRetail-SB1103-CAMOverchargeAuditPacket--1mFsHW8eJZo4hoVsADeYeeRcUReIQWzHDyOaZaeHCQwo.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1fWi8asm-iC0ttHPjQJYW0sxk3tDOF-1mS1zoNvli0ek",
+      "title": "Research-Friction-20261026-SaaS-Scaling-Manual-Billing-Prorations-Usage.md",
+      "drive_url": "https://docs.google.com/document/d/1fWi8asm-iC0ttHPjQJYW0sxk3tDOF-1mS1zoNvli0ek/edit?usp=drivesdk",
+      "modified_at": "2026-10-26T09:58:47.263Z",
+      "path": "or-archive/research/Research-Friction-20261026-SaaS-Scaling-Manual-Billing-Prorations-Usage--1fWi8asm-iC0ttHPjQJYW0sxk3tDOF-1mS1zoNvli0ek.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "17B10lWN183UzbZVf4jRovnfszQgD8HmGp4imtf2ermQ",
+      "title": "Research-Business-20261020-eu-customs-handling-fee-pid-toll.md",
+      "drive_url": "https://docs.google.com/document/d/17B10lWN183UzbZVf4jRovnfszQgD8HmGp4imtf2ermQ/edit?usp=drivesdk",
+      "modified_at": "2026-10-26T09:58:14.665Z",
+      "path": "or-archive/research/Research-Business-20261020-eu-customs-handling-fee-pid-toll--17B10lWN183UzbZVf4jRovnfszQgD8HmGp4imtf2ermQ.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1yIoTNzzAN1zEAmmOcyUfS65VRB-d9x5_bywxOwGKvJM",
+      "title": "Research-Friction-20261025-failed-payment-recovery.md",
+      "drive_url": "https://docs.google.com/document/d/1yIoTNzzAN1zEAmmOcyUfS65VRB-d9x5_bywxOwGKvJM/edit?usp=drivesdk",
+      "modified_at": "2026-10-25T10:00:24.695Z",
+      "path": "or-archive/research/Research-Friction-20261025-failed-payment-recovery--1yIoTNzzAN1zEAmmOcyUfS65VRB-d9x5_bywxOwGKvJM.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1C1wt-p6W6R0TGsHUxUKvcH89qZb-4fgEXuY1QyGjlRY",
+      "title": "Research-Business-20261023-visa-b2b-embedded-payment-toll.md",
+      "drive_url": "https://docs.google.com/document/d/1C1wt-p6W6R0TGsHUxUKvcH89qZb-4fgEXuY1QyGjlRY/edit?usp=drivesdk",
+      "modified_at": "2026-10-25T09:59:57.832Z",
+      "path": "or-archive/research/Research-Business-20261023-visa-b2b-embedded-payment-toll--1C1wt-p6W6R0TGsHUxUKvcH89qZb-4fgEXuY1QyGjlRY.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1xe9Dely-3oCEo77LDtI1cYBiSYRpdeYa5E1dwrqKcsU",
+      "title": "Research-Friction-20261024-n8n-CredentialHandoverSetup.md",
+      "drive_url": "https://docs.google.com/document/d/1xe9Dely-3oCEo77LDtI1cYBiSYRpdeYa5E1dwrqKcsU/edit?usp=drivesdk",
+      "modified_at": "2026-10-24T09:28:05.793Z",
+      "path": "or-archive/research/Research-Friction-20261024-n8n-CredentialHandoverSetup--1xe9Dely-3oCEo77LDtI1cYBiSYRpdeYa5E1dwrqKcsU.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1Iyr9Xf1iAs-hFXT4kmSG147DPKSWFV411PyqEHwRjtM",
+      "title": "Research-Business-20261021-salesforce-headless-agent-api-toll.md",
+      "drive_url": "https://docs.google.com/document/d/1Iyr9Xf1iAs-hFXT4kmSG147DPKSWFV411PyqEHwRjtM/edit?usp=drivesdk",
+      "modified_at": "2026-10-24T09:27:28.926Z",
+      "path": "or-archive/research/Research-Business-20261021-salesforce-headless-agent-api-toll--1Iyr9Xf1iAs-hFXT4kmSG147DPKSWFV411PyqEHwRjtM.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1SzWQ-9zWnxxKguSt_0vqNsgtr-M-mGN83J4vkWtXO1M",
+      "title": "Research-IBF-20261023-BrotherPrinter-CloudDiscontinuation-Error03.md",
+      "drive_url": "https://docs.google.com/document/d/1SzWQ-9zWnxxKguSt_0vqNsgtr-M-mGN83J4vkWtXO1M/edit?usp=drivesdk",
+      "modified_at": "2026-10-24T09:26:47.229Z",
+      "path": "or-archive/research/Research-IBF-20261023-BrotherPrinter-CloudDiscontinuation-Error03--1SzWQ-9zWnxxKguSt_0vqNsgtr-M-mGN83J4vkWtXO1M.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1OEvVq74UqZT5nTSaDxEYisgjGsdT5yFxUSvlwtV0INY",
+      "title": "Research-IBF-20261023-M365-ExchangeOnline-EWSRetirement.md",
+      "drive_url": "https://docs.google.com/document/d/1OEvVq74UqZT5nTSaDxEYisgjGsdT5yFxUSvlwtV0INY/edit?usp=drivesdk",
+      "modified_at": "2026-10-24T09:26:15.982Z",
+      "path": "or-archive/research/Research-IBF-20261023-M365-ExchangeOnline-EWSRetirement--1OEvVq74UqZT5nTSaDxEYisgjGsdT5yFxUSvlwtV0INY.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1cUL67T7WCY51mVK2Evhlnwd2JCT7IoEkH7f8zOzF-1c",
+      "title": "Research-Friction-20261023-Frontline-Authentication-Friction.md",
+      "drive_url": "https://docs.google.com/document/d/1cUL67T7WCY51mVK2Evhlnwd2JCT7IoEkH7f8zOzF-1c/edit?usp=drivesdk",
+      "modified_at": "2026-10-23T09:08:49.274Z",
+      "path": "or-archive/research/Research-Friction-20261023-Frontline-Authentication-Friction--1cUL67T7WCY51mVK2Evhlnwd2JCT7IoEkH7f8zOzF-1c.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1vjpDQO3PSi7HK_-TRMOGwDE_PmN9oBBIrWrBq4Jjhbw",
+      "title": "Research-Friction-20261023-SaaS-Failed-Payment-Recovery.md",
+      "drive_url": "https://docs.google.com/document/d/1vjpDQO3PSi7HK_-TRMOGwDE_PmN9oBBIrWrBq4Jjhbw/edit?usp=drivesdk",
+      "modified_at": "2026-10-23T09:08:10.057Z",
+      "path": "or-archive/research/Research-Friction-20261023-SaaS-Failed-Payment-Recovery--1vjpDQO3PSi7HK_-TRMOGwDE_PmN9oBBIrWrBq4Jjhbw.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1EqqkcnBsddx-9C7rDUAh0GkcUG3L6eh1VI5m_AtuXy8",
+      "title": "Research-Business-20261023-vercel-deployment-storage-toll.md",
+      "drive_url": "https://docs.google.com/document/d/1EqqkcnBsddx-9C7rDUAh0GkcUG3L6eh1VI5m_AtuXy8/edit?usp=drivesdk",
+      "modified_at": "2026-10-23T09:07:39.054Z",
+      "path": "or-archive/research/Research-Business-20261023-vercel-deployment-storage-toll--1EqqkcnBsddx-9C7rDUAh0GkcUG3L6eh1VI5m_AtuXy8.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1WT39k_Qwp-5FuU0_YwlKshQD1Vsd4JbiWCl2I5puwWU",
+      "title": "Research-IBF-20261022-QuickBooksDesktop-DiscontinuedBankFeeds-IIF.md",
+      "drive_url": "https://docs.google.com/document/d/1WT39k_Qwp-5FuU0_YwlKshQD1Vsd4JbiWCl2I5puwWU/edit?usp=drivesdk",
+      "modified_at": "2026-10-23T09:06:46.657Z",
+      "path": "or-archive/research/Research-IBF-20261022-QuickBooksDesktop-DiscontinuedBankFeeds-IIF--1WT39k_Qwp-5FuU0_YwlKshQD1Vsd4JbiWCl2I5puwWU.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1HwxZTGX8G3HyzXBHKfev4UD017pCJFHA",
+      "title": "Research-Friction-20261022-ShopifySubscriptionPaymentMigration.md",
+      "drive_url": "https://drive.google.com/file/d/1HwxZTGX8G3HyzXBHKfev4UD017pCJFHA/view?usp=drivesdk",
+      "modified_at": "2026-10-22T09:46:05.981Z",
+      "path": "or-archive/research/Research-Friction-20261022-ShopifySubscriptionPaymentMigration--1HwxZTGX8G3HyzXBHKfev4UD017pCJFHA.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1T8LisOUz7LCPnrSAEsHSWPXXzSib-w-E",
+      "title": "Research-Friction-20261022-SubscriptionFailedPaymentRecovery.md",
+      "drive_url": "https://drive.google.com/file/d/1T8LisOUz7LCPnrSAEsHSWPXXzSib-w-E/view?usp=drivesdk",
+      "modified_at": "2026-10-22T09:45:26.620Z",
+      "path": "or-archive/research/Research-Friction-20261022-SubscriptionFailedPaymentRecovery--1T8LisOUz7LCPnrSAEsHSWPXXzSib-w-E.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1TsMwGwBhoCqlofXPbVbr0FUxToKRZLpJ",
+      "title": "Research-Business-20261017-deepseek-flash1017-costcurve-searchtoll.md",
+      "drive_url": "https://drive.google.com/file/d/1TsMwGwBhoCqlofXPbVbr0FUxToKRZLpJ/view?usp=drivesdk",
+      "modified_at": "2026-10-22T09:44:47.238Z",
+      "path": "or-archive/research/Research-Business-20261017-deepseek-flash1017-costcurve-searchtoll--1TsMwGwBhoCqlofXPbVbr0FUxToKRZLpJ.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1OLl4z4kI8T5chrBkOGMsX9WOJ4jyGndQ",
+      "title": "Research-Friction-20261021-ClaudeCode-SubscriptionAuthHeadless.md",
+      "drive_url": "https://drive.google.com/file/d/1OLl4z4kI8T5chrBkOGMsX9WOJ4jyGndQ/view?usp=drivesdk",
+      "modified_at": "2026-10-21T09:28:49.888Z",
+      "path": "or-archive/research/Research-Friction-20261021-ClaudeCode-SubscriptionAuthHeadless--1OLl4z4kI8T5chrBkOGMsX9WOJ4jyGndQ.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1QHut2gobvY6E2tHBMDVJqtxmj6KVLgiq",
+      "title": "Research-Business-20261014-hubspot-flexible-seats-credits-toll.md",
+      "drive_url": "https://drive.google.com/file/d/1QHut2gobvY6E2tHBMDVJqtxmj6KVLgiq/view?usp=drivesdk",
+      "modified_at": "2026-10-21T09:28:15.753Z",
+      "path": "or-archive/research/Research-Business-20261014-hubspot-flexible-seats-credits-toll--1QHut2gobvY6E2tHBMDVJqtxmj6KVLgiq.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "12z4r2MP7Lvo1W_6PptV1Ueqa8FlmBf1A",
+      "title": "Research-Friction-20261020-StripeQuickBooks-ManualRecon.md",
+      "drive_url": "https://drive.google.com/file/d/12z4r2MP7Lvo1W_6PptV1Ueqa8FlmBf1A/view?usp=drivesdk",
+      "modified_at": "2026-10-20T09:55:40.975Z",
+      "path": "or-archive/research/Research-Friction-20261020-StripeQuickBooks-ManualRecon--12z4r2MP7Lvo1W_6PptV1Ueqa8FlmBf1A.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "16TJcVWwOlpDgP6NlpPZzcAteGeGwArsw",
+      "title": "Research-Business-20261015-github-agentic-autofix-metered-toll.md",
+      "drive_url": "https://drive.google.com/file/d/16TJcVWwOlpDgP6NlpPZzcAteGeGwArsw/view?usp=drivesdk",
+      "modified_at": "2026-10-20T09:55:02.470Z",
+      "path": "or-archive/research/Research-Business-20261015-github-agentic-autofix-metered-toll--16TJcVWwOlpDgP6NlpPZzcAteGeGwArsw.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1maji_ecFSf8ANVy2POpW9gIDaGSqVArP",
+      "title": "Research-Friction-20261014-B2B-QuoteToCash-ManualCollections.md",
+      "drive_url": "https://drive.google.com/file/d/1maji_ecFSf8ANVy2POpW9gIDaGSqVArP/view?usp=drivesdk",
+      "modified_at": "2026-10-20T09:54:10.830Z",
+      "path": "or-archive/research/Research-Friction-20261014-B2B-QuoteToCash-ManualCollections--1maji_ecFSf8ANVy2POpW9gIDaGSqVArP.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1ai0C7kyU0oNExatOAv6yQg8wcUJx8hKw",
+      "title": "Research-Business-20261001-whatsapp-service-message-toll.md",
+      "drive_url": "https://drive.google.com/file/d/1ai0C7kyU0oNExatOAv6yQg8wcUJx8hKw/view?usp=drivesdk",
+      "modified_at": "2026-10-20T09:53:28.996Z",
+      "path": "or-archive/research/Research-Business-20261001-whatsapp-service-message-toll--1ai0C7kyU0oNExatOAv6yQg8wcUJx8hKw.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "11F420ngseJd4Gjf2n773utoQPv5x2Of-",
+      "title": "Research-Business-20261014-autodesk-aps-passthrough-billing.md",
+      "drive_url": "https://drive.google.com/file/d/11F420ngseJd4Gjf2n773utoQPv5x2Of-/view?usp=drivesdk",
+      "modified_at": "2026-10-20T09:52:31.337Z",
+      "path": "or-archive/research/Research-Business-20261014-autodesk-aps-passthrough-billing--11F420ngseJd4Gjf2n773utoQPv5x2Of-.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1W9v_p2EWvFzkvZTbPv6eBb_s9-tgSKR3",
+      "title": "Research-Business-20261014-autodesk-aps-passthrough-billing.md",
+      "drive_url": "https://drive.google.com/file/d/1W9v_p2EWvFzkvZTbPv6eBb_s9-tgSKR3/view?usp=drivesdk",
+      "modified_at": "2026-10-20T09:52:20.772Z",
+      "path": "or-archive/research/Research-Business-20261014-autodesk-aps-passthrough-billing--1W9v_p2EWvFzkvZTbPv6eBb_s9-tgSKR3.md",
+      "sync_status": "backfill_pending"
+    },
+    {
+      "doc_id": "1hszVWvg_VwgMUbP9xY73gULa1Rp0-jngzj64IHL27OA",
+      "title": "2026-11-08-1857-judge",
+      "drive_url": "https://docs.google.com/document/d/1hszVWvg_VwgMUbP9xY73gULa1Rp0-jngzj64IHL27OA/edit?usp=drivesdk",
+      "modified_at": "2026-11-08T10:57:52.730Z",
+      "path": "or-archive/judge/2026-11-08-1857-judge--1hszVWvg_VwgMUbP9xY73gULa1Rp0-jngzj64IHL27OA.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1dThfQ_emyVqsALYHJxEV0iWy01tuPx21lADZjydEZ4k",
+      "title": "2026-11-01-1900-judge",
+      "drive_url": "https://docs.google.com/document/d/1dThfQ_emyVqsALYHJxEV0iWy01tuPx21lADZjydEZ4k/edit?usp=drivesdk",
+      "modified_at": "2026-11-01T11:05:18.537Z",
+      "path": "or-archive/judge/2026-11-01-1900-judge--1dThfQ_emyVqsALYHJxEV0iWy01tuPx21lADZjydEZ4k.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1lGiUevmLKIn7aikDdfsgP6uYYPHnptxokg39AMAfEW8",
+      "title": "2026-10-26-0947-judge",
+      "drive_url": "https://docs.google.com/document/d/1lGiUevmLKIn7aikDdfsgP6uYYPHnptxokg39AMAfEW8/edit?usp=drivesdk",
+      "modified_at": "2026-10-26T03:25:37.379Z",
+      "path": "or-archive/judge/2026-10-26-0947-judge--1lGiUevmLKIn7aikDdfsgP6uYYPHnptxokg39AMAfEW8.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "193gkEL484arrpFnS86BsUVu4P_PrgSciKdZLA0wMyRY",
+      "title": "2026-10-25-judge",
+      "drive_url": "https://docs.google.com/document/d/193gkEL484arrpFnS86BsUVu4P_PrgSciKdZLA0wMyRY/edit?usp=drivesdk",
+      "modified_at": "2026-10-25T10:57:13.062Z",
+      "path": "or-archive/judge/2026-10-25-judge--193gkEL484arrpFnS86BsUVu4P_PrgSciKdZLA0wMyRY.md",
+      "sync_status": "mirrored"
+    },
+    {
+      "doc_id": "1OFGn0q_a_bSTnUJMnn2nYNEDWWv6QFfOO9agayFNiJQ",
+      "title": "2026-10-22-judge",
+      "drive_url": "https://docs.google.com/document/d/1OFGn0q_a_bSTnUJMnn2nYNEDWWv6QFfOO9agayFNiJQ/edit?usp=drivesdk",
+      "modified_at": "2026-10-21T16:07:36.427Z",
+      "path": "or-archive/judge/2026-10-22-judge--1OFGn0q_a_bSTnUJMnn2nYNEDWWv6QFfOO9agayFNiJQ.md",
+      "sync_status": "mirrored"
+    }
+  ]
+}
