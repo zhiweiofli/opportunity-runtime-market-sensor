@@ -1,0 +1,71 @@
+<!-- Google Doc: https://docs.google.com/document/d/1C1wt-p6W6R0TGsHUxUKvcH89qZb-4fgEXuY1QyGjlRY/edit?usp=drivesdk
+Drive ID: 1C1wt-p6W6R0TGsHUxUKvcH89qZb-4fgEXuY1QyGjlRY
+Modified: 2026-10-25T09:59:57.832Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime Research Record
+* Source Signal IDs: Business-20261023-visa-b2b-embedded-payment-toll
+* Source Signal References:
+   * Signal ID: Business-20261023-visa-b2b-embedded-payment-toll
+   * Generated At: 2026-10-25T09:00:36+08:00
+   * Task Version: business-sensor@0.2.1
+   * Source File URL: https://docs.google.com/document/d/10FPHetLnMjtWcmGk6uOnco4vPMxvlnItfBWemzN5LR4/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-25T09:03:16+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Unknown Ledger:
+   * Known: Visa 于 2026-10-23 正式执行全美收单费率更新，新增“收单嵌入式支付附加费”（0.10% / 10 bps），专门针对通过 ERP、会计及供应链软件动态生成的 Visa Commercial Solutions (VCS) 虚拟卡交易收取；此前该场景无专项网络抽成；全美主要收单机构（Xplor Pay、Wind River、CELER）在 Interchange-Plus 模式下将该规费 100% 转嫁给开具发票的 B2B 商户；年交易额 $50M 的分销商每年直接新增 $50,000 渠道规费净支出。
+   * Unknown: 供应链买方在使用虚拟卡享受发卡行 1.5%~2.0% 现金返现与 30-60 天免息账期时，对卖方在结算页提出的 0.15%~0.25% ACH/FedNow 早付折扣的实际接受度转化率。
+   * Decision-Critical Unknown: 拥有千万美元级 B2B 虚拟卡收款流水的中大型批发与制造企业财务总监（CFO），对于能够自动识别收单账单模糊加成并一键生成索赔函的“收单月结账单 OCR 审计 SaaS（如 $199/月）”或“发票端虚拟卡动态合规分流网关”的采购意愿。
+* Gate Checks:
+   * Money: 通过。全球 B2B 供应链万亿美元级结算资金池，10 bps 规费直接从企业货款中硬扣除，数万美元年增成本驱动强烈的降本预算。
+   * Mechanism: 通过。双重套利机制：1) New Toll Booth：卡组织在 ERP 嵌入式金融通道设卡；2) Payment Routing & Surcharge Arbitrage：相较于刷卡 2.5%+ 综合手续费及新增 10 bps，ACH/FedNow 单笔成本仅需几美分。通过在发票支付门户智能识别买方卡类型并动态推荐替代渠道，或自动合规拆分技术服务费，实现直接降本。
+   * Persistence: 通过。Visa 官方秋季正式网络规费文件落地，属于清算底层长效制度性费率，不可逆。
+   * Capture: 通过。1-3 人小团队可构建针对 NetSuite、QuickBooks 或 Xero 的发票支付插件，或轻量级 B2B 收单账单审计工具，纯软件 API，零重资产、零实体库存、高毛利。
+* Final Status: HYPOTHESIS_READY
+* Evidence:
+   1. Xplor Pay 官方收单通告《October 2026 Association Updates》（2026-10-09 发布，2026-10-23 生效）：证实 10 bps 嵌入式支付规费生效并适用于 VCS 虚拟卡交易。
+   2. MannyPay 支付深度指南《Visa Acquirer Embedded Payment Charge: Oct. 2026 Guide》（2026-10-20）：解析收单行 100% 穿透至商户的结算逻辑。
+   3. CELER Merchants 合规指引《Visa Embedded Payments Acquirer Charge》（2026-10-13）：明确 ERP 虚拟账户为主要受冲击主体。
+* Counter Evidence:
+   1. 买方偏好阻力：买方企业采购部门因享受银行高额返现（1.5%-2%）可能强行要求继续刷虚拟卡，卖方若直接拒收可能影响大单成交，需采用合规技术费或柔性折扣分流。
+   2. 收单行打包固定费率：少数小商户采用单一费率（Flat-rate），收单行暂未立即提价，但中大型 B2B 客户普遍为 Cost-plus 模式，100% 受影响。
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，政策确定、金额庞大、商业套利与切入路径明确。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: B2B 供应商将在电子发票支付链接中普遍加入针对商业虚拟卡的差异化支付路由与合规附加费。
+* What became less likely: 银行卡组织会撤销针对 ERP 嵌入式支付的规费加征。
+* What did we rule out: 排除了 10 bps 规费会被收单行内部消化而不转嫁给商户的可能性。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-10-25T17:58:04+08:00
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向 B2B 供应链的 ERP 虚拟卡规费分流网关与收单账单审计 SaaS
+* Source Signal IDs: Business-20261023-visa-b2b-embedded-payment-toll
+* Source Signal References:
+   * Signal ID: Business-20261023-visa-b2b-embedded-payment-toll
+   * Generated At: 2026-10-25T09:00:36+08:00
+   * Task Version: business-sensor@0.2.1
+   * Source File URL: https://docs.google.com/document/d/10FPHetLnMjtWcmGk6uOnco4vPMxvlnItfBWemzN5LR4/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-25T09:03:16+08:00
+* Money: B2B 批发商与制造企业每年向收单行支付的数十万美元刷卡网络费（仅 10 bps 单项在千万级流水下即达数万美元）；企业愿支付节省手续费的 15%~25% 或按月支付 $199 软件费。
+* Mechanism: 针对 Visa 新增的 0.10% 嵌入式虚拟卡通道附加费，网关挂载在企业 ERP（NetSuite / QuickBooks）发票结账页：当识别出买方输入卡号属于 VCS 虚拟卡时，动态弹出提示建议买方改用 ACH / FedNow 并立减 0.20%，或合规拆分征收技术处理附加费；同时提供月结账单 OCR 解析器，自动核对收单行扣费代码，识别不合理加价并生成争议追偿报告。
+* Capture: 1-3 人小团队构建轻量级支付插件与账单分析工具，与 Stripe / Authorize.net 标准网关兼容，零重资产、零金融牌照风险。
+* Durability: 银行卡网络对嵌入式软件端抽税具备不可逆垄断性，企业对抗高额结算成本属于刚性需求。
+* Evidence:
+   1. Xplor Pay 官方更新（2026-10-09）：https://xplorpay.com/insights/interchange/ 载明 2026-10-23 生效 0.10% VCS 虚拟卡规费。
+   2. MannyPay 行业报告（2026-10-20）：https://www.mannypay.io/beyond-the-swipe/industry-news/visa-s-new-embedded-payment-charge-october-2026-fee-changes/ 确认穿透机制。
+   3. CELER Merchants 指南（2026-10-13）：https://celermerchants.com/blog/visa-embedded-payments-acquirer-charge/ 详解 ERP 嵌入式发票影响。
+* Counter Evidence:
+   1. 买方坚持使用虚拟卡以赚取银行返点积分。
+   2. 部分州法律对信用卡附加费（Surcharging）有严格的公示与上限限制。
+* Critical Unknown: 中大型 B2B 批发商在面对买方强行刷虚拟卡时，采取“早付现金折扣分流”相较于“直接拒收或收附加费”的客户留存率差异。
+* Falsification: 若 Visa 在后续季度取消该专项规费，或万事达卡（Mastercard）推出零规费虚拟卡竞品导致大批商户迁移。
+* Next Test: 为 2 家年虚拟卡流水超 $1,000 万的建材/工业品分销商分析其 2026 年 10 月收单对账单，测算 10 bps 新增损失，并提供一页式 ACH 分流落地页原型测试买家切换率。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-10-25T17:58:04+08:00
+* Role Spec Status: reviewed
