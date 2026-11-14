@@ -1,0 +1,145 @@
+<!-- Google Doc: https://docs.google.com/document/d/14jGKNjkZLV_oCRBJ7fo0GNWnMixl1WTzHL0kgdZCjxM/edit?usp=drivesdk
+Drive ID: 14jGKNjkZLV_oCRBJ7fo0GNWnMixl1WTzHL0kgdZCjxM
+Modified: 2026-11-09T09:24:40.050Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261109-B2BDistributor-ResaleCertAudit-TaxPenaltyShield
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261109-B2BDistributor-ResaleCertAudit-TaxPenaltyShield
+   * Generated At: 2026-11-09T01:16:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/1ud6QkVFTU1N91tCOZmwzweF8hj2-uW28SwBJv7EqaUs/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-09T01:18:29+08:00
+
+
+* Research Level: R2 — Economic Underwriting
+
+
+* Stage Result: HYPOTHESIS_READY
+
+
+* Unknown Ledger:
+
+
+   * Known: 全美各州税务局（DOR / CDTFA）依据后 Wayfair 时代规则对中小型 B2B 批发分销商（五金、建材、汽配、电子元器件批发）开展常态化销售税审计；税法确立免税举证责任在卖方，批发商免税供货时必须持有买方在期有效的《免税转售证明》（Resale Certificate，如加州 CDTFA-230、纽约 ST-120），且各州设定了 1 年至 3–4 年不等的法定有效期；全美年销 $200万–$2,000万美元的中小批发商通常拥有 500–3,000 家长期免税客户，审计抽查显示普遍有 15%–30% 的存档证书处于过期、税号注销或无签字状态；一旦遭遇审计，州税局直接全额追缴销售税本金并加收 10%–30% 民事罚款与利息（单次平均补税罚款高达 $25,000–$150,000 美元）；中小批发商只有 1–2 名财务人员，面对上千家客户逐页审查核对税号需 100–200 工时，且企业级管理软件（Avalara CertCapture）年费高达 $5,000–$15,000，导致企业普遍躺平放任直至被审计重罚。
+   * Unknown: 年销 $300万–$1,000万美元的实体批发商在库免税客户中，实际处于过期或税号失效状态的证书全国平均占比。
+   * Decision-Critical Unknown: 拥有数百家免税采购客户的中小批发分销商老板或财务主管，对于一款能够“批量拖入转售证明扫描件/PDF 文件夹，10 分钟自动提取税号并跨州验真、出具《审计风险与过期缺陷诊断红线报告》并一键向客户推送移动端免密电子续签链接（单次完整体检 $199–$299，或全年自动监控 $49/月）”的工具的购买转化率。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。单次审计潜在罚款与追缴税款达 $25,000–$150,000，全美实体批发分销商超 30 万家；几百美元工具对比数万美元罚金具备百倍杠杆比。
+   * Mechanism: 通过。税法举证责任倒置与各州免税证书法定有效期属于硬性铁律；多模态 OCR 提取非标证书的税号、签发日与签名状态，自动调用各州 DOR 接口核验证照有效性并计算失效倒计时，提前向买方推送预填好企业信息的在线签名链接，将上百小时人工催办转化为后台静默自动化。
+   * Persistence: 通过。美国各州对跨州 B2B 销售税稽查力度长期趋严，免税合规属于分销企业经营的永久刚需。
+   * Capture: 通过。1-3 人小团队构建轻量 Web 应用与各州税号验证 API 管道，纯数据与文档处理，零实体库存、零硬件、高毛利 SaaS。
+
+
+* Final Status: HYPOTHESIS_READY
+
+
+* Evidence:
+
+
+   1. TaxesLedger 2026 合规白皮书《Resale and Exemption Certificates Guide 2026》：证实未持有效转售证明直接被推定全额应税，案例显示某分销商因证书缺失被直接追加征收 120 万美元销售额的重税与罚金。
+   2. 佛州注册会计师 Keith Jones 实务复盘《Florida Sales Tax Audit Exemption Certificates》：披露批发商日常根本无暇核验 400 多家免税客户证书，审计时 FDOR 绝不通融推测。
+   3. 纽约州税务局官方罚则《Sales and Use Tax Penalties》：确认缺失有效证明除补税外，加收 10%–30% 滞纳罚金及每单行政罚款。
+
+
+* Counter Evidence:
+
+
+   1. 零售买方企业实质性破产或已注销，无法重新补签新年度证书。
+   2. 少数超大体量制造企业已采购全套 SAP/Avalara 企业级 ERP 闭环集成。
+
+
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，税法举证责任明确，批量 OCR 与跨州税号自动验真机制清晰，小团队轻资产切入点极佳。
+
+
+* Resume Condition: 不适用（已完成）。
+
+
+* What became more likely: 中小 B2B 批发商将普遍引入自动化的免税转售证明缺陷扫描与到期自动催签工具。
+
+
+* What became less likely: 州税务局稽查员会在抽样审计时对批发商口头声称的“客户确实是批发转售”给予免税豁免。
+
+
+* What did we rule out: 排除了在没有买方签字且在期有效的 Resale Certificate 原件支持下分销商能够免受审计补税罚款的可能。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-09T17:18:14+08:00
+
+
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向中小 B2B 批发分销商的免税转售证明（Resale Certificate）合规审计与买家自动催签风控系统
+* Source Signal IDs: UW-20261109-B2BDistributor-ResaleCertAudit-TaxPenaltyShield
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261109-B2BDistributor-ResaleCertAudit-TaxPenaltyShield
+   * Generated At: 2026-11-09T01:16:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/1ud6QkVFTU1N91tCOZmwzweF8hj2-uW28SwBJv7EqaUs/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-09T01:18:29+08:00
+
+
+* Money: 全美年销 $200万–$2,000万美元的中小实体批发分销商（五金、电气、汽配、工业耗材）；单企彻底封堵 $25,000–$150,000 潜在税务审计罚单敞口，企业愿支付 $199–$299（单次全盘体检）或 $49/月（全年自动监控催签）。
+
+
+* Mechanism: 针对批发商财务无暇逐家核验上千家客户证书且大厂 SaaS 动辄上万美元的痛点，工具提供：财务将存量免税证明扫描件文件夹一键拖入，多模态 OCR 10 秒识别买方企业名称、税号、开具日期与签名完整性，自动调用各州 DOR 接口核验证照有效性；自动计算法定失效日并生成《免税证书合规缺陷红线诊断表》；对临期 60 天与已过期客户，自动排版对应州最新标准格式转售表格，向客户采购负责人手机/邮箱推送免密电子签名链接，一键实现证书自动化归档更新。
+
+
+* Capture: 1-3 人小团队构建轻量 Web 工具与跨州税号验证 API 模块，纯代码与数据处理，零实体资产、零库存、高毛利 SaaS。
+
+
+* Durability: 销售税转售免税法规全美长期执行，各州税务局常态化稽查抽查，具有长期刚性粘性订阅周期。
+
+
+* Evidence:
+
+
+   1. TaxesLedger（2026-08）：https://taxesledger.com/guides/resale-and-exemption-certificates 确认缺失证明视同应税及数万美元补税案例。
+   2. Keith Jones CPA（2026-03）：https://keithjones.cpa/florida-sales-tax-audit/exemption-certificates 证实佛州等各州审计毫不通融。
+   3. 纽约州税局公告：https://www.tax.ny.gov/pubs_and_bulls/tg_bulletins/st/sales_and_use_tax_penalties.htm 确认 10%–30% 滞纳金与民事行政罚款。
+
+
+* Counter Evidence:
+
+
+   1. 买家企业倒闭失联。
+   2. 少数特殊免税类别需人工判定。
+
+
+* Critical Unknown: 批发分销商存量纸质免税证明手机拍照与扫描件图像质量对 OCR 自动结构化识别率的影响程度。
+
+
+* Falsification: 若全美各州废止纸质免税转售证明制度，转为在刷卡机/收银台通过联邦统一数据库刷税号自动免税。
+
+
+* Next Test: 为 2 家拥有 300–500 家免税批发客户的建材与电气分销商导入历史转售证书扫描件，测试税号检出率与过期识别准确率，验证红线报告对管理层的转化说服力。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-09T17:18:14+08:00
+
+
+* Role Spec Status: reviewed

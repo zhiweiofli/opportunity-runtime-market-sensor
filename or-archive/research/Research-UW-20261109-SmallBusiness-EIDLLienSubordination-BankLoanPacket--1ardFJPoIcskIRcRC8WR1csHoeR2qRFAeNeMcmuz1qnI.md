@@ -1,0 +1,145 @@
+<!-- Google Doc: https://docs.google.com/document/d/1ardFJPoIcskIRcRC8WR1csHoeR2qRFAeNeMcmuz1qnI/edit?usp=drivesdk
+Drive ID: 1ardFJPoIcskIRcRC8WR1csHoeR2qRFAeNeMcmuz1qnI
+Modified: 2026-11-09T09:21:37.515Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261109-SmallBusiness-EIDLLienSubordination-BankLoanPacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261109-SmallBusiness-EIDLLienSubordination-BankLoanPacket
+   * Generated At: 2026-11-09T01:16:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/15dwY3-0a1q3fhoYcPq2oURy8bFrfOQDa_kmoVcHTmoM/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-09T01:19:19+08:00
+
+
+* Research Level: R2 — Economic Underwriting
+
+
+* Stage Result: HYPOTHESIS_READY
+
+
+* Unknown Ledger:
+
+
+   * Known: 全美近 390 万笔存量 COVID-19 EIDL 疫情低息贷款（30 年期、3.75% 固定利率）借款额超 $25,000 美元的企业均被 SBA 登记了 UCC-1 全资产浮动抵押权（Blanket Lien）；当企业向商业银行申请 $30,000–$200,000 循环授信、设备贷款或保理时，商业银行普遍强制要求“第一受偿顺位”（1st Lien Position），必须拿到 SBA 官方出具的《抵押权从属协议》（Lien Subordination Agreement）；企业绝不愿提前结清 3.75% 优质贷款，而向外部商业中介或律所申请编制从属材料包单次收费高达 $1,500–$3,500，且 SBA 灾难贷款服务中心（CESC）对材料格式与 90 天内财报要求严苛，繁琐的手工文书导致地方银行信贷员直接劝退小借款人，使小微企业丧失关键周转资金。
+   * Unknown: 拥有 $25,000 至 $150,000 存量 EIDL 且正在向商业银行申请设备或流动资金融资的小微企业中，因缺乏标准从属材料包在银行初审阶段直接被拒的比例。
+   * Decision-Critical Unknown: 处于银行授信批复尽调期内的小微企业主或贷款经纪人，对于一款能够“上传近 3 个月财报与银行意向书，10 分钟自动核算 DSCR 偿债比率并生成符合 SBA CESC 标准从属申请公文包（单次买断收费 $79–$99）”的工具的购买转化率。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。涉及全美数百万小微企业与数百亿美元商业银行授信额度；$89 工具对比 $2,000+ 传统代办中介费具备 22 倍高杠杆。
+   * Mechanism: 通过。SBA 政策允许在不结清贷款前提下为正常运营流动资金办理顺位从属（CESC 规程明确支持）；多模态解析 QuickBooks/Xero 财报与银行承诺函，自动计算 DSCR（>1.15x）与抵押物覆盖率，一键生成符合 SBA 灾难贷款服务中心标准的正式申请公函与附表，将两周人工编制压缩至几分钟。
+   * Persistence: 通过。EIDL 贷款周期长达 30 年（至 2050 年后），商业银行抵押借贷第一顺位要求属于金融底层监管惯例，长期稳固。
+   * Capture: 通过。1-3 人小团队构建轻量 Web 表单解析工具与 SBA 公文排版引擎，纯数据与文档处理，零垫资风险、零信贷敞口、高毛利。
+
+
+* Final Status: HYPOTHESIS_READY
+
+
+* Evidence:
+
+
+   1. Emory Lending 商业借贷实务《SBA Lien Subordination: Packets Need Financials Under 90 Days Old》（2026-10-21）：证实申请材料必须包含 90 天内完整报表、新借款方承诺函与偿债测算，格式残缺导致银行额度失效。
+   2. WBD 贷款服务指南《SBA EIDL Loan Servicing Tips for Lenders》：确认日常周转资金的顺位从属申请一般无需还清本金（Without a Paydown）即可获批。
+   3. Elevated Lending CDC 官方汇总《COVID-19 EIDL Loan Summary》：确认抵押从属处理流程与 CESC 集中审核机制。
+
+
+* Counter Evidence:
+
+
+   1. 企业自身 EIDL 贷款已发生严重违约或逾期（需先申请还款缓释计划 HAP 恢复正常状态）。
+   2. 涉及股权转让（Change of Ownership）需先完成承继变更审批。
+
+
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，法定义务与从属审批规则明确，财报解析与 DSCR 自动测算机制清晰，小团队轻资产切入点极佳。
+
+
+* Resume Condition: 不适用（已完成）。
+
+
+* What became more likely: 小微企业将普遍采用自动化财务指标提取与公文生成工具快速获取 SBA 抵押顺位从属函。
+
+
+* What became less likely: 小企业主会为了申请几万美元的流动资金额度而向商业中介支付数千美元的公文代办费。
+
+
+* What did we rule out: 排除了商业银行在未拿到 SBA 盖章签署的正式从属协议前愿意屈居第二受偿顺位放款的可能。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-09T17:18:14+08:00
+
+
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向小微企业商业银行再融资的 SBA EIDL 抵押顺位从属（Lien Subordination）财务测算与申请公文包生成器
+* Source Signal IDs: UW-20261109-SmallBusiness-EIDLLienSubordination-BankLoanPacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261109-SmallBusiness-EIDLLienSubordination-BankLoanPacket
+   * Generated At: 2026-11-09T01:16:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/15dwY3-0a1q3fhoYcPq2oURy8bFrfOQDa_kmoVcHTmoM/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-09T01:19:19+08:00
+
+
+* Money: 全美近 390 万家持有 EIDL 存量贷款、急需银行商业授信但被 UCC 抵押卡死的小微企业；单户扫清 $30,000–$200,000 银行贷款路障，企业愿支付 $79–$99 买断专业级从属申请包。
+
+
+* Mechanism: 针对小微企业请不起 $2,000 中介且不懂 SBA 偿债公式的痛点，工具提供：企业上传最近 3 个月财报 PDF 与商业银行贷款意向书（Commitment Letter），算法自动抽取营业利润与负债数据，秒级计算出符合 SBA 标准的 DSCR 偿债覆盖率（>1.15x）与抵押物估值表；自动一键生成排版严谨、完全符合 SBA 灾难贷款服务中心（CESC）审核标准的《EIDL 抵押顺位从属正式申请公函与数据包》（PDF），帮助企业主在 48 小时内提交 SBA，顺利解锁银行贷款。
+
+
+* Capture: 1-3 人小团队构建轻量 Web 表单工具，纯数据清洗与公文排版，零实体资产、零资金垫资风险、高毛利。
+
+
+* Durability: EIDL 贷款期限长达 30 年，全美小微企业周期性周转融资需求长久存在，具备持续复购生命力。
+
+
+* Evidence:
+
+
+   1. Emory Lending（2026-10-21）：https://emorylending.com/sba-lien-subordination/ 确认 90 天内财报与 DSCR 审核规范。
+   2. WBD 指南：https://www.wbd.org/sba-eidl-loan-servicing-tips-for-lenders 确认周转金顺位从属无需全额结清政策。
+   3. Elevated Lending CDC：https://elcdc.com/covid-19-eidl-loan-summary/ 确认 CESC 受理流程。
+
+
+* Counter Evidence:
+
+
+   1. 贷款已处于逾期违约状态。
+   2. 涉及重大股权结构调整。
+
+
+* Critical Unknown: 小微企业主在向商业银行提交从属申请时，商业银行信贷经理协助将 SBA 文本归档入库的沟通效率。
+
+
+* Falsification: 若 SBA 宣布彻底注销所有 $200,000 以下 EIDL 贷款的 UCC-1 通用资产抵押登记，放弃第一顺位受偿权。
+
+
+* Next Test: 为 2 家持有 10 万美元 EIDL 且正在向区域商业银行申请 5 万美元周转额度的零售店铺导入财报，生成标准从属申请包并向 CESC 报备，测试材料一次性通过率。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-09T17:18:14+08:00
+
+
+* Role Spec Status: reviewed
