@@ -1,0 +1,193 @@
+<!-- Google Doc: https://docs.google.com/document/d/1OFGn0q_a_bSTnUJMnn2nYNEDWWv6QFfOO9agayFNiJQ/edit?usp=drivesdk
+Drive ID: 1OFGn0q_a_bSTnUJMnn2nYNEDWWv6QFfOO9agayFNiJQ
+Modified: 2026-10-21T16:07:36.427Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime — Weekly Judge
+
+
+Review Window
+- Timezone: Asia/Taipei (UTC+08:00)
+- Actual window: 2026-10-15T00:01:00+08:00 → 2026-10-22T00:01:00+08:00
+- First-run handling: Judge folder was empty. Per judge@0.2.1, the current readable Research folder was inventoried; all 8 Research files were modified inside the 7-day window.
+- Market input: paused by contract; not required this round.
+- Human attention / money budget: UNKNOWN. No readable human decision record supplied a current-round budget. All Time budget values below are recommendations pending human confirmation.
+- Current in-progress items: UNKNOWN. No Judge or human decision record exists in the target Judge folder, so prior NOW execution cannot be assumed.
+- Long-term Track: UNKNOWN.
+
+
+Research inventory and read result
+1. Research-Friction-20261021-ClaudeCode-SubscriptionAuthHeadless.md
+   Drive: https://drive.google.com/file/d/1OLl4z4kI8T5chrBkOGMsX9WOJ4jyGndQ/view?usp=drivesdk
+   Modified: 2026-10-21T17:28:49.888+08:00
+   Read result: SUCCESS — readable Research record; researcher@0.2.2; Generated At 2026-10-21T17:26:13+08:00; R1; Stage Result KILL; Final Status KILL.
+2. Research-Business-20261014-hubspot-flexible-seats-credits-toll.md
+   Drive: https://drive.google.com/file/d/1QHut2gobvY6E2tHBMDVJqtxmj6KVLgiq/view?usp=drivesdk
+   Modified: 2026-10-21T17:28:15.753+08:00
+   Read result: SUCCESS — readable Research record + Opportunity Hypothesis; researcher@0.2.2; Generated At 2026-10-21T17:26:13+08:00; R2; Stage Result HYPOTHESIS_READY; Final Status HYPOTHESIS_READY.
+3. Research-Friction-20261020-StripeQuickBooks-ManualRecon.md
+   Drive: https://drive.google.com/file/d/12z4r2MP7Lvo1W_6PptV1Ueqa8FlmBf1A/view?usp=drivesdk
+   Modified: 2026-10-20T17:55:40.975+08:00
+   Read result: SUCCESS — readable Research record; researcher@0.2.2; Generated At 2026-10-20T17:48:14+08:00; R1; Stage Result KILL; Final Status KILL.
+4. Research-Business-20261015-github-agentic-autofix-metered-toll.md
+   Drive: https://drive.google.com/file/d/16TJcVWwOlpDgP6NlpPZzcAteGeGwArsw/view?usp=drivesdk
+   Modified: 2026-10-20T17:55:02.470+08:00
+   Read result: SUCCESS — readable Research record + Opportunity Hypothesis; researcher@0.2.2; Generated At 2026-10-20T17:48:14+08:00; R2; Stage Result HYPOTHESIS_READY; Final Status HYPOTHESIS_READY.
+5. Research-Friction-20261014-B2B-QuoteToCash-ManualCollections.md
+   Drive: https://drive.google.com/file/d/1maji_ecFSf8ANVy2POpW9gIDaGSqVArP/view?usp=drivesdk
+   Modified: 2026-10-20T17:54:10.830+08:00
+   Read result: SUCCESS — readable Research record; researcher@0.2.2; Generated At 2026-10-20T17:48:14+08:00; R1; Stage Result KILL; Final Status KILL.
+6. Research-Business-20261001-whatsapp-service-message-toll.md
+   Drive: https://drive.google.com/file/d/1ai0C7kyU0oNExatOAv6yQg8wcUJx8hKw/view?usp=drivesdk
+   Modified: 2026-10-20T17:53:28.996+08:00
+   Read result: SUCCESS — readable Research record + Opportunity Hypothesis; researcher@0.2.2; Generated At 2026-10-20T17:48:14+08:00; R2; Stage Result HYPOTHESIS_READY; Final Status HYPOTHESIS_READY.
+7. Research-Business-20261014-autodesk-aps-passthrough-billing.md
+   Drive: https://drive.google.com/file/d/11F420ngseJd4Gjf2n773utoQPv5x2Of-/view?usp=drivesdk
+   Modified: 2026-10-20T17:52:31.337+08:00
+   Read result: SUCCESS — readable Research record + Opportunity Hypothesis; researcher@0.2.2; Generated At 2026-10-20T17:48:14+08:00; R2; Stage Result HYPOTHESIS_READY; Final Status HYPOTHESIS_READY.
+8. Research-Business-20261014-autodesk-aps-passthrough-billing.md
+   Drive: https://drive.google.com/file/d/1W9v_p2EWvFzkvZTbPv6eBb_s9-tgSKR3/view?usp=drivesdk
+   Modified: 2026-10-20T17:52:20.772+08:00
+   Read result: SUCCESS — exact duplicate at the Research identity level: same Source Signal ID, source reference, Research level, Gate findings, Opportunity Hypothesis, Task Version and Generated At as item 7. Counted once.
+
+
+Deduplication result
+- 8 readable Research files → 7 unique Research candidates.
+- Autodesk duplicate is retained in the input inventory but contributes only one candidate.
+
+
+Attention queue
+- NOW: 1 — HubSpot Flexible Seats-and-Credits workflow cost audit / compression.
+- NEXT: 1 — WhatsApp Flows conversation-cost governance.
+- WATCH: 2 — GitHub Agentic Autofix AI Credits governance; Autodesk APS passthrough-billing vertical apps.
+- DROP: 3 — Claude subscription-auth headless bypass; Stripe–QuickBooks generic reconciliation; B2B quote-to-cash manual collections.
+- New opportunities actively recommended this week: 1.
+- Long-term Track retained: none can be asserted because no human decision record exists.
+
+
+NOW
+
+
+Status: NOW
+Opportunity: Start with a manual/assisted HubSpot Credits audit for customers on Flexible Seats-and-Credits, proving willingness to pay for workflow-cost reduction before building a Marketplace product.
+Research: Research-Business-20261014-hubspot-flexible-seats-credits-toll.md | researcher@0.2.2 | Generated 2026-10-21T17:26:13+08:00 | Final Status HYPOTHESIS_READY | Stage Result HYPOTHESIS_READY | https://drive.google.com/file/d/1QHut2gobvY6E2tHBMDVJqtxmj6KVLgiq/view?usp=drivesdk
+Why now: Within this batch this is the best use of one new-opportunity slot. Economic Significance is MEDIUM–HIGH because the underlying spend is recurring, hard-dollar HubSpot Credits rather than hypothetical productivity value. Evidence Maturity is PRICE / CONTRACT on the cost side, but only DISCUSSION / HYPOTHESIS for willingness to buy the proposed optimization; therefore this is not a validated business. Uncertainty Reducibility is HIGH: a few targeted interviews can directly test “buy more Capacity Pack” versus “pay for optimization” without code. Capture Fit is HIGH if entered as an audit/data service first and only later automated; this matches the preferred data/intelligence → automation path better than starting with a full product. Time Sensitivity is TIMELY: EMEA rollout is new, so early operators are still learning the cost model, but the window is not measured in days. Six-question verdict: (1) if true, worth pursuing; (2) underlying billing evidence is mature, demand evidence is not; (3) the biggest unknown is cheaply reducible; (4) the monetization form fits; (5) waiting several months risks losing the early learning window, but one week is not fatal; (6) it ranks first inside this Research batch, while comparison with actual current work is limited because current work is unknown.
+What is already known:
+1. Research says EMEA new portals moved to a unified Credits model with workflow actions consuming measurable credits and unused credits not rolling over.
+2. Research identifies a plausible technical mechanism: collapse multiple native steps into fewer actions / external webhook processing, producing a direct cost-saving path.
+3. Counter-evidence is material: Capacity Packs are cheap and customers may prefer simply buying more credits or using existing Make/n8n-style workarounds rather than another vendor.
+Critical unknown: Will a mid-market HubSpot operator with meaningful monthly overage choose and pay for third-party workflow optimization instead of simply buying additional Capacity Packs?
+Next action: Complete three 15–20 minute interviews with HubSpot Ops users/partners who are already exposed to the new pricing, forcing a concrete tradeoff between “buy extra credits” and “pay €50–€200/month for an audit/optimizer,” and record current overage magnitude plus willingness to share one redacted workflow for analysis.
+Time budget: Recommended 1.5–2 hours of human attention; PENDING HUMAN CONFIRMATION because no current-round budget was provided. No money commitment recommended.
+Decision after: If at least 2 of 3 interviewees have material avoidable spend and would trial/pay for optimization, keep NOW and advance to a tiny R3-style paid/concierge test; if pain exists but purchase intent is weak, move to NEXT/WATCH; if most prefer Capacity Packs or existing tooling, DROP this thesis.
+
+
+NEXT
+
+
+Status: NEXT
+Opportunity: Reduce WhatsApp Business service-message spend by compressing repetitive support flows into WhatsApp Flows / structured interactions, initially for a narrow high-volume commerce workflow.
+Research: Research-Business-20261001-whatsapp-service-message-toll.md | researcher@0.2.2 | Generated 2026-10-20T17:48:14+08:00 | Final Status HYPOTHESIS_READY | Stage Result HYPOTHESIS_READY | https://drive.google.com/file/d/1ai0C7kyU0oNExatOAv6yQg8wcUJx8hKw/view?usp=drivesdk
+Why now: Economic Significance is HIGH if the reported per-message cost increase reaches high-volume merchants, because the spend is a direct channel bill. Evidence Maturity is PRICE / CONTRACT for the underlying WhatsApp pricing, while demand for this specific gateway is still mainly inferred. Uncertainty Reducibility is MEDIUM–LOW because the decision-critical unknown includes end-user completion/CSAT and ideally requires live merchant data or an A/B test, not merely desk research. Capture Fit is MEDIUM–HIGH for a narrow workflow, but generic tooling faces strong BSP/platform competition and risks becoming a full integration/support product. Time Sensitivity is TIMELY: the pricing change is recent and incumbent BSPs are also reacting, so learning should not be delayed indefinitely. Six-question verdict: (1) if true, economically worthwhile; (2) cost evidence is mature, solution demand is not; (3) the key unknown is not as cheaply reducible as HubSpot’s; (4) capture can fit only with a narrow vertical; (5) there is an early window but not enough evidence to displace this week’s NOW; (6) second in the queue within this batch, while actual current-work opportunity cost is unknown.
+What is already known:
+1. Research says high-volume WhatsApp Business service messages now create explicit recurring channel cost above the free allowance.
+2. Flows can theoretically replace several conversational turns with one structured interaction, creating a clear unit-cost mechanism.
+3. Counter-evidence is strong: low-volume merchants are insulated by the free tier and major BSPs can absorb generic Flow-building features into their products.
+Critical unknown: Can a real high-volume merchant reduce WhatsApp service-message cost by roughly 60% or more without materially worsening task completion or CSAT?
+Next action: When the active NOW slot frees, run one narrow live merchant test (for example returns/order-status) comparing message count, completion rate and escalation rate before versus after a Flow-based interaction.
+Time budget: Recommended 2–4 hours of human oversight for one constrained pilot after a merchant is available; PENDING HUMAN CONFIRMATION. No budget commitment is implied.
+Decision after: Upgrade to NOW only if the pilot shows large net channel savings with acceptable completion/CSAT and a merchant expresses payment intent; otherwise WATCH or DROP.
+
+
+WATCH
+
+
+Status: WATCH
+Opportunity: A GitHub App/Action that reduces Agentic Autofix AI Credits and Actions spend through alert triage, batching and budget governance.
+Research: Research-Business-20261015-github-agentic-autofix-metered-toll.md | researcher@0.2.2 | Generated 2026-10-20T17:48:14+08:00 | Final Status HYPOTHESIS_READY | Stage Result HYPOTHESIS_READY | https://drive.google.com/file/d/16TJcVWwOlpDgP6NlpPZzcAteGeGwArsw/view?usp=drivesdk
+Why now: Economic Significance is MEDIUM today because the billing mechanism is real but the Research does not yet establish that AI Credits / runner spend is large enough to become a purchase-driving problem. Evidence Maturity is PRICE / CONTRACT for GitHub billing, but only DISCUSSION / HYPOTHESIS for third-party demand. Uncertainty Reducibility is MEDIUM: customer interviews are possible, but trust in automated security triage and merge acceptance needs real enterprise context. Capture Fit is technically HIGH but commercially constrained by security review, false-negative liability and GitHub’s own native budgets/alerts. Time Sensitivity is TIMELY rather than urgent. Six-question verdict: (1) worthwhile only if spend is genuinely budget-constraining; (2) underlying platform change is mature, user demand is not; (3) the unknown is moderately reducible but not as cheaply as the NOW; (4) technical fit is strong but governance fit is weaker; (5) no evidence that one week loses the opportunity; (6) it should not consume human attention ahead of HubSpot/WhatsApp, and comparison with current work remains unknown.
+What is already known:
+1. Research says GitHub Agentic Autofix is GA and consumes Code Security AI Credits plus Actions compute.
+2. Batching / local triage could in principle reduce unnecessary paid invocations.
+3. Native GitHub budget controls already cover part of the governance need, while security misclassification can create disproportionate risk.
+Critical unknown: Do enterprise AppSec/engineering teams experience enough paid-autofix cost pressure to trust and buy a third-party triage/batching layer?
+Next action: Agent-side trigger only: promote back to active consideration when new Research shows multiple independent enterprise teams reporting material AI-Credits/Actions budget pressure AND explicit demand for third-party triage/batching; no manual checking is requested. Automatic WATCH execution is NOT verified/configured by this Judge run and therefore must not be claimed as active.
+Time budget: 0 hours of human attention now. If the evidence trigger occurs, recommend at most 1–2 hours for customer discovery; PENDING HUMAN CONFIRMATION.
+Decision after: If real budget pain plus third-party trust appears, move to NEXT/NOW depending on the active-slot budget; absent that evidence, remain WATCH.
+
+
+Status: WATCH
+Opportunity: Use Autodesk APS 3LO passthrough billing to build a narrow AEC/BIM SaaS whose heavy API compute is charged to the customer’s Flex balance.
+Research: Research-Business-20261014-autodesk-aps-passthrough-billing.md | researcher@0.2.2 | Generated 2026-10-20T17:48:14+08:00 | Final Status HYPOTHESIS_READY | Stage Result HYPOTHESIS_READY | canonical read https://drive.google.com/file/d/11F420ngseJd4Gjf2n773utoQPv5x2Of-/view?usp=drivesdk ; exact duplicate https://drive.google.com/file/d/1W9v_p2EWvFzkvZTbPv6eBb_s9-tgSKR3/view?usp=drivesdk
+Why now: Economic Significance is MEDIUM: passthrough billing can materially improve an ISV’s gross margin, but a better cost structure does not itself prove customer demand for a new BIM product. Evidence Maturity is CONTRACT / PLATFORM CAPABILITY, not user payment for the proposed vertical app. Uncertainty Reducibility is LOW–MEDIUM without access to BIM decision-makers because the central question is enterprise authorization of Flex consumption. Capture Fit is MEDIUM–LOW relative to the stated preference stack because the opportunity tends toward a domain-specific full product plus enterprise IT approval, rather than a simple data/intelligence service. Time Sensitivity is TIMELY/PERSISTENT: the infrastructure change is recent but durable, so waiting for adoption evidence is cheap. Six-question verdict: (1) potentially worthwhile if a narrow paid problem exists; (2) platform evidence is mature but customer-demand evidence is missing; (3) the key unknown is not cheaply reducible without domain access; (4) fit is weaker than the other business candidates; (5) waiting for adoption evidence is unlikely to close the window; (6) it should not take human attention from the current NOW, and actual current-work opportunity cost is unknown.
+What is already known:
+1. Research says Autodesk supports customer-paid 3LO passthrough billing and removes a meaningful ISV compute-cost burden.
+2. The approach still requires interactive 3LO context and eligible customer Flex/subscription capacity.
+3. The Research’s proposed BIM use cases are examples; it does not provide independent evidence that customers are currently paying for those specific problems.
+Critical unknown: Will a BIM/AEC buyer authorize a third-party app to consume corporate Flex and still pay a separate software fee with tolerable procurement friction?
+Next action: Agent-side trigger only: promote when new Research contains a real AEC buyer/app case showing successful 3LO Flex authorization plus explicit willingness to pay for a narrow vertical workflow; no manual checking is requested. Automatic WATCH execution is NOT verified/configured by this Judge run.
+Time budget: 0 hours of human attention now. If triggered, recommend 1–2 hours for buyer discovery; PENDING HUMAN CONFIRMATION.
+Decision after: With verified buyer authorization/payment intent, move to NEXT; otherwise remain WATCH.
+
+
+DROP
+
+
+Status: DROP
+Opportunity: Commercialize a headless middleware that turns Claude consumer subscription OAuth/setup tokens into persistent unattended agent access.
+Research: Research-Friction-20261021-ClaudeCode-SubscriptionAuthHeadless.md | researcher@0.2.2 | Generated 2026-10-21T17:26:13+08:00 | Final Status KILL | Stage Result KILL | https://drive.google.com/file/d/1OLl4z4kI8T5chrBkOGMsX9WOJ4jyGndQ/view?usp=drivesdk
+Why now: Economic Significance is NEGATIVE for a compliant small business because any apparent savings rely on circumventing the intended API billing model. Evidence Maturity is sufficient for KILL: Research cites explicit product/auth rules plus observed blocking. Uncertainty Reducibility is IRRELEVANT because no decision-critical unknown remains. Capture Fit is POOR due to account-ban, legal/policy and support risk. Time Sensitivity is URGENT only in the negative sense: platform enforcement is tightening, which strengthens the reason not to enter. Six-question verdict: not worth pursuing; evidence is mature enough to stop; no unknown needs resolution; it conflicts with the operating constraints; there is no opportunity cost to missing it; it should not displace any current work.
+What is already known:
+1. Research treats consumer OAuth as intended for interactive personal use and points unattended machine workloads to API-key billing.
+2. Platform defenses such as short-lived credentials/CAPTCHA make a bypass service structurally fragile.
+3. Research records severe policy, account-ban and support liabilities.
+Critical unknown: None; Research explicitly reports no decision-critical unknown after KILL.
+Next action: Preserve this Kill Reason and stop further research under the current thesis.
+Time budget: 0 hours.
+Decision after: Remain DROP. A future official, compliant product change would be a new Research thesis rather than continuation of this one.
+
+
+Status: DROP
+Opportunity: Build a generic Stripe-to-QuickBooks reconciliation SaaS for net payouts versus gross transaction accounting.
+Research: Research-Friction-20261020-StripeQuickBooks-ManualRecon.md | researcher@0.2.2 | Generated 2026-10-20T17:48:14+08:00 | Final Status KILL | Stage Result KILL | https://drive.google.com/file/d/12z4r2MP7Lvo1W_6PptV1Ueqa8FlmBf1A/view?usp=drivesdk
+Why now: Economic Significance is real for buyers, but Evidence Maturity shows a mature existing market rather than an unserved mechanism. Uncertainty Reducibility is IRRELEVANT to the generic thesis because the Research already found multiple established products. Capture Fit is POOR because accounting accuracy, tax edge cases and support/compliance burden conflict with the stated operating constraints. Time Sensitivity is PERSISTENT but not favorable; persistence benefits incumbents rather than creating a new opening. Six-question verdict: the pain is valuable but not this opportunity; evidence is mature enough to stop; no critical unknown justifies human time; fit is poor; nothing material is lost by skipping; it should not displace current work.
+What is already known:
+1. Buyers pay for the problem, so the pain itself is not disputed.
+2. Multiple mature Stripe/QBO products already cover the standard reconciliation workflow.
+3. Accounting/tax correctness creates heavy long-tail support and liability.
+Critical unknown: None for the generic product thesis after KILL.
+Next action: Preserve the saturation/compliance Kill Reason and stop researching a generic reconciliation product.
+Time budget: 0 hours.
+Decision after: Remain DROP; only a materially different, newly researched wedge should be reconsidered.
+
+
+Status: DROP
+Opportunity: Build a new B2B quote-to-cash / collections tool around delayed invoices and manual reminders from the cited SaaS case.
+Research: Research-Friction-20261014-B2B-QuoteToCash-ManualCollections.md | researcher@0.2.2 | Generated 2026-10-20T17:48:14+08:00 | Final Status KILL | Stage Result KILL | https://drive.google.com/file/d/1maji_ecFSf8ANVy2POpW9gIDaGSqVArP/view?usp=drivesdk
+Why now: Economic Significance is LOW for a new product because the cited loss was traced to permissions/configuration and unused capabilities in software already being paid for. Evidence Maturity is sufficient for KILL at R1 because the source itself identifies the operational mistake. Uncertainty Reducibility is IRRELEVANT to this thesis. Capture Fit is POOR: another software layer does not fix teams failing to enable existing controls. Time Sensitivity is EVERGREEN operational hygiene, not a new market window. Six-question verdict: not worth a new product; evidence is sufficient to stop; no critical unknown remains; capture mechanism is weak; no window is lost by skipping; it should not consume attention ahead of any active work.
+What is already known:
+1. The cited case was driven by missing access and already-paid-for reminders that were never enabled.
+2. Mature AR/collections products already exist.
+3. The mechanism is organizational configuration, not a software-supply vacuum.
+Critical unknown: None for this product thesis after KILL.
+Next action: Preserve the configuration-error Kill Reason and stop further research on this thesis.
+Time budget: 0 hours.
+Decision after: Remain DROP.
+
+
+Input Research References
+- Research-Friction-20261021-ClaudeCode-SubscriptionAuthHeadless.md — researcher@0.2.2 — Generated 2026-10-21T17:26:13+08:00 — https://drive.google.com/file/d/1OLl4z4kI8T5chrBkOGMsX9WOJ4jyGndQ/view?usp=drivesdk
+- Research-Business-20261014-hubspot-flexible-seats-credits-toll.md — researcher@0.2.2 — Generated 2026-10-21T17:26:13+08:00 — https://drive.google.com/file/d/1QHut2gobvY6E2tHBMDVJqtxmj6KVLgiq/view?usp=drivesdk
+- Research-Friction-20261020-StripeQuickBooks-ManualRecon.md — researcher@0.2.2 — Generated 2026-10-20T17:48:14+08:00 — https://drive.google.com/file/d/12z4r2MP7Lvo1W_6PptV1Ueqa8FlmBf1A/view?usp=drivesdk
+- Research-Business-20261015-github-agentic-autofix-metered-toll.md — researcher@0.2.2 — Generated 2026-10-20T17:48:14+08:00 — https://drive.google.com/file/d/16TJcVWwOlpDgP6NlpPZzcAteGeGwArsw/view?usp=drivesdk
+- Research-Friction-20261014-B2B-QuoteToCash-ManualCollections.md — researcher@0.2.2 — Generated 2026-10-20T17:48:14+08:00 — https://drive.google.com/file/d/1maji_ecFSf8ANVy2POpW9gIDaGSqVArP/view?usp=drivesdk
+- Research-Business-20261001-whatsapp-service-message-toll.md — researcher@0.2.2 — Generated 2026-10-20T17:48:14+08:00 — https://drive.google.com/file/d/1ai0C7kyU0oNExatOAv6yQg8wcUJx8hKw/view?usp=drivesdk
+- Research-Business-20261014-autodesk-aps-passthrough-billing.md — researcher@0.2.2 — Generated 2026-10-20T17:48:14+08:00 — https://drive.google.com/file/d/11F420ngseJd4Gjf2n773utoQPv5x2Of-/view?usp=drivesdk
+- Exact duplicate of preceding Autodesk Research: https://drive.google.com/file/d/1W9v_p2EWvFzkvZTbPv6eBb_s9-tgSKR3/view?usp=drivesdk
+
+
+Task Version: judge@0.2.1
+Generated At: 2026-10-22T00:01:00+08:00
+Role Spec Status: reviewed
+Human Decision Needed: Confirm or reject allocating this week’s single new-opportunity slot and approximately 1.5–2 hours of human attention to three HubSpot Ops/customer interviews. No capital deployment, product launch, paid publishing or irreversible external action is authorized by this Judge.

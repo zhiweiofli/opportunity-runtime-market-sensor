@@ -1,0 +1,245 @@
+<!-- Google Doc: https://docs.google.com/document/d/1dThfQ_emyVqsALYHJxEV0iWy01tuPx21lADZjydEZ4k/edit?usp=drivesdk
+Drive ID: 1dThfQ_emyVqsALYHJxEV0iWy01tuPx21lADZjydEZ4k
+Modified: 2026-11-01T11:05:18.537Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime — Weekly Judge
+
+
+A. 本周结论
+
+
+本周最值得投入下一单位人类注意力的，不是继续做上周的 QuickBooks 小工具，而是先验证 Cloudflare AI Search 新计费是否真的形成了可观的 RAG 成本优化预算。原因不是它一定是更大的生意，而是今天（11 月 1 日）正式开始按量收费，变化与你现有 Cloudflare / Agent 技术栈高度贴合，而且 1–3 小时就能用真实或模拟账单把“省钱空间”从纸面机制变成可验证数字。
+
+
+第二优先是 Google Play 的 Agentic 购买合规：它与你的 Android 背景匹配度最高，且有 30 天政策窗口，但当前 Research 对“开发者会不会额外购买第三方 SDK/审计工具”的证据仍弱于政策本身。WooCommerce PHP 8.2 结账断流是本周最值得保留的 Installed-base Friction 样本，但更像高时效小工具，不应同时占用第二个主动项目槽。
+
+
+当前人类时间/资金预算：未知。历史 Judge 只有建议，没有找到人类确认/执行记录，因此旧 NOW 均不视为已执行。
+
+
+B. 本周决策看板
+
+
+1) 优先级：1
+机会：Cloudflare AI Search 新计费后的 RAG 成本优化
+发生了什么：Cloudflare AI Search 于 11 月 1 日开始正式按量收费；Research 记录的价格结构中，托管索引存储 $2/GB/月，而标准 R2 为 $0.015/GB/月；语义/混合检索 $0.75/1000 次，全文检索 $0.10/1000 次，并且 chunk overlap 会重复计入摄入量。
+谁受影响：把企业知识库、客服搜索、Agent memory/RAG 部署在 Cloudflare Workers/AI Search 上，并开始出现真实超额账单的团队。
+钱为什么变化：过去产品处于免费/GA 过渡期，现在每一次摄入、存储和检索都成为可计量成本；错误的冷热分层、重复 chunk 和不必要的语义检索直接变成账单。
+可能如何捕获价值：最轻路径不是先做 SaaS，而是做“AI Search Cost Audit”——读取配置/账单/查询样本，给出可节省金额，再沉淀为去重、冷热分层和 query routing 的 Worker/SDK。
+最大未知：真实中型 Cloudflare AI Search 用户的账单里，到底有多少成本是可安全优化、且大到足以付费？
+为什么现在：计费今天刚生效，早期用户尚未形成稳定 FinOps 方法；同时验证成本很低。
+Judge：NOW。
+
+
+2) 优先级：2
+机会：Android Agentic 购买的 Google Play Billing / 合规桥接
+发生了什么：Google Play 10 月 29 日政策把 AI/Agentic 购买明确纳入支付政策，并给 AppFunctions/Agent 交互增加反操纵要求；Research 记录有 30 天合规窗口。
+谁受影响：准备把 Android App 功能暴露给 Gemini/第三方 Agent、且涉及数字商品或订阅购买的开发者。
+钱为什么变化：Agent 不能成为绕过 Play Billing 的新支付通道；错误实现可能带来审核失败/下架风险，而正确实现仍承受 15%–30% 平台抽成。
+可能如何捕获价值：开源 Kotlin 桥接样例 + CI Policy Linter / 审计服务，先卖“合规确定性”而不是支付基础设施。
+最大未知：Google 原生 SDK/文档是否会迅速把这层合规实现标准化，从而让第三方工具没有独立付费空间？
+为什么现在：政策窗口短，而且与你的 Android 能力高度匹配；但需求证据仍主要是规则推演。
+Judge：NEXT。
+
+
+3) 优先级：3
+机会：WooCommerce 老站被 PHP 8.2 升级打断结账后的快速恢复
+发生了什么：Research 指向托管商清退旧 PHP 后，老插件的动态属性/弃用警告可能污染 WooCommerce AJAX checkout，造成 Processing 卡死甚至订单归零。
+谁受影响：2017–2022 年遗留插件较多、没有专职开发者的中小独立站。
+钱为什么变化：故障直接阻断订单，而人工紧急排障报价可达 $1,000–$3,500；一次性 $49–$79 修复工具有明显价格锚。
+可能如何捕获价值：先做免费诊断器 + 付费修复/兼容报告，不直接承诺通用“自动改代码”。
+最大未知：真正由这一特定兼容问题导致的活跃故障量和搜索流量有多大？
+为什么现在：升级波次正在发生，时效强；但它更像一次滚动迁移窗口，而非长期平台。
+Judge：NEXT。
+
+
+4) 优先级：4
+机会：GitHub Enterprise 的 Agent/CI 统一美元预算治理
+发生了什么：Research 记录 GitHub Enterprise/Copilot 正从固定额度转向更细的按量消耗与共享美元算力权益，Agent 云沙盒可能与 CI/CD 争夺预算。
+谁受影响：50–500 人、开始大规模使用 Copilot/云 Agent 的研发组织。
+钱为什么变化：Agent 从“席位软件”变成持续消耗算力的主体，闲置沙盒、无上限任务可能侵蚀 CI 预算。
+可能如何捕获价值：先做只读 FinOps 报表/预算异常检测，再考虑 GitHub App 控制器。
+最大未知：11 月真实账单是否足够痛，且 GitHub 原生预算控制是否已经够用？
+为什么现在：结构非常重要，但真实企业账单刚开始出现，现阶段更适合等数据。
+Judge：WATCH。
+
+
+5) 优先级：5
+机会：老楼宇控制器仍能运行，但现代电脑无法打开其 Java 管理界面
+发生了什么：Niagara AX/JACE-6 现场硬件仍工作，但现代浏览器/Java 生态淘汰使管理界面被数字锁死；官方替换硬件成本很高。
+谁受影响：学校、医院、商业楼宇等预算受限的设施团队。
+钱为什么变化：客户面对的是 $8k–$25k/台的升级报价与继续保留旧硬件之间的巨大价差。
+可能如何捕获价值：便携隔离访问环境/兼容工具，而非硬件替换。
+最大未知：目标用户是否允许并愿意购买第三方封装的旧 JRE/浏览器运行环境，安全与授权风险是否可接受？
+为什么现在：Installed-base Friction 结构漂亮，但分发、软件授权和企业安全风险高于 Research 当前呈现。
+Judge：WATCH。
+
+
+C. 重点机会 1 — Cloudflare AI Search Cost Audit / Optimizer
+
+
+这是什么
+Cloudflare AI Search 把抓取、R2、Vectorize/向量索引、Workers AI 等能力包装成一个托管搜索/RAG 管道。对开发者的价值是少拼基础设施；代价是平台开始把“方便”重新定价成按摄入、存储和查询收费。Research 记录的价差非常关键：托管索引存储与普通 R2、语义检索与全文检索之间存在数量级明显的成本梯度。
+
+
+发生了什么变化
+旧工作流：把文档放进托管 AI Search → 免费/低感知成本 → 默认全量向量化、全量热存储、尽量语义检索。
+外部变化：11 月 1 日正式 usage billing。
+新摩擦：同样的 RAG 架构现在会因为重复 chunk、冷数据长期驻留、所有请求都走昂贵语义检索而产生持续账单。
+
+
+简化流程：
+文档/查询 → 默认全部进入 AI Search → 按量账单
+变为：
+文档 → 去重/冷热判断 → 热数据进 AI Search，冷数据留 R2
+查询 → 意图判断 → 精确型走全文检索，语义型才走语义检索
+
+
+谁在痛、怎么解决
+真正值得关注的不是 hobby 用户，而是已经把 Cloudflare 当生产基础设施、查询量或知识库规模足以越过免费额度的团队。Research 给出的产品化方向是边缘 Worker/SDK；Judge 更倾向先把它降维成“账单审计 + 优化建议”，因为这样不需要先证明客户愿意把生产查询代理交给第三方。
+
+
+钱在哪里
+经济锚是硬账单，不是 TAM：Research 记录 $2/GB/月的 AI Search 存储对比 $0.015/GB/月 R2，以及 $0.75/1k 的语义检索对比 $0.10/1k 全文检索。机制成立，但目前没有 Payment 或 Repeatable Profit 证据，也没有真实客户账单证明“可优化部分”足够大。
+
+
+为什么进入 NOW
+它胜出主要因为“不确定性消除效率”，不是因为已经证明是最好的生意。今天刚开始计费，技术机制与你已有 Cloudflare/Agent 能力重叠；做一个成本模型和路由实验的边际成本很低，却能快速判断这是不是一个真实 FinOps 机会。
+
+
+最大反证
+最强反证不是技术做不出来，而是账单根本不痛：免费额度覆盖大部分目标用户，真正大客户又会自己做分层/路由；或者 Cloudflare 很快提供原生 cost optimizer。若真实用户每月只省几美元，这个机会应立即降级。
+
+
+最小验证
+只做一个动作：拿 1 个真实 Cloudflare AI Search 工作负载（若暂时没有，则用你自己可代表生产的 RAG 数据集）生成“原始方案 vs 去重+冷热分层+query routing”的月度账单差额，并把优化前后准确率/召回变化一起记录。建议人类时间 1–3 小时，待确认。
+
+
+Decision after
+若可安全节省 ≥30% 且绝对金额达到至少几十到上百美元/月，再进入真实用户访谈/审计服务验证；若只有百分比漂亮但绝对金额很小，转 WATCH；若优化明显伤害检索质量或原生配置即可完成，DROP。
+
+
+C. 重点机会 2 — Google Play Agentic Billing / Policy Linter
+
+
+这是什么
+Android 正在从“用户点 App UI 调功能”走向“Gemini/Agent 调用 AppFunctions 完成任务”。一旦 Agent 能代表用户触发数字商品购买，Google 必须重新定义谁负责展示确认、谁走 Play Billing、什么算操纵 Agent。Research 指向 10 月 29 日的新政策正是在补这个治理层。
+
+
+变化链条
+传统 App UI 购买 → 开发者已熟悉 BillingClient/Play 审核
+Agent/AppFunctions 进入 → 购买意图可能从对话/函数调用触发 → 新的支付确认、函数元数据、Prompt/行为合规面出现。
+
+
+谁在痛、怎么解决
+受影响的是第一批把 AppFunctions 与商业化结合的 Android 团队。你的优势不是再造支付，而是懂 Android 工程、Play 审核和 Agent tool/function 之间的边界。最轻价值捕获可以是开源 reference implementation + 付费 CI lint / 合规审计，而不是托管交易。
+
+
+钱在哪里
+钱来自减少审核失败、返工和下架风险，但目前 Research 只有政策/合同级证据，没有开发者实际 Payment。这个机会的潜在价值与你能力匹配度很高，但商业成熟度低于 Cloudflare 的直接账单优化。
+
+
+为什么是 NEXT
+它有 30 天时间窗口，应该尽快理解，但不必本周同时开第二个项目。先等第一批开发者真正遇到审核问题，或者你能用一个 Internal Track 测试 App 获得第一手审核反馈，再升级。
+
+
+最大反证
+Google 可能迅速提供官方 A2UI/Billing reference SDK 和 lint，使第三方“桥接 SDK”变成无价值薄层；真正剩下的可能只是咨询/内容，而非持续 SaaS。
+
+
+最小验证
+只做一个动作：用最小 AppFunctions + 数字购买测试 App 跑一次 Internal Track/政策检查，记录官方工具已经覆盖什么、仍有哪些需要人工判断的合规空白。建议 1–2 小时，待确认。
+
+
+Decision after
+若官方工具明显留出可自动检测的高频空白，并能观察到开发者困惑/审核失败，升 NOW；若官方 SDK 已基本解决，降 WATCH 或 DROP。
+
+
+D. 机会结构 / 二阶洞察
+
+
+本周最清晰的结构不是某个单品，而是两个重复出现的 Opportunity Pattern。
+
+
+Pattern 1 — New Toll → FinOps：Cloudflare AI Search、GitHub Agent/Actions、AWS WAF、Visa 规则变化都属于“平台重新定义计费单位后，原本不可见的技术选择突然变成现金成本”。最值得持续扫描的不是每次都做一个 SaaS，而是先问：新账单能否被独立测量？是否存在可逆、低风险的优化动作？能否先卖 Audit/Intelligence，再自动化？这比直接从平台公告跳到产品更符合你的捕获偏好。
+
+
+Pattern 2 — Installed-base Friction：QuickBooks Desktop、WooCommerce/PHP、Niagara AX、M365 EWS 都是“资产/业务仍有价值，但上游平台退出或升级导致工作流断裂”。这类机会的单个 TAM 可能不大，却有共同优势：用户已经有沉没资产、替换成本高、问题搜索意图强、桥接工具验证快。WooCommerce 与 Niagara 本周进一步强化了这个 Sensor 值得保留，但也提醒要把“安全/授权/已有兼容方案”提前放进 Research gate。
+
+
+E. 其余队列
+
+
+NEXT
+- WooCommerce PHP 8.2 老站结账恢复：高时效、直接收入损失；下一步只验证真实故障量/搜索转化，不先做通用自动补丁。
+- Google Play Agentic Billing/Policy：见重点机会。
+- 上周 QuickBooks CSV→IIF：仍是好验证样本，但没有人类执行记录；本周被更及时且更贴近现有能力的 Cloudflare 机会挤到 NEXT。
+
+
+WATCH
+- GitHub Enterprise Agent/CI FinOps：等待 11 月真实账单与原生预算能力，触发条件是多家团队出现可量化的 Agent/CI 预算争夺。
+- AWS WAF Anti-DDoS FinOps：计费机制清晰，但自动切换安全动作涉及 IAM/误杀风险；触发条件是真实中小团队愿意部署本地模板并提供账单数据。
+- Niagara AX 兼容访问：等待真实 JACE 环境验证、第三方 JRE/浏览器授权与企业安全接受度证据。
+- Visa PLT/Level-3 优化：单笔价值可能极高，但客户访问、支付合规和 ERP 权限使验证成本高；需要真实商户账单/交易案例才升级。
+- 房产税申诉包、汽车全损 CCC 反驳包、分包商 20-Day Notice、Amazon FBA 微额索赔、牙科小额拒付：经济机制都可能成立，但分别带有地域法律、保险/医疗合规、邮寄履约、平台权限或 HIPAA 等运营摩擦；暂不优先于更贴合现有技术/渠道的候选。
+
+
+DROP
+- Web3 checkout Gasless Paymaster：已有 ERC-4337/EIP-7702 与成熟基础设施，且需要资金池/安全风险，不符合轻资产约束。
+- Autotask ↔ M365 License reconciliation：已有 Sync 365、Gradient MSP、Pax8 等成熟供给；源信号本身更接近厂商营销教育，非供给真空。
+- failed-payment recovery：重复命中历史 KILL；成熟 outcome-based 竞品与数据优势没有变化。
+- 历史 Shopify subscription migration、n8n credential handover、Brother Error 03、frontline authentication 等 KILL 继续保留，不因新一轮扫描自动重开。
+
+
+F. Runtime 反馈
+
+
+本周最重要的 Runtime 问题是 Research 仍容易把“平台新规 + 可写代码”直接推到 HYPOTHESIS_READY，并在 Money 段使用很大的生态规模替代真实可捕获预算。Cloudflare、Google Play、GitHub、Visa 的机制研究有价值，但 Judge 必须继续把“真实账单/真实支付意愿”与“平台总流水/TAM”严格分开。
+
+
+建议 Research gate 增加两条硬约束：第一，New Toll 类在进入 R2 完整 Hypothesis 前，优先要求至少一个真实账单/成本样本，若只有官方费率则标记 Price/Contract 而不是暗示需求成熟；第二，任何“已有成熟 SDK/平台/垂直 SaaS”的 Friction Signal，在 R1 首轮必须做 incumbent check。11 月 1 日 Autotask-M365 和 Web3 Gas 两个 KILL 正说明这个 gate 能节省 Research 预算。
+
+
+G. Human Decision Needed
+
+
+1. 是 / 否：本周是否把唯一新 Opportunity 槽给 Cloudflare AI Search 成本优化验证，投入建议 1–3 小时（预算待你确认）？
+2. 若“是”：你愿意优先用你自己的 Cloudflare/RAG 工作负载做成本基线，还是只做公开/模拟数据，不接触生产？二选一即可。
+3. 上周 QuickBooks CSV→IIF 验证是否已经做过？只需回答“做过 / 没做”。这会决定下轮把它继续保留还是按未执行 NEXT 处理。
+
+
+H. 审计信息
+
+
+Review Window: 2026-10-25T19:00:00+08:00 → 2026-11-01T19:00:00+08:00
+Research folder: https://drive.google.com/drive/folders/1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9
+Judge / Human Decision folder: https://drive.google.com/drive/folders/1-fRzmIOMtYvZDWljCiyBDvTWmwcmPD69
+
+
+Input Research References actually read for decision-grade review:
+- Research-Business-20261101-cloudflare-ai-search-metered-toll.md — modified 2026-11-01T17:49:48+08:00 — researcher@0.2.2 — R2 — HYPOTHESIS_READY — read success.
+- Research-Friction-2026-11-01-Web3-Checkout-Gas-Dropoff.md — modified 2026-11-01T17:50:22+08:00 — researcher@0.2.2 — R1 — KILL — read success.
+- Research-Friction-2026-11-01-Autotask-M365-License-Reconciliation.md — modified 2026-11-01T17:49:49+08:00 — researcher@0.2.2 — R1 — KILL — read success.
+- Research-Business-20261030-visa-installment-credential-plt-expansion.md — modified 2026-10-31T17:19:54+08:00 — researcher@0.2.2 — R2 — HYPOTHESIS_READY — read success.
+- Research-IBF-20261030-WooCommerce-PHP82-LegacyGatewayCheckoutFailure.md — modified 2026-10-31T17:18:54+08:00 — researcher@0.2.2 — R2 — HYPOTHESIS_READY — read success.
+- Research-IBF-20261030-NiagaraAX-JACE6-JavaAppletLockout.md — modified 2026-10-31T17:18:54+08:00 — researcher@0.2.2 — R2 — HYPOTHESIS_READY — read success.
+- Research-Business-20261029-googleplay-agentic-purchases-billing-toll.md — modified 2026-10-30T17:24:16+08:00 — researcher@0.2.2 — R2 — HYPOTHESIS_READY — read success.
+- Research-Business-20261028-github-enterprise-copilot-dollar-entitlement.md — modified 2026-10-29T17:32:39+08:00 — researcher@0.2.2 — R2 — HYPOTHESIS_READY — read success.
+- Research-Business-20261025-aws-shield-waf-antiddos-migration-toll.md — modified 2026-10-28T17:56:42+08:00 — researcher@0.2.2 — R2 — HYPOTHESIS_READY — read success.
+- Research-UW-20261030-PropertyTax-SmallCommercial-AssessmentAppealPacket.md — modified 2026-10-30T17:24:16+08:00 — researcher@0.2.2 — R2 — HYPOTHESIS_READY — read success.
+- Research-UW-20261030-Subcontractor-20DayPrelimNotice-LienRightsPacket.md — modified 2026-10-30T17:23:02+08:00 — researcher@0.2.2 — R2 — HYPOTHESIS_READY — read success.
+- Research-UW-20261030-AutoTotalLoss-CCCONE-ValuationRebuttalPacket.md — modified 2026-10-30T17:23:01+08:00 — researcher@0.2.2 — R2 — HYPOTHESIS_READY — read success.
+- Research-UW-20261028-AmazonFBA-60DayWindow-MicroReimbursementAudit.md — modified 2026-10-28T17:54:08+08:00 — researcher@0.2.2 — R2 — HYPOTHESIS_READY — read success.
+- Research-UW-20261028-DentalClinic-Sub50Denial-BatchReconsideration.md — modified 2026-10-28T17:53:23+08:00 — researcher@0.2.2 — R2 — HYPOTHESIS_READY — read success.
+- Historical Judge 2026-10-26-0947-judge — read success; prior NOW QuickBooks, prior HubSpot NEXT, EWS NEXT, Visa NEXT; no human acceptance record in folder.
+
+
+Research inventory note: the folder was fully re-listed. Execution-Receipt files are not Research candidates. Several additional 7-day Research records were inventoried but not expanded in the user-facing decision set where they did not outrank the above queue; no read failure is being represented as “no candidate”.
+
+
+Task Version: judge@0.2.2
+Generated At: 2026-11-01T19:00:00+08:00
+Role Spec Status: reviewed
+Archive target: 2026-11-01-1900-judge

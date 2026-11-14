@@ -1,0 +1,217 @@
+<!-- Google Doc: https://docs.google.com/document/d/1lGiUevmLKIn7aikDdfsgP6uYYPHnptxokg39AMAfEW8/edit?usp=drivesdk
+Drive ID: 1lGiUevmLKIn7aikDdfsgP6uYYPHnptxokg39AMAfEW8
+Modified: 2026-10-26T03:25:37.379Z
+Mirrored At: 2026-11-14 +08:00
+-->
+
+Opportunity Runtime — Weekly Judge
+
+
+Review Window
+Timezone: Asia/Taipei (UTC+08:00)
+Actual window: 2026-10-19T09:47:00+08:00 → 2026-10-26T09:47:00+08:00
+Market: paused by contract.
+Human attention / money budget: UNKNOWN. No explicit current-round human budget was found in the Judge folder. Time budgets below are recommendations pending confirmation.
+Current in-progress items / long-term Track: UNKNOWN. The latest readable Judge contains recommendations but no human acceptance record; prior NOW cannot be treated as executed.
+
+
+Research inventory and read result
+The Research folder was re-listed for this run. New/updated records in the window that materially affect the queue were read successfully:
+- Research-IBF-20261022-QuickBooksDesktop-DiscontinuedBankFeeds-IIF.md — modified 2026-10-23 17:06 +08; researcher@0.2.2; R2; HYPOTHESIS_READY.
+- Research-Business-20261023-vercel-deployment-storage-toll.md — modified 2026-10-23 17:07 +08; researcher@0.2.2; R2; HYPOTHESIS_READY.
+- Research-Friction-20261023-SaaS-Failed-Payment-Recovery.md — modified 2026-10-23 17:08 +08; researcher@0.2.2; R1; KILL.
+- Research-Friction-20261023-Frontline-Authentication-Friction.md — modified 2026-10-23 17:08 +08; researcher@0.2.2; R1; KILL.
+- Research-IBF-20261023-M365-ExchangeOnline-EWSRetirement.md — modified 2026-10-24 17:26 +08; researcher@0.2.2; R2; HYPOTHESIS_READY.
+- Research-IBF-20261023-BrotherPrinter-CloudDiscontinuation-Error03.md — modified 2026-10-24 17:26 +08; researcher@0.2.2; R1; KILL.
+- Research-Business-20261021-salesforce-headless-agent-api-toll.md — modified 2026-10-24 17:27 +08; researcher@0.2.2; R2; HYPOTHESIS_READY.
+- Research-Friction-20261024-n8n-CredentialHandoverSetup.md — modified 2026-10-24 17:28 +08; researcher@0.2.2; R1; KILL.
+- Research-Business-20261023-visa-b2b-embedded-payment-toll.md — modified 2026-10-25 17:59 +08; researcher@0.2.2; R2; HYPOTHESIS_READY.
+- Research-Friction-20261025-failed-payment-recovery.md — modified 2026-10-25 18:00 +08; researcher@0.2.2; R1; KILL; explicitly duplicates the same failed-payment thesis already killed on 10/22 and 10/23.
+- Research-Friction-20261022-ShopifySubscriptionPaymentMigration.md — modified 2026-10-22 17:46 +08; researcher@0.2.2; R1; KILL.
+Older readable Research and the latest Judge were also used to preserve prior queue state. Failed-payment recovery repetitions are counted once at the opportunity level, not as new candidates.
+
+
+Attention queue
+NOW: 1 — QuickBooks Desktop offline Bank-CSV → IIF converter.
+NEXT: 3 — HubSpot Credits audit (prior NOW, execution unconfirmed); Microsoft EWS/SMTP → Graph bridge; Visa B2B embedded-payment fee audit/routing.
+WATCH: 3 — Salesforce HPI compactor; Vercel deployment-storage optimizer; prior GitHub Agentic Autofix governance.
+DROP: Shopify subscription payment migration; failed-payment recovery; frontline authentication; Brother printer Error 03; n8n credential handover; plus prior DROP records retained.
+Default active-new-opportunity budget respected: one new NOW only.
+
+
+NOW
+Status: NOW
+Opportunity: Validate a $39–$49 local offline Bank-CSV → IIF converter for businesses/bookkeepers stranded on discontinued QuickBooks Desktop bank feeds.
+Research: Research-IBF-20261022-QuickBooksDesktop-DiscontinuedBankFeeds-IIF.md | researcher@0.2.2 | Final Status HYPOTHESIS_READY | Stage Result HYPOTHESIS_READY.
+Why now: Economic Significance is MEDIUM per customer but unusually direct: the alternative is recurring QBO migration/subscription or manual bookkeeping. Evidence Maturity is WORKAROUND / PRICE on the underlying pain, but not PAYMENT for this proposed tool. Uncertainty Reducibility is VERY HIGH because a tiny converter plus two bank samples can test demand within hours. Capture Fit is VERY HIGH: local, low-support, one-person software and a clear installed-base friction. Time Sensitivity is PERSISTENT/TIMELY rather than urgent. Compared with the prior HubSpot NOW, this has lower ACV but dramatically lower customer-access and validation cost; because no human record confirms HubSpot interviews were started, this is the best next unit of human attention rather than assuming two projects can run in parallel.
+What is already known:
+1. Research reports Intuit ended Desktop 2023 online services including Bank Feeds, while local IIF import remains available.
+2. Users have an explicit workaround path and meaningful avoided recurring/manual cost.
+3. Existing converter competitors are a real counter-signal; differentiation depends on offline simplicity, bank-format robustness and account validation.
+Critical unknown: Will stranded Desktop users/bookkeepers actually pay about $39 for a local converter rather than use an existing converter or migrate?
+Next action: Spend one constrained session producing a no-polish Chase/BoA CSV→IIF proof plus a landing/payment-intent page, then expose it to one relevant QuickBooks community and record qualified trials/payment intent; do not build a full product.
+Time budget: 2–3 hours recommended; PENDING HUMAN CONFIRMATION.
+Decision after: ≥3 qualified users attempt real files and at least one shows concrete payment intent → remain NOW for a paid concierge/beta test; usage without payment → NEXT/WATCH; weak usage or existing tools fully satisfy them → DROP.
+
+
+NEXT
+Status: NEXT
+Opportunity: Resume the prior HubSpot Credits audit thesis only after confirming whether the previously recommended interviews were actually run.
+Research: Research-Business-20261014-hubspot-flexible-seats-credits-toll.md | researcher@0.2.2 | Final Status HYPOTHESIS_READY | Stage Result HYPOTHESIS_READY; prior Judge ranked NOW.
+Why now: Economic Significance MEDIUM–HIGH and Capture Fit HIGH as an audit/data service, but this run found no human decision record showing the prior three interviews happened. Evidence Maturity remains PRICE/CONTRACT for platform spend but HYPOTHESIS for willingness to buy optimization. It should not silently occupy a second active slot.
+What is already known:
+1. Platform spend is measurable.
+2. Workflow compression could reduce credits.
+3. Capacity Packs and Make/n8n are strong substitutes.
+Critical unknown: Did real HubSpot operators prefer paying for optimization over buying more credits?
+Next action: Human confirms whether the prior 3-interview test was completed and, if so, supplies outcome before any new work.
+Time budget: 0 new hours until status is clarified; pending human confirmation.
+Decision after: Positive completed evidence can restore NOW; no test/weak intent stays NEXT or DROP.
+
+
+Status: NEXT
+Opportunity: Local EWS/SMTP → Microsoft Graph bridge for legacy ERP/scanners affected by Exchange Online EWS retirement.
+Research: Research-IBF-20261023-M365-ExchangeOnline-EWSRetirement.md | researcher@0.2.2 | Final Status HYPOTHESIS_READY | Stage Result HYPOTHESIS_READY.
+Why now: Economic Significance HIGH where invoicing/scanning breaks; Evidence Maturity is BEHAVIOR/WORKAROUND with a firm migration event; Uncertainty Reducibility HIGH technically but commercial validation needs MSP/admin access. Capture Fit HIGH for a small local software tool. Time Sensitivity is TIMELY but the hard 2027-04 deadline means it need not displace this week’s cheaper QuickBooks test.
+What is already known:
+1. Research identifies a dated protocol-retirement event and legacy-system breakage.
+2. A local bridge is technically plausible and avoids full ERP rewrites.
+3. Security policy around Entra application permissions is a material counter-signal.
+Critical unknown: Will SMB/MSP environments permit and pay for application-level Mail.Send through a third-party local bridge?
+Next action: After NOW frees, validate with 3 MSP/sysadmin operators using a deployment/security questionnaire before writing the bridge.
+Time budget: 1–2 hours recommended later; pending human confirmation.
+Decision after: Repeated permission feasibility + payment intent → NOW; security rejection → WATCH/DROP.
+
+
+Status: NEXT
+Opportunity: Audit and reduce the new Visa VCS embedded-payment surcharge for B2B suppliers, starting as a statement-audit service rather than a payment gateway.
+Research: Research-Business-20261023-visa-b2b-embedded-payment-toll.md | researcher@0.2.2 | Final Status HYPOTHESIS_READY | Stage Result HYPOTHESIS_READY.
+Why now: Economic Significance can be HIGH for large B2B card volumes and Time Sensitivity is TIMELY because the fee just took effect. Evidence Maturity is PRICE/CONTRACT for the toll, not PAYMENT for an independent optimizer. Capture Fit is MEDIUM–HIGH if limited to statement intelligence; it drops sharply if it becomes payment routing/compliance infrastructure. Customer access is harder than QuickBooks, so it does not take NOW.
+What is already known:
+1. Research identifies a 10 bps fee with direct hard-dollar impact.
+2. ACH/FedNow creates a plausible cost alternative.
+3. Buyer card rewards and surcharge rules can defeat routing economics.
+Critical unknown: Will affected B2B finance teams pay for independent fee audit/routing advice, and can they change buyer behavior without harming sales?
+Next action: Obtain one redacted October merchant statement from an affected B2B supplier and quantify the actually observed new fee before any product work.
+Time budget: 1–2 hours once access exists; pending human confirmation.
+Decision after: Verified material fee + buyer-change flexibility → NOW/NEXT; absent fee/access or inflexible buyer behavior → WATCH/DROP.
+
+
+WATCH
+Status: WATCH
+Opportunity: Salesforce HPI request compactor for external agents.
+Research: Research-Business-20261021-salesforce-headless-agent-api-toll.md | researcher@0.2.2 | Final Status HYPOTHESIS_READY | Stage Result HYPOTHESIS_READY.
+Why now: Economic Significance could become HIGH and Capture Fit is technically strong, but the Research itself says the decisive per-HPI multiplier is TBA. Evidence Maturity is CONTRACT/announced billing, not observed repeatable customer pain. Time Sensitivity is URGENT/TIMELY only once final pricing lands. Building before that risks optimizing a negligible bill.
+What is already known:
+1. External agent calls are being separated into a metered interaction model.
+2. Batching may reduce round trips.
+3. Final cost multiplier and enterprise proxy-approval friction remain unresolved.
+Critical unknown: Is the final HPI unit economics large enough to create a budget-owner problem?
+Next action: Agent-side trigger: promote when official final HPI multiplier/pricing plus at least two independent customer cost examples are available. Automatic monitoring is NOT verified/configured by this run.
+Time budget: 0 human hours now.
+Decision after: Material observed bills → NEXT/NOW; low cost → DROP.
+
+
+Status: WATCH
+Opportunity: Vercel deployment-storage cleanup/cold-archive optimizer.
+Research: Research-Business-20261023-vercel-deployment-storage-toll.md | researcher@0.2.2 | Final Status HYPOTHESIS_READY | Stage Result HYPOTHESIS_READY.
+Why now: Economic Significance is LOW–MEDIUM for most teams and HIGH only for unusually large/high-frequency deployments. Evidence Maturity is PRICE/CONTRACT for storage pricing but demand is inferred. Capture Fit is HIGH technically. Uncertainty Reducibility is HIGH, yet the proposed archive/rebuild mechanism needs proof that preserved artifacts can be restored safely and that teams care about >30-day rollback. Time Sensitivity is TIMELY, not urgent.
+What is already known:
+1. Research reports a new storage/retention toll.
+2. High-frequency AI-assisted CI can amplify artifact volume.
+3. Small/static teams can simply accept deletion, and native policy changes could erase the opportunity.
+Critical unknown: Are there enough teams with both material storage bills and genuine >30-day rollback requirements?
+Next action: Agent-side trigger: promote when new Research shows multiple real Pro-team bills above roughly $50/month attributable to deployment storage plus explicit rollback-retention pain. Automatic monitoring is NOT verified/configured by this run.
+Time budget: 0 human hours now.
+Decision after: Repeated hard-dollar pain → NEXT; otherwise remain WATCH/DROP.
+
+
+Status: WATCH
+Opportunity: GitHub Agentic Autofix AI Credits governance.
+Research: Research-Business-20261015-github-agentic-autofix-metered-toll.md | researcher@0.2.2 | HYPOTHESIS_READY; retained from prior Judge.
+Why now: No new decision-grade evidence in this window displaces the prior WATCH judgment. Native budgets and security trust remain strong counter-signals.
+What is already known:
+1. Metered spend exists.
+2. Triage/batching may reduce calls.
+3. Native controls and security liability constrain capture.
+Critical unknown: Do enterprises experience material enough spend to buy third-party governance?
+Next action: Agent-side trigger only on multiple independent enterprise budget-pressure reports plus explicit third-party demand; automatic monitoring remains unverified.
+Time budget: 0 human hours now.
+Decision after: Trigger met → NEXT; otherwise WATCH.
+
+
+DROP
+Status: DROP
+Opportunity: Generic SaaS failed-payment recovery.
+Research: Research-Friction-20261023-SaaS-Failed-Payment-Recovery.md and Research-Friction-20261025-failed-payment-recovery.md | researcher@0.2.2 | Final Status KILL | Stage Result KILL.
+Why now: Repeated signals add no new decision variable; mature outcome-based incumbents and payment-data advantages remove capture fit.
+What is already known: hard-dollar pain exists; mature recovery products exist; latest record explicitly identifies duplicate evidence.
+Critical unknown: None decision-critical under current thesis.
+Next action: Preserve Kill Reason; do not re-research unless a genuinely new mechanism or underserved segment appears.
+Time budget: 0.
+Decision after: DROP retained.
+
+
+Status: DROP
+Opportunity: Shopify subscription payment migration tooling.
+Research: Research-Friction-20261022-ShopifySubscriptionPaymentMigration.md | researcher@0.2.2 | Final Status KILL | Stage Result KILL.
+Why now: One-off migration, PCI constraints, free white-glove migration and high support burden violate the operating model.
+What is already known: migration friction is real; token transfer is compliance-bound; destination vendors subsidize migration.
+Critical unknown: None decision-critical.
+Next action: Preserve Kill Reason.
+Time budget: 0.
+Decision after: DROP retained.
+
+
+Status: DROP
+Opportunity: Frontline authentication software for healthcare/manufacturing.
+Research: Research-Friction-20261023-Frontline-Authentication-Friction.md | researcher@0.2.2 | Final Status KILL | Stage Result KILL.
+Why now: Requires hardware integration, enterprise sales and regulated deployment; poor Capture Fit.
+What is already known: pain and budgets exist; mechanism is physical/regulatory; incumbents dominate.
+Critical unknown: None decision-critical.
+Next action: Preserve Kill Reason.
+Time budget: 0.
+Decision after: DROP retained.
+
+
+Status: DROP
+Opportunity: Brother printer Error 03 recovery tool.
+Research: Research-IBF-20261023-BrotherPrinter-CloudDiscontinuation-Error03.md | researcher@0.2.2 | Final Status KILL | Stage Result KILL.
+Why now: Free native SMTP configuration solves the problem; little durable willingness to pay.
+What is already known: cloud break exists; native workaround exists; one-time setup is enough.
+Critical unknown: None decision-critical.
+Next action: Preserve Kill Reason.
+Time budget: 0.
+Decision after: DROP retained.
+
+
+Status: DROP
+Opportunity: n8n credential-handover SaaS.
+Research: Research-Friction-20261024-n8n-CredentialHandoverSetup.md | researcher@0.2.2 | Final Status KILL | Stage Result KILL.
+Why now: OAuth user authorization is a security invariant and free workflow/checklist solutions already absorb the friction.
+What is already known: handover friction exists; credentials cannot legitimately be auto-bypassed; free/native practices exist.
+Critical unknown: None decision-critical.
+Next action: Preserve Kill Reason.
+Time budget: 0.
+Decision after: DROP retained.
+
+
+Input Research References
+Research-IBF-20261022-QuickBooksDesktop-DiscontinuedBankFeeds-IIF.md — researcher@0.2.2 — Generated 2026-10-23T17:00:27+08:00
+Research-Business-20261023-vercel-deployment-storage-toll.md — researcher@0.2.2 — Generated 2026-10-23T17:00:27+08:00
+Research-Friction-20261023-SaaS-Failed-Payment-Recovery.md — researcher@0.2.2 — Generated 2026-10-23T17:00:27+08:00
+Research-Friction-20261023-Frontline-Authentication-Friction.md — researcher@0.2.2 — Generated 2026-10-23T17:00:27+08:00
+Research-IBF-20261023-M365-ExchangeOnline-EWSRetirement.md — researcher@0.2.2 — Generated 2026-10-24T17:22:32+08:00
+Research-IBF-20261023-BrotherPrinter-CloudDiscontinuation-Error03.md — researcher@0.2.2 — Generated 2026-10-24T17:22:32+08:00
+Research-Business-20261021-salesforce-headless-agent-api-toll.md — researcher@0.2.2 — Generated 2026-10-24T17:22:32+08:00
+Research-Friction-20261024-n8n-CredentialHandoverSetup.md — researcher@0.2.2 — Generated 2026-10-24T17:22:32+08:00
+Research-Business-20261023-visa-b2b-embedded-payment-toll.md — researcher@0.2.2 — Generated 2026-10-25T17:58:04+08:00
+Research-Friction-20261025-failed-payment-recovery.md — researcher@0.2.2 — Generated 2026-10-25T17:58:04+08:00
+Research-Friction-20261022-ShopifySubscriptionPaymentMigration.md — researcher@0.2.2 — Generated 2026-10-22T17:42:35+08:00
+Historical Judge: latest readable 2026-10-25-judge (content records prior 2026-10-15→10-22 review window); no separate human decision record found.
+
+
+Task Version: judge@0.2.1
+Generated At: 2026-10-26T09:47:00+08:00
+Role Spec Status: reviewed
+Human Decision Needed: Confirm (1) whether to spend 2–3 hours this week on the QuickBooks CSV→IIF validation as the sole new active opportunity, and (2) whether the prior HubSpot interview test was actually completed; if yes, provide its outcome so the queue can reconcile evidence rather than assume execution.
