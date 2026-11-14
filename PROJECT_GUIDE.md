@@ -276,7 +276,7 @@ Research/
 
 频率：
 
-**每周一次。**
+**每 3 天一次（Asia/Taipei 19:00；每轮回看近 7 天 Research 并跨轮去重）。**
 
 输入：
 
@@ -946,3 +946,10 @@ read
 目标是：
 
 > **先让现成 Agent 产品组成 Opportunity Runtime，再根据真实使用结果决定是否需要自建 Agent Worker。**
+
+
+---
+
+# 19. Judge 数据镜像与只读决策看板（2026-11-14）
+
+Judge 在 Google Drive 原目录归档并验证后，将 Research 与 Judge Google Docs 正文同步至私有仓库 `or-archive/research/` 和 `or-archive/judge/`；公开 GitHub Pages 只能部署 `site/` 脱敏投影，完整资料绝不可放入站点 artifact。镜像对账存储在 `or-archive/manifest.json`。新频次每 3 天；每自然周最多主动推进 1 个新 Opportunity 不变。历史文档未回填完毕前，必须报告 backfill_pending。完整边界见 `or-archive/README.md`。
