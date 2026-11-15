@@ -11,6 +11,7 @@ class PathBoundaryTests(unittest.TestCase):
         for kind, status, path in [
             ('review', 'A', 'opportunities/opp-1/opportunity.json'),
             ('review', 'A', 'practice/inbox/task-1/task.json'),
+            ('review', 'M', 'practice/inbox/task-1/task.json'),
             ('review', 'M', 'or-archive/manifest.json'),
             ('practice-result', 'A', 'practice/results/task-1/run-1/result.json'),
             ('decision', 'A', 'opportunities/opp-1/decisions/decision-1.json'),
@@ -23,7 +24,6 @@ class PathBoundaryTests(unittest.TestCase):
         for kind, status, path in [
             ('review', 'M', '.github/workflows/market-ci.yml'),
             ('review', 'M', 'scripts/workflow/check_paths.py'),
-            ('review', 'M', 'practice/inbox/task-1/task.json'),
             ('practice-result', 'M', 'practice/results/task-1/run-1/result.json'),
             ('decision', 'D', 'opportunities/opp-1/decisions/d.json'),
             ('archive', 'A', 'or-archive/../site/index.html'),

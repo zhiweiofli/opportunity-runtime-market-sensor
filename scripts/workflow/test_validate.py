@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
-from validate import Validator
+from validate import DEMO, Validator
 
 T = '2026-01-01T00:00:00Z'
 NOW = datetime(2026, 2, 1, tzinfo=timezone.utc)
@@ -25,7 +25,7 @@ class ValidationTests(unittest.TestCase):
         self.git('commit', '-qm', 'source')
         self.source = self.git('rev-parse', 'HEAD')
         ref = {'path': 'or-archive/research/a.md', 'commit': self.source}
-        self.opp = {'schema_version': 1, 'opportunity_id': 'o1', 'title': 'Synthetic', 'business_problem': 'test', 'target_customer': 'test', 'value_hypothesis': 'test', 'economic_anchor': {'value': None, 'unit': 'USD/month', 'basis': 'unknown', 'evidence_ref': None}, 'gates': dict.fromkeys(['money', 'mechanism', 'persistence', 'capture'], 'unknown'), 'source_refs': [{'drive_doc_id': 'synthetic', 'source_updated_at': T, 'mirror_path': ref['path'], 'commit': self.source, 'missing_reason': None}], 'research_status': 'unknown', 'judge_recommendation': 'NEXT', 'critical_unknown': 'test', 'created_at': T, 'updated_at': T}
+        self.opp = {'schema_version': 1, 'opportunity_id': 'o1', 'title': 'Synthetic', 'business_problem': 'test', 'target_customer': 'test', 'value_hypothesis': 'test', 'economic_anchor': {'value': None, 'unit': 'month', 'currency': None, 'basis': 'unknown', 'evidence_ref': None}, 'gates': dict.fromkeys(['money', 'mechanism', 'persistence', 'capture'], 'unknown'), 'source_refs': [{'drive_doc_id': 'synthetic', 'source_updated_at': T, 'mirror_path': ref['path'], 'commit': self.source, 'missing_reason': None}], 'research_status': 'unknown', 'judge_recommendation': 'NEXT', 'critical_unknown': 'test', 'created_at': T, 'updated_at': T}
         self.task = {'schema_version': 1, 'task_id': 't1', 'opportunity_id': 'o1', 'question': 'test?', 'hypothesis': 'test', 'success_criteria': [{'id': 'c1', 'description': 'test'}], 'falsification_criteria': [{'id': 'c2', 'description': 'test'}], 'deliverables': ['report'], 'context_refs': [ref], 'budget': {'max_duration': 1, 'duration_unit': 'hours', 'max_cost': 0, 'currency': 'USD'}, 'allowed_actions': ['read'], 'stop_conditions': ['stop'], 'created_at': T}
         self.write_json('opportunities/o1/opportunity.json', self.opp)
         self.write_json('practice/inbox/t1/task.json', self.task)
@@ -94,6 +94,11 @@ class ValidationTests(unittest.TestCase):
         self.assertTrue(any('demo/PILOT' in e for e in errors))
         self.assertTrue(any('future' in e for e in errors))
         self.assertTrue(any('unknown economic basis' in e for e in errors))
+
+    def test_demo_markers_in_json_and_markdown(self):
+        for text in ['{"demo_only": true}', '{"research_eligible": false}', '**demo_only**: true', '`research_eligible`: false', 'PILOT']:
+            with self.subTest(text=text): self.assertIsNotNone(DEMO.search(text))
+        self.assertIsNone(DEMO.search('{"demo_only": false, "research_eligible": true}'))
 
     def test_duplicate_json_keys_and_symlink(self):
         self.write('practice/inbox/t1/task.json', '{"schema_version":1,"schema_version":1}')

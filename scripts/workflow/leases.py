@@ -44,8 +44,9 @@ def transition(state, event, now, current_hash, budget_hours, runnable):
     return {'event_type': {'resume': 'resumed'}.get(kind, kind), 'started_at': state['started_at'], 'lease_until': until.isoformat(), 'reason': event['reason']}
 
 
-def recover(state, run_id, reason, now):
+def recover(state, run_id, reason, now, current_hash=None):
     if not state or state['run_id'] != run_id: raise ValueError('no matching lease to recover')
-    if parse_time(state['lease_until']) > now: raise ValueError('lease has not expired')
+    if parse_time(state['lease_until']) > now and (current_hash is None or current_hash == state['task_hash']):
+        raise ValueError('lease has not expired and task is unchanged')
     if not reason: raise ValueError('recovery reason required')
     return {'event_type': 'released', 'started_at': state['started_at'], 'lease_until': None, 'reason': reason}

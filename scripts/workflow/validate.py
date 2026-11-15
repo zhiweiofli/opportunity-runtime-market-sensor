@@ -19,7 +19,7 @@ LAYOUT = {
     'task': re.compile(rf'practice/inbox/({ID})/task\.json\Z'),
     'result': re.compile(rf'practice/results/({ID})/({ID})/result\.json\Z'),
 }
-DEMO = re.compile(r'(?im)(?:\bdemo_only\b(?:\*\*)?\s*[:=]\s*["\']?true\b|\bresearch_eligible\b(?:\*\*)?\s*[:=]\s*["\']?false\b|\bTEST_ONLY\b|\bPILOT\b)')
+DEMO = re.compile(r'(?im)(?:\bdemo_only\b["\'`*]*\s*[:=]\s*["\']?true\b|\bresearch_eligible\b["\'`*]*\s*[:=]\s*["\']?false\b|\bTEST_ONLY\b|\bPILOT\b)')
 
 
 def unique_object(pairs):
@@ -106,6 +106,12 @@ class Validator:
                 except (TypeError, ValueError):
                     self.error(owner, f'{k} is not a timezone-aware timestamp')
 
+    def amount(self, value, owner):
+        if (value['basis'] == 'unknown') != (value['value'] is None):
+            self.error(owner, 'unknown economic basis requires null value, and known basis requires a value')
+        if value['value'] is not None and value['currency'] is None:
+            self.error(owner, 'known amount requires currency')
+
     def files(self):
         for dirname in ('opportunities', 'practice/inbox', 'practice/results'):
             directory = self.root / dirname
@@ -154,7 +160,8 @@ class Validator:
         for path, o in self.records['opportunity'].values():
             if parse_time(o['updated_at']) < parse_time(o['created_at']): self.error(path, 'updated_at precedes created_at')
             a = o['economic_anchor']
-            if (a['basis'] == 'unknown') != (a['value'] is None): self.error(path, 'unknown economic basis requires null value, and known basis requires a value')
+            self.amount(a, path)
+            if o.get('public', {}).get('economic_anchor'): self.amount(o['public']['economic_anchor'], path)
             if a['basis'] != 'unknown' and a['evidence_ref'] is None: self.error(path, 'known economic value requires evidence')
             if a['evidence_ref']: self.read_ref(**a['evidence_ref'], owner=path)
             for source in o['source_refs']:
@@ -182,6 +189,7 @@ class Validator:
             ids = [x['id'] for x in t['success_criteria'] + t['falsification_criteria']]
             if len(ids) != len(set(ids)): self.error(path, 'duplicate criterion ID')
             if t['budget']['max_cost'] is not None and t['budget']['currency'] is None: self.error(path, 'known budget cost requires currency')
+            if t.get('public', {}).get('budget'): self.amount(t['public']['budget'], path)
             for ref in t['context_refs']:
                 data = self.read_ref(**ref, owner=path)
                 if data is not None and DEMO.search(data.decode('utf-8', errors='replace')):
@@ -193,6 +201,7 @@ class Validator:
                 continue
             task_path, task = item
             if task['opportunity_id'] != result['opportunity_id']: self.error(path, 'opportunity does not match task')
+            if parse_time(result['started_at']) < parse_time(task['created_at']): self.error(path, 'run starts before task creation')
             expected = hashlib.sha256(self.raw[task_path]).hexdigest()
             if result['task_hash'] != expected: self.error(path, 'task_hash does not match current task bytes')
             previous = self.read_ref(task_path, result['input_commit'], path)
@@ -202,8 +211,10 @@ class Validator:
             if len(got) != len(set(got)) or set(got) != set(criteria): self.error(path, 'criteria_results must cover every task criterion exactly once')
             if parse_time(result['finished_at']) < parse_time(result['started_at']): self.error(path, 'finish precedes start')
             cost = result['actual_cost']
+            if result.get('public', {}).get('actual_cost'): self.amount(result['public']['actual_cost'], path)
             if cost['cost'] is not None and cost['currency'] is None: self.error(path, 'known actual cost requires currency')
             for evidence in result['evidence_refs']:
+                if parse_time(evidence['collected_at']) > parse_time(result['finished_at']): self.error(path, 'evidence collected after run finished')
                 if evidence['ref']:
                     data = self.read_ref(**evidence['ref'], owner=path)
                     if not evidence['sha256']: self.error(path, 'referenced evidence file requires sha256')

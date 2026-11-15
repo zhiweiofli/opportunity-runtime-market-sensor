@@ -12,9 +12,9 @@ import urllib.error
 from pathlib import Path
 from urllib.parse import quote, urlencode
 
-from github_evidence import DECISION, GitHub, TASK_MARKER, check_comment, merged_addition
+from github_evidence import DECISION, GitHub, GitHubError, TASK_MARKER, check_comment, merged_addition, set_status, status_description
 from issue_handoff import BOT, ROOT, bot
-from validate import Validator, load_json
+from validate import Validator, load_json, parse_time
 
 KEYS = {'opportunity_id', 'action', 'run_id', 'reason', 'recovery_condition', 'new_task_id', 'project_url', 'new_task'}
 ID = re.compile(r'^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$')
@@ -67,15 +67,17 @@ def preflight(api, root, base, human, record, new_task):
         if record['run_id']:
             result = next(iter((sandbox / 'practice/results').glob(f'*/{record["run_id"]}/result.json')), None)
             if result is None: raise ValueError('result missing')
-            merged_addition(sandbox, base, result.relative_to(sandbox).as_posix(), {'practice-result'}, api)
+            result_pr = merged_addition(sandbox, base, result.relative_to(sandbox).as_posix(), {'practice-result'}, api)
+            if parse_time(record['decided_at']) < parse_time(result_pr['merged_at']):
+                raise ValueError('decision comment predates result acceptance')
         return files
 
 
 def ensure_branch(api, root, base, branch, files):
     try:
         ref = api.get('git/ref/heads/' + branch)
-    except urllib.error.HTTPError as exc:
-        if exc.code != 404: raise
+    except GitHubError as exc:
+        if exc.status != 404: raise
         commit = api.get(f'git/commits/{base}')
         tree = api.post('git/trees', {'base_tree': commit['tree']['sha'], 'tree': [{'path': path, 'mode': '100644', 'type': 'blob', 'content': content.decode('utf-8')} for path, content in files.items()]})
         created = api.post('git/commits', {'message': 'Propose human decision', 'tree': tree['sha'], 'parents': [base]})
@@ -104,12 +106,40 @@ def propose(api, root, base, branch_base, human, comment):
     owner = api.repo.split('/')[0]
     params = urlencode({'state': 'all', 'head': owner + ':' + branch, 'base': branch_base})
     existing = api.get('pulls?' + params, paginate=True)
-    if existing:
+    if existing and existing[0].get('state') != 'open':
         return existing[0]
     files = preflight(api, root, base, human, record, new_task)
     ensure_branch(api, root, base, branch, files)
-    summary = f"<!-- workflow-type: decision -->\n\n由 {record['source_issue_comment_url']} 提出的 `{record['action']}` 决定。机会 `{record['opportunity_id']}`；结果 `{record['run_id'] or '无'}`。请核对评论版本、理由和所有文件后合并；创建 PR 不代表决定已生效。"
-    return api.post('pulls', {'title': f"Decision: {record['action']} {record['opportunity_id']}", 'head': branch, 'base': branch_base, 'body': summary})
+    ref = api.get('git/ref/heads/' + branch)
+    if existing:
+        pr = existing[0]
+    else:
+        summary = f"<!-- workflow-type: decision -->\n\n由 {record['source_issue_comment_url']} 提出的 `{record['action']}` 决定。机会 `{record['opportunity_id']}`；结果 `{record['run_id'] or '无'}`。请核对评论版本、理由和所有文件后合并；创建 PR 不代表决定已生效。"
+        pr = api.post('pulls', {'title': f"Decision: {record['action']} {record['opportunity_id']}", 'head': branch, 'base': branch_base, 'body': summary})
+    set_status(api, ref['object']['sha'], pr['number'], 'success', status_description(base, pr.get('body', summary if not existing else '')))
+    return pr
+
+
+def invalidate_old_versions(api, pull_requests, comment):
+    try:
+        record, _ = build_record(comment, '')
+        current = 'codex/decision-' + record['decision_id']
+    except (ValueError, KeyError, TypeError):
+        current = None
+    prefix = f'codex/decision-d-{comment["id"]}-'
+    for pr in pull_requests:
+        head = pr.get('head') or {}
+        name = head.get('ref', '')
+        if name.startswith(prefix) and name != current and head.get('sha'):
+            set_status(api, head['sha'], pr['number'], 'failure', 'Source decision comment has changed')
+
+
+def invalidate_missing_comments(api, pull_requests, seen):
+    for pr in pull_requests:
+        head = pr.get('head') or {}
+        match = re.fullmatch(r'codex/decision-d-([0-9]+)-[0-9a-f]{16}', head.get('ref', ''))
+        if match and int(match[1]) not in seen and head.get('sha'):
+            set_status(api, head['sha'], pr['number'], 'failure', 'Source decision comment is unavailable')
 
 
 def main():
@@ -123,16 +153,26 @@ def main():
     errors = Validator(ROOT, base).run()
     if errors: raise ValueError('main workflow data invalid: ' + '; '.join(errors))
     failures = []
+    open_prs = api.get('pulls?state=open', paginate=True)
+    seen = set()
     for issue in api.get('issues?state=all', paginate=True):
         if issue.get('pull_request') or not bot(issue) or len(TASK_MARKER.findall(issue.get('body') or '')) != 1: continue
         for comment in api.get(f'issues/{issue["number"]}/comments', paginate=True):
             author = (comment.get('user') or {}).get('login', '').lower()
-            if author != human.lower() or not (comment.get('body') or '').startswith('<!-- or-decision -->'): continue
+            if author != human.lower(): continue
+            seen.add(comment['id'])
             try:
+                invalidate_old_versions(api, open_prs, comment)
+                if not (comment.get('body') or '').startswith('<!-- or-decision -->'): continue
                 pr = propose(api, ROOT, base, branch_base, human, comment)
                 print(f'decision comment {comment["id"]}: PR #{pr["number"]}')
             except (ValueError, KeyError, OSError, urllib.error.URLError, subprocess.CalledProcessError) as exc:
+                for pr in open_prs:
+                    head = pr.get('head') or {}
+                    if head.get('ref', '').startswith(f'codex/decision-d-{comment["id"]}-') and head.get('sha'):
+                        set_status(api, head['sha'], pr['number'], 'failure', 'Decision validation failed')
                 failures.append(f'comment {comment["id"]}: {exc}')
+    invalidate_missing_comments(api, open_prs, seen)
     if failures: raise ValueError('; '.join(failures))
 
 

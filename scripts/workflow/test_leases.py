@@ -18,6 +18,8 @@ class LeaseTests(unittest.TestCase):
         with self.assertRaises(ValueError): transition(state, self.event(run_id='r2'), NOW, 'a'*64, 3, True)
         with self.assertRaises(ValueError): transition(state, self.event(run_id='r2'), NOW + timedelta(hours=3), 'a'*64, 3, True)
         with self.assertRaises(ValueError): recover(state, 'r1', 'checked', NOW)
+        changed = recover(state, 'r1', 'old run inspected', NOW, 'b'*64)
+        self.assertEqual(changed['event_type'], 'released')
         receipt = recover(state, 'r1', 'checked', NOW + timedelta(hours=3))
         self.assertIsNone(latest([{**self.event(), **transition(None, self.event(), NOW, 'a'*64, 3, True)}, receipt]))
 

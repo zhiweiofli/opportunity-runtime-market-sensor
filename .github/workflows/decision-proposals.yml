@@ -1,7 +1,7 @@
 name: Human decision proposals
 on:
   issue_comment:
-    types: [created, edited]
+    types: [created, edited, deleted]
   push:
     branches: [main]
     paths: ['practice/results/**', 'opportunities/**']
@@ -9,9 +9,11 @@ on:
     - cron: '37 * * * *'
   workflow_dispatch:
 permissions:
+  actions: write
   contents: write
   pull-requests: write
   issues: read
+  statuses: write
 concurrency:
   group: human-decision-proposals
   cancel-in-progress: false
@@ -35,3 +37,9 @@ jobs:
           WORKFLOW_HUMAN_LOGIN: ${{ vars.WORKFLOW_HUMAN_LOGIN }}
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: python scripts/workflow/decision_proposals.py
+      - name: Refresh dashboard metadata
+        if: ${{ always() && vars.WORKFLOW_PUBLIC_PROJECTION_APPROVED == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: gh workflow run judge-pages.yml --ref "$DEFAULT_BRANCH"

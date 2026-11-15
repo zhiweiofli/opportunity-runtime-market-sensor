@@ -45,7 +45,7 @@ class HandoffTests(unittest.TestCase):
         self.task = {'task_id': 't1', 'opportunity_id': 'o1', 'budget': {'max_duration': 3, 'max_cost': 0, 'currency': 'USD'}}
         self.path.write_text(json.dumps(self.task))
         self.api = FakeGitHub()
-        self.patcher = patch('issue_handoff.merged_addition', return_value={'number': 1}); self.patcher.start(); self.addCleanup(self.patcher.stop)
+        self.patcher = patch('issue_handoff.merged_task_version', return_value={'number': 1}); self.patcher.start(); self.addCleanup(self.patcher.stop)
         self.run_scan()
 
     def run_scan(self, now=NOW): reconcile(self.api, self.root, 'base', 'consumer', 'human', now)

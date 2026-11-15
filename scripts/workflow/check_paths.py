@@ -26,7 +26,7 @@ def allowed(kind, status, path):
     if kind == 'archive':
         return archive(path)
     if kind == 'review':
-        return bool(OPPORTUNITY.fullmatch(path) or (status == 'A' and TASK.fullmatch(path)) or archive(path))
+        return bool(OPPORTUNITY.fullmatch(path) or TASK.fullmatch(path) or archive(path))
     if kind == 'practice-result':
         return status == 'A' and bool(RESULT.fullmatch(path))
     if kind == 'decision':

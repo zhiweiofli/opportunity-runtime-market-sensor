@@ -8,7 +8,7 @@ import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from github_evidence import GitHub, TASK_MARKER, merged_addition
+from github_evidence import GitHub, TASK_MARKER, merged_task_version
 from leases import latest, recover, transition
 from validate import Validator, load_json, parse_time
 
@@ -75,7 +75,7 @@ def reconcile(api, root, base, consumer, human, now):
         if len(matches.get(task_id, [])) > 1:
             raise ValueError(f'duplicate task issues for {task_id}; manual reconciliation required')
         if not matches.get(task_id) and runnable(root, task):
-            merged_addition(root, base, path.relative_to(root).as_posix(), {'review', 'decision'}, api)
+            merged_task_version(root, base, path.relative_to(root).as_posix(), api)
             body = f'<!-- workflow-task: {task_id} -->\n\n任务 `{task_id}`。此 Issue 保存领取与运行回执；以 main 的任务文件为准。'
             issue = api.post('issues', {'title': f'Practice task: {task_id}', 'body': body})
             matches[task_id] = [issue]
@@ -119,14 +119,14 @@ def reconcile(api, root, base, consumer, human, now):
                     if event_id in used_event_ids: raise ValueError('event_id already processed')
                     if parse_time(event['timestamp']) > now_at: raise ValueError('request timestamp is in the future')
                     if event['event_type'] == 'claim' and now_at - parse_time(c['created_at']) > timedelta(hours=2): raise ValueError('claim request expired')
-                    merged_addition(root, base, path.relative_to(root).as_posix(), {'review', 'decision'}, api)
+                    merged_task_version(root, base, path.relative_to(root).as_posix(), api)
                     budget = task['budget']
                     permitted = runnable(root, task) and budget['max_cost'] is not None and budget['currency'] is not None
                     fragment = transition(state, event, now_at, hashlib.sha256(path.read_bytes()).hexdigest(), budget['max_duration'], permitted)
                 else:
                     if not isinstance(event, dict) or set(event) != RECOVER_KEYS or event['task_id'] != task_id or not isinstance(event['run_id'], str) or not ID.fullmatch(event['run_id']): raise ValueError('invalid recovery fields')
                     if not isinstance(event['reason'], str) or not event['reason'].strip(): raise ValueError('recovery reason required')
-                    fragment = recover(state, event['run_id'], event['reason'], now_at)
+                    fragment = recover(state, event['run_id'], event['reason'], now_at, hashlib.sha256(path.read_bytes()).hexdigest())
                     base_receipt.update({'run_id': state['run_id'], 'agent_id': state['agent_id'], 'task_hash': state['task_hash']})
                 receipt = {**base_receipt, **fragment}
             except (ValueError, KeyError, TypeError) as exc:

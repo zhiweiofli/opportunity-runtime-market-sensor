@@ -22,7 +22,7 @@
 
 中心回执带 `request_comment_id`，类型为 accepted、heartbeat、blocked、resumed、released 或 rejected。只有来自 GitHub Actions bot 且绑定原评论的 `accepted` 或续租 `heartbeat` 回执有效。阻塞期间可心跳但不会自动恢复，解决阻塞后用 `resume` 请求。消费者检查租约时间和 hash，并在每次外部行动前核对 main 与停止条件。请求中的 timestamp 是记录信息，租约以中心处理时间计算。
 
-过期后须由配置的人类账号确认已检查副作用，再发恢复评论；恢复不会自动执行任何实验。
+租约过期或任务哈希变化后，须由配置的人类账号确认已检查副作用，再发恢复评论；恢复不会自动执行任何实验。
 
 ````text
 <!-- or-recover -->
@@ -49,4 +49,7 @@ python3 -m pip install -r requirements-workflow.txt
 python3 scripts/workflow/validate.py --root . --base <可信主分支提交SHA>
 python3 scripts/workflow/check_paths.py --type practice-result --base <base> --head <head>
 python3 -m unittest discover -s scripts/workflow -v
+python3 scripts/workflow/synthetic_demo.py
 ```
+
+最后一条仅在本地模拟领取竞争、心跳和过期恢复，输出明确标记 synthetic，**不连接 GitHub**；它不能证明实际消费者、通知或平台定时已接通。

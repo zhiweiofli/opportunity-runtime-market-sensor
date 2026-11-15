@@ -9,6 +9,7 @@ on:
     - cron: '17 * * * *'
   workflow_dispatch:
 permissions:
+  actions: write
   contents: read
   pull-requests: read
   issues: write
@@ -35,3 +36,9 @@ jobs:
           WORKFLOW_CONSUMER_LOGIN: ${{ vars.WORKFLOW_CONSUMER_LOGIN }}
           WORKFLOW_HUMAN_LOGIN: ${{ vars.WORKFLOW_HUMAN_LOGIN }}
         run: python scripts/workflow/issue_handoff.py
+      - name: Refresh dashboard metadata
+        if: ${{ always() && vars.WORKFLOW_PUBLIC_PROJECTION_APPROVED == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: gh workflow run judge-pages.yml --ref "$DEFAULT_BRANCH"

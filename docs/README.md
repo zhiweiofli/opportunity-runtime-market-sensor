@@ -16,3 +16,4 @@
 - [独立实践 Agent 协议](practice-agent-contract.md)
 - [实施与验收清单](github-workflow-implementation.md)
 - [GitHub 接入核查](github-workflow-access-check.md)和 [Judge 交接草稿](judge-github-handoff.md)
+- [实践协议入口](../protocols/practice.md)、[记录 Schema](../schemas/workflow/)和[本地合成演练](../scripts/workflow/synthetic_demo.py)

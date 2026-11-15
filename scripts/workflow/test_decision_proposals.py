@@ -1,7 +1,7 @@
 import json
 import unittest
 from unittest.mock import patch
-from decision_proposals import build_record, propose
+from decision_proposals import build_record, invalidate_missing_comments, invalidate_old_versions, propose
 
 
 class API:
@@ -9,6 +9,8 @@ class API:
     def __init__(self, existing=None): self.existing = existing or []; self.created = []
     def get(self, path, paginate=False):
         if path.startswith('pulls?'): return self.existing
+        if path.startswith('git/ref/heads/'): return {'object': {'sha': 'a'*40}}
+        if path.startswith('commits/') and path.endswith('/status'): return {'statuses': []}
         raise AssertionError(path)
     def post(self, path, body):
         self.created.append((path, body)); return {'number': 4}
@@ -47,7 +49,17 @@ class DecisionProposalTests(unittest.TestCase):
         with patch('decision_proposals.preflight', return_value={'file':b'content'}) as preflight, patch('decision_proposals.ensure_branch') as branch:
             self.assertEqual(propose(api, None, 'base', 'main', 'human', self.comment())['number'], 4)
             preflight.assert_called_once(); branch.assert_called_once()
-        self.assertIn('<!-- workflow-type: decision -->', api.created[0][1]['body'])
+        pull = next(body for path, body in api.created if path == 'pulls')
+        self.assertIn('<!-- workflow-type: decision -->', pull['body'])
+
+    def test_edited_or_removed_comment_invalidates_old_head(self):
+        api = API()
+        old = {'number': 9, 'head': {'ref': 'codex/decision-d-17-' + 'a'*16, 'sha': 'b'*40}}
+        invalidate_old_versions(api, [old], self.comment())
+        self.assertEqual(api.created[-1][1]['state'], 'failure')
+        api.created.clear()
+        invalidate_missing_comments(api, [old], set())
+        self.assertEqual(api.created[-1][1]['description'], 'Source decision comment is unavailable')
 
 
 if __name__ == '__main__': unittest.main()
