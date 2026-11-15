@@ -1,0 +1,50 @@
+name: Opportunity protocol checks
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, edited]
+permissions:
+  contents: read
+  pull-requests: read
+  issues: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out trusted base
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: trusted
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Check out proposal as data
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: proposed
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install trusted validation dependencies
+        run: python -m pip install -r trusted/requirements-workflow.txt
+      - name: Validate paths, data and GitHub evidence
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          WORKFLOW_HUMAN_LOGIN: ${{ vars.WORKFLOW_HUMAN_LOGIN }}
+        run: |
+          set -eu
+          test "$(git -C proposed rev-parse HEAD)" = "$HEAD_SHA"
+          TYPE="$(python trusted/scripts/workflow/pr_type.py)"
+          git -C proposed diff --stat "$BASE_SHA" "$HEAD_SHA"
+          (cd proposed && python ../trusted/scripts/workflow/check_paths.py --type "$TYPE" --base "$BASE_SHA" --head "$HEAD_SHA")
+          if [ "$TYPE" != implementation ]; then
+            python trusted/scripts/workflow/validate.py --root proposed --base "$BASE_SHA"
+            python trusted/scripts/workflow/github_evidence.py --root proposed --base "$BASE_SHA" --head "$HEAD_SHA" --repo "$REPOSITORY"
+          fi

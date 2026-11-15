@@ -1,0 +1,37 @@
+name: Human decision proposals
+on:
+  issue_comment:
+    types: [created, edited]
+  push:
+    branches: [main]
+    paths: ['practice/results/**', 'opportunities/**']
+  schedule:
+    - cron: '37 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+concurrency:
+  group: human-decision-proposals
+  cancel-in-progress: false
+jobs:
+  propose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements-workflow.txt
+      - name: Reconcile decision comments
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WORKFLOW_HUMAN_LOGIN: ${{ vars.WORKFLOW_HUMAN_LOGIN }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: python scripts/workflow/decision_proposals.py

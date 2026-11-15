@@ -1,0 +1,37 @@
+name: Practice task reconciliation
+on:
+  push:
+    branches: [main]
+    paths: ['practice/**', 'opportunities/**']
+  issue_comment:
+    types: [created, edited]
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: read
+  issues: write
+concurrency:
+  group: practice-task-reconciliation
+  cancel-in-progress: false
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements-workflow.txt
+      - name: Reconcile task issues and receipts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WORKFLOW_CONSUMER_LOGIN: ${{ vars.WORKFLOW_CONSUMER_LOGIN }}
+          WORKFLOW_HUMAN_LOGIN: ${{ vars.WORKFLOW_HUMAN_LOGIN }}
+        run: python scripts/workflow/issue_handoff.py

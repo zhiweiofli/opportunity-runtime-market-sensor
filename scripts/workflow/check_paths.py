@@ -17,6 +17,10 @@ def archive(path):
 
 
 def allowed(kind, status, path):
+    if kind == 'implementation':
+        if path in ('opportunities/README.md', 'practice/inbox/README.md', 'practice/results/README.md'):
+            return status in ('A', 'M')
+        return not any(path == root or path.startswith(root + '/') for root in ('opportunities', 'practice', 'or-archive'))
     if status not in ('A', 'M'):
         return False
     if kind == 'archive':
@@ -32,7 +36,7 @@ def allowed(kind, status, path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--type', required=True, choices=['review', 'practice-result', 'decision', 'archive'])
+    parser.add_argument('--type', required=True, choices=['review', 'practice-result', 'decision', 'archive', 'implementation'])
     parser.add_argument('--base', required=True)
     parser.add_argument('--head', required=True)
     args = parser.parse_args()
