@@ -74,10 +74,12 @@ def main():
         raise ValueError('existing claim differs from requested run or identity')
     digest=hashlib.sha256(request_comment['body'].encode('utf-8')).hexdigest()
     receipts=[]
+    receipt_comments={}
     for comment in comments:
         kind, data=parsed(comment)
         if bot(comment) and kind == 'receipt' and isinstance(data,dict) and data.get('task_id') == a.task_id:
             receipts.append(data)
+            receipt_comments[data.get('request_comment_id')]=comment
     responses=[r for r in receipts if r.get('request_comment_id') == request_comment['id']]
     if not responses:
         print('SYNTHETIC: awaiting center receipt; no result prepared.')
@@ -89,6 +91,8 @@ def main():
     state=latest(receipts); now=datetime.now(timezone.utc)
     if not state or state['status']!='active' or state['run_id']!=a.run_id or state['agent_id']!=a.agent_id or state['task_hash']!=task_hash or parse_time(state['lease_until']) <= now:
         raise ValueError('synthetic lease is no longer active')
+    if now < max(parse_time(response['timestamp']), parse_time(receipt_comments[request_comment['id']]['created_at'])):
+        raise ValueError('synthetic claim receipt is not yet effective')
     if api.get('branches/main')['commit']['sha']!=base or not runnable(ROOT,task) or a.task_id in open_result_tasks(api):
         raise ValueError('main or task status changed; stop and rescan')
     context=task['context_refs'][0]

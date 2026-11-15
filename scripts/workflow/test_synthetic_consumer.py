@@ -5,6 +5,7 @@ import sys
 import tempfile
 import unittest
 from jsonschema import Draft202012Validator
+from github_evidence import verify_run_receipts
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from types import SimpleNamespace
@@ -50,6 +51,7 @@ class ConsumerTests(unittest.TestCase):
                 result=json.loads((output/'practice/results/t1/r1/result.json').read_text())
                 schema=Path(__file__).resolve().parents[2]/'schemas/workflow/result.schema.json'
                 Draft202012Validator(json.loads(schema.read_text())).validate(result)
+                verify_run_receipts(api,result,task,'human')
                 self.assertEqual(result['actual_cost']['cost'],0)
                 self.assertEqual(result['evidence_refs'][0]['source'],'synthetic')
                 self.assertEqual(api.posts,1)

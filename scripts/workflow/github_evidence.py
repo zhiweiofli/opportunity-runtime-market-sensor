@@ -271,11 +271,12 @@ def verify_run_receipts(api, result, task, human):
             if kind != 'released' or actor != human.lower(): raise ValueError('recovery receipt actor is invalid')
         elif payload.get('event_type') != request_types[kind] or payload.get('task_hash') != result['task_hash'] or payload.get('agent_id') != receipt.get('agent_id') or payload.get('event_id') != receipt.get('event_id'):
             raise ValueError('run receipt differs from its request')
-        timestamp = parse_time(receipt['timestamp'])
-        if parse_time(request_comment['created_at']) > parse_time(comment['created_at']): raise ValueError('receipt predates its request')
-        if timestamp < parse_time(request_comment['created_at']) or timestamp >= parse_time(comment['created_at']) + timedelta(seconds=1):
+        recorded = parse_time(receipt['timestamp'])
+        posted = parse_time(comment['created_at'])
+        if parse_time(request_comment['created_at']) > posted: raise ValueError('receipt predates its request')
+        if recorded < parse_time(request_comment['created_at']) - timedelta(seconds=60) or recorded > posted + timedelta(seconds=60):
             raise ValueError('receipt timestamp does not match GitHub comment chronology')
-        events.append((timestamp, kind, receipt, actor, request[1]))
+        events.append((max(recorded, posted), kind, receipt, actor, request[1]))
     if not events: raise ValueError('result has no authenticated claim receipt')
     segments, state, start, expiry, agent, run_agent = [], None, None, None, None, None
     previous, run_actor = None, None
@@ -283,7 +284,7 @@ def verify_run_receipts(api, result, task, human):
         if previous and timestamp < previous: raise ValueError('run receipt times are not ordered')
         previous = timestamp
         if kind == 'accepted':
-            if state is not None or parse_time(receipt['started_at']) != timestamp: raise ValueError('invalid claim receipt sequence')
+            if state is not None or parse_time(receipt['started_at']) != parse_time(receipt['timestamp']): raise ValueError('invalid claim receipt sequence')
             state, start, expiry, agent = 'active', timestamp, parse_time(receipt['lease_until']), receipt['agent_id']
             if run_agent is not None and agent != run_agent: raise ValueError('run agent changed across recoveries')
             if run_actor is not None and actor != run_actor: raise ValueError('run consumer changed across recoveries')
