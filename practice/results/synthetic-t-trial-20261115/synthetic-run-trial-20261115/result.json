@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "task_id": "synthetic-t-trial-20261115",
+  "opportunity_id": "synthetic-o-trial-20261115",
+  "run_id": "synthetic-run-trial-20261115",
+  "task_hash": "3232a8f67c323dc874a43020f67cbc851c14c10e1281cd7fb6e39f1f21fb3417",
+  "input_commit": "b6f7fed129cbc890e132ca3f7e63f33471cda317",
+  "started_at": "2026-11-15T15:51:08.434785+00:00",
+  "finished_at": "2026-11-15T15:51:08.493609+00:00",
+  "execution_intervals": [
+    {
+      "started_at": "2026-11-15T15:51:08.434785+00:00",
+      "finished_at": "2026-11-15T15:51:08.493609+00:00"
+    }
+  ],
+  "outcome": "inconclusive",
+  "criteria_results": [
+    {
+      "criterion_id": "success",
+      "result": "Synthetic handshake only; no real-world claim."
+    },
+    {
+      "criterion_id": "failure",
+      "result": "Synthetic handshake only; no real-world claim."
+    }
+  ],
+  "evidence_refs": [
+    {
+      "source": "synthetic",
+      "collected_at": "2026-11-15T15:51:08.493609+00:00",
+      "summary": "Synthetic fixture read during the test.",
+      "ref": {
+        "path": "examples/synthetic/research.md",
+        "commit": "14ea4a5398ab6f8e7c4dfe7bad6c3b9f7f8237bc"
+      },
+      "sha256": "9dd6a48834ae87ca7e514ab3d1d573e3a496d32ae97d74cf5ef83829969f3d2f"
+    }
+  ],
+  "actual_cost": {
+    "duration": 1.634e-05,
+    "duration_unit": "hours",
+    "cost": 0,
+    "currency": "USD"
+  },
+  "remaining_unknown": [
+    "This test does not validate a real business opportunity."
+  ],
+  "recommendation": "Review the synthetic handshake only."
+}
