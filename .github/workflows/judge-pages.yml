@@ -32,7 +32,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   deploy:
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || vars.WORKFLOW_PUBLIC_PROJECTION_APPROVED == 'true'
+    if: vars.WORKFLOW_PUBLIC_PROJECTION_APPROVED == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

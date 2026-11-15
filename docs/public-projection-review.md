@@ -1,6 +1,6 @@
 # 公开闭环投影：待确认字段
 
-状态：**未获本轮公开确认，默认关闭**。`WORKFLOW_PUBLIC_PROJECTION_APPROVED` 未设为 `true`，不会生成新的 `site/data/workflow.json`。本文件用于审阅实际拟发布范围，不代表 Pages 已启用或发布。
+状态：**未获本轮公开确认，默认关闭**。`WORKFLOW_PUBLIC_PROJECTION_APPROVED` 未设为 `true`，不会生成新的 `site/data/workflow.json`，也不会部署站点；推送和手动触发同样受此限制。本文件用于审阅实际拟发布范围，不代表 Pages 已启用或发布。
 
 ## 拟发布内容
 
