@@ -92,10 +92,13 @@ def main():
     if api.get('branches/main')['commit']['sha']!=base or not runnable(ROOT,task) or a.task_id in open_result_tasks(api):
         raise ValueError('main or task status changed; stop and rescan')
     context=task['context_refs'][0]
+    started=datetime.now(timezone.utc)
     source=validator.read_ref(context['path'],context['commit'],path)
     if source is None: raise ValueError('synthetic context is unavailable')
-    timestamp=now.isoformat()
-    result={'schema_version':1,'task_id':a.task_id,'opportunity_id':task['opportunity_id'],'run_id':a.run_id,'task_hash':task_hash,'input_commit':base,'started_at':timestamp,'finished_at':timestamp,'execution_intervals':[{'started_at':timestamp,'finished_at':timestamp}],'outcome':'inconclusive','criteria_results':[{'criterion_id':c['id'],'result':'Synthetic handshake only; no real-world claim.'} for c in task['success_criteria']+task['falsification_criteria']],'evidence_refs':[{'source':'synthetic','collected_at':timestamp,'summary':'Synthetic fixture read during the test.','ref':context,'sha256':hashlib.sha256(source).hexdigest()}],'actual_cost':{'duration':0,'duration_unit':'hours','cost':0,'currency':task['budget']['currency']},'remaining_unknown':['This test does not validate a real business opportunity.'],'recommendation':'Review the synthetic handshake only.'}
+    finished=datetime.now(timezone.utc)
+    if finished >= parse_time(state['lease_until']): raise ValueError('synthetic lease expired before completion')
+    start_text, finish_text = started.isoformat(), finished.isoformat()
+    result={'schema_version':1,'task_id':a.task_id,'opportunity_id':task['opportunity_id'],'run_id':a.run_id,'task_hash':task_hash,'input_commit':base,'started_at':start_text,'finished_at':finish_text,'execution_intervals':[{'started_at':start_text,'finished_at':finish_text}],'outcome':'inconclusive','criteria_results':[{'criterion_id':c['id'],'result':'Synthetic handshake only; no real-world claim.'} for c in task['success_criteria']+task['falsification_criteria']],'evidence_refs':[{'source':'synthetic','collected_at':finish_text,'summary':'Synthetic fixture read during the test.','ref':context,'sha256':hashlib.sha256(source).hexdigest()}],'actual_cost':{'duration':(finished-started).total_seconds()/3600,'duration_unit':'hours','cost':0,'currency':task['budget']['currency']},'remaining_unknown':['This test does not validate a real business opportunity.'],'recommendation':'Review the synthetic handshake only.'}
     output=Path(a.output); output.mkdir(parents=True,exist_ok=False)
     directory=output/'practice'/'results'/a.task_id/a.run_id; directory.mkdir(parents=True)
     (directory/'result.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
