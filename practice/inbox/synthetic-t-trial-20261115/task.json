@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "execution_mode": "synthetic",
+  "task_id": "synthetic-t-trial-20261115",
+  "opportunity_id": "synthetic-o-trial-20261115",
+  "question": "Can the synthetic handoff complete?",
+  "hypothesis": "The approved test task can be claimed and returned.",
+  "success_criteria": [
+    {
+      "id": "success",
+      "description": "Record the synthetic handshake."
+    }
+  ],
+  "falsification_criteria": [
+    {
+      "id": "failure",
+      "description": "Record a failed or blocked handshake."
+    }
+  ],
+  "deliverables": [
+    "Synthetic result and report"
+  ],
+  "context_refs": [
+    {
+      "path": "examples/synthetic/research.md",
+      "commit": "14ea4a5398ab6f8e7c4dfe7bad6c3b9f7f8237bc"
+    }
+  ],
+  "budget": {
+    "max_duration": 1,
+    "duration_unit": "hours",
+    "max_cost": 0,
+    "currency": "USD"
+  },
+  "allowed_actions": [
+    "synthetic-only"
+  ],
+  "stop_conditions": [
+    "Stop on any need for a real external action or expense."
+  ],
+  "created_at": "2026-11-15T15:26:13.654921+00:00"
+}

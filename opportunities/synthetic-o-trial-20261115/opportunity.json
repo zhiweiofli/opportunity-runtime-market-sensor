@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "execution_mode": "synthetic",
+  "opportunity_id": "synthetic-o-trial-20261115",
+  "title": "Synthetic protocol exercise",
+  "business_problem": "Exercise the workflow with invented data.",
+  "target_customer": "Synthetic only",
+  "value_hypothesis": "The handoff can be traced end to end.",
+  "economic_anchor": {
+    "value": null,
+    "currency": null,
+    "unit": "month",
+    "basis": "unknown",
+    "evidence_ref": null
+  },
+  "gates": {
+    "money": "Synthetic only",
+    "mechanism": "Synthetic only",
+    "persistence": "Synthetic only",
+    "capture": "Synthetic only"
+  },
+  "source_refs": [
+    {
+      "drive_doc_id": null,
+      "source_updated_at": null,
+      "mirror_path": "examples/synthetic/research.md",
+      "commit": "14ea4a5398ab6f8e7c4dfe7bad6c3b9f7f8237bc",
+      "missing_reason": "local synthetic fixture, not a Drive document"
+    }
+  ],
+  "research_status": "unknown",
+  "judge_recommendation": "NEXT",
+  "critical_unknown": "Whether the synthetic handshake works.",
+  "created_at": "2026-11-15T15:26:13.654921+00:00",
+  "updated_at": "2026-11-15T15:26:13.654921+00:00"
+}
