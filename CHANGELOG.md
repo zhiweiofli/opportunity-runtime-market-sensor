@@ -1,5 +1,10 @@
 # Changelog
 
+## GitHub opportunity workflow — in progress
+
+- 添加机会闭环和实践协议设计入口，以及业务 PR 路径边界的独立检查工具。该工具尚未接入 Actions，不能代替内容、合并证据或身份校验；机会闭环尚未启用。
+- 记录 GitHub 接入检查和待接通的 Judge 提示词草稿。
+
 ## Deployment — 2026-10-20
 
 - 导入 Opportunity Runtime 的指南、六份业务原稿、协议和 Market 0.2.0 代码/任务。
