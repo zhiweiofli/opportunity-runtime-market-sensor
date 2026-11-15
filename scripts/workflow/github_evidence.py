@@ -78,6 +78,9 @@ def protocol_passed_at_merge(api, pr, root):
     if not head or not merge or not pr.get('merged_at'): return False
     parent = git(root, 'rev-parse', '--verify', f'{merge}^1')
     if parent.returncode: return False
+    second_parent = git(root, 'rev-parse', '--verify', f'{merge}^2')
+    if second_parent.returncode == 0:
+        head = second_parent.stdout.strip()
     validated_base = parent.stdout.strip()
     merged = parse_time(pr['merged_at'])
     statuses = api.get(f'commits/{head}/statuses', paginate=True)

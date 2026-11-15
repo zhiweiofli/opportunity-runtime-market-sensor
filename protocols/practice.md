@@ -40,6 +40,8 @@
 ```
 ````
 
+当前仓库禁止 Actions 创建 PR。如果自动创建因权限失败，工作流日志会显示失败，已创建的 `codex/decision-d-...` 分支保留以便重试。人可核对该分支与原评论，再在 GitHub 手动建立指向 main 的 PR，在正文独立一行写入 `<!-- workflow-type: decision -->` 并链接原评论；等待可信校验通过后再决定是否合并。手动接力不算自动交接或通知验收；如没有留下分支，先排查日志，不猜测或跳过校验。
+
 中心的真实消费者、合成测试消费者和人工 GitHub 登录名分别配置在仓库变量 `WORKFLOW_CONSUMER_LOGIN`、`WORKFLOW_SYNTHETIC_CONSUMER_LOGIN`、`WORKFLOW_HUMAN_LOGIN`。变量未配置时对应操作不被接受；真实与合成消费者同时配置时须使用不同账号。synthetic 任务只能执行 `synthetic-only` 动作：可在此私有仓库提交测试评论和 PR，但不得付费、联系外部人员或产生其他外部副作用；所有来源和上下文必须显式标识 synthetic，例如仓库中的 `examples/synthetic/research.md`。若人工与任一消费者共用身份，GitHub 无法独立证明决定由人而非程序发起；须使用人工合并及测试约定，强制身份隔离则需要单独的 bot 账号。
 
 本地检查（只检查数据，GitHub 合并和身份由在线检查另行验证）：

@@ -101,8 +101,10 @@ class GitHubEvidenceTests(unittest.TestCase):
         self.git('merge', '--no-ff', '-qm', 'merge proposal', 'proposal')
         merge = self.git('rev-parse', 'HEAD')
         path = 'practice/inbox/t2/task.json'
-        pr = {'number': 2, 'merged_at': '2026-01-01T00:00:00Z', 'merged_by': {'login': 'human'}, 'merge_commit_sha': merge, 'head': {'sha': merge}, 'base': {'ref':'main'}, 'body': '<!-- workflow-type: review -->'}
-        api = FakeGitHub({f'commits/{merge}/pulls': [{'number': 2}], 'pulls/2': pr, f'commits/{merge}/statuses': [{'context':'opportunity/protocol/2','creator':{'login':'github-actions[bot]'},'created_at':'2025-12-31T00:00:00Z','state':'success','description':status_description(base, '<!-- workflow-type: review -->')}], 'pulls/2/files': [{'filename': path, 'status': 'added'}]})
+        pr = {'number': 2, 'merged_at': '2026-01-01T00:00:00Z', 'merged_by': {'login': 'human'}, 'merge_commit_sha': merge, 'head': {'sha': proposal}, 'base': {'ref':'main'}, 'body': '<!-- workflow-type: review -->'}
+        api = FakeGitHub({f'commits/{merge}/pulls': [{'number': 2}], 'pulls/2': pr, f'commits/{proposal}/statuses': [{'context':'opportunity/protocol/2','creator':{'login':'github-actions[bot]'},'created_at':'2025-12-31T00:00:00Z','state':'success','description':status_description(base, '<!-- workflow-type: review -->')}], 'pulls/2/files': [{'filename': path, 'status': 'added'}]})
+        self.assertEqual(merged_addition(self.root, merge, path, {'review'}, api, 'human')['number'], 2)
+        pr['head']['sha'] = 'd'*40
         self.assertEqual(merged_addition(self.root, merge, path, {'review'}, api, 'human')['number'], 2)
         self.assertTrue(on_first_parent(self.root, merge, merge))
         self.assertFalse(on_first_parent(self.root, proposal, merge))
