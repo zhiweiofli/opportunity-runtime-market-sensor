@@ -223,6 +223,12 @@
       },
       "required": [],
       "additionalProperties": false
+    },
+    "execution_mode": {
+      "enum": [
+        "real",
+        "synthetic"
+      ]
     }
   },
   "required": [
@@ -238,7 +244,8 @@
     "budget",
     "allowed_actions",
     "stop_conditions",
-    "created_at"
+    "created_at",
+    "execution_mode"
   ],
   "additionalProperties": false
 }

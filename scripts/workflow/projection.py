@@ -40,13 +40,13 @@ def project(data, now):
     now = now.astimezone(timezone.utc)
     window = now - timedelta(days=90)
     cutoff = now.isoformat()
-    tasks = {x['data']['task_id']: x for x in data['tasks']}
-    opps = {x['data']['opportunity_id']: x for x in data['opportunities']}
-    results = data['results']
-    decisions = data['decisions']
+    opps = {x['data']['opportunity_id']: x for x in data['opportunities'] if x['data']['execution_mode'] == 'real'}
+    tasks = {x['data']['task_id']: x for x in data['tasks'] if x['data']['execution_mode'] == 'real' and x['data']['opportunity_id'] in opps}
+    results = [x for x in data['results'] if x['data']['task_id'] in tasks]
+    decisions = [x for x in data['decisions'] if x['data']['opportunity_id'] in opps]
     prs = data['pull_requests']
     issues = data['issues']
-    verified_prs = [p for p in prs if p['verified']]
+    verified_prs = [p for p in prs if p['verified'] and p['execution_mode'] == 'real']
     result_prs = [p for p in verified_prs if p['kind'] == 'practice-result']
     review_prs = [p for p in verified_prs if p['kind'] == 'review']
     decision_prs = [p for p in verified_prs if p['kind'] == 'decision']

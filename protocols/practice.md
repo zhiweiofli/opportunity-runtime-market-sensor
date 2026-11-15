@@ -7,11 +7,11 @@
 - 引用 `{ "path": "...", "commit": "<完整 40 位 SHA>" }` 指向 main 历史中的普通文件。相对路径不可越过仓库。来源缺口填 null 并说明，不编造。
 - 输入预算的 `max_duration` 用小时、`max_cost` 用 `currency` 指明的币种；未知为 null，不代表无限。`allowed_actions` 和停止条件不构成未列出的授权。
 - 判断标准使用 `{ "id": "...", "description": "..." }`；结果的 `criteria_results` 使用相同 ID，逐项提供 `result`。
-- 输出 `practice/results/<task_id>/<run_id>/result.json` 和同目录非空 `report.md`。`evidence_refs` 至少一项；引用文件时提供其 SHA-256。结果 PR 须关联任务 Issue 和输入 PR；实际合并证据从 GitHub 读取。
+- 输出 `practice/results/<task_id>/<run_id>/result.json` 和同目录非空 `report.md`。`execution_intervals` 列出实际执行的每一段开始和结束时间，停机或等待恢复的间隔不得计作执行；每段必须有中心确认的有效租约覆盖。`evidence_refs` 至少一项；随结果提交的文件放在该运行的 `evidence/` 下，引用的 commit 填 null 并提供 SHA-256；引用既有文件则提供固定 commit。结果 PR 须关联任务 Issue 和输入 PR；实际合并证据从 GitHub 读取。
 - PR 正文包含唯一类型标记，例如 `<!-- workflow-type: practice-result -->`。实际变更与类别会分别检查。创建 PR 或获得自动检查通过不等于人已验收。
 - 领取、心跳、阻塞、恢复以任务 Issue 的结构化评论交互，消费者等待 Actions bot 的对应确认后才执行；外部消费者与生产定时仍需单独验收。
 
-请求正文必须只含标记和 JSON 代码块，字段都必填；`event_type` 为 `claim`、`heartbeat`、`blocked`、`resume` 或 `released`。`blocked` 和 `resume` 必须说明原因。`event_id` 在所有请求中唯一，重试使用同一条评论而非新建事件；`reason` 可为 null。
+请求正文必须只含标记和 JSON 代码块，字段都必填；`event_type` 为 `claim`、`heartbeat`、`blocked`、`resume` 或 `released`。`blocked` 和 `resume` 必须说明原因。`event_id` 在所有请求中唯一；等待回执时复查同一条评论，收到 rejected 后如需重新申请则使用新的 event_id 和新评论；`reason` 可为 null。
 
 ````text
 <!-- or-request -->
@@ -40,7 +40,7 @@
 ```
 ````
 
-中心的消费者和人工 GitHub 登录名分别配置在仓库变量 `WORKFLOW_CONSUMER_LOGIN`、`WORKFLOW_HUMAN_LOGIN`。变量未配置时对应操作不被接受。若两者共用身份，GitHub 无法独立证明决定由人而非消费者发起；须使用人工合并约定，强制身份隔离则需要单独的 bot 账号。
+中心的真实消费者、合成测试消费者和人工 GitHub 登录名分别配置在仓库变量 `WORKFLOW_CONSUMER_LOGIN`、`WORKFLOW_SYNTHETIC_CONSUMER_LOGIN`、`WORKFLOW_HUMAN_LOGIN`。变量未配置时对应操作不被接受；真实与合成消费者同时配置时须使用不同账号。synthetic 任务只能执行 `synthetic-only` 动作：可在此私有仓库提交测试评论和 PR，但不得付费、联系外部人员或产生其他外部副作用；所有来源和上下文必须显式标识 synthetic，例如仓库中的 `examples/synthetic/research.md`。若人工与任一消费者共用身份，GitHub 无法独立证明决定由人而非程序发起；须使用人工合并及测试约定，强制身份隔离则需要单独的 bot 账号。
 
 本地检查（只检查数据，GitHub 合并和身份由在线检查另行验证）：
 
@@ -53,3 +53,17 @@ python3 scripts/workflow/synthetic_demo.py
 ```
 
 最后一条仅在本地模拟领取竞争、心跳和过期恢复，输出明确标记 synthetic，**不连接 GitHub**；它不能证明实际消费者、通知或平台定时已接通。
+
+实施 PR 合并后，先刷新 `origin/main`，再从包含合成材料的当前 main 生成独立的测试评审包（`trial-1` 需换成未使用的唯一后缀；输出目录须不存在）：
+
+```sh
+python3 examples/synthetic/build_review.py --id trial-1 --input-commit "$(git rev-parse origin/main)" --output /tmp/or-synthetic-trial-1
+```
+
+检查生成的机会与任务后，将文件放到基于该 main SHA 的评审分支并建立带 review 类型标记的 PR。只有人在 GitHub 合并该测试 PR 后，中心才可创建任务 Issue；测试消费者的身份须单独配置。测试全程只处理合成材料和零费用动作，人工接力、测试消费者与真实项目各自标明，不能相互冒充。
+
+任务 Issue 创建后，可以用本仓库提供的测试消费者发起领取；以下参数需换成实际测试 ID、Issue 编号和已配置的人类账号。它只对 synthetic 任务工作。首次调用创建一条测试领取评论，等待中心回执后再次运行相同命令；确认租约有效后才在新目录准备合成结果包，不会自动创建结果 PR。
+
+```sh
+python3 scripts/workflow/synthetic_consumer.py --repo zhiweiofli/opportunity-runtime-market-sensor --task-id synthetic-t-trial-1 --run-id synthetic-run-trial-1 --agent-id synthetic-consumer --issue 123 --output /tmp/or-synthetic-result-trial-1 --human zhiweiofli
+```

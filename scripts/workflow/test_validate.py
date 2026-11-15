@@ -3,6 +3,7 @@ import json
 import subprocess
 import tempfile
 import unittest
+from unittest.mock import patch
 from datetime import datetime, timezone
 from pathlib import Path
 from validate import DEMO, Validator
@@ -25,15 +26,15 @@ class ValidationTests(unittest.TestCase):
         self.git('commit', '-qm', 'source')
         self.source = self.git('rev-parse', 'HEAD')
         ref = {'path': 'or-archive/research/a.md', 'commit': self.source}
-        self.opp = {'schema_version': 1, 'opportunity_id': 'o1', 'title': 'Synthetic', 'business_problem': 'test', 'target_customer': 'test', 'value_hypothesis': 'test', 'economic_anchor': {'value': None, 'unit': 'month', 'currency': None, 'basis': 'unknown', 'evidence_ref': None}, 'gates': dict.fromkeys(['money', 'mechanism', 'persistence', 'capture'], 'unknown'), 'source_refs': [{'drive_doc_id': 'synthetic', 'source_updated_at': T, 'mirror_path': ref['path'], 'commit': self.source, 'missing_reason': None}], 'research_status': 'unknown', 'judge_recommendation': 'NEXT', 'critical_unknown': 'test', 'created_at': T, 'updated_at': T}
-        self.task = {'schema_version': 1, 'task_id': 't1', 'opportunity_id': 'o1', 'question': 'test?', 'hypothesis': 'test', 'success_criteria': [{'id': 'c1', 'description': 'test'}], 'falsification_criteria': [{'id': 'c2', 'description': 'test'}], 'deliverables': ['report'], 'context_refs': [ref], 'budget': {'max_duration': 1, 'duration_unit': 'hours', 'max_cost': 0, 'currency': 'USD'}, 'allowed_actions': ['read'], 'stop_conditions': ['stop'], 'created_at': T}
+        self.opp = {'schema_version': 1, 'execution_mode':'real', 'opportunity_id': 'o1', 'title': 'Synthetic', 'business_problem': 'test', 'target_customer': 'test', 'value_hypothesis': 'test', 'economic_anchor': {'value': None, 'unit': 'month', 'currency': None, 'basis': 'unknown', 'evidence_ref': None}, 'gates': dict.fromkeys(['money', 'mechanism', 'persistence', 'capture'], 'unknown'), 'source_refs': [{'drive_doc_id': 'synthetic', 'source_updated_at': T, 'mirror_path': ref['path'], 'commit': self.source, 'missing_reason': None}], 'research_status': 'unknown', 'judge_recommendation': 'NEXT', 'critical_unknown': 'test', 'created_at': T, 'updated_at': T}
+        self.task = {'schema_version': 1, 'execution_mode':'real', 'task_id': 't1', 'opportunity_id': 'o1', 'question': 'test?', 'hypothesis': 'test', 'success_criteria': [{'id': 'c1', 'description': 'test'}], 'falsification_criteria': [{'id': 'c2', 'description': 'test'}], 'deliverables': ['report'], 'context_refs': [ref], 'budget': {'max_duration': 1, 'duration_unit': 'hours', 'max_cost': 0, 'currency': 'USD'}, 'allowed_actions': ['read'], 'stop_conditions': ['stop'], 'created_at': T}
         self.write_json('opportunities/o1/opportunity.json', self.opp)
         self.write_json('practice/inbox/t1/task.json', self.task)
         self.git('add', '.')
         self.git('commit', '-qm', 'task')
         self.base = self.git('rev-parse', 'HEAD')
         task_hash = hashlib.sha256((self.root / 'practice/inbox/t1/task.json').read_bytes()).hexdigest()
-        self.result = {'schema_version': 1, 'task_id': 't1', 'opportunity_id': 'o1', 'run_id': 'r1', 'task_hash': task_hash, 'input_commit': self.base, 'started_at': T, 'finished_at': T, 'outcome': 'inconclusive', 'criteria_results': [{'criterion_id': 'c1', 'result': 'unknown'}, {'criterion_id': 'c2', 'result': 'unknown'}], 'evidence_refs': [{'source': 'synthetic', 'collected_at': T, 'summary': 'test evidence', 'ref': ref, 'sha256': hashlib.sha256(b'Synthetic research evidence').hexdigest()}], 'actual_cost': {'duration': None, 'duration_unit': 'hours', 'cost': None, 'currency': None}, 'remaining_unknown': ['test'], 'recommendation': 'more evidence'}
+        self.result = {'schema_version': 1, 'task_id': 't1', 'opportunity_id': 'o1', 'run_id': 'r1', 'task_hash': task_hash, 'input_commit': self.base, 'started_at': T, 'finished_at': T, 'execution_intervals':[{'started_at':T,'finished_at':T}], 'outcome': 'inconclusive', 'criteria_results': [{'criterion_id': 'c1', 'result': 'unknown'}, {'criterion_id': 'c2', 'result': 'unknown'}], 'evidence_refs': [{'source': 'synthetic', 'collected_at': T, 'summary': 'test evidence', 'ref': ref, 'sha256': hashlib.sha256(b'Synthetic research evidence').hexdigest()}], 'actual_cost': {'duration': None, 'duration_unit': 'hours', 'cost': None, 'currency': None}, 'remaining_unknown': ['test'], 'recommendation': 'more evidence'}
         self.write_json('practice/results/t1/r1/result.json', self.result)
         self.write('practice/results/t1/r1/report.md', 'Synthetic report')
         self.decision = {'schema_version': 1, 'decision_id': 'd1', 'opportunity_id': 'o1', 'action': 'pause', 'reason': 'test', 'actor': 'human', 'decided_at': T, 'source_issue_comment_url': 'https://github.com/example/repo/issues/1#issuecomment-1', 'source_comment_sha256': '0' * 64, 'run_id': 'r1', 'recovery_condition': 'new evidence', 'new_task_id': None, 'project_url': None}
@@ -74,6 +75,42 @@ class ValidationTests(unittest.TestCase):
         self.assertTrue(any('duplicate decision ID' in e for e in errors))
         self.assertTrue(any('cover every task criterion' in e for e in errors))
 
+    def test_primary_ids_do_not_collide_across_record_types(self):
+        self.task['task_id'] = 'o1'
+        self.write_json('practice/inbox/o1/task.json', self.task)
+        (self.root/'practice/inbox/t1/task.json').unlink()
+        self.assertTrue(any('primary ID o1' in e for e in self.errors()))
+
+    def test_synthetic_records_cannot_request_real_actions_or_publication(self):
+        (self.root/'practice/results/t1/r1/result.json').unlink()
+        (self.root/'practice/results/t1/r1/report.md').unlink()
+        (self.root/'opportunities/o1/decisions/d1.json').unlink()
+        self.write('examples/synthetic/research.md','execution_mode: synthetic\nSynthetic fixture')
+        self.git('add','examples/synthetic/research.md')
+        self.git('commit','-qm','synthetic fixture')
+        self.base=self.git('rev-parse','HEAD')
+        self.opp['execution_mode']='synthetic'
+        self.opp['source_refs']=[{'drive_doc_id':None,'source_updated_at':None,'mirror_path':'examples/synthetic/research.md','commit':self.base,'missing_reason':'local synthetic fixture'}]
+        self.task['execution_mode']='synthetic'
+        self.task['context_refs']=[{'path':'examples/synthetic/research.md','commit':self.base}]
+        self.task['allowed_actions']=['synthetic-only']
+        self.write_json('opportunities/o1/opportunity.json',self.opp)
+        self.write_json('practice/inbox/t1/task.json',self.task)
+        self.assertEqual(self.errors(), [])
+        self.task['allowed_actions']=['external contact']
+        self.task['budget']['max_cost']=1
+        self.write_json('practice/inbox/t1/task.json',self.task)
+        self.assertTrue(any('synthetic task must be' in e for e in self.errors()))
+        self.opp['public']={'title':'should not publish','summary':'test'}
+        self.write_json('opportunities/o1/opportunity.json',self.opp)
+        self.assertTrue(any('synthetic opportunity cannot' in e for e in self.errors()))
+        self.opp.pop('public')
+        self.opp['execution_mode']='real'
+        self.task['execution_mode']='real'
+        self.write_json('opportunities/o1/opportunity.json',self.opp)
+        self.write_json('practice/inbox/t1/task.json',self.task)
+        self.assertTrue(any('real task cannot use synthetic source' in e for e in self.errors()))
+
     def test_unsafe_missing_and_untrusted_references(self):
         for ref in [{'path': '../secrets', 'commit': self.source}, {'path': 'missing', 'commit': self.source}, {'path': 'or-archive/research/a.md', 'commit': '0'*40}]:
             self.task['context_refs'] = [ref]
@@ -99,6 +136,36 @@ class ValidationTests(unittest.TestCase):
         for text in ['{"demo_only": true}', '{"research_eligible": false}', '**demo_only**: true', '`research_eligible`: false', 'PILOT']:
             with self.subTest(text=text): self.assertIsNotNone(DEMO.search(text))
         self.assertIsNone(DEMO.search('{"demo_only": false, "research_eligible": true}'))
+
+    def test_result_can_include_only_hashed_run_evidence(self):
+        evidence_path = 'practice/results/t1/r1/evidence/data.txt'
+        self.write(evidence_path, 'synthetic data')
+        self.result['evidence_refs'] = [{'source':'synthetic','collected_at':T,'summary':'test','ref':{'path':evidence_path,'commit':None},'sha256':hashlib.sha256(b'synthetic data').hexdigest()}]
+        self.write_json('practice/results/t1/r1/result.json', self.result)
+        self.assertEqual(self.errors(), [])
+        self.write(evidence_path, 'changed data')
+        self.assertTrue(any('evidence hash mismatch' in e for e in self.errors()))
+        self.result['evidence_refs'][0]['ref']['path'] = 'practice/results/t1/r2/evidence/data.txt'
+        self.write_json('practice/results/t1/r1/result.json', self.result)
+        self.assertTrue(any('not referenced' in e for e in self.errors()))
+
+    def test_decision_preflight_reads_validated_merged_result(self):
+        from decision_proposals import build_record, preflight
+        (self.root / 'opportunities/o1/decisions/d1.json').unlink()
+        self.git('add', '.')
+        self.git('commit', '-qm', 'result')
+        base = self.git('rev-parse', 'HEAD')
+        payload={'opportunity_id':'o1','action':'pause','run_id':'r1','reason':'test','recovery_condition':'later','new_task_id':None,'project_url':None,'new_task':None}
+        body='<!-- or-decision -->\n```json\n'+json.dumps(payload)+'\n```'
+        comment={'id':5,'body':body,'user':{'login':'human'},'updated_at':T,'issue_url':'https://api.github.com/repos/example/repo/issues/1','html_url':'https://github.com/example/repo/issues/1#issuecomment-5'}
+        issue={'number':1,'body':'<!-- workflow-task: t1 -->','user':{'login':'github-actions[bot]','type':'Bot'}}
+        class API:
+            repo='example/repo'
+            def get(self, path, paginate=False): return {'issues/comments/5':comment,'issues/1':issue,'issues?state=all':[issue]}[path]
+        record,new_task=build_record(comment,'human')
+        with patch('decision_proposals.merged_addition',return_value={'merged_at':T}):
+            files=preflight(API(),self.root,base,'human',record,new_task)
+        self.assertEqual(list(files),[f'opportunities/o1/decisions/{record["decision_id"]}.json'])
 
     def test_duplicate_json_keys_and_symlink(self):
         self.write('practice/inbox/t1/task.json', '{"schema_version":1,"schema_version":1}')

@@ -10,6 +10,7 @@ OPPORTUNITY = re.compile(rf'opportunities/{ID}/opportunity\.json\Z')
 DECISION = re.compile(rf'opportunities/{ID}/decisions/{ID}\.json\Z')
 TASK = re.compile(rf'practice/inbox/{ID}/task\.json\Z')
 RESULT = re.compile(rf'practice/results/{ID}/{ID}/(?:result\.json|report\.md)\Z')
+EVIDENCE = re.compile(rf'practice/results/{ID}/{ID}/evidence/(?:[A-Za-z0-9][A-Za-z0-9_.-]{{0,127}}/)*[A-Za-z0-9][A-Za-z0-9_.-]{{0,127}}\Z')
 
 
 def archive(path):
@@ -28,7 +29,7 @@ def allowed(kind, status, path):
     if kind == 'review':
         return bool(OPPORTUNITY.fullmatch(path) or TASK.fullmatch(path) or archive(path))
     if kind == 'practice-result':
-        return status == 'A' and bool(RESULT.fullmatch(path))
+        return status == 'A' and bool(RESULT.fullmatch(path) or EVIDENCE.fullmatch(path))
     if kind == 'decision':
         return status == 'A' and bool(DECISION.fullmatch(path) or TASK.fullmatch(path))
     return False

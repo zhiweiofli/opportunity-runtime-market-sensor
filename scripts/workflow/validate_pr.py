@@ -10,9 +10,9 @@ import time
 from pathlib import Path
 from urllib.parse import quote
 
-from check_paths import allowed
+from check_paths import EVIDENCE, allowed
 from check_scope import check_scope
-from github_evidence import GitHub, check_changes, pr_type, set_status, status_description
+from github_evidence import GitHub, check_changes, pr_type, set_status, status_description, verify_main_facts
 from validate import LAYOUT, Validator
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -33,11 +33,13 @@ def materialize(api, root, merge_commit, changes, target):
     entries = {entry['path']: entry for entry in tree.get('tree', [])}
     total = 0
     for status, path in changed_data:
-        if not any(pattern.fullmatch(path) for pattern in LAYOUT.values()) and not (path.startswith('practice/results/') and path.endswith('/report.md')):
+        if not any(pattern.fullmatch(path) for pattern in LAYOUT.values()) and not (path.startswith('practice/results/') and path.endswith('/report.md')) and not EVIDENCE.fullmatch(path):
             raise ValueError('unrecognized business data file')
         entry = entries.get(path)
         if status not in ('A', 'M') or not entry or entry.get('type') != 'blob' or entry.get('mode') not in ('100644', '100755'):
             raise ValueError('business data must be a regular file')
+        if not isinstance(entry.get('size'), int) or entry['size'] > MAX_BLOB:
+            raise ValueError('business data blob is too large or has unknown size')
         parent = target
         for part in Path(path).parts[:-1]:
             parent = parent / part
@@ -85,6 +87,10 @@ def validate(api, root, base, default_branch, number, human):
     invalid = [f'{status} {path!r}' for status, path in changes if not allowed(kind, status, path)]
     if invalid: raise ValueError('disallowed paths: ' + ', '.join(invalid))
     if kind != 'implementation':
+        baseline = Validator(root, base)
+        errors = baseline.run()
+        if errors: raise ValueError('main workflow data invalid: ' + '; '.join(errors))
+        verify_main_facts(root, base, api, human, baseline.records)
         with tempfile.TemporaryDirectory(prefix='or-pr-data-') as tmp:
             target = Path(tmp)
             materialize(api, root, merge, changes, target)

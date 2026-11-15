@@ -4,12 +4,13 @@ import argparse
 import subprocess
 import sys
 from pathlib import Path
+from check_paths import EVIDENCE
 from validate import LAYOUT, load_json
 
 
 def check_scope(kind, changes, root):
     root = Path(root)
-    opportunities, tasks, decisions, results, reports = set(), [], [], [], []
+    opportunities, tasks, decisions, results, reports, evidence = set(), [], [], [], [], []
     for status, path in changes:
         for name, pattern in LAYOUT.items():
             match = pattern.fullmatch(path)
@@ -19,7 +20,10 @@ def check_scope(kind, changes, root):
             elif name == 'task': tasks.append((status, record)); opportunities.add(record['opportunity_id'])
             elif name == 'decision': decisions.append(record)
             elif name == 'result': results.append((match.group(1), match.group(2)))
-        if path.startswith('practice/results/') and path.endswith('/report.md'):
+        if EVIDENCE.fullmatch(path):
+            parts = path.split('/')
+            evidence.append((parts[2], parts[3]))
+        elif path.startswith('practice/results/') and path.endswith('/report.md'):
             parts = path.split('/')
             reports.append((parts[2], parts[3]))
     if kind == 'review':
@@ -29,7 +33,7 @@ def check_scope(kind, changes, root):
         if tasks and opportunity['judge_recommendation'] in ('WATCH', 'DROP'):
             raise ValueError('WATCH/DROP cannot create or change a practice task')
     elif kind == 'practice-result':
-        if len(results) != 1 or reports != results: raise ValueError('result PR must add exactly one result and its report')
+        if len(results) != 1 or reports != results or any(item != results[0] for item in evidence): raise ValueError('result PR must add exactly one result and its report and evidence')
     elif kind == 'decision':
         if len(decisions) != 1: raise ValueError('decision PR must add exactly one decision')
         d = decisions[0]

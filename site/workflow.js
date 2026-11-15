@@ -84,14 +84,14 @@
     if (snapshot.schema_version !== 'or-workflow-dashboard@1') throw new Error('不支持的快照版本');
     data = snapshot; var counts = snapshot.counts;
     var stats = document.getElementById('workflow-stats'); stats.replaceChildren();
-    [['待审评审 PR', counts.open_review_prs], ['待验收结果 PR', counts.open_result_prs], ['结果待决定机会', counts.opportunities_awaiting_decision], ['未通过或待验证提案', counts.unverified_prs]].forEach(function (x) {
+    [['待审评审 PR', counts.open_review_prs], ['待验收结果 PR', counts.open_result_prs], ['结果待决定机会', counts.opportunities_awaiting_decision], ['未通过或待验证（含测试）', counts.unverified_prs]].forEach(function (x) {
       var item = el('div', 'stat'); item.append(el('b', '', x[1]), el('span', '', x[0])); stats.append(item);
     });
     document.getElementById('workflow-metrics').textContent = ratio('任务完成率', snapshot.completion) + ' · ' + ratio('立项转化', snapshot.conversion) + ' · 创建窗口：' + date(snapshot.window_start) + ' 至 ' + date(snapshot.observation_cutoff);
     var age = Date.now() - Date.parse(snapshot.generated_at);
     message.textContent = isFinite(age) && age >= 0 && age <= 48 * 3600000 ? '闭环快照已加载。' : '闭环快照可能过期或时间未知，请核对来源。';
     message.className = isFinite(age) && age >= 0 && age <= 48 * 3600000 ? 'muted' : 'workflow-fresh';
-    document.getElementById('workflow-freshness').textContent = '快照生成：' + date(snapshot.generated_at) + ' · 最近 Judge：' + date(snapshot.last_judge_at) + ' · 最近领取/心跳：' + date(snapshot.last_heartbeat_at) + ' · GitHub 同步：' + date(snapshot.github_synced_at) + ' · 上次成功部署：' + date(snapshot.last_pages_deploy_at);
+    document.getElementById('workflow-freshness').textContent = '快照生成：' + date(snapshot.generated_at) + ' · 最近 Judge（已镜像）：' + date(snapshot.last_judge_at) + ' · 最近领取/心跳：' + date(snapshot.last_heartbeat_at) + ' · GitHub 同步：' + date(snapshot.github_synced_at) + ' · 上次成功部署：' + date(snapshot.last_pages_deploy_at);
     Array.from(new Set(snapshot.opportunities.map(function (x) { return x.stage; }))).sort().forEach(function (stage) { var option = el('option', '', stage); option.value = stage; filter.append(option); });
     render();
   }

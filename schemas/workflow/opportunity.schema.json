@@ -318,6 +318,12 @@
         "summary"
       ],
       "additionalProperties": false
+    },
+    "execution_mode": {
+      "enum": [
+        "real",
+        "synthetic"
+      ]
     }
   },
   "required": [
@@ -334,7 +340,8 @@
     "judge_recommendation",
     "critical_unknown",
     "created_at",
-    "updated_at"
+    "updated_at",
+    "execution_mode"
   ],
   "additionalProperties": false
 }

@@ -13,7 +13,7 @@
 
 对每个拟独立批准的机会，按仓库当前已实施的协议准备独立评审提案，包含机会记录、证据和明确的验证任务；WATCH 或 DROP 不创建实践任务。人合并评审 PR 后任务才获批准。结果合并表示接受记录，不代表人已决定立项。不得把模型建议写成人类决定，也不得擅自授权费用、外部联系、交易或其他需要人批准的行动。
 
-读取 protocols/practice.md 和 schemas/workflow/ 中当前版本的 opportunity.schema.json、task.schema.json；必须按 Schema 构造有效 UTF-8 JSON，不能用说明文字代替文件。机会写入 opportunities/<opportunity_id>/opportunity.json；任务写入 practice/inbox/<task_id>/task.json。一个评审 PR 只对应一个机会，旧机会 ID 沿用，新任务 ID 全局唯一。success_criteria 与 falsification_criteria 的每项都有唯一 id 和 description；context_refs 使用仓库相对 path 和 main 历史中的完整 commit SHA。source_refs 保留 Drive Doc ID、来源更新时间、镜像路径和固定 commit；缺失字段为 null 并说明缺口。金额注明数值、currency、unit、basis 及证据；未知值为 null，不填零。预算以小时、币种和金额明确约束，未知预算不得解释为无限。public 字段只填经允许公开的脱敏内容，无法确定披露范围就省略。
+读取 protocols/practice.md 和 schemas/workflow/ 中当前版本的 opportunity.schema.json、task.schema.json；必须按 Schema 构造有效 UTF-8 JSON，不能用说明文字代替文件。真实业务机会和任务都明确标记 execution_mode: real；synthetic 仅用于隔离的技术演练，不能当成真实机会。机会写入 opportunities/<opportunity_id>/opportunity.json；任务写入 practice/inbox/<task_id>/task.json。一个评审 PR 只对应一个机会，旧机会 ID 沿用，新任务 ID 全局唯一。success_criteria 与 falsification_criteria 的每项都有唯一 id 和 description；context_refs 使用仓库相对 path 和 main 历史中的完整 commit SHA。source_refs 保留 Drive Doc ID、来源更新时间、镜像路径和固定 commit；缺失字段为 null 并说明缺口。金额注明数值、currency、unit、basis 及证据；未知值为 null，不填零。预算以小时、币种和金额明确约束，未知预算不得解释为无限。public 字段只填经允许公开的脱敏内容，无法确定披露范围就省略。
 
 评审 PR 正文必须单独包含 `<!-- workflow-type: review -->`，并写明业务摘要、机会和任务 ID、证据版本、主要数据、关键未知和需要人决定的事项。新分支以当前 main 为基线，PR 实际 diff 只包含本机会与相应任务、必要镜像；禁止修改校验器、工作流、其他机会或人类决定。提交前复核 Schema、路径、引用、演示排除及 diff。若已有评审或结果 PR，先核对其状态；不要把关闭的未合并提案当作已批准或已完成。任务内容更新也须重新经过评审合并。
 

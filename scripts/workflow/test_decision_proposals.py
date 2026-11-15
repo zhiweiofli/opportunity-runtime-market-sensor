@@ -1,5 +1,7 @@
 import json
+import tempfile
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 from decision_proposals import build_record, invalidate_missing_comments, invalidate_old_versions, propose
 
@@ -46,9 +48,12 @@ class DecisionProposalTests(unittest.TestCase):
 
     def test_new_proposal_preflights_before_creating(self):
         api = API()
-        with patch('decision_proposals.preflight', return_value={'file':b'content'}) as preflight, patch('decision_proposals.ensure_branch') as branch:
-            self.assertEqual(propose(api, None, 'base', 'main', 'human', self.comment())['number'], 4)
-            preflight.assert_called_once(); branch.assert_called_once()
+        with tempfile.TemporaryDirectory() as tmp:
+            file=Path(tmp)/'opportunities/o1/opportunity.json'; file.parent.mkdir(parents=True)
+            file.write_text(json.dumps({'execution_mode':'real'}))
+            with patch('decision_proposals.preflight', return_value={'file':b'content'}) as preflight, patch('decision_proposals.ensure_branch') as branch:
+                self.assertEqual(propose(api, tmp, 'base', 'main', 'human', self.comment())['number'], 4)
+                preflight.assert_called_once(); branch.assert_called_once()
         pull = next(body for path, body in api.created if path == 'pulls')
         self.assertIn('<!-- workflow-type: decision -->', pull['body'])
 

@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 
 from jsonschema import Draft202012Validator, FormatChecker
+from check_paths import EVIDENCE
 
 SCHEMAS = Path(__file__).resolve().parents[2] / 'schemas/workflow'
 ID = r'[A-Za-z0-9][A-Za-z0-9_-]{0,127}'
@@ -20,6 +21,7 @@ LAYOUT = {
     'result': re.compile(rf'practice/results/({ID})/({ID})/result\.json\Z'),
 }
 DEMO = re.compile(r'(?im)(?:\bdemo_only\b["\'`*]*\s*[:=]\s*["\']?true\b|\bresearch_eligible\b["\'`*]*\s*[:=]\s*["\']?false\b|\bTEST_ONLY\b|\bPILOT\b)')
+SYNTHETIC_SOURCE = re.compile(r'(?im)^\s*execution_mode\s*:\s*synthetic\s*$')
 
 
 def unique_object(pairs):
@@ -57,6 +59,7 @@ class Validator:
         self.errors = []
         self.records = {kind: {} for kind in LAYOUT}
         self.raw = {}
+        self.evidence_files = set()
         self.schemas = {kind: Draft202012Validator(load_json((SCHEMAS / f'{kind}.schema.json').read_text()), format_checker=FormatChecker()) for kind in LAYOUT}
         self.commit_cache = {}
 
@@ -112,6 +115,14 @@ class Validator:
         if value['value'] is not None and value['currency'] is None:
             self.error(owner, 'known amount requires currency')
 
+    def source_mode(self, data, mode, owner):
+        if data is None: return
+        content = data.decode('utf-8', errors='replace')
+        if DEMO.search(content): self.error(owner, 'source is marked demo/PILOT or ineligible')
+        marker = bool(SYNTHETIC_SOURCE.search(content))
+        if mode == 'synthetic' and not marker: self.error(owner, 'synthetic source requires explicit synthetic marker')
+        if mode == 'real' and marker: self.error(owner, 'real task cannot use synthetic source')
+
     def files(self):
         for dirname in ('opportunities', 'practice/inbox', 'practice/results'):
             directory = self.root / dirname
@@ -126,6 +137,9 @@ class Validator:
                     self.error(path, 'symlink is forbidden')
                     continue
                 if not p.is_file():
+                    continue
+                if EVIDENCE.fullmatch(path):
+                    self.evidence_files.add(path)
                     continue
                 if re.fullmatch(rf'practice/results/{ID}/{ID}/report\.md', path):
                     continue
@@ -157,8 +171,15 @@ class Validator:
 
     def run(self):
         self.files()
+        referenced_evidence = set()
+        primary_ids = {}
+        for kind, records in self.records.items():
+            for key, (path, _) in records.items():
+                if key in primary_ids: self.error(path, f'primary ID {key} is already used by {primary_ids[key]}')
+                else: primary_ids[key] = kind
         for path, o in self.records['opportunity'].values():
             if parse_time(o['updated_at']) < parse_time(o['created_at']): self.error(path, 'updated_at precedes created_at')
+            if o['execution_mode'] == 'synthetic' and 'public' in o: self.error(path, 'synthetic opportunity cannot have public fields')
             a = o['economic_anchor']
             self.amount(a, path)
             if o.get('public', {}).get('economic_anchor'): self.amount(o['public']['economic_anchor'], path)
@@ -170,7 +191,7 @@ class Validator:
                 if bool(source['mirror_path']) != bool(source['commit']): self.error(path, 'mirror path and commit must be provided together')
                 if source['mirror_path'] and source['commit']:
                     data = self.read_ref(source['mirror_path'], source['commit'], path)
-                    if data is not None and DEMO.search(data.decode('utf-8', errors='replace')): self.error(path, 'source is marked demo/PILOT or ineligible')
+                    self.source_mode(data, o['execution_mode'], path)
                     if source['mirror_path'].startswith(('or-archive/research/', 'or-archive/judge/')):
                         manifest_data = self.read_ref('or-archive/manifest.json', source['commit'], path)
                         try:
@@ -184,16 +205,19 @@ class Validator:
             if t['opportunity_id'] not in self.records['opportunity']: self.error(path, 'missing opportunity')
             else:
                 opportunity = self.records['opportunity'][t['opportunity_id']][1]
+                if t['execution_mode'] != opportunity['execution_mode']: self.error(path, 'task and opportunity execution modes differ')
                 if not any(s['mirror_path'] and s['commit'] for s in opportunity['source_refs']):
                     self.error(path, 'task requires at least one fixed source mirror')
+            if t['execution_mode'] == 'synthetic':
+                if t['allowed_actions'] != ['synthetic-only'] or t['budget']['max_cost'] != 0 or t['budget']['max_duration'] is None or t['budget']['max_duration'] > 1 or 'public' in t:
+                    self.error(path, 'synthetic task must be offline-only, cost-free, at most one hour and non-public')
             ids = [x['id'] for x in t['success_criteria'] + t['falsification_criteria']]
             if len(ids) != len(set(ids)): self.error(path, 'duplicate criterion ID')
             if t['budget']['max_cost'] is not None and t['budget']['currency'] is None: self.error(path, 'known budget cost requires currency')
             if t.get('public', {}).get('budget'): self.amount(t['public']['budget'], path)
             for ref in t['context_refs']:
                 data = self.read_ref(**ref, owner=path)
-                if data is not None and DEMO.search(data.decode('utf-8', errors='replace')):
-                    self.error(path, 'context is marked demo/PILOT or ineligible')
+                self.source_mode(data, t['execution_mode'], path)
         for path, result in self.records['result'].values():
             item = self.records['task'].get(result['task_id'])
             if not item:
@@ -201,6 +225,7 @@ class Validator:
                 continue
             task_path, task = item
             if task['opportunity_id'] != result['opportunity_id']: self.error(path, 'opportunity does not match task')
+            if task['execution_mode'] == 'synthetic' and 'public' in result: self.error(path, 'synthetic result cannot have public fields')
             if parse_time(result['started_at']) < parse_time(task['created_at']): self.error(path, 'run starts before task creation')
             expected = hashlib.sha256(self.raw[task_path]).hexdigest()
             if result['task_hash'] != expected: self.error(path, 'task_hash does not match current task bytes')
@@ -210,13 +235,38 @@ class Validator:
             got = [x['criterion_id'] for x in result['criteria_results']]
             if len(got) != len(set(got)) or set(got) != set(criteria): self.error(path, 'criteria_results must cover every task criterion exactly once')
             if parse_time(result['finished_at']) < parse_time(result['started_at']): self.error(path, 'finish precedes start')
+            intervals = [(parse_time(x['started_at']), parse_time(x['finished_at'])) for x in result['execution_intervals']]
+            if intervals[0][0] != parse_time(result['started_at']) or intervals[-1][1] != parse_time(result['finished_at']): self.error(path, 'execution intervals must match run start and finish')
+            if any(end < start for start, end in intervals) or any(intervals[i][0] < intervals[i-1][1] for i in range(1, len(intervals))):
+                self.error(path, 'execution intervals must be ordered and non-overlapping')
             cost = result['actual_cost']
             if result.get('public', {}).get('actual_cost'): self.amount(result['public']['actual_cost'], path)
             if cost['cost'] is not None and cost['currency'] is None: self.error(path, 'known actual cost requires currency')
+            if task['budget']['max_duration'] is not None and sum((end - start).total_seconds() for start, end in intervals) > task['budget']['max_duration'] * 3600:
+                self.error(path, 'execution intervals exceed the approved time budget')
+            if cost['cost'] is not None and task['budget']['max_cost'] is not None:
+                if cost['currency'] != task['budget']['currency'] or cost['cost'] > task['budget']['max_cost']:
+                    self.error(path, 'actual cost exceeds or disagrees with approved budget')
+            if task['execution_mode'] == 'synthetic' and (cost['cost'] != 0 or cost['currency'] != task['budget']['currency']):
+                self.error(path, 'synthetic result must confirm zero cost in the approved currency')
             for evidence in result['evidence_refs']:
+                if task['execution_mode'] == 'synthetic' and evidence['source'] != 'synthetic':
+                    self.error(path, 'synthetic result evidence must use synthetic source')
                 if parse_time(evidence['collected_at']) > parse_time(result['finished_at']): self.error(path, 'evidence collected after run finished')
                 if evidence['ref']:
-                    data = self.read_ref(**evidence['ref'], owner=path)
+                    ref = evidence['ref']
+                    if ref['commit'] is None:
+                        prefix = f'practice/results/{result["task_id"]}/{result["run_id"]}/evidence/'
+                        evidence_path = ref['path']
+                        if not EVIDENCE.fullmatch(evidence_path) or not evidence_path.startswith(prefix) or evidence_path not in self.evidence_files:
+                            self.error(path, 'local evidence must be a regular file in this run')
+                            data = None
+                        else:
+                            referenced_evidence.add(evidence_path)
+                            data = (self.root / evidence_path).read_bytes()
+                    else:
+                        data = self.read_ref(**ref, owner=path)
+                        self.source_mode(data, task['execution_mode'], path)
                     if not evidence['sha256']: self.error(path, 'referenced evidence file requires sha256')
                     elif data is not None and hashlib.sha256(data).hexdigest() != evidence['sha256']: self.error(path, 'evidence hash mismatch')
             report = self.root / Path(path).parent / 'report.md'
@@ -230,6 +280,7 @@ class Validator:
             if d['action'] == 'continue':
                 task = self.records['task'].get(d['new_task_id'])
                 if not task or task[1]['opportunity_id'] != d['opportunity_id']: self.error(path, 'continue references missing new task for opportunity')
+        for path in sorted(self.evidence_files - referenced_evidence): self.error(path, 'evidence file is not referenced by its result')
         return self.errors
 
 

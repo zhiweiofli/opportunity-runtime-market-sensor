@@ -14,6 +14,7 @@ class PathBoundaryTests(unittest.TestCase):
             ('review', 'M', 'practice/inbox/task-1/task.json'),
             ('review', 'M', 'or-archive/manifest.json'),
             ('practice-result', 'A', 'practice/results/task-1/run-1/result.json'),
+            ('practice-result', 'A', 'practice/results/task-1/run-1/evidence/source.txt'),
             ('decision', 'A', 'opportunities/opp-1/decisions/decision-1.json'),
             ('archive', 'M', 'or-archive/research/doc.md'),
         ]:

@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
-from build_snapshot import collect, github_url, latest_protocol_status
+from build_snapshot import collect, github_url, last_judge_at, latest_protocol_status
 from github_evidence import status_description
 
 NOW = datetime(2026,2,1,tzinfo=timezone.utc)
@@ -48,6 +48,19 @@ class SnapshotCollectionTests(unittest.TestCase):
         self.assertEqual(github_url('https://github.com/example/repo/issues/12','example/repo','issues'),'https://github.com/example/repo/issues/12')
         for url in ['https://evil.example/example/repo/issues/12','https://github.com/example/other/issues/12','https://github.com/example/repo/issues/12?token=secret']:
             with self.assertRaises(ValueError): github_url(url,'example/repo','issues')
+
+    def test_judge_freshness_uses_explicit_timestamp_and_reports_unknown(self):
+        import json
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp); folder=root/'or-archive/judge'; folder.mkdir(parents=True)
+            file=folder/'j.md'; file.write_text('Generated At: 2026-01-01T00:00:00Z\n')
+            manifest=root/'or-archive/manifest.json'
+            manifest.write_text(json.dumps({'entries':[{'path':'or-archive/judge/j.md','sync_status':'mirrored'}]}))
+            self.assertEqual(last_judge_at(root,NOW),'2026-01-01T00:00:00+00:00')
+            file.write_text('Generated At: 2030-01-01T00:00:00Z\n')
+            self.assertIsNone(last_judge_at(root,NOW))
+            file.write_text('no explicit timestamp')
+            self.assertIsNone(last_judge_at(root,NOW))
 
 
 if __name__ == '__main__': unittest.main()

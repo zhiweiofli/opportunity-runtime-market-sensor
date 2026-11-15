@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime, timedelta, timezone
-from leases import latest, recover, transition
+from leases import consumed_seconds, latest, recover, transition
 
 NOW = datetime(2026, 1, 1, tzinfo=timezone.utc)
 
@@ -35,6 +35,16 @@ class LeaseTests(unittest.TestCase):
         with self.assertRaises(ValueError): transition(None, self.event(), NOW, 'b'*64, 3, True)
         with self.assertRaises(ValueError): transition(None, self.event(), NOW, 'a'*64, None, True)
         with self.assertRaises(ValueError): transition(None, self.event(), NOW, 'a'*64, 3, False)
+
+    def test_budget_is_shared_across_released_runs(self):
+        accepted = {**self.event(), **transition(None, self.event(), NOW, 'a'*64, 3, True)}
+        state = latest([accepted])
+        released = {**transition(state, self.event('released'), NOW + timedelta(hours=1), 'a'*64, 3, True), 'timestamp': (NOW + timedelta(hours=1)).isoformat()}
+        receipts = [accepted, released]
+        self.assertEqual(consumed_seconds(receipts), 3600)
+        second = transition(None, self.event(run_id='r2'), NOW + timedelta(hours=1), 'a'*64, 3, True, consumed_seconds(receipts))
+        self.assertEqual(second['lease_until'], (NOW + timedelta(hours=3)).isoformat())
+        with self.assertRaises(ValueError): transition(None, self.event(run_id='r3'), NOW, 'a'*64, 3, True, 3*3600)
 
 
 if __name__ == '__main__': unittest.main()

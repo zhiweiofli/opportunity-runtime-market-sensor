@@ -12,8 +12,8 @@ def entry(data, time=T): return {'data': data, 'merged_at': time, 'url': URL}
 
 
 def sample():
-    opportunity = {'opportunity_id':'o1', 'title':'PRIVATE TITLE', 'target_customer':'PRIVATE CUSTOMER', 'research_status':'HYPOTHESIS_READY', 'judge_recommendation':'NEXT', 'created_at':T, 'public': {'title':'Safe title','summary':'Safe summary'}}
-    task = {'task_id':'t1', 'opportunity_id':'o1', 'question':'PRIVATE QUESTION', 'created_at':T, 'public': {'question_summary':'Safe question'}}
+    opportunity = {'opportunity_id':'o1', 'execution_mode':'real', 'title':'PRIVATE TITLE', 'target_customer':'PRIVATE CUSTOMER', 'research_status':'HYPOTHESIS_READY', 'judge_recommendation':'NEXT', 'created_at':T, 'public': {'title':'Safe title','summary':'Safe summary'}}
+    task = {'task_id':'t1', 'execution_mode':'real', 'opportunity_id':'o1', 'question':'PRIVATE QUESTION', 'created_at':T, 'public': {'question_summary':'Safe question'}}
     result = {'task_id':'t1','opportunity_id':'o1','run_id':'r1','recommendation':'PRIVATE RESULT','public':{'summary':'Safe result'}}
     decision = {'opportunity_id':'o1','run_id':'r1','action':'pause','reason':'PRIVATE REASON','new_task_id':None}
     return {'opportunities':[entry(opportunity)], 'tasks':[entry(task)], 'results':[entry(result)], 'decisions':[entry(decision)], 'pull_requests':[], 'issues':{}, 'last_judge_at':T,'last_pages_deploy_at':None,'github_synced_at':T}
@@ -32,8 +32,8 @@ class ProjectionTests(unittest.TestCase):
 
     def test_each_result_requires_its_own_decision(self):
         s=sample()
-        s['tasks'].append(entry({'task_id':'t2','opportunity_id':'o1','question':'private','created_at':T}))
-        s['results'].append(entry({'task_id':'t2','opportunity_id':'o1','run_id':'r2'}))
+        s['tasks'].append(entry({'task_id':'t2','execution_mode':'real','opportunity_id':'o1','question':'private','created_at':T}))
+        s['results'].append(entry({'task_id':'t2','execution_mode':'real','opportunity_id':'o1','run_id':'r2'}))
         d=project(s,NOW)
         self.assertEqual(d['counts']['opportunities_awaiting_decision'],1)
         self.assertEqual(d['opportunities'][0]['stage'],'待立项决定')
@@ -54,6 +54,16 @@ class ProjectionTests(unittest.TestCase):
         d=project(s,NOW)
         self.assertEqual(d['opportunities'][0]['tasks'][0]['stage'],'暂缓')
         self.assertEqual(d['opportunities'][0]['stage'],'暂缓')
+
+    def test_synthetic_records_are_not_business_metrics(self):
+        s=sample()
+        s['opportunities'][0]['data']['execution_mode']='synthetic'
+        s['tasks'][0]['data']['execution_mode']='synthetic'
+        s['pull_requests']=[{'kind':'review','verified':True,'execution_mode':'synthetic','task_ids':[],'opportunity_ids':['o1'],'url':URL,'created_at':T}]
+        d=project(s,NOW)
+        self.assertEqual(d['counts']['open_review_prs'],0)
+        self.assertEqual(d['completion']['denominator'],0)
+        self.assertEqual(d['opportunities'],[])
 
 
 if __name__ == '__main__': unittest.main()

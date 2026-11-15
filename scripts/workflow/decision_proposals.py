@@ -12,7 +12,7 @@ import urllib.error
 from pathlib import Path
 from urllib.parse import quote, urlencode
 
-from github_evidence import DECISION, GitHub, GitHubError, TASK_MARKER, check_comment, merged_addition, set_status, status_description
+from github_evidence import DECISION, GitHub, GitHubError, TASK_MARKER, check_comment, merged_addition, set_status, status_description, verify_main_facts
 from issue_handoff import BOT, ROOT, bot
 from validate import Validator, load_json, parse_time
 
@@ -114,8 +114,12 @@ def propose(api, root, base, branch_base, human, comment):
     if existing:
         pr = existing[0]
     else:
-        summary = f"<!-- workflow-type: decision -->\n\n由 {record['source_issue_comment_url']} 提出的 `{record['action']}` 决定。机会 `{record['opportunity_id']}`；结果 `{record['run_id'] or '无'}`。请核对评论版本、理由和所有文件后合并；创建 PR 不代表决定已生效。"
-        pr = api.post('pulls', {'title': f"Decision: {record['action']} {record['opportunity_id']}", 'head': branch, 'base': branch_base, 'body': summary})
+        mode = load_json((Path(root) / 'opportunities' / record['opportunity_id'] / 'opportunity.json').read_bytes())['execution_mode']
+        synthetic = mode == 'synthetic'
+        label = '[SYNTHETIC] ' if synthetic else ''
+        note = '此决定仅用于技术演练，不代表真实立项。\n\n' if synthetic else ''
+        summary = f"<!-- workflow-type: decision -->\n\n{note}由 {record['source_issue_comment_url']} 提出的 `{record['action']}` 决定。机会 `{record['opportunity_id']}`；结果 `{record['run_id'] or '无'}`。请核对评论版本、理由和所有文件后合并；创建 PR 不代表决定已生效。"
+        pr = api.post('pulls', {'title': f"{label}Decision: {record['action']} {record['opportunity_id']}", 'head': branch, 'base': branch_base, 'body': summary})
     set_status(api, ref['object']['sha'], pr['number'], 'success', status_description(base, pr.get('body', summary if not existing else '')))
     return pr
 
@@ -150,8 +154,10 @@ def main():
     api = GitHub(repo, os.environ.get('GH_TOKEN', ''))
     branch_base = os.environ.get('DEFAULT_BRANCH', 'main')
     base = subprocess.run(['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], check=True, capture_output=True, text=True).stdout.strip()
-    errors = Validator(ROOT, base).run()
+    validator = Validator(ROOT, base)
+    errors = validator.run()
     if errors: raise ValueError('main workflow data invalid: ' + '; '.join(errors))
+    verify_main_facts(ROOT, base, api, human, validator.records)
     failures = []
     open_prs = api.get('pulls?state=open', paginate=True)
     seen = set()

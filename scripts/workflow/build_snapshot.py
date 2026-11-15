@@ -11,10 +11,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote, urlsplit
 
-from github_evidence import GitHub, merged_addition, merged_task_version, pr_type, status_description
+from github_evidence import GitHub, merged_addition, merged_task_version, pr_type, status_description, verify_main_facts
 from issue_handoff import TASK_MARKER, bot, parsed
 from projection import project
-from validate import LAYOUT, Validator, load_json, parse_time
+from validate import LAYOUT, Validator, load_json, parse_time, safe_path
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -38,6 +38,8 @@ def fetch_candidate(api, path, tree, schema):
     entry = tree.get(path)
     if not entry or entry.get('type') != 'blob' or entry.get('mode') not in ('100644', '100755'):
         raise ValueError('PR candidate is not a regular file')
+    if not isinstance(entry.get('size'), int) or entry['size'] > 1000000:
+        raise ValueError('PR candidate is too large or has unknown size')
     obj = api.get('git/blobs/' + entry['sha'])
     if obj.get('encoding') != 'base64' or obj.get('size', 0) > 1000000: raise ValueError('unsupported PR data file')
     raw = base64.b64decode(''.join(obj['content'].split()), validate=True)
@@ -47,10 +49,33 @@ def fetch_candidate(api, path, tree, schema):
     return record
 
 
+def last_judge_at(root, now):
+    manifest = root / 'or-archive/manifest.json'
+    if not manifest.is_file() or manifest.is_symlink(): return None
+    inventory = load_json(manifest.read_bytes()).get('entries', [])
+    if any(x.get('sync_status') != 'mirrored' for x in inventory): return None
+    entries = [x for x in inventory if (x.get('path') or '').startswith('or-archive/judge/')]
+    if not entries: return None
+    times = []
+    for entry in entries:
+        path = entry['path']
+        if entry.get('sync_status') != 'mirrored' or not safe_path(path): return None
+        file = root / path
+        if file.is_symlink() or not file.is_file() or not file.resolve().is_relative_to(root.resolve()): return None
+        matches = re.findall(r'(?m)^Generated At:\s*([^\s]+)\s*$', file.read_text(encoding='utf-8'))
+        if len(matches) != 1: return None
+        try: value = parse_time(matches[0])
+        except ValueError: return None
+        if value > now: return None
+        times.append(value)
+    return max(times).isoformat()
+
+
 def collect(api, root, base, human, now):
     validator = Validator(root, base, now)
     errors = validator.run()
     if errors: raise ValueError('main workflow data invalid: ' + '; '.join(errors))
+    verify_main_facts(root, base, api, human, validator.records)
     data = {'opportunities': [], 'tasks': [], 'results': [], 'decisions': [], 'pull_requests': [], 'issues': {}, 'last_judge_at': None, 'last_pages_deploy_at': None, 'github_synced_at': None}
     for kind, types, target in [('opportunity', {'review'}, 'opportunities'), ('task', {'review', 'decision'}, 'tasks'), ('result', {'practice-result'}, 'results'), ('decision', {'decision'}, 'decisions')]:
         for path, record in validator.records[kind].values():
@@ -66,8 +91,9 @@ def collect(api, root, base, human, now):
         if kind not in ('review', 'practice-result', 'decision'): continue
         sha = pr['head']['sha']
         verified = latest_protocol_status(api, sha, pr['number'], base, pr.get('body'))
-        item = {'kind': kind, 'verified': verified, 'url': github_url(pr['html_url'], api.repo, 'pull'), 'created_at': pr['created_at'], 'task_ids': [], 'opportunity_ids': [], 'public_opportunities': [], '_number': pr['number'], '_head': sha, '_body': pr.get('body')}
+        item = {'kind': kind, 'verified': verified, 'execution_mode': None, 'url': github_url(pr['html_url'], api.repo, 'pull'), 'created_at': pr['created_at'], 'task_ids': [], 'opportunity_ids': [], 'public_opportunities': [], '_number': pr['number'], '_head': sha, '_body': pr.get('body')}
         if verified:
+            modes = set()
             details = api.get(f'pulls/{pr["number"]}')
             if details.get('state') != 'open' or details['head']['sha'] != sha or details.get('body') != pr.get('body'):
                 raise ValueError('PR changed during snapshot generation')
@@ -86,20 +112,32 @@ def collect(api, root, base, human, now):
             for f in files:
                 path = f['filename']
                 m = LAYOUT['result'].fullmatch(path)
-                if kind == 'practice-result' and m and f['status'] == 'added': item['task_ids'].append(m.group(1))
+                if kind == 'practice-result' and m and f['status'] == 'added':
+                    item['task_ids'].append(m.group(1))
+                    task = validator.records['task'].get(m.group(1))
+                    if not task: raise ValueError('result PR refers to an unknown task')
+                    modes.add(task[1]['execution_mode'])
                 m = LAYOUT['decision'].fullmatch(path)
-                if kind == 'decision' and m and f['status'] == 'added': item['opportunity_ids'].append(m.group(1))
+                if kind == 'decision' and m and f['status'] == 'added':
+                    item['opportunity_ids'].append(m.group(1))
+                    opportunity = validator.records['opportunity'].get(m.group(1))
+                    if not opportunity: raise ValueError('decision PR refers to an unknown opportunity')
+                    modes.add(opportunity[1]['execution_mode'])
                 m = LAYOUT['opportunity'].fullmatch(path)
                 if kind == 'review' and m and f['status'] in ('added', 'modified'):
                     record = fetch_candidate(api, path, tree, validator.schemas['opportunity'])
                     if record['opportunity_id'] != m.group(1): raise ValueError('PR opportunity ID mismatch')
                     item['opportunity_ids'].append(m.group(1))
                     item['public_opportunities'].append(record)
+                    modes.add(record['execution_mode'])
                 m = LAYOUT['task'].fullmatch(path)
                 if kind == 'review' and m and f['status'] in ('added', 'modified'):
                     record = fetch_candidate(api, path, tree, validator.schemas['task'])
                     if record['task_id'] != m.group(1): raise ValueError('PR task ID mismatch')
                     item['opportunity_ids'].append(record['opportunity_id'])
+                    modes.add(record['execution_mode'])
+            if len(modes) != 1: raise ValueError('validated PR has unknown or mixed execution mode')
+            item['execution_mode'] = modes.pop()
         data['pull_requests'].append(item)
     for issue in api.get('issues?state=all', paginate=True):
         if issue.get('pull_request') or not bot(issue): continue
@@ -112,8 +150,7 @@ def collect(api, root, base, human, now):
             if bot(c) and kind == 'receipt' and isinstance(record, dict) and record.get('task_id') == markers[0]:
                 receipts.append(record)
         data['issues'].setdefault(markers[0], []).append({'url': github_url(issue['html_url'], api.repo, 'issues'), 'state': issue['state'], 'receipts': receipts})
-    legacy = root / 'site/data/latest.json'
-    if legacy.is_file(): data['last_judge_at'] = load_json(legacy.read_bytes()).get('review_at')
+    data['last_judge_at'] = last_judge_at(root, now)
     deployments = api.get('deployments?environment=github-pages', paginate=True)
     successful_deployments = []
     for deploy in deployments:
