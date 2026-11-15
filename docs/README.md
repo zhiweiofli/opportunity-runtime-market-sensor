@@ -7,3 +7,14 @@
 - [验证记录](validation.md)：本地、GitHub、API、Cloud 分别记事实。
 
 研究状态协调沿用完整项目：Final Status 为 KILL/HYPOTHESIS_READY/BLOCKED，WATCH 是阶段结果；Market 当前全为演示且不可研究。正式异常参数须先明确，再实现和单独验收。
+
+## 机会闭环的增量设计
+
+以下文档来自 Opportunity Runtime 根项目的工作区版本，描述用户提出的增量范围；原始业务文档保持不变。设计不代表流程或平台接入已经实现或验收。
+
+- [GitHub 机会流程](github-opportunity-workflow.md)
+- [独立实践 Agent 协议](practice-agent-contract.md)
+- [实施与验收清单](github-workflow-implementation.md)
+- [GitHub 接入核查](github-workflow-access-check.md)和 [Judge 交接草稿](judge-github-handoff.md)
+- [实践协议入口](../protocols/practice.md)、[记录 Schema](../schemas/workflow/)和[本地合成演练](../scripts/workflow/synthetic_demo.py)
+- [公开投影字段审阅清单](public-projection-review.md)：默认关闭，待用户确认后才能启用。

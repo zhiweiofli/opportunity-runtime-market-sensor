@@ -1,0 +1,347 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "opportunity",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "opportunity_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "business_problem": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_customer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "value_hypothesis": {
+      "type": "string",
+      "minLength": 1
+    },
+    "economic_anchor": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "basis": {
+          "enum": [
+            "measured",
+            "estimated",
+            "unknown"
+          ]
+        },
+        "evidence_ref": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "commit": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{40}$"
+                }
+              },
+              "required": [
+                "path",
+                "commit"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "currency": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Z]{3}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "unit",
+        "basis",
+        "evidence_ref",
+        "currency"
+      ],
+      "additionalProperties": false
+    },
+    "gates": {
+      "type": "object",
+      "properties": {
+        "money": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mechanism": {
+          "type": "string",
+          "minLength": 1
+        },
+        "persistence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capture": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "money",
+        "mechanism",
+        "persistence",
+        "capture"
+      ],
+      "additionalProperties": false
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "drive_doc_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "source_updated_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "mirror_path": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "commit": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{40}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "missing_reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "drive_doc_id",
+          "source_updated_at",
+          "mirror_path",
+          "commit",
+          "missing_reason"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "research_status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "judge_recommendation": {
+      "enum": [
+        "NOW",
+        "NEXT",
+        "WATCH",
+        "DROP"
+      ]
+    },
+    "critical_unknown": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "public": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "customer_summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "economic_anchor": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "enum": [
+                "measured",
+                "estimated",
+                "unknown"
+              ]
+            },
+            "currency": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[A-Z]{3}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "value",
+            "unit",
+            "basis",
+            "currency"
+          ],
+          "additionalProperties": false
+        },
+        "gate_summary": {
+          "type": "object",
+          "properties": {
+            "money": {
+              "type": "string",
+              "minLength": 1
+            },
+            "mechanism": {
+              "type": "string",
+              "minLength": 1
+            },
+            "persistence": {
+              "type": "string",
+              "minLength": 1
+            },
+            "capture": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "money",
+            "mechanism",
+            "persistence",
+            "capture"
+          ],
+          "additionalProperties": false
+        },
+        "unknown_summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "next_step_summary": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "title",
+        "summary"
+      ],
+      "additionalProperties": false
+    },
+    "execution_mode": {
+      "enum": [
+        "real",
+        "synthetic"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "opportunity_id",
+    "title",
+    "business_problem",
+    "target_customer",
+    "value_hypothesis",
+    "economic_anchor",
+    "gates",
+    "source_refs",
+    "research_status",
+    "judge_recommendation",
+    "critical_unknown",
+    "created_at",
+    "updated_at",
+    "execution_mode"
+  ],
+  "additionalProperties": false
+}

@@ -18,6 +18,10 @@ jobs:
           python-version: '3.11'
       - name: Offline tests
         run: python3 -m unittest discover -s scripts/market -p 'test_*.py' -v
+      - name: Install workflow test dependency
+        run: python3 -m pip install -r requirements-workflow.txt
+      - name: Workflow unit tests
+        run: python3 -m unittest discover -s scripts/workflow -p 'test_*.py' -v
       - name: CLI fixture smoke check
         run: |
           python3 scripts/market/market_sensor.py --source fixture --demo-abs-pct 5
