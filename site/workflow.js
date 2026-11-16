@@ -26,7 +26,7 @@
     try {
       var u = new URL(url);
       if (u.protocol !== 'https:' || u.hostname !== 'github.com' || u.search || u.hash || !/\/[^/]+\/[^/]+\/(pull|issues)\/\d+$/.test(u.pathname)) return;
-      var a = el('a', '', label + '（需要仓库权限）');
+      var a = el('a', '', label);
       a.href = u.href; a.rel = 'noopener noreferrer'; a.target = '_blank'; parent.append(a);
     } catch (_) { /* Invalid links are omitted. */ }
   }
