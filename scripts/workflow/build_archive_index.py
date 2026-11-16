@@ -67,8 +67,10 @@ def build(root):
             raise ValueError('archive file is missing or unsafe: ' + path)
         text = file.read_text(encoding='utf-8')
         title, summary = extract(text, entry.get('title', path), match.group(1))
-        status = re.search(r'(?im)^[ \t]*[-*]*[ \t]*Final (?:Status|Verdict)[*]*[ \t]*[:：]?[ \t\n]*(HYPOTHESIS_READY|KILL|WATCH|BLOCKED)\b', text)
-        entries.append({'title': title, 'summary': summary, 'status': status.group(1).upper() if status else None, 'path': path, 'kind': match.group(1), 'modified': entry.get('modified_at')})
+        status = re.search(r'(?im)^[ \t]*(?:[-*][ \t]*)*(?:Stage\s*&\s*)?Final (?:Status|Verdict)[*]*[ \t]*[:：]?[ \t\r\n]*(HYPOTHESIS_READY|KILL|WATCH|BLOCKED)\b', text)
+        source = re.match(r'(?i)^Research-(IBF|UW|Business|Friction)-', entry.get('title', ''))
+        tags = [source.group(1).upper() if source.group(1).lower() in ('ibf', 'uw') else source.group(1).title()] if source else []
+        entries.append({'title': title, 'summary': summary, 'status': status.group(1).upper() if status else None, 'tags': tags, 'path': path, 'kind': match.group(1), 'modified': entry.get('modified_at')})
     return {'inventory_at': manifest.get('inventory_at'), 'entries': entries}
 
 
