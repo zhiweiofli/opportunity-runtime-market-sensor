@@ -2,6 +2,8 @@
   'use strict';
   var panel = document.getElementById('archive');
   var type = document.getElementById('archive-type');
+  var verdict = document.getElementById('archive-verdict');
+  var tag = document.getElementById('archive-tag');
   var search = document.getElementById('archive-search');
   var status = document.getElementById('archive-status');
   var list = document.getElementById('archive-list');
@@ -12,7 +14,11 @@
   function render() {
     var query = search.value.trim().toLowerCase();
     var filtered = entries.filter(function (entry) {
-      return (type.value === 'all' || entry.kind === type.value) && (entry.title + ' ' + entry.summary + ' ' + (entry.status || '')).toLowerCase().includes(query);
+      var tags = entry.tags || [];
+      return (type.value === 'all' || entry.kind === type.value) &&
+        (verdict.value === 'all' || (entry.status || 'unknown') === verdict.value) &&
+        (tag.value === 'all' || (tag.value === 'unknown' ? !tags.length : tags.includes(tag.value))) &&
+        (entry.title + ' ' + entry.summary + ' ' + (entry.status || '') + ' ' + tags.join(' ')).toLowerCase().includes(query);
     });
     status.textContent = '显示 ' + filtered.length + ' / ' + entries.length + ' 份资料，按最近更新排序。';
     list.replaceChildren();
@@ -20,7 +26,7 @@
       var item = document.createElement('li');
       var meta = document.createElement('span');
       meta.className = 'small';
-      meta.textContent = (entry.kind === 'research' ? 'Research' : 'Judge') + ' · ' + (entry.modified ? entry.modified.slice(0, 10) : '时间未知') + (entry.status ? ' · 原文状态：' + entry.status : '');
+      meta.textContent = (entry.kind === 'research' ? 'Research' : 'Judge') + ' · ' + (entry.modified ? entry.modified.slice(0, 10) : '时间未知') + (entry.status ? ' · 原文状态：' + entry.status : '') + (entry.tags && entry.tags.length ? ' · 来源：' + entry.tags.join('、') : '');
       var heading = document.createElement('h3');
       heading.textContent = entry.title;
       var summary = document.createElement('p');
@@ -43,11 +49,15 @@
         entries = manifest.entries.filter(function (entry) {
           return entry && typeof entry.path === 'string' && /^or-archive\/(research|judge)\/[^/]+\.md$/.test(entry.path) && typeof entry.title === 'string' && typeof entry.summary === 'string' && ['research', 'judge'].includes(entry.kind);
         }).sort(function (a, b) { return (b.modified || '').localeCompare(a.modified || ''); });
+        Array.from(new Set(entries.map(function (entry) { return entry.status; }).filter(Boolean))).sort().forEach(function (value) { var o = document.createElement('option'); o.value = value; o.textContent = value; verdict.append(o); });
+        Array.from(new Set(entries.flatMap(function (entry) { return entry.tags || []; }))).sort().forEach(function (value) { var o = document.createElement('option'); o.value = value; o.textContent = value; tag.append(o); });
         render();
       }).catch(function () {
         status.textContent = '资料清单暂不可用，请使用下方 GitHub 目录入口；关闭后重新打开可重试。';
       }).finally(function () { loading = false; });
   });
   type.addEventListener('change', function () { if (entries) render(); });
+  verdict.addEventListener('change', function () { if (entries) render(); });
+  tag.addEventListener('change', function () { if (entries) render(); });
   search.addEventListener('input', function () { if (entries) render(); });
 })();

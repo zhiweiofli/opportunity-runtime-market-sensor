@@ -1,6 +1,9 @@
+import json
+import tempfile
 import unittest
+from pathlib import Path
 
-from build_archive_index import extract
+from build_archive_index import build, extract
 
 
 class ArchiveIndexTest(unittest.TestCase):
@@ -21,6 +24,20 @@ class ArchiveIndexTest(unittest.TestCase):
         title, summary = extract(text, 'fallback.md', 'judge')
         self.assertIn('Weekly Judge', title)
         self.assertEqual(summary, '本周不建议启动新项目。')
+
+    def test_source_tags_and_final_status_from_varied_formats(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            (root / 'or-archive/research').mkdir(parents=True)
+            entries = []
+            for index, status in enumerate(('- **Final Status**: KILL', 'Stage & Final Status\nHYPOTHESIS_READY')):
+                path = 'or-archive/research/%d.md' % index
+                (root / path).write_text(status, encoding='utf-8')
+                entries.append({'path': path, 'title': 'Research-IBF-test.md', 'sync_status': 'mirrored'})
+            (root / 'or-archive/manifest.json').write_text(json.dumps({'entries': entries}), encoding='utf-8')
+            result = build(root)['entries']
+            self.assertEqual([x['status'] for x in result], ['KILL', 'HYPOTHESIS_READY'])
+            self.assertEqual([x['tags'] for x in result], [['IBF'], ['IBF']])
 
 
 if __name__ == '__main__':
