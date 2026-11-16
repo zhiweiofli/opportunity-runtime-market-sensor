@@ -18,7 +18,7 @@ on:
   issue_comment:
     types: [created, edited, deleted]
   schedule:
-    - cron: '53 * * * *'
+    - cron: '53 */3 * * *'
   workflow_dispatch:
 permissions:
   contents: read
