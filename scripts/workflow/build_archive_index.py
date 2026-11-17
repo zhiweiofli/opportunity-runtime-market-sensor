@@ -3,6 +3,7 @@
 import json
 import re
 from pathlib import Path
+from drive_mirror import safe_existing
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -54,6 +55,24 @@ def extract(text, fallback, kind):
     return title, summary
 
 
+def card(text, title, path, kind, modified, doc_id=None, source_status='present'):
+    heading, summary = extract(text, title, kind)
+    status = re.search(r'(?im)^[ \t]*(?:[-*][ \t]*)*(?:Stage\s*&\s*)?(?:Final (?:Status|Verdict)|Underwriting Verdict)[*]*[ \t]*[:：]?[ \t\r\n]*(HYPOTHESIS_READY|KILL|WATCH|BLOCKED)\b', text)
+    source = re.match(r'(?i)^Research-(IBF|UW|Business|Friction)-', title)
+    tags = [source.group(1).upper() if source.group(1).lower() in ('ibf', 'uw') else source.group(1).title()] if source else []
+    return {'id': doc_id, 'title': heading, 'summary': summary, 'status': status.group(1).upper() if status else None,
+            'tags': tags, 'path': path, 'kind': kind, 'modified': modified, 'source_status': source_status}
+
+
+def mirror_kind(entry):
+    parts = entry.get('folder_path') or []
+    first = parts[0].lower() if parts else ''
+    title = entry.get('title', '')
+    if first == 'research':
+        return 'receipt' if re.match(r'(?i)^execution[-_ ]receipt', title) else 'research'
+    return {'judge': 'judge', 'signals': 'signals', 'archive': 'archive'}.get(first, 'other')
+
+
 def build(root):
     manifest = json.loads((root / 'or-archive/manifest.json').read_text(encoding='utf-8'))
     entries = []
@@ -65,13 +84,27 @@ def build(root):
         file = root / path
         if file.is_symlink() or not file.is_file() or not file.resolve().is_relative_to(root.resolve()):
             raise ValueError('archive file is missing or unsafe: ' + path)
-        text = file.read_text(encoding='utf-8')
-        title, summary = extract(text, entry.get('title', path), match.group(1))
-        status = re.search(r'(?im)^[ \t]*(?:[-*][ \t]*)*(?:Stage\s*&\s*)?Final (?:Status|Verdict)[*]*[ \t]*[:：]?[ \t\r\n]*(HYPOTHESIS_READY|KILL|WATCH|BLOCKED)\b', text)
-        source = re.match(r'(?i)^Research-(IBF|UW|Business|Friction)-', entry.get('title', ''))
-        tags = [source.group(1).upper() if source.group(1).lower() in ('ibf', 'uw') else source.group(1).title()] if source else []
-        entries.append({'title': title, 'summary': summary, 'status': status.group(1).upper() if status else None, 'tags': tags, 'path': path, 'kind': match.group(1), 'modified': entry.get('modified_at')})
-    return {'inventory_at': manifest.get('inventory_at'), 'entries': entries}
+        entries.append(card(file.read_text(encoding='utf-8'), entry.get('title', path), path, match.group(1), entry.get('modified_at'), entry.get('doc_id')))
+    mirror_file = root / 'drive-mirror/manifest.json'
+    mirror = json.loads(mirror_file.read_text(encoding='utf-8')) if mirror_file.is_file() else None
+    if mirror:
+        if mirror.get('schema_version') != 'drive-mirror@1' or not isinstance(mirror.get('entries'), list):
+            raise ValueError('invalid Drive mirror manifest')
+        mirrored_ids = set()
+        mirror_cards = []
+        for item in mirror['entries']:
+            path = item['path']
+            file = safe_existing(root, path)
+            if not file:
+                raise ValueError('missing or unsafe Drive mirror file: ' + path)
+            if item['id'] in mirrored_ids:
+                raise ValueError('duplicate Drive mirror ID')
+            mirrored_ids.add(item['id'])
+            mime = item.get('export_mime_type') or item.get('mime_type', '')
+            text = file.read_text(encoding='utf-8', errors='replace') if mime.startswith('text/') else ''
+            mirror_cards.append(card(text, item['title'], path, mirror_kind(item), item.get('modified_at'), item['id'], item.get('source_status', 'present')))
+        entries = [entry for entry in entries if entry.get('id') not in mirrored_ids] + mirror_cards
+    return {'inventory_at': manifest.get('inventory_at'), 'mirror_last_changed_at': mirror.get('last_changed_at') if mirror else None, 'entries': entries}
 
 
 if __name__ == '__main__':

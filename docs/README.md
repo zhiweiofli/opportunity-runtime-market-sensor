@@ -1,5 +1,7 @@
 # 原始业务规范与部署材料
 
+Drive 到 GitHub 的单向同步实施约定见 [Drive 同步与看板](drive-one-way-sync.md)。
+
 `00-overview.md` 至 `05-judge.md` 与 PROJECT_GUIDE.md 从 Opportunity Runtime 当前项目导入，保留原文；来源 commit 和原始 SHA-256 在 source-import.json。本仓库仅实施其中 Market 组件，不据此创建其他角色 Runtime。
 
 - [Market 原稿](03-market-sensor.md)：业务边界和正式研究触发条件。
