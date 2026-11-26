@@ -83,6 +83,11 @@
   function show(snapshot) {
     if (snapshot.schema_version !== 'or-workflow-dashboard@1') throw new Error('不支持的快照版本');
     data = snapshot; var counts = snapshot.counts;
+    var panel = document.getElementById('workflow-panel');
+    if (panel) {
+      var activeCount = (counts.open_review_prs || 0) + (counts.open_result_prs || 0) + (counts.opportunities_awaiting_decision || 0) + (counts.unverified_prs || 0);
+      panel.open = activeCount > 0;
+    }
     var stats = document.getElementById('workflow-stats'); stats.replaceChildren();
     [['待审评审 PR', counts.open_review_prs], ['待验收结果 PR', counts.open_result_prs], ['结果待决定机会', counts.opportunities_awaiting_decision], ['未通过或待验证（含测试）', counts.unverified_prs]].forEach(function (x) {
       var item = el('div', 'stat'); item.append(el('b', '', x[1]), el('span', '', x[0])); stats.append(item);
