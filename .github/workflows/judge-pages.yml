@@ -12,21 +12,11 @@ on:
       - 'or-archive/**'
       - 'drive-mirror/**'
       - '.github/workflows/judge-pages.yml'
-  pull_request_target:
-    types: [opened, synchronize, reopened, edited, closed]
-  issues:
-    types: [opened, edited, closed, reopened]
-  issue_comment:
-    types: [created, edited, deleted]
   schedule:
     - cron: '53 */3 * * *'
   workflow_dispatch:
 permissions:
   contents: read
-  pull-requests: read
-  issues: read
-  statuses: read
-  deployments: read
   pages: write
   id-token: write
 concurrency:
@@ -49,16 +39,6 @@ jobs:
         if: vars.WORKFLOW_PUBLIC_PROJECTION_APPROVED == 'true'
         with:
           python-version: '3.11'
-      - name: Install snapshot dependency
-        if: vars.WORKFLOW_PUBLIC_PROJECTION_APPROVED == 'true'
-        run: python -m pip install -r requirements-workflow.txt
-      - name: Generate sanitized workflow snapshot
-        if: vars.WORKFLOW_PUBLIC_PROJECTION_APPROVED == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          WORKFLOW_HUMAN_LOGIN: ${{ vars.WORKFLOW_HUMAN_LOGIN }}
-          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-        run: python scripts/workflow/build_snapshot.py --output site/data/workflow.json
       - name: Index mirrored research and Judge documents
         run: python scripts/workflow/build_archive_index.py
       - name: Build dashboard brief
