@@ -5,6 +5,7 @@
   var verdict = document.getElementById('archive-verdict');
   var tag = document.getElementById('archive-tag');
   var search = document.getElementById('archive-search');
+  var showNoSignal = document.getElementById('archive-show-nosignal');
   var status = document.getElementById('archive-status');
   var list = document.getElementById('archive-list');
   var entries = null;
@@ -12,17 +13,20 @@
   var lastChanged = null;
   var root = 'https://github.com/zhiweiofli/opportunity-runtime-market-sensor/blob/main/';
   var kinds = {research:'Research', judge:'Judge', signals:'Signals', receipt:'运行回执', archive:'Archive', other:'其他'};
+  var noSignalRe = /\bno[- ]signal\b/i;
 
   function render() {
     var query = search.value.trim().toLowerCase();
+    var includeNoSignal = Boolean(showNoSignal && showNoSignal.checked);
     var filtered = entries.filter(function (entry) {
       var tags = entry.tags || [];
-      return (type.value === 'all' || entry.kind === type.value) &&
+      return (includeNoSignal || !noSignalRe.test(entry.title)) &&
+        (type.value === 'all' || entry.kind === type.value) &&
         (verdict.value === 'all' || (entry.status || 'unknown') === verdict.value) &&
         (tag.value === 'all' || (tag.value === 'unknown' ? !tags.length : tags.includes(tag.value))) &&
         (entry.title + ' ' + entry.summary + ' ' + (entry.status || '') + ' ' + tags.join(' ')).toLowerCase().includes(query);
     });
-    status.textContent = '显示 ' + filtered.length + ' / ' + entries.length + ' 份资料，按最近更新排序。' + (lastChanged ? ' 镜像最近变更：' + lastChanged : '');
+    status.textContent = '显示 ' + filtered.length + ' / ' + entries.length + ' 份资料，按最近更新排序' + (includeNoSignal ? '。' : '（已隐藏无信号记录）。') + (lastChanged ? ' 镜像最近变更：' + lastChanged : '');
     list.replaceChildren();
     filtered.forEach(function (entry) {
       var item = document.createElement('li');
@@ -64,5 +68,6 @@
   type.addEventListener('change', function () { if (entries) render(); });
   verdict.addEventListener('change', function () { if (entries) render(); });
   tag.addEventListener('change', function () { if (entries) render(); });
+  if (showNoSignal) showNoSignal.addEventListener('change', function () { if (entries) render(); });
   search.addEventListener('input', function () { if (entries) render(); });
 })();

@@ -59,6 +59,8 @@
 
 历史资料入口放在页面后部，默认收起，由用户主动打开。部署时从当前 main 的镜像清单和文档正文生成索引，以可读标题、原文摘录、类型、原文最终状态、来源标签和更新时间呈现卡片，支持类型、状态、来源标签筛选、标题及摘要搜索并跳转 GitHub 原文；来源标签仅来自文件名中明确标识的 IBF、UW、Business、Friction，不推断主题。摘录须标明来自原文，未找到时如实显示，不能编造。镜像记录不因此视为已批准机会或新实践任务。读取失败须明确提示并提供仓库入口。
 
+Pages 构建同时执行 `scripts/workflow/build_brief.py` 只读读取 `drive-mirror/manifest.json` 及其正文生成 `site/data/brief.json`（`schema_version: "or-brief@1"`），供首屏“本期简报”渲染。字段包括 `generated_at`、`judge`（最新 Judge 的标题、路径、时间、`conclusion`、`items`、`decisions`、`parse_ok`）、`new_research`（严格晚于最新 Judge 且排除运行回执的 Research 列表，含 `source_signal_ids` 与 `possible_repeat_of`）、`counts`（`total`/`ready`/`kill`/`unknown`）以及 `health`（6 项流水线新鲜度：`judge` 阈值 192 小时 / 8 天，`signals_business`、`signals_friction`、`signals_ibf`、`signals_uw` 与 `research` 阈值各 72 小时，并在 `signals_business` 附最近 7 天 `no-signal` 比例）。`possible_repeat_of` 仅根据 `source_signal_ids` 交集或文件名 slug 词元对比提示“可能重复历史 KILL”，属于辅助提示而非 Judge 裁决。
+
 公开投影采用字段白名单，仅发布脱敏标题、摘要、统计和允许披露的状态。原始 Research、个人决定理由、私有证据、客户数据和凭据留在私有仓库。公共页面到私有 GitHub 的入口须标明需要仓库权限。沿用只上传 site 的 workflow。
 
 PR/Issue 更新可在受信默认分支处理元数据触发快照刷新，禁止特权 workflow checkout 或执行 PR 分支代码。配置最小权限；需要从 fork 或非受信主体接收内容时按不可信数据处理。内部 GITHUB_TOKEN 产生的事件可能不触发后续 workflow，采用同一工作流显式串联、可复用工作流或受支持的显式 dispatch，并做实际验证。

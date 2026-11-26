@@ -61,6 +61,8 @@ jobs:
         run: python scripts/workflow/build_snapshot.py --output site/data/workflow.json
       - name: Index mirrored research and Judge documents
         run: python scripts/workflow/build_archive_index.py
+      - name: Build dashboard brief
+        run: python scripts/workflow/build_brief.py
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
