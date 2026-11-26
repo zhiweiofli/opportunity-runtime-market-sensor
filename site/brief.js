@@ -43,6 +43,11 @@
     return Array.isArray(tags) && tags.length ? tags.map(function (t) { return zh('source', t); }).join('、') : '未标明';
   }
 
+  function judgeHeading(judge) {
+    var stamp = judge && (judge.generated_at || judge.modified_at);
+    return stamp ? localTime(stamp).replace(/\s?\d{2}:\d{2}（UTC\+8）$/, '').replace(/\//g, '-') + ' 评审' : '最新评审';
+  }
+
   function statusClass(status) {
     if (status === 'HYPOTHESIS_READY') return 'state focus';
     if (status === 'KILL') return 'state drop';
@@ -109,7 +114,7 @@
     }
     var box = el('article', 'box brief-judge brief-focus');
     box.append(el('h3', '', '重点关注'));
-    var metaParts = [judge.title || '最新评审', '生成时间：' + localTime(judge.generated_at)];
+    var metaParts = [judgeHeading(judge), '生成时间：' + localTime(judge.generated_at)];
     if (judge.modified_at) metaParts.push('镜像更新：' + localTime(judge.modified_at));
     box.append(el('p', 'small', metaParts.join(' · ')));
 
@@ -404,13 +409,9 @@
   }
 
   function localTime(value) {
-    if (!value) return '未知';
-    var d = new Date(value);
-    if (!isFinite(d.getTime())) return String(value);
-    try {
-      return d.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) + '（UTC+8）';
-    } catch (_) { return d.toISOString(); }
+    return L.localTime ? L.localTime(value) : (value || '未知');
   }
+
 
   function show(data) {
     if (!data || data.schema_version !== 'or-brief@1') {

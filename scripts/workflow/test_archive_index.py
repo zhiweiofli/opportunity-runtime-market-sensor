@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from build_archive_index import build, card, extract
+from build_archive_index import build, card, extract, judge_title
 
 
 class ArchiveIndexTest(unittest.TestCase):
@@ -48,6 +48,13 @@ class ReceiptSummaryTest(unittest.TestCase):
         c = card(text, 'Execution-Receipt-20261125.md', 'x', 'receipt', None)
         self.assertEqual(c['summary'], 'Researcher 批次回执 · 批次 COMPLETED · 队列 NO_PENDING_SIGNALS · 本批产出研究 2 份')
         self.assertIsNone(c['status'])
+
+
+class JudgeTitleTest(unittest.TestCase):
+    def test_judge_titles_are_chinese_and_dated(self):
+        self.assertEqual(judge_title('2026-11-26-1633-judge'), '2026-11-26 评审 16:33')
+        self.assertEqual(judge_title('2026-10-22-judge'), '2026-10-22 评审')
+        self.assertIsNone(judge_title('weekly-judge'))
 
 
 if __name__ == '__main__':

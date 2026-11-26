@@ -66,8 +66,17 @@ def receipt_summary(text):
     return ' · '.join(parts)
 
 
+def judge_title(fallback):
+    m = re.match(r'^(\d{4})-(\d{2})-(\d{2})(?:-(\d{2})(\d{2}))?', fallback or '')
+    if not m:
+        return None
+    return '%s-%s-%s 评审' % m.group(1, 2, 3) + (' %s:%s' % m.group(4, 5) if m.group(4) else '')
+
+
 def card(text, title, path, kind, modified, doc_id=None, source_status='present'):
     heading, summary = extract(text, title, kind)
+    if kind == 'judge':
+        heading = judge_title(title) or heading
     if kind == 'receipt':
         summary = receipt_summary(text)
     status = re.search(r'(?im)^[ \t]*(?:[-*][ \t]*)*(?:Stage\s*&\s*)?(?:Final (?:Status|Verdict)|Underwriting Verdict)[*]*[ \t]*[:：]?[ \t\r\n]*(HYPOTHESIS_READY|KILL|WATCH|BLOCKED)\b', text)
