@@ -36,5 +36,13 @@
     var m = maps[type] || {};
     return Object.prototype.hasOwnProperty.call(m, code) ? m[code] : String(code);
   }
-  window.OR_LABELS = { maps: maps, label: label };
+  function localTime(value) {
+    if (!value) return '未知';
+    var d = new Date(value);
+    if (!isFinite(d.getTime())) return String(value);
+    try {
+      return d.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) + '（UTC+8）';
+    } catch (_) { return d.toISOString(); }
+  }
+  window.OR_LABELS = { maps: maps, label: label, localTime: localTime };
 })();

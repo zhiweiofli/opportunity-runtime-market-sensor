@@ -28,7 +28,7 @@
         (tag.value === 'all' || (tag.value === 'unknown' ? !tags.length : tags.includes(tag.value))) &&
         (entry.title + ' ' + entry.summary + ' ' + (entry.status || '') + ' ' + tags.join(' ')).toLowerCase().includes(query);
     });
-    status.textContent = '显示 ' + filtered.length + ' / ' + entries.length + ' 份资料，按最近更新排序' + (includeNoSignal ? '。' : '（已隐藏无信号记录）。') + (lastChanged ? ' 镜像最近变更：' + lastChanged : '');
+    status.textContent = '显示 ' + filtered.length + ' / ' + entries.length + ' 份资料，按最近更新排序' + (includeNoSignal ? '。' : '（已隐藏无信号记录）。') + (lastChanged ? ' 镜像最近变更：' + (L.localTime ? L.localTime(lastChanged) : lastChanged) : '');
     list.replaceChildren();
     filtered.forEach(function (entry) {
       var item = document.createElement('li');
@@ -60,8 +60,8 @@
           var safePath = /^or-archive\/(research|judge)\/[^/]+\.md$/.test(entry.path) || /^drive-mirror\/files\/(?:[A-Za-z0-9._-]+\/)*[A-Za-z0-9._-]+$/.test(entry.path);
           return safePath && typeof entry.title === 'string' && typeof entry.summary === 'string' && Object.prototype.hasOwnProperty.call(kinds, entry.kind);
         }).sort(function (a, b) { return (b.modified || '').localeCompare(a.modified || ''); });
-        Array.from(new Set(entries.map(function (entry) { return entry.status; }).filter(Boolean))).sort().forEach(function (value) { var o = document.createElement('option'); o.value = value; o.textContent = L.label('status', value) + '（' + value + '）'; verdict.append(o); });
-        Array.from(new Set(entries.flatMap(function (entry) { return entry.tags || []; }))).sort().forEach(function (value) { var o = document.createElement('option'); o.value = value; o.textContent = L.label('source', value) + '（' + value + '）'; tag.append(o); });
+        Array.from(new Set(entries.map(function (entry) { return entry.status; }).filter(Boolean))).sort().forEach(function (value) { var o = document.createElement('option'); o.value = value; o.textContent = L.label('status', value); o.title = value; verdict.append(o); });
+        Array.from(new Set(entries.flatMap(function (entry) { return entry.tags || []; }))).sort().forEach(function (value) { var o = document.createElement('option'); o.value = value; o.textContent = L.label('source', value); o.title = value; tag.append(o); });
         render();
       }).catch(function () {
         status.textContent = '资料清单暂不可用，请使用下方 GitHub 目录入口；关闭后重新打开可重试。';
