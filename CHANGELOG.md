@@ -3,6 +3,7 @@
 ## GitHub opportunity workflow — in progress
 
 - 新增 `scripts/workflow/build_brief.py` 从只读 `drive-mirror/manifest.json` 生成 `site/data/brief.json`（`or-brief@1`）并接入 `judge-pages.yml`，首屏新增“本期简报”展示流水线健康状态、最新 Judge 结论/决策看板/待决定事项、上次 Judge 之后的新 Research 及非裁决性质的“可能重复历史 KILL”提示；零待办时自动收起 PR / Issue 闭环与旧版 `latest.json` 手工快照，历史资料列表默认隐藏 `no-signal` 记录。
+- `brief.json` 增加 `trends`、`judge_history`、`source_yield`、`coverage_gaps` 与 `judge_coverage` 健康项（Judge 回看窗口 7 天）；“本期简报”重排为健康条、重点关注（NOW 突出，WATCH/DROP 仅计数）、原生 SVG 机会趋势，以及默认收起的 Judge 未覆盖 Research 与新 Research 列表。
 - 增加默认关闭的 Drive 只读单向镜像与页面索引接入，按文件 ID 与已有镜像去重；身份、公开范围和在线运行仍需配置验证。
 - 四项现有定时补扫改为每三小时一次，事件触发和手动触发继续保留。
 - 历史卡片支持按原文最终状态和文件名明确标识的来源标签筛选；未知值不推断。

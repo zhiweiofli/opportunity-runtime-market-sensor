@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Build a top-level brief snapshot (site/data/brief.json) from drive-mirror."""
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import json
 from pathlib import Path
 import re
@@ -17,6 +17,9 @@ JUDGE_STALE_HOURS = 192
 SIGNAL_STALE_HOURS = 72
 RESEARCH_STALE_HOURS = 72
 BUSINESS_WINDOW_DAYS = 7
+# A Judge reviews Research modified within the preceding 7 days.
+JUDGE_LOOKBACK_DAYS = 7
+SOURCE_KEYS = ('Business', 'Friction', 'IBF', 'UW', 'unknown')
 
 CONCLUSION_MAX_CHARS = 600
 MAX_ITEM_DETAILS = 8
@@ -340,6 +343,119 @@ def compute_health(entries, now_dt, manifest_missing=False):
     return results
 
 
+def _week_start(dt):
+    day = dt.date()
+    return day - timedelta(days=day.weekday())
+
+
+def compute_trends(research, signals, judges, now_dt):
+    """Bucket Research, Signals and Judge runs into Monday-start UTC weeks."""
+    starts = [dt for dt in (parse_iso(r.get('modified')) for r in research) if dt is not None]
+    starts += [dt for dt in (parse_iso(s.get('modified_at')) for s in signals) if dt is not None]
+    if not starts:
+        return {'weeks': []}
+    first = _week_start(min(starts))
+    last = _week_start(now_dt)
+    weeks = {}
+    cursor = first
+    while cursor <= last:
+        weeks[cursor] = {
+            'week_start': cursor.isoformat(),
+            'research_ready': 0,
+            'research_kill': 0,
+            'research_other': 0,
+            'by_source': {key: 0 for key in SOURCE_KEYS},
+            'signals_total': 0,
+            'signals_no_signal': 0,
+            'judge_runs': 0,
+        }
+        cursor += timedelta(days=7)
+
+    def bucket(value):
+        dt = parse_iso(value)
+        return weeks.get(_week_start(dt)) if dt is not None else None
+
+    for rec in research:
+        week = bucket(rec.get('modified'))
+        if week is None:
+            continue
+        if rec.get('status') == 'HYPOTHESIS_READY':
+            week['research_ready'] += 1
+        elif rec.get('status') == 'KILL':
+            week['research_kill'] += 1
+        else:
+            week['research_other'] += 1
+        tags = rec.get('tags') or []
+        source = tags[0] if tags and tags[0] in SOURCE_KEYS else 'unknown'
+        week['by_source'][source] += 1
+    for entry in signals:
+        week = bucket(entry.get('modified_at'))
+        if week is None:
+            continue
+        week['signals_total'] += 1
+        if _NO_SIGNAL_RE.search(entry.get('title') or ''):
+            week['signals_no_signal'] += 1
+    for entry in judges:
+        week = bucket(entry.get('modified_at'))
+        if week is not None:
+            week['judge_runs'] += 1
+    return {'weeks': [weeks[key] for key in sorted(weeks)]}
+
+
+def compute_source_yield(research, kill_records):
+    """Per-source Research totals, READY/KILL counts and possible repeats of earlier KILLs."""
+    rows = {}
+    for rec in research:
+        tags = rec.get('tags') or []
+        source = tags[0] if tags else 'unknown'
+        row = rows.setdefault(source, {'source': source, 'total': 0, 'ready': 0, 'kill': 0, 'possible_repeat': 0})
+        row['total'] += 1
+        if rec.get('status') == 'HYPOTHESIS_READY':
+            row['ready'] += 1
+        elif rec.get('status') == 'KILL':
+            row['kill'] += 1
+        if rec.get('status') != 'KILL' and find_possible_repeats(rec, kill_records):
+            row['possible_repeat'] += 1
+    order = {key: idx for idx, key in enumerate(SOURCE_KEYS)}
+    return sorted(rows.values(), key=lambda row: (order.get(row['source'], len(order)), row['source']))
+
+
+def compute_coverage_gaps(research, judge_times):
+    """Research older than the latest Judge that falls outside every Judge lookback window."""
+    if not judge_times:
+        return []
+    latest = max(judge_times)
+    lookback = timedelta(days=JUDGE_LOOKBACK_DAYS)
+    gaps = []
+    for rec in research:
+        dt = parse_iso(rec.get('modified'))
+        if dt is None or dt >= latest:
+            continue
+        if any(jt - lookback < dt <= jt for jt in judge_times):
+            continue
+        gaps.append({
+            'title': rec['title'],
+            'path': rec['path'],
+            'modified': rec['modified'],
+            'status': rec['status'],
+            'tags': rec['tags'],
+        })
+    gaps.sort(key=lambda g: (g.get('modified') or '', g['path']))
+    return gaps
+
+
+def coverage_health(gaps):
+    return {
+        'id': 'judge_coverage',
+        'label': 'Judge 覆盖',
+        'status': 'warn' if gaps else 'ok',
+        'last_at': None,
+        'age_hours': None,
+        'threshold_hours': None,
+        'detail': f'{len(gaps)} 份 Research 未进入任何 Judge 回看窗口',
+    }
+
+
 def _research_sort_key(item):
     status = item.get('status')
     group = 0 if status == 'HYPOTHESIS_READY' else (2 if status == 'KILL' else 1)
@@ -368,6 +484,10 @@ def build(root, now=None):
             'new_research': [],
             'counts': {'total': 0, 'ready': 0, 'kill': 0, 'unknown': 0},
             'health': compute_health([], now_dt, manifest_missing=True),
+            'trends': {'weeks': []},
+            'judge_history': [],
+            'source_yield': [],
+            'coverage_gaps': [],
         }
 
     mirror = json.loads(mirror_file.read_text(encoding='utf-8'))
@@ -376,6 +496,17 @@ def build(root, now=None):
     entries = mirror['entries']
 
     judge_entries = [e for e in entries if (e.get('folder_path') or [''])[0] == 'Judge']
+    judge_entries.sort(key=lambda e: (parse_iso(e.get('modified_at')) or datetime.min.replace(tzinfo=timezone.utc), e.get('path', '')))
+    judge_history = []
+    for entry in judge_entries:
+        parsed_entry = parse_judge(read_mirror_text(root, entry), entry.get('title', entry['path']))
+        judge_history.append({
+            'date': (entry.get('modified_at') or '')[:10],
+            'title': parsed_entry['title'],
+            'path': entry['path'],
+            'parse_ok': parsed_entry['parse_ok'],
+            'items': [{'rank': i['rank'], 'title': i['title'], 'verdict': i['verdict']} for i in parsed_entry['items']],
+        })
     judge = None
     judge_dt = None
     judge_mod_raw = None
@@ -460,13 +591,23 @@ def build(root, now=None):
         'unknown': total_count - ready_count - kill_count,
     }
 
+    signal_entries = [e for e in entries if (e.get('folder_path') or [''])[0] == 'Signals']
+    judge_times = [dt for dt in (parse_iso(e.get('modified_at')) for e in judge_entries) if dt is not None]
+    coverage_gaps = compute_coverage_gaps(all_research, judge_times)
+    health = compute_health(entries, now_dt)
+    health.append(coverage_health(coverage_gaps))
+
     return {
         'schema_version': SCHEMA_VERSION,
         'generated_at': generated_at,
         'judge': judge,
         'new_research': new_research,
         'counts': counts,
-        'health': compute_health(entries, now_dt),
+        'health': health,
+        'trends': compute_trends(all_research, signal_entries, judge_entries, now_dt),
+        'judge_history': judge_history,
+        'source_yield': compute_source_yield(all_research, kill_records),
+        'coverage_gaps': coverage_gaps,
     }
 
 

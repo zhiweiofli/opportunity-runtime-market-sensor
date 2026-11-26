@@ -61,6 +61,8 @@
 
 Pages 构建同时执行 `scripts/workflow/build_brief.py` 只读读取 `drive-mirror/manifest.json` 及其正文生成 `site/data/brief.json`（`schema_version: "or-brief@1"`），供首屏“本期简报”渲染。字段包括 `generated_at`、`judge`（最新 Judge 的标题、路径、时间、`conclusion`、`items`、`decisions`、`parse_ok`）、`new_research`（严格晚于最新 Judge 且排除运行回执的 Research 列表，含 `source_signal_ids` 与 `possible_repeat_of`）、`counts`（`total`/`ready`/`kill`/`unknown`）以及 `health`（6 项流水线新鲜度：`judge` 阈值 192 小时 / 8 天，`signals_business`、`signals_friction`、`signals_ibf`、`signals_uw` 与 `research` 阈值各 72 小时，并在 `signals_business` 附最近 7 天 `no-signal` 比例）。`possible_repeat_of` 仅根据 `source_signal_ids` 交集或文件名 slug 词元对比提示“可能重复历史 KILL”，属于辅助提示而非 Judge 裁决。
 
+同一 `or-brief@1` 还提供趋势字段：`trends.weeks`（按 UTC 周一起始分桶的 Research READY/KILL/其他与按来源计数、Signals 总数与 `no-signal` 数、Judge 运行次数，排除运行回执）、`judge_history`（全部 Judge 按 `modified_at` 升序的日期、`parse_ok` 与条目 `rank`/`title`/`verdict`）、`source_yield`（每个来源的 `total`/`ready`/`kill`/`possible_repeat`）以及 `coverage_gaps`（早于最新 Judge、但不在任一 Judge 的 `(judge_time-7d, judge_time]` 回看窗口内的 Research，窗口常量 `JUDGE_LOOKBACK_DAYS=7`）。`health` 追加第 7 项 `judge_coverage`：存在 gap 时为 `warn`，其 `last_at`/`age_hours`/`threshold_hours` 为 `null`。首屏据此依次展示健康条、“重点关注”（NOW 大字、NEXT 列表、WATCH/DROP 仅计数）、原生 SVG“机会趋势”、默认收起的“Judge 未覆盖的 Research”与“上次 Judge 之后的新 Research”。
+
 公开投影采用字段白名单，仅发布脱敏标题、摘要、统计和允许披露的状态。原始 Research、个人决定理由、私有证据、客户数据和凭据留在私有仓库。公共页面到私有 GitHub 的入口须标明需要仓库权限。沿用只上传 site 的 workflow。
 
 PR/Issue 更新可在受信默认分支处理元数据触发快照刷新，禁止特权 workflow checkout 或执行 PR 分支代码。配置最小权限；需要从 fork 或非受信主体接收内容时按不可信数据处理。内部 GITHUB_TOKEN 产生的事件可能不触发后续 workflow，采用同一工作流显式串联、可复用工作流或受支持的显式 dispatch，并做实际验证。

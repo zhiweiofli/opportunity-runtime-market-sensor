@@ -357,5 +357,143 @@ class ReviewRegressionTest(unittest.TestCase):
         self.assertEqual(judge['status'], 'warn')
 
 
+def _judge_text(rows):
+    lines = ['Opportunity Runtime — Judge | test', 'B. 本轮决策看板'] + rows + ['C. 其他']
+    return '\n'.join(lines) + '\n'
+
+
+class TrendsAndCoverageTest(unittest.TestCase):
+    def _build(self, now):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            entries = [
+                # Judges written out of order to check judge_history sorting.
+                _write_mirror_file(
+                    root, 'drive-mirror/files/Judge/j2.txt',
+                    _judge_text(['1 | 甲 | NOW', '2 | 乙 | WATCH']),
+                    'j2', '2026-11-20-judge', ['Judge'], '2026-11-20T10:00:00Z',
+                ),
+                _write_mirror_file(
+                    root, 'drive-mirror/files/Judge/j1.txt', '无法解析的旧格式\n',
+                    'j1', '2026-11-10-judge', ['Judge'], '2026-11-10T10:00:00Z',
+                ),
+                # Sunday 2026-11-08 23:59Z belongs to week 2026-11-02.
+                _write_mirror_file(
+                    root, 'drive-mirror/files/Research/k1.txt',
+                    'Opportunity Hypothesis: Stripe Kill\nFinal Status: KILL\n',
+                    'k1', 'Research-Friction-20261108-Stripe-Webhook-Fulfillment.md', ['Research'], '2026-11-08T23:59:00Z',
+                ),
+                # Exactly j1 - 7d: on the open lower bound of j1's window, so it is a coverage gap.
+                _write_mirror_file(
+                    root, 'drive-mirror/files/Research/r1.txt',
+                    'Opportunity Hypothesis: Stripe Again\nFinal Status: HYPOTHESIS_READY\n',
+                    'r1', 'Research-Friction-20261109-Stripe-Webhook-Retry.md', ['Research'], '2026-11-03T10:00:00Z',
+                ),
+                # Exactly at j1 time: inside (j1-7d, j1].
+                _write_mirror_file(
+                    root, 'drive-mirror/files/Research/r2.txt',
+                    'Opportunity Hypothesis: At Judge\nFinal Status: HYPOTHESIS_READY\n',
+                    'r2', 'Research-IBF-20261110-at-judge.md', ['Research'], '2026-11-10T10:00:00Z',
+                ),
+                # Inside j2 window.
+                _write_mirror_file(
+                    root, 'drive-mirror/files/Research/r3.txt',
+                    'Opportunity Hypothesis: In Window\n',
+                    'r3', 'Other-20261115.md', ['Research'], '2026-11-15T10:00:00Z',
+                ),
+                # After latest Judge: not a gap.
+                _write_mirror_file(
+                    root, 'drive-mirror/files/Research/r4.txt',
+                    'Opportunity Hypothesis: After Latest\nFinal Status: HYPOTHESIS_READY\n',
+                    'r4', 'Research-UW-20261121-after.md', ['Research'], '2026-11-21T10:00:00Z',
+                ),
+                _write_mirror_file(
+                    root, 'drive-mirror/files/Research/rcpt.txt', 'receipt\n',
+                    'rc', 'Execution-Receipt-20261112.md', ['Research'], '2026-11-12T10:00:00Z',
+                ),
+                # Monday 2026-11-09 00:00Z starts week 2026-11-09.
+                _write_mirror_file(
+                    root, 'drive-mirror/files/Signals/b1.txt', 'x\n',
+                    's1', 'Business-20261109-no-signal.md', ['Signals', 'Business'], '2026-11-09T00:00:00Z',
+                ),
+                _write_mirror_file(
+                    root, 'drive-mirror/files/Signals/b2.txt', 'x\n',
+                    's2', 'Business-20261111-No Signal.md', ['Signals', 'Business'], '2026-11-11T00:00:00Z',
+                ),
+                _write_mirror_file(
+                    root, 'drive-mirror/files/Signals/b3.txt', 'x\n',
+                    's3', 'IBF-20261112-real.md', ['Signals'], '2026-11-12T00:00:00Z',
+                ),
+            ]
+            _write_manifest(root, entries)
+            return build(root, now=now)
+
+    def test_weeks_monday_start_and_counts(self):
+        result = self._build(datetime(2026, 11, 26, 12, 0, tzinfo=timezone.utc))
+        weeks = result['trends']['weeks']
+        self.assertEqual([w['week_start'] for w in weeks], ['2026-11-02', '2026-11-09', '2026-11-16', '2026-11-23'])
+        w1, w2, w3, w4 = weeks
+        self.assertEqual((w1['research_ready'], w1['research_kill'], w1['research_other']), (1, 1, 0))
+        self.assertEqual(w1['by_source']['Friction'], 2)
+        self.assertEqual((w2['research_ready'], w2['research_other']), (1, 1))
+        self.assertEqual(w2['by_source'], {'Business': 0, 'Friction': 0, 'IBF': 1, 'UW': 0, 'unknown': 1})
+        self.assertEqual((w2['signals_total'], w2['signals_no_signal'], w2['judge_runs']), (3, 2, 1))
+        self.assertEqual((w3['research_ready'], w3['by_source']['UW'], w3['judge_runs']), (1, 1, 1))
+        self.assertEqual((w4['research_ready'], w4['signals_total'], w4['judge_runs']), (0, 0, 0))
+
+    def test_judge_history_sorted_with_parse_ok(self):
+        result = self._build(datetime(2026, 11, 26, tzinfo=timezone.utc))
+        history = result['judge_history']
+        self.assertEqual([(h['date'], h['parse_ok']) for h in history], [('2026-11-10', False), ('2026-11-20', True)])
+        self.assertEqual(history[0]['items'], [])
+        self.assertEqual(history[1]['items'], [
+            {'rank': 1, 'title': '甲', 'verdict': 'NOW'},
+            {'rank': 2, 'title': '乙', 'verdict': 'WATCH'},
+        ])
+
+    def test_source_yield_counts_possible_repeat(self):
+        result = self._build(datetime(2026, 11, 26, tzinfo=timezone.utc))
+        rows = {r['source']: r for r in result['source_yield']}
+        self.assertEqual(list(rows), ['Friction', 'IBF', 'UW', 'unknown'])
+        self.assertEqual(rows['Friction'], {'source': 'Friction', 'total': 2, 'ready': 1, 'kill': 1, 'possible_repeat': 0})
+        self.assertEqual(rows['IBF']['possible_repeat'], 0)
+
+    def test_source_yield_possible_repeat_requires_earlier_kill(self):
+        import build_brief as bb
+        kill = {'filename': 'Research-Friction-20261101-Stripe-Webhook-Fulfillment.md', 'title': 'K', 'path': 'p/k',
+                'modified': '2026-11-01T00:00:00Z', 'source_signal_ids': [], 'status': 'KILL', 'tags': ['Friction']}
+        later = {'filename': 'Research-Friction-20261105-Stripe-Webhook-Retry.md', 'title': 'L', 'path': 'p/l',
+                 'modified': '2026-11-05T00:00:00Z', 'source_signal_ids': [], 'status': 'HYPOTHESIS_READY', 'tags': ['Friction']}
+        earlier = {**later, 'path': 'p/e', 'modified': '2026-10-30T00:00:00Z'}
+        rows = bb.compute_source_yield([kill, later, earlier], [kill])
+        self.assertEqual(rows, [{'source': 'Friction', 'total': 3, 'ready': 2, 'kill': 1, 'possible_repeat': 1}])
+
+    def test_coverage_gaps_window_boundaries(self):
+        result = self._build(datetime(2026, 11, 26, tzinfo=timezone.utc))
+        # k1 (11-08 23:59) is inside j1 window; r1 (11-03 10:00) is exactly j1-7d, so excluded;
+        # r2 exactly at j1 is covered; r3 inside j2; r4 after latest Judge.
+        self.assertEqual([g['path'] for g in result['coverage_gaps']], ['drive-mirror/files/Research/r1.txt'])
+        gap = result['coverage_gaps'][0]
+        self.assertEqual(set(gap), {'title', 'path', 'modified', 'status', 'tags'})
+        self.assertEqual(gap['tags'], ['Friction'])
+        coverage = next(h for h in result['health'] if h['id'] == 'judge_coverage')
+        self.assertEqual(coverage, {
+            'id': 'judge_coverage', 'label': 'Judge 覆盖', 'status': 'warn',
+            'last_at': None, 'age_hours': None, 'threshold_hours': None,
+            'detail': '1 份 Research 未进入任何 Judge 回看窗口',
+        })
+
+    def test_judge_coverage_ok_without_gaps(self):
+        import build_brief as bb
+        jt = datetime(2026, 11, 20, tzinfo=timezone.utc)
+        rec = {'title': 't', 'path': 'p', 'modified': (jt - timedelta(days=7) + timedelta(seconds=1)).isoformat(),
+               'status': None, 'tags': []}
+        self.assertEqual(bb.JUDGE_LOOKBACK_DAYS, 7)
+        gaps = bb.compute_coverage_gaps([rec], [jt])
+        self.assertEqual(gaps, [])
+        self.assertEqual(bb.coverage_health(gaps)['status'], 'ok')
+        self.assertEqual(bb.compute_coverage_gaps([rec], []), [])
+
+
 if __name__ == '__main__':
     unittest.main()
