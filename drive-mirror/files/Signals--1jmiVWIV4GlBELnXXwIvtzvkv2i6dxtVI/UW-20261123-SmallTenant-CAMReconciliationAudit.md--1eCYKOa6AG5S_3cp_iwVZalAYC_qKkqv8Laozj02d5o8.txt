@@ -1,0 +1,101 @@
+﻿signal_id: UW-20261123-SmallTenant-CAMReconciliationAudit
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年11月核实（ImageToTable 2026-11、BXBK 2026-03及加州SB 1103自2025-01-01生效），商业地产三净租约（NNN）年度公共区域维护费（CAM）年终对账单中，行业研究显示25%–35%存在错误且几乎全部偏向房东；与此同时，加州SB 1103（Civ. Code § 1950.9）赋予合格小微商业租户（微型企业、10人以下餐饮、20人以下非营利组织）在书面请求后30天内强制房东提供逐项发票、分摊表与签字证明的法定权利。但面对50–300页混合扫描发票附件包与60–180天租约异议窗口，小微街边租户（1,500–5,000平方英尺）因人工核查需2–5个工作日且请不起商业租约审计机构而放弃核对。
+money: 涉及全美数百万家位于街边商业中心（Strip Mall）与多租户办公楼的小微零售、牙科诊所、餐饮与服务业租户。以常见2,000平方英尺小铺面（年CAM约$7,200、约$600/月）为例，仅CAM上限基数算错一项（$0.17/平方英尺）每年即多付$340（E3）；若房东将屋顶等资本性维修混入维修池、将房产税与保险计入管理费基数、或按空置期错误Gross-up分摊，小微租户单年可多承担$1,000–$3,500+超额摊派（E1, E3）。但传统租约审计机构与CPA人工翻阅300页扫描发票需2–5个工作日（E1），且部分租约明确禁止按追回金额抽成的审计机构介入，导致小微租户被迫照单全收。
+evidence:
+- id: E1
+  source: https://imagetotable.ai/blog/tenant-cam-reconciliation-audit
+  source_date: '2026-11-05'
+  accessed_at: '2026-11-23T00:55:00+08:00'
+  fact: 全文核实：小型商业楼宇CAM支持附件包通常达50页，大型办公楼达数百页；人工逐页核对300页发票包需2–5个工作日；加州Civ. Code § 1950.9（SB 1103，2025-01-01生效）规定房东在收到合格小微租户书面请求后30天内未提供带日期逐项发票、分摊表及签字证明，不得向其收取建筑运营费；列举五大高发隐藏错误（资本维修混入、管理费基数含税险、Gross-up用错最低月入住率、同名异司重复开票、跨年发票）。局限：为AI表格提取工具厂商博客，且明确提醒40%错误率的营销口径缺乏公开样本支持。
+- id: E2
+  source: https://conduit-labs.com/resources/retail-shopping-center-cam-utility-audit
+  source_date: null
+  accessed_at: '2026-11-23T00:55:00+08:00'
+  fact: 全文核实：行业研究一致发现25%–35%的CAM对账单存在错误且几乎全部偏向房东；购物中心租户在CAM公用事业分摊上常多付15%–30%。局限：为商业地产能源软件Conduit指南，未标注具体发布日期。
+- id: E3
+  source: https://bxbk.com/blog/cam-reconciliation-mistakes
+  source_date: '2026-03-14'
+  accessed_at: '2026-11-23T00:53:00+08:00'
+  fact: 全文核实：列举NNN房东七大常见CAM对账算错点（上限基数用错基年 vs 上年实际、未拆分可控与不可控费用、未剔除资本性支出与租约谈判律师费、分母误用已出租面积而非总可租面积、管理费基数算错等）；测算2,000平方英尺小租户仅因5%上限基数差$0.17/平方英尺每年即多出$340，五年复利达数千美元。局限：为房东侧运营博客，反向印证了错误在实务中的普遍性。
+- id: E4
+  source: https://www.bryckel.ai/resources/cam-landmines
+  source_date: '2026-10-19'
+  accessed_at: '2026-11-23T00:55:00+08:00'
+  fact: 仅读取搜索摘要（Search Snippet）：指出多数租约仅给租户90–180天（或12个月）异议窗口，逾期即视为接受全部错误账单；且部分房东在租约中限制必须由CPA审计或禁止按追回比例抽成的审计师（contingency-fee auditors），直接限制了小租户聘请外部审计师的能力。局限：未读取全文。
+mechanism: 事实：CAM对账单本身只是一页汇总表，真正决定是否多收钱的证据藏在50–300页混合厂商格式的扫描发票附件包里，人工逐行核对需2–5个工作日（E1），且部分租约禁止风险代理抽成审计师、给租户的异议窗口仅60–180天（E1, E4）。推断：区别于房东退租押金追讨（UW-20261116-CommercialTenant-CivCode19507-SecurityDepositClawback）和融资期Estoppel证明（UW-20261102-SmallTenant-EstoppelSNDA），年度CAM对账是小微租户在租期内每年都会遇到的高频账单。通过多模态AI批量读取租约CAM条款页与房东发来的50–300页发票附件包，自动抽取“供应商/发票号/日期/服务期/金额/GL科目/施工范围/原始页码”8列台账，并按租约计算分摊比例、剔除资本维修（如屋顶换膜）、拦截跨年重复发票与管理费基数越界，即可把2–5天的人工核查压缩至几分钟，让年CAM仅$7,000–$20,000的小微租户首次在60–180天窗口内具备自查和质询能力（在加州还可一键生成SB 1103 30天举证催告函）。
+persistence: Structural
+next_question: 在年租金$30,000–$120,000、租赁面积1,000–5,000平方英尺的小微零售与诊所租户中，有多少比例每年收到房东CAM对账补缴单后从未索要发票附件包或核对分摊分母？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-23T01:02:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work:
+  task: 1,000–5,000平方英尺小微商业租户在60–180天异议窗口内，逐条比对商业租约CAM排除条款与房东发来的50–300页混合扫描发票附件包，重建分摊底数与Gross-up/Cap算式并向物业发出带页码引用的书面质询
+  structure: 昂贵信息获取 / 规则遵从 / 长尾维护
+  abandoned_value: 每年因25%–35%CAM对账单存在偏向房东的错误而流失的$1,000–$3,500+/年超额运营费摊派（E1, E2, E3）
+  human_failure_reason: 人工逐页核对300页扫描发票包需2–5个工作日；专业租约审计师与CPA最低收费过高且许多租约禁止按比例抽成审计师（E1, E4）
+ai_unlock:
+  changed_cost: 将50–300页多厂商混排发票PDF/照片提取为统一8列台账、自动识别同名异司重复计费/跨年发票/资本性支出及核验租约Cap算式的人工工时从2–5天压缩至15分钟人工复核
+  capability_basis: 多模态文档批量表格抽取（含来源页码bbox定位） + 商业租约CAM条款规则映射（Cap/Gross-up/Exclusions/Pro-Rata） + 加州SB 1103书面索证函生成（E1）
+  limitations: 1）若房东仅发来一页汇总表且未依法提供底层发票附件包，AI无法凭空审计明细，必须先由租户发出书面索证请求；2）“维修 vs 资本改良”在极端边缘案例上仍需租户或会计结合工程事实判断（E1）
+unit_economics:
+  unit: 1份小微商业租户年度CAM对账单与附件包（50–300页）的租约合规核查及差异证据日志生成
+  currency: USD
+  region_and_date: 美国市场（含加州SB 1103适用小微租户） / 2026年11月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本包括租约PDF解析、50–300页发票多模态OCR与8列对账表生成、异常标红及书面质询函草稿，及异常人工校验；不含后续律师诉讼费与获客成本（CAC）
+  excluded_or_unknown_costs: 小微租户向房东发出质询后的真实平均核减金额、房东配合提供底层发票的比例及获客成本（CAC）尚未取得公开统计，严格置为null
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1–E3证实了25%–35%的CAM账单含错、小铺面单年即可因算式与归类错误多付数百至数千美元，且人工翻阅50–300页发票需2–5个工作日；多模态AI批量抽取发票与对账在技术上高度成熟，判定为Plausible；因缺乏小微租户实测核减大盘统计，数值严格置为null
+value_capture:
+  beneficiary: 租赁面积1,000–5,000平方英尺的独立零售店、牙科/医美诊所、餐饮店及多门店小型连锁加盟商（E1, E3）
+  payer: 小微商业租户/加盟商老板，或服务小微商业客户的独立记账会计师（Bookkeeper）与商业地产租户代表经纪（Tenant Rep Broker）
+  payment_evidence: 市场已有企业级租户购买lease audit服务或通用OCR工具（如ImageToTable按页计费），但针对小微租户的一口价年度CAM体检包付费意愿属待验证商业假设
+  capture_node: 每年Q1–Q2房东集中寄出上年度CAM年终补缴单（True-Up Statement）时切入：先1分钟生成《30天发票附件索取函》（加州直接援引SB 1103），拿到附件包后一键跑出《CAM异常证据日志》
+  pricing_hypothesis: 假设采用“免费生成《CAM附件索取函》+ $79–$129/年固定价单店CAM对账包（不按追回额抽成，规避租约禁止contingency auditor条款）”；标记为待验证商业假设
+  customer_net_benefit: 无需聘请昂贵CPA或触犯租约审计师限制，15分钟内拿出一份带“租约条款+附件页码+金额差额”的客观证据表，追回或抵扣数千美元年度超收CAM
+scale:
+  aggregation_unit: 商业租户每年Q1–Q2收到年度CAM对账补缴单及附件包
+  repeatability: 每年固定复发一次（Annual True-Up），且多门店小型连锁（如3–15家店的牙科诊所或餐饮加盟商）可按门店数批量复用
+  reachable_volume: null
+  basis: 尚未统计全美1,000–5,000平方英尺NNN租约小微租户年均收到CAM补缴单的精确数量，reachable_volume置为null
+action_loop:
+  observe: 租户上传商业租约PDF、年度CAM对账汇总表及房东提供的50–300页扫描发票/总账附件包
+  judge: 抽取租约中的Exclusions、Pro-Rata分母、Cap类型（累计/非累计及基数）、管理费基数与Gross-up上限，与重建的8列发票明细逐项比对并标出差异美元数
+  act: 若缺底层发票则生成《书面CAM明细索证函》（加州自动带入Civ. Code § 1950.9模板）；已有附件则输出带页码锚点的《CAM差异证据日志》与致物业经理的礼貌核对函草稿
+  verify: 租户核对标红发票原页后自行发送物业，追踪房东在30–60天内出具的调整贷项通知单（Credit Memo）或退款
+required_access:
+  resources: 租户自有的商业租约PDF、年度CAM对账单及房东发来的发票附件包（无需接入房东Yardi系统）
+  availability: Available
+  authorizer: 商业租户本人直接上传文件
+  authorization_status: 用户自有合同与账单，无需第三方API授权；已具备公开信息支撑
+  basis: 租户依法有权审查自己的账单与合同，最大实操摩擦仅在于部分房东拖延提供底层发票，这恰可通过第一步自动索证函（尤其加州SB 1103）解决
+defensibility:
+  basis: 通用表格OCR已有ImageToTable等工具（E1），长期壁垒在于把“8列通用抽表”升级为“租约CAM条款语义解析 + 5大经典陷阱自动稽核 + 租户代表经纪/记账师渠道分发”的垂直工作流
+  alternatives_and_counterevidence: 1）现有替代：租户自用ImageToTable+Excel手工核对（E1），或聘请CPA逐小时计费；2）最强反证：部分房东在租约中根本未赋予租户Audit Right，或小租户担心质疑CAM会影响续租关系而选择忍气吞声（E2）
+personal_actionability:
+  fit: Good
+  target_customer: 每年Q1–Q2收到商业物业CAM补缴账单的1,000–5,000平方英尺小微零售/餐饮/诊所租户，及小型商业租户代表经纪
+  deliverable: 一份《租约CAM条款摘要 + 8列发票重建台账 + 带页码差异核对函PDF》
+  customer_entry: r/CommercialRealEstate、r/smallbusiness、牙科/餐饮加盟商社群及“CAM reconciliation audit small business”长尾SEO
+  prerequisites: 固定定价不按赔付/核减额抽成（避开租约禁令），并明确标注仅做账单核对工具、不构成法律或CPA审计意见
+  basis: 完全基于用户上传PDF运行，无需外部资质或重度开发，个人/小团队7天内即可用多模态LLM跑通原型
+seven_day_experiment:
+  critical_unknown: 小微商业租户（尤其是拥有2–10家门店的诊所/餐饮加盟商）是否愿意为固定价格$79–$129的AI CAM核对包付费，以及拿到差异表后房东实际退让/核减的比例
+  test: 从公开论坛或本地小微店主收集3–5份脱敏商业租约CAM条款与年度CAM对账单样本，实测AI自动抽取8列台账并找出具体算错/漏剔除项的准确率
+  artifact: 3–5份《小微租户CAM对账异常诊断样本报告》及1套《加州SB 1103 / 通用CAM索证函模板》
+  time_and_cost_budget: 7天内完成，预算<$30（仅多模态OCR/LLM测试费，不主动骚扰房东或代表发函）
+  success_signal: 在至少半数样本中定位到>$500的明确算式或归类错误，且受访小微店主或租户代表经纪确认愿按单支付$79+使用该核对包
+  kill_signal: 绝大多数小租户根本拿不到房东的底层发票包，或即使发现几百美元错误也因担心续租报复而完全拒绝向房东提出核对

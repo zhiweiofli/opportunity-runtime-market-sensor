@@ -1,0 +1,23 @@
+Signal ID: Friction-2026-11-10-SCIM-Manual-Provisioning-Long-Tail
+Type: Friction
+What Changed: 中大型企业已为数十至上百个 SaaS 订阅付费，并部署 Okta/Microsoft Entra 等 IdP，但因绝大多数应用不支持或付费墙 SCIM，IT/Helpdesk 仍需对长尾应用（GitHub teams、AWS roles、非 SCIM SaaS）手动开通、变更与回收账号；近期（2026-11-04 至 11-07）NHI 社区与相关分析持续确认此结构性缺口。
+Friction: Onboarding / Setup / Configuration / Support / Manual operation — 具体为 joiner-mover-leaver 生命周期中的账号开通、权限分配与 offboarding 回收环节。SSO 仅覆盖约 30% 应用，SCIM 覆盖更低。
+Money: 企业已为 SaaS 许可证、IdP 订阅及 IT 人力付费，仍手动处理非 SCIM 应用的开通与回收。关联损失类型：labor cost（IT 工时）、cost（孤儿许可证浪费）、潜在 security/compliance 成本。依据 Stitchflow 对 500 个应用部署的运营数据（2026 年初发布，近期仍被引用）。
+Evidence:
+1. NHI Mgmt Group 论坛帖（2026-11-06/07）：“Manual SaaS onboarding breaks down as employee app usage climbs past 100 applications on average... Using an SSO, you can give access to only 30% of the required SaaS tools.”（基于 Zluri）https://nhimg.org/community/nhi-best-practices/saas-onboarding-automation-what-iam-teams-need-to-fix/
+2. NHI 分析文章（2026-11-04/05，引用 Serval 2026-10-30）：“The hard part of user provisioning is no longer SCIM-covered apps but the long tail of GitHub teams, AWS roles, and other systems that still need approvals, custom APIs, or manual tasks.” https://nhimg.org/articles/user-provisioning-beyond-scim-what-help-desk-teams-still-need/
+3. Stitchflow 2026 SCIM Gap Report（数据基于真实客户部署，2026-01 发布，持续被引用）：分析 721 个应用，98.8% 无 SCIM 或付费墙；每应用每年（每 500 员工）约 $12k 隐藏成本（$3,925 许可证浪费 + $6,088 IT 劳动/101 小时 + $1,741 合规）；平均组织有 16 个非自动化应用。https://www.stitchflow.com/blog/scim-gap-report-manual-provisioning-costs
+4. 补充事实：多家分析指出 SCIM 常被锁定在企业套餐（如 Figma、GitHub、Slack 等需大幅升级）。
+Mechanism: 企业付费购买 SaaS 与 IdP 后，期望自动化生命周期管理。但因应用侧缺乏免费 SCIM 端点，IdP 信号无法抵达长尾系统，迫使人工在各管理控制台操作。结果是开通延迟（员工等待天数，损失生产力）、offboarding 遗漏（持续支付未使用座位）与审计工时增加。推断：此为结构性“SCIM Tax”，非单点 bug。
+Current Workaround: IT/Helpdesk 通过工单、手动登录各 SaaS 控制台创建/删除账号、维护电子表格跟踪许可证，或升级部分应用至企业套餐以解锁 SCIM。成本依据：Stitchflow 数据每应用 ~101 IT 小时/年 + 许可证浪费；其他来源提及每 joiner/leaver 周期数小时至数天。部分公司购买 Serval、Stitchflow、AccessOwl 等中间层工具作为付费 workaround。
+Payer: 中型企业 IT/Security/Finance 负责人，已为许可证与人力付费，有动机为减少“SCIM Tax”付费（无需逐个升级应用至企业版）。证据：现有工具市场（Stitchflow 等明确针对此缺口）、持续的社区讨论与量化成本报告。
+Economic Effect: labor（IT 工时）、cost（许可证浪费、合规 remediation）、间接 revenue/productivity（新员工延迟获得工具）。
+Friction Value: 频率 = 高（每次 hire/role change/termination 及持续审计；平均组织 16 个非 SCIM 应用）；单次经济影响 = 依据 Stitchflow 归一化约 $12k/应用/年（每 500 员工），或每 joiner 数小时劳动 + 潜在座位浪费；可回收比例 = 中高（通过自动化中间层或选择性升级可回收大部分劳动与浪费，但非 100%，因审批与复杂权限仍需人）。精确数值基于第三方报告，非本轮独立核实。
+Persistence: Structural（SaaS 厂商持续将 SCIM 作为企业套餐卖点；长尾应用与自定义系统不会自行消失；近期 2026-11 讨论确认问题持续）。
+Next Question: 中型企业（100-1000 人）实际每年在非 SCIM 应用上的 IT 工时与许可证浪费具体数字？是否有更多一手工单或财务数据支持 $12k/应用估算？现有中间层工具的实际采用率与 ROI 如何？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-10T09:37:40+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-11-03 至 2026-11-10（Asia/Taipei），基于实际可访问的 Web/Reddit/社区内容。无法访问的平台：无特别披露（X/Reddit/Web 均部分可用）。
+本轮为首次试跑建议窗口；已有 Signal 索引为“无”，未跨历史去重。

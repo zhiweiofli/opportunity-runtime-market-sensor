@@ -1,0 +1,37 @@
+﻿Research Underwriting Record: Friction-2026-11-16-GitHub-Transfer-OIDC-Auth-Break
+* Signal Source Document: Friction-2026-11-16-GitHub-Transfer-OIDC-Auth-Break.md
+* Signal ID: Friction-2026-11-16-GitHub-Transfer-OIDC-Auth-Break
+* Signal Generated At: 2026-11-16T09:37:00+08:00
+* Sensor Task Version: friction-sensor@0.2.1
+* Research Evaluation Date: 2026-11-16T17:09:14+08:00
+* Researcher Task Version: researcher@0.2.2
+* Underwriting Verdict: KILL
+* Disqualification Gates: Gate 1 (Money & Willingness to Pay), Gate 4 (Capture & Security Boundary)
+1. Executive Summary & Verdict
+* Verdict: KILL
+* Core Finding: 该 Signal 反映的是 GitHub Actions 自 2026 年 7 月起推行不可变主体声明（immutable subject claims，sub 包含 owner-id 与 repo-id）后，在企业进行跨组织仓库 Transfer 或重命名时，导致下游基于名称的云端 OIDC 信任策略（AWS IAM Role / Azure Entra ID / GCP Workload Identity）失效、GitHub Actions 认证失败的问题。
+* Kill 核心判定理由:
+   1. 配置级一次性维护，无独立软件付费意愿（Gate 1 失败）：仓库跨组织 Transfer 属于偶发性低频管理行为（仅在 M&A、部门重组或开源项目移交时发生）。修复该摩擦的实际操作仅为在 Terraform 代码或云控制台中将 OIDC Trust Policy 的 sub 匹配条件更新为包含数字 ID 的新格式（熟练工程师耗时 2–5 分钟）。工程团队绝不会为此类极低频的配置微调单独采购外部商业软件或付费服务。
+   2. 企业最高安全边界禁止外部介入（Gate 4 失败）：云端 OIDC Federated Identity 是企业生产环境核心权限的信任锚点。企业安全与合规团队有严格的权限隔离要求，绝对不可能向任何第三方外部未授信工具授予修改其 AWS IAM / Azure Entra ID 信任策略的高危写权限。该摩擦完全属于企业内部 DevOps 的职责范畴，外部第三方软件缺乏商业捕获与产品化介入通道。
+2. Signal 原始事实核查与背景
+* 现象描述: 自 2026 年 7 月 15 日起，GitHub 对新建、重命名或 Transfer 的代码仓库强制使用包含数字 ID 的不可变 subject claim。若企业此前在 Terraform 中将 OIDC 信任策略硬编码为 repo:org/repo:ref:... 格式，Transfer 后因 sub 变更为 repo:OWNER@OWNER-ID/REPO@REPO-ID:...，导致 GitHub Actions 部署流水线在首次运行时报认证错误。
+* 证据链核查:
+   * Zenn 实践文章（2026-11-09）：Zenn: 組織をまたいだリポジトリの引き継ぎをする時に気をつけること —— 详细记录 Transfer 时的 OIDC sub 变更及在 Terraform 中预先添加新格式 federated credential 的避坑步骤。
+   * Hat Boy Software 深度技术解析（2026-10-09）：Hat Boy Software: GitHub immutable OIDC subjects —— 阐明机制原理及官方设计初衷。
+   * GitHub 官方 Changelog（2026-04-23）：GitHub Changelog: Immutable subject claims for GitHub Actions OIDC —— 证实属于平台既定安全架构升级。
+* 原始 Signal 评级: 原始信号标记为 Structural。
+3. 五门严谨性审查 (Underwriting Gate Analysis)
+Gate 1: 真实痛点存在性 (Problem Authenticity) —— PASS
+* 核实: 痛点客观存在，仓库移交后确实会导致未更新 policy 的 CI/CD 失败并产生工程排查工时。
+Gate 2: 商业资金流与付费意愿 (Money) —— FAIL (KILL)
+* 核实: 极低频事件（每个仓库数年一遇），修复成本仅为两行 Terraform 代码修改。缺乏真实的企业软件采购预算，不存在商业付费意愿。
+Gate 3: 持续性与生命周期 (Persistence) —— PASS
+* 核实: 机制由 GitHub 官方规范确立，长期持续。
+Gate 4: 捕获能力与安全边界 (Capture) —— FAIL (KILL)
+* 核实: 触及企业基础设施最核心的 IAM 权限控制边界。外部工具无法获得合法的跨租户权限修改授权，无法形成独立的商业软件产品。
+Gate 5: 商业模型与单位经济效益 (Unit Economics) —— N/A
+* 核实: 由于前序关键门禁未通过，不具备开展单位经济学推演的前提。
+4. 结论与归档状态
+* 终审裁定: KILL
+* 后续处理: 终止进一步立项调研，不推进至商业假设阶段，作为摩擦传感器典型"低频配置级内部维护项"样本归档。
+* 归档路径: Research-Friction-2026-11-16-GitHub-Transfer-OIDC-Auth-Break.md 已固化保存于 Research Output 根目录。

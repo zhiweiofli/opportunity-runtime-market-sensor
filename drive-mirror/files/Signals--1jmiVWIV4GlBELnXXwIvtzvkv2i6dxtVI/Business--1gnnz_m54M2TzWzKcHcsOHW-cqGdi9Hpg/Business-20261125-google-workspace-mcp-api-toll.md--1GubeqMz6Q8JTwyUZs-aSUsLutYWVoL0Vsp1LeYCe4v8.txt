@@ -1,0 +1,69 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+属性
+	详细信息
+	Task Version
+	business-sensor@0.2.1
+	Role Spec Status
+	reviewed
+	观察窗口 (Asia/Taipei)
+	2026-11-18 09:52:30 至 2026-11-25 09:52:30 (UTC+08:00)
+	已有 Signal 索引/全文
+	已核对历史 19 项商业信号及此前归档的 NO_SIGNAL 检查点，本主题为全新发现的 Google Workspace 官方商业收费节点，无历史重复主题。
+	输出逻辑位置
+	Opportunity Runtime/Signals/Business/
+	实际输出文件夹 URL
+	https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+	待研究 Signal (Qualified Signals)
+Signal ID: Business-20261125-google-workspace-mcp-api-toll
+* Type: Business
+* What Changed: 2026 年 11 月 24 日（UTC），Google Workspace 正式上线标准化分级定价与配额控制台（Standard Tier 与 Scaled Tier），并同步发布《Workspace AI Tools Addendum》法务条款，针对 AI 智能体（AI Agents）访问 Gmail、Calendar 与 Drive 数据 建立强制性的 MCP 通道隔离与首请求起扣收费站（属于 New Toll Booth 与 Budget Migration）：
+   * 强制智能体改道 MCP（2027-02-01 生效）：依据新发布的《Workspace AI Tools Addendum》，任何由 AI Agent、AI Harness 或 AI 模型驱动的工具访问 Google Workspace 数据，必须强制使用 Google 官方 MCP Servers（如 gmailmcp.googleapis.com、calendarmcp.googleapis.com、drivemcp.googleapis.com 等 8 个 GA 服务）；若 AI Agent 继续直连 REST API，无论项目是否付费，均将被强制锁死在 Standard Tier 配额上限。
+   * Standard vs. Scaled Tier 非对称计费分水岭（2026-11-24 开放配置，2027-04-01 强制扣费）：
+      * Standard Tier 免费但限制所有 GA MCP Server 每日每项目每产品最高 5,000 次请求（无法申请提额，亦不适用"内部使用豁免"）。
+      * 一旦项目为突破 5,000 次/日限制而升级至 Scaled Tier，整个 Cloud Project 的免费 MCP 额度将被彻底清零（整项目维度生效，不可单接口拆分）：传统 REST API 在 Scaled Tier 仍享有海量每日免费额度（如 Gmail Light 7,000 万次/日），但 Gmail、Calendar 与 Drive MCP Server 的每日免费额度为 0，自第 1 次成功请求（HTTP 2xx）起即全面按量扣费。
+   * 复合放大与"失败亦扣费"规则：部分复合 MCP 工具（如 list_drafts、search_threads）单次调用即按 10 个计费单元（Billing Units） 扣费；messages.get/threads.get 拉取完整正文（full/raw）的配额消耗是 metadata/minimal 的 3 倍；且由于 MCP JSON-RPC 参数错误或执行失败仍返回 HTTP 200 (isError: true)，报错的工具调用同样计入扣费。
+* Money: 直接重塑所有依赖 Google Workspace 数据（邮件、日程、云盘）的企业自动化与 AI Agent 研发预算：
+   * 四档单价（每 1,000 次计费单元）：
+      * Light：$0.10 / 1K（如 get_file_metadata、list_labels）
+      * Medium：$0.20 / 1K（如 create_draft、create_file、messages.get）
+      * Plus：$0.25 / 1K（如 search_files、所有 Calendar API 与 Calendar MCP 调用）
+      * Premium：$0.50 / 1K（如 download_file_content、read_file_content、get_thread、search_threads）
+   * REST API 对比 MCP 的巨大资金剪刀差：在 Scaled Tier 下，Gmail REST API 每天有 7,000 万（Light）/ 1,000 万（Medium）/ 100 万（Premium）免费额度，Drive REST API 有 2,000 万/700 万/400 万/100 万免费额度，Calendar REST API 有 100 万免费额度；而 Gmail/Calendar/Drive MCP 每日免费额度为 0。以 Agent 高频调用 search_threads（Premium 档且占 10 个计费单元）为例，每次搜索即耗资 $0.005；月消费超过 $20,000 起才触发 17%–40% 的阶梯折扣（$0–$20,000 区间 0% 折扣）。Google Cloud Console 已于 11 月 24 日同步上线 Cost estimator 与 Project billing usage 计费估算面板。
+* Evidence:
+   1. Google Workspace 官方定价与计费层文档《Understand Google Workspace API and MCP server pricing and billing tiers》（2026-11-24 更新）：明确披露 Light ($0.10/1K)、Medium ($0.20/1K)、Plus ($0.25/1K)、Premium ($0.50/1K) 四档单价，并声明："Switching a project to the Scaled Tier removes free MCP allowances, so Gmail, Calendar, and Drive MCP usage is billed from the first request with 0 daily no-charge allowance."
+   2. Google Workspace 官方分级与路线图文档《Usage tiers and quotas for Google Workspace APIs and MCP servers》（2026-11-24 更新）：确认 2026-11-24 正式上线 Standard/Scaled Tier 与控制台 Cost estimator；2027-02-01 起强制 AI Agent 必须使用 MCP 否则锁死 Standard 配额；2027-04-01 起正式强制扣费，且 Scaled Tier 必须针对整个 Cloud Project 开启。
+   3. Gmail API 与 MCP Server 配额规则文档《Gmail API and MCP server quotas》（2026-11-24 更新）：披露复合与报错计费细则："Because failed tools/call requests (including tool execution and argument-translation errors) return HTTP 200 with isError: true in the JSON-RPC response, they also count toward billing... list_drafts and search_threads each count as 10 billing units... full format or raw consumes three times as many quota units as using metadata or minimal."
+   4. Google Workspace AI 工具法律补充协议《Workspace AI Tools Addendum》（2026-11-24 发布，2027-02-01 生效）：法务条款明文规定："The GWS Access Tool must use a Google MCP where the GWS Access Tool is or is driven by an AI Agent, an AI Harness or an AI model"，违者 Google 可直接切断接口访问权。
+* Mechanism:
+   1. 从"免费 REST 时代"强行切入"AI Agent 税"新收费站（事实）：过去十余年，Gmail、Calendar、Drive API 对绝大多数 SaaS 应用几乎零成本。随着 AI Agent 造成海量非人类高频轮询与全量正文抓取，Google 借《Workspace AI Tools Addendum》在法务与技术上把"传统软件（REST）"与"AI Agent（MCP）"强行分流，并取消 Scaled Tier 下 MCP 的一切免费基数，使企业级 AI 办公自动化应用在突破 5,000 次/日门槛后每一跳都成为必经的收费节点。
+   2. 隐藏的计费倍增器制造极高的 FinOps 浪费（事实/推断）：由于存在四大计费放大陷阱——（1）项目级一刀切关闭 5,000/日免费额度；（2）search_threads/list_drafts 单次算 10 个计费单元；（3）默认 full 格式耗费 3 倍额度；（4）JSON-RPC 报错 HTTP 200 isError: true 照常扣钱——未经优化的原生 Agent 框架（如直接把 MCP 挂进 LangChain/Claude）在生产环境中极易出现账单雪崩。
+   3. 小团队轻资产进入节点与 Capture 路径（推断）：
+      * Google Workspace MCP 节流网关与参数防错中间件（MCP FinOps Proxy）：3–5 人团队可构建透明代理中间件：在请求抵达 gmailmcp/drivemcp 前执行本地 JSON Schema 强校验（拦截会触发 isError: true 的无效调用以免白交钱）、自动强制降级为 metadata/minimal 两段式按需拉取（削减 66% 正文读取配额）、对多项目路由进行 Standard（每日 5,000 免费额度）与 Scaled 隔离分流，并拦截 Agent 死循环重复调用 10x 计费的 search_threads。
+      * 合规事件驱动同步桥接层（Event-Driven Workspace Bridge）：结合免手续费或低配额的 Workspace Events 推送与轻量状态索引，替代 AI Agent 对邮件和日历的高频轮询（需严格遵循 Addendum 中关于衍生数据留存期限的合规约束）。
+* Magnitude: Large。依据：Google Workspace 拥有全球最庞大的企业办公数据底座（Gmail/Drive/Calendar），此次将所有 AI Agent 强制导流至独立计费的 MCP 通道且 Scaled Tier 零免费额度，直接覆盖全球成千上万家 AI 助手、CRM 自动化与工作流 SaaS 的核心成本结构。
+* Persistence: Persistent。依据：已写入《Workspace AI Tools Addendum》正式法律合同（2027-02-01 生效）及 Google Cloud Billing 控制台原生计费体系（2027-04-01 强制扣费），属于不可逆的平台基础设施商业化重构。
+* Next Question: 从 2026-11-24 到 2027-04-01 强制扣费前的 4 个月窗口期内，Docs/Sheets/Slides/Chat MCP 是否会跟进公布 Scaled Tier 单价？主流 Agent 编排框架（如 LangChain、n8n、Zapier）与企业 SaaS 将如何重构其 Google Workspace 授权项目架构以规避整项目免费额度清零？
+
+
+元属性
+	值
+	Task Version
+	business-sensor@0.2.1
+	Generated At
+	2026-11-25T09:52:30+08:00
+	Role Spec Status
+	reviewed
+	观察与过滤池 (Watch & Ignore List)
+1. 线索: Canva MCP GA 与 Service Accounts API 计费后续（持续追踪）
+* 判定: WATCH
+* 原因: 11 月 23 日发布的 Canva MCP GA 与 API 计费机制仍未在公开页面披露 REST API 与 Canva Craft 模型的具体按次/按张单价表，等待其官方开发者计费费率卡上线后再行评估。
+2. 线索: 阿里巴巴 Qwen 4 Max Token Plan 规则与预览下线（2026-11-24 评测，11-25 下线）
+* 判定: IGNORE (快速 Kill)
+* 原因: 据 eesel AI 梳理，qwen4-max-preview 于 11 月 25 日 24:00 (UTC+8) 退场，且 Token Plan（$6–$43/月）条款明令禁止用于自动化脚本或应用后端，不具备独立商业利润池属性。
+3. 线索: FCC 修订版 TCPA 短信退订新规于 11 月 25 日生效
+* 判定: IGNORE (快速 Kill)
+* 原因: 根据 Postscript 披露，FCC 26-67 放宽了短信退订识别负担（允许商户指定单一专属退订方式），相关界面与合规适配由既有短信营销平台（Postscript、Twilio 等）原生消化，无独立小团队收费站机会。
+4. 线索: Whatnot 黑色星期五周末 0% 佣金促销（11 月 27–30 日）
+* 判定: IGNORE (快速 Kill)
+* 原因: 根据 Sell The Flip 披露，属于直播电商平台针对黑五网一为期 4 天的临时卖家佣金减免营销活动，不具持续性。

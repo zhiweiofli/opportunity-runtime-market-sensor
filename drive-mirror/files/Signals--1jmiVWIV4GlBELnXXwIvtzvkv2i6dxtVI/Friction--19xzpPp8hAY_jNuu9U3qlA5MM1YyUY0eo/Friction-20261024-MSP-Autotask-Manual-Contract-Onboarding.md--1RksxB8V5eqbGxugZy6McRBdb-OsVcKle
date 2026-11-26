@@ -1,0 +1,23 @@
+Signal ID: Friction-20261024-MSP-Autotask-Manual-Contract-Onboarding
+Type: Friction
+What Changed: MSP 客户已付费使用 Autotask PSA（及 Adobe Sign 等签约工具）进行账单与合同管理，但在新客户 Onboarding 环节仍需手动处理合同生成、更新、签署后信息录入，持续发生（2026-10-24 前后原帖描述为长期痛点，本周末着手自动化）。
+Friction: Onboarding / Setup / Configuration / Manual operation —— 合同（MSA/SOW）手动复制更新（Word）、生成 PDF、通过电子签发送，签署完成后仍需手动将信息录入 Autotask 以启动账单。
+Money: 已为 Autotask（PSA 订阅）、Adobe Sign/SignWell（电子签）等付费；仍手动处理合同更新、PDF 生成、信息录入账单系统。关联 labor/time cost（时间消耗、重复劳动）、潜在 revenue loss（错误导致账单延迟或遗漏）与 error-related cost。具体损失金额未知。
+Evidence:
+1. Reddit r/msp 原帖「From Manual Contracts to Automated Onboarding」（2026-10-24，https://www.reddit.com/r/msp/comments/1xeq8gs/from_manual_contracts_to_automated_onboarding/）：当事人原话「My process involved making a copy of our MSA/SOW, manually updating it in Word, saving it as a PDF, and then sending it out through Adobe Sign. Once everything was signed, I still had to enter the information into Autotask for billing. It worked, but it was time-consuming, repetitive, and left plenty of room for human error.」
+2. 同主题 r/SmallMSP 原帖（2026-10-24，https://www.reddit.com/r/SmallMSP/comments/1xeok1c/from_manual_contracts_to_automated_onboarding/）：重复相同流程描述，并指出「Every minute I'm not spending copying contracts, updating documents, or manually entering billing information is time I can spend on more productive, revenue-generating activities.」
+3. X 帖（2026-10-29，Gradient MSP）：「Manual billing reconciliation is manageable when you have 10 clients. At 20 it starts to strain. At 40 it breaks. Longer month-ends. More missed discrepancies. More time on a process that was never designed to scale.」（支持 MSP 规模化时手动账单/对账摩擦）
+4. 支持事实：多篇 2026 年 MSP 账单自动化文章（如 kinesys.it、alternativepayments.io、ConnectWise 官方）均指出 Autotask/ConnectWise 用户仍存在手动对账、CSV 导出、信息跨系统录入的情况；Autotask 官方 Integrated Customer Billing 文档承认手动对账耗时数小时甚至数日。
+Mechanism: 已付费的 PSA 与签约工具未打通合同生成→签署→账单实体创建的端到端流程，导致每笔新客户 onboarding 产生人工步骤。推断：这些步骤阻塞及时启动账单（延迟收入确认）、增加错误率（账单不准或遗漏）、消耗可计费劳动力时间。
+Current Workaround: 当事人自行用 ChatGPT + Docker 构建自定义 web app，整合 Autotask API 与 SignWell，实现购物车式报价→自动生成合同→电子签→推送 PSA 账单。成本：开发时间（周末完成）、维护自定义代码与 Docker 环境（未知具体工时/金钱成本，但明确为“small team with limited resources”的额外投入）。行业常见 workaround 为继续手动或使用 Zapier/中间件，成本为持续人工时数。
+Payer: 小型至中型 MSP 业主/运营者（已为 PSA 付费但仍投入时间或自行开发），依据为原帖明确“huge time-saver”及“time I can spend on more productive, revenue-generating activities”；也可能是 PSA 厂商或第三方自动化工具（如 Pia、AppXite 等已有产品尝试解决）。
+Economic Effect: labor / time（主要），潜在 conversion（onboarding 延迟影响客户激活）、revenue（账单错误或延迟）、cost。
+Friction Value: 频率 ≈ 每个新客户 onboarding 一次（小型 MSP 每月数次至数十次，未知精确；规模化后更高，见 X 帖 40 客户即破）；单次经济影响 ≈ 数小时人工（未知精确时薪，但明确“time-consuming, repetitive”且挤占创收时间）；可回收比例 ≈ 高（当事人已通过自定义自动化基本消除，行业自动化工具存在）。依据：原帖自我描述 + 行业文章中“hours even days of manual reconciliation”。未知项已标注，不编造数值。
+Persistence: Structural（依据：Autotask 等 PSA 已存在多年，Integrated Customer Billing 等功能仍需配置，原帖描述为“always been”痛点，且规模化后加剧；非一次性 bug）。
+Next Question: 有多少 MSP 仍在为每个新客户手动执行类似合同→Autotask 录入步骤？平均单次耗时与错误导致的账单延迟/损失比例是多少？是否有可衡量的付费意愿数据（例如第三方自动化工具的采用率或定价）？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-02T09:37:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-10-26 至 2026-11-02（Asia/Taipei），关键原始证据日期为 2026-10-24（略早于严格 7 日窗口，但为本轮可核实的最近行为证据；X 支持帖为 2026-10-29）。首次试跑，无历史 Signal 索引。
+无法完整访问 Reddit 全文（工具返回失败），已使用搜索返回的原始段落作为当事人原话。X 与 Web 可访问。

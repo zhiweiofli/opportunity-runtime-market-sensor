@@ -1,0 +1,25 @@
+Signal ID: Friction-20261117-paid-not-provisioned
+Type: Friction
+What Changed: 已付费（支付成功、收到确认邮件/发票）的用户在 SaaS/平台（如 Cloudflare Workers、Meshy、Stripe 集成应用）中仍显示 Free/未解锁计划，支付到权益授予的链路中断。观察窗口内持续出现（如 2026-11-16 Cloudflare 案例）。
+Friction: Payment 成功后的 Provisioning / Entitlement Sync / Subscription Status Update 环节受阻；Webhook 或内部状态同步失败、审计日志无订阅变更、支持门户无法开票。
+Money: 用户已为计划付费（例：Cloudflare Workers Paid $5），平台已收款，但用户仍处于 Free 状态，无法使用付费功能；关联 failed transaction（用户视角）、support labor cost（需人工介入）、潜在 churn/revenue loss（若未及时解决）。精确单次损失金额未知。
+Evidence:
+1. Cloudflare Community 帖子 (2026-11-16)：用户于 15:07 购买 Workers Paid ($5.00)，收到 “Purchase confirmed” 邮件，audit log 显示 “Pay Invoice”，但 Billing → Subscriptions 仍显示 “Workers Free – Active”，无订阅变更记录；支持门户无法开启 billing ticket。URL: https://community.cloudflare.com/t/paid-for-workers-paid-still-showing-workers-free/981130
+2. Meshy Help Center (更新于窗口内)：明确说明若支付后仍显示 Free，联系 support@meshy.ai “we'll fix it manually”。URL: https://help.meshy.ai/en/articles/14503659-i-paid-but-my-account-still-shows-free-what-do-i-do
+3. 相关模式证据（稍早但同主题）：uxcontinuum 文章 (2026-11-05) 描述 “Payment cleared... still on the free plan... Support gets an email, you flip the flag by hand”。URL: https://uxcontinuum.com/blog/app-security/customer-paid-still-on-free-plan
+4. r/SaaS 帖子 (2026-11-05) 描述 Stripe 收费成功但下游 provisioning 失败（webhook 静默失败、rate limit），48 小时后用户投诉。URL: https://www.reddit.com/r/SaaS/comments/1xoswm7/the_silent_revenue_leak_paying_customers_charged/
+Mechanism: 支付处理器（Stripe/平台计费）确认成功并收款，但应用/平台内部状态（订阅记录、功能门控、CRM/审计日志）未同步更新。原因包括 webhook 投递/处理失败、事件顺序、成功页依赖、状态机未处理 incomplete/past_due、或支持流程断裂。结果是已付费用户被锁在 Free，需人工干预，阻断价值交付并产生支持成本。
+Current Workaround: 用户刷新/重新登录、联系支持；支持手动 flip 计划标志或核对 Stripe 记录后更新。依据：帮助文档与社区帖明确“fix it manually”、support 介入。成本：支持工时（单次未知，重复出现）、用户时间、潜在流失。
+Payer: SaaS 平台/开发者（减少支持负载、降低 involuntary churn、保护 NRR）；或支付/计费基础设施提供方。依据：已有付费用户仍需人工处理，平台承担支持成本与流失风险。
+Economic Effect: labor (support cost) / failed transaction / potential churn / revenue (if unresolved)
+Friction Value: 频率中等（社区与帮助中心持续出现同模式，窗口内至少 1 个明确案例 + 帮助文档更新）；单次经济影响：用户付费金额（$5+）+ 支持工时（未知）+ 潜在 LTV 损失；可回收比例：高（若自动化同步/对账，可消除多数手动案例）。精确数值未知，未编造。
+Persistence: Structural（依据：多平台、多来源重复出现同一“支付成功但状态未更新”模式，非单点 bug；涉及 webhook、状态同步、支持流程等系统性问题，非临时事件）。
+Next Question: 在典型 Stripe 集成 SaaS 中，支付成功但计划未解锁的实际发生频率、平均支持处理时间、以及未解决导致的流失比例是多少？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-17T09:45:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-11-10 至 2026-11-17（Asia/Taipei），基于实际可核实资料截止时点。
+披露：主要使用 Web 搜索、Reddit、社区论坛、X 搜索；无法直接访问所有封闭支持系统。
+无历史 Signal 索引，未跨历史去重。
+待人工保存至 https://drive.google.com/drive/folders/19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo

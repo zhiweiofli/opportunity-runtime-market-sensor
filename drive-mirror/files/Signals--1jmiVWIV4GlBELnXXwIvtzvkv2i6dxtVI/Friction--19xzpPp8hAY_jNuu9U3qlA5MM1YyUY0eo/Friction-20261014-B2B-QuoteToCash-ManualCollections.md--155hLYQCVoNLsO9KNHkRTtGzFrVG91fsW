@@ -1,0 +1,23 @@
+Signal ID: Friction-20261014-B2B-QuoteToCash-ManualCollections
+Type: Friction
+What Changed: B2B公司已付费购买 Salesforce、Bill.com 等系统，但在 2026 年 10 月中旬仍依赖兼职外包人员手动处理 quote-to-cash 与催收，导致大量发票延迟支付；该现象在 SaaStr 内部被 AI 代理暴露并改善。
+Friction: Quote-to-cash 环节（合同条款解析、发票创建与发送、联系人补全、定期跟进与升级），具体包括复杂合同（拆分付款、特殊条款）需人工阅读、外包人员无 Salesforce 权限导致手工开票、已付费的提醒功能未启用、跟进不一致。
+Money: SaaStr（B2B 社区/活动公司）已为 Salesforce 与 Bill.com（含未启用的提醒功能）付费，仍需兼职外包人员每周 1-2 天手工开票与催收；关联 revenue（现金流延迟：56% 发票延迟、平均逾期 17 天、最长 51 天）与 labor 成本。具体金额未知。
+Evidence:
+1. Jason Lemkin (@jasonlk) 2026-10-14 帖文：https://x.com/jasonlk/status/2110471455435629031 “More than half our invoices were paid late... 56% of SaaStr invoices were paid late while humans ran collections. Part-time contractors without Salesforce access billed deals by hand a day or two a week, and follow-up was inconsistent. ... found Bill reminders we’d paid for and never turned on...”
+2. 同作者后续帖与 SaaStr 官方转发：https://x.com/jasonlk/status/2112153038635085929 及 https://x.com/saastr/status/2110384528078323906，确认改善数据（56%→8%，17 天→6 天）及“almost every B2B company has the same problem”。
+3. 回复帖（如 @PineapplesDev）指出“contractors without Salesforce access is the quiet failure mode”。
+Mechanism: 已付费工具与实际操作流程存在断点（权限、集成、复杂条款、功能未启用），导致发票发出延迟与催收不一致，已完成销售的钱无法及时流入；AI 代理通过读取合同、更新 CRM、自动开票与跟进显著缩短周期（推断：系统记录已存在但人工链路未闭环）。
+Current Workaround: 兼职外包人员手工开票与催收（每周 1-2 天，无完整系统权限）；成本包括人工时间与不一致跟进导致的延迟现金。依据原帖描述。
+Payer: B2B 公司自身（尤其有复杂合同与多工具栈的）可能为消除该摩擦的自动化/代理付费；依据：Dreamforce 展台询问此话题的人多于其他，且已有专门 recovery 工具以绩效收费模式存在（如 Butter Payments 等，见同期报道）。
+Economic Effect: revenue（现金流时滞）、labor（人工催收与开票）、潜在 failed transaction / 坏账风险。
+Friction Value: 频率：每笔成交后均可能发生（高）；单次经济影响：延迟天数 × 资金成本或坏账概率（案例中平均 17 天逾期，具体 $ 未知）；可回收比例：高（案例从 56% 延迟降至 8%，显示大部分可回收）。依据：原帖前后对比数据；未知精确行业平均值。
+Persistence: Structural（依据：原帖称几乎每个 B2B 公司都有同样问题；独立统计显示 B2B 发票延迟普遍，工具存在但流程断点持续）。
+Next Question: 在中小型 B2B 团队中，该“已付费工具 + 外包无权限/功能未启用”模式的实际发生频率与典型月均现金延迟金额是多少？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-10-20T08:30:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-10-13 至 2026-10-20（Asia/Taipei），基于本轮可核实最新帖文时间。
+无法访问平台：无特别披露（主要使用 X 与 Web 搜索）。
+已有 Signal 索引：无（首次试跑，未进行历史去重）。

@@ -1,0 +1,139 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: IBF-20261103-LabInstruments-LegacySoftwareLockout-VMSpoof
+
+
+* Source Signal References:
+
+
+   * Signal ID: IBF-20261103-LabInstruments-LegacySoftwareLockout-VMSpoof
+   * Generated At: 2026-11-03T17:45:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: https://docs.google.com/document/d/1LUEpIAOR2lYuAk4Z_d8-Hct0xZGc8N4R1rFlMtdQSLA/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-03T17:54:11+08:00
+
+
+* Research Level: R2 — Economic Underwriting
+
+
+* Stage Result: HYPOTHESIS_READY
+
+
+* Unknown Ledger:
+
+
+   * Known: 全球各高校科研课题组、中小型生物医药初创（Biotech）及 CRO 机构运转着数十万台原值在 $20,000–$100,000+ 美元的高端精密生化仪器（如 PerkinElmer/Revvity Enspire 2300 酶标仪、Molecular Devices SpectraMax/SoftMax Pro、Agilent 1100/1200 HPLC 等）；铸件、步进电机与光学传感器机械寿命达 15–25 年，但配属的老旧 WinXP/Win7 PC 硬件损坏或遭机构 IT 强升 Win10/Win11 后遭遇原厂停更绑架；原厂不仅拒发老安装包，更将提供安装镜像绑定为 $3,578 美元的单次上门服务，或强推 $20,000–$25,000 的软件升级换购；加之老软件采用绑定主板 BIOS、MAC 地址与 CPUID 的硬件加密锁（Node-locked License），直接克隆硬盘镜像无法在现代 PC 上启动，造成实验停滞与数万美元资产报废。
+   * Unknown: 全球中小型生物医药研发实验室中，因配属电脑损坏或系统升级导致仪器软件停摆但未向原厂采购天价换代的活跃存量规模。
+   * Decision-Critical Unknown: 面临 $3,578 原厂上门费或实验中断损失的中小型实验室 PI 与设备管理员，对于一套“包含 P2V 镜像提取器、自动修改虚拟机 BIOS/MAC 以伪装原机硬件指纹的免重装运行模板及 USB/串口直通向导（单台售价 $299–$499 买断）”的直接采购意愿。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。原厂单次技术支持报价 $3,578，升级软件要价 $20,000+，采购新机需数万至数十万美元；单台自愈包 $299 具备 12 倍以上的刚性省钱杠杆。
+   * Mechanism: 通过。机械耐用度（20年）与商用操作系统更迭（5年）形成结构性断代；原厂靠硬件加密锁（Node-lock）封锁老软件；通过虚拟化（Hyper-V/VirtualBox）底层重写 VMX/XML 参数欺骗硬件指纹，并在宿主机与虚拟机间打通 FTDI USB 转串口/GPIB 驱动透传，在技术上完全绕过重新激活限制，恢复即插即用。
+   * Persistence: 通过。科研仪器光学机械部件寿命长，高校与初创经费预算周期长，Windows 持续演更，该兼容断崖长效存续。
+   * Capture: 通过。1-3 人小团队构建自动化 P2V 提取脚本与虚拟机硬件参数伪装模板包，纯软件交付，零实体硬件库存、零现场驻场、高毛利。
+
+
+* Final Status: HYPOTHESIS_READY
+
+
+* Evidence:
+
+
+   1. Reddit r/labrats 科研人员维权帖《Dear lab supply companies, please give me the software》（2026-10-22）：披露 Revvity 对老款 Enspire 2300 索要 $3,578 软件服务费，SoftMax Pro 升级要价 $25,000。
+   2. PyLabRobot 开源仪器社区《Liberated Instruments Projects》：确认经典仪器底层通信为标准串口/GPIB 协议，虚拟化与协议透传已成为科研极客的通用自救路线。
+   3. CSS Analytical 仪器技术通告《Windows 11 ChemStation Upgrades》（2026-10-20）：证实 Agilent 5973/6890 等经典设备在 Win11 下的兼容断层与工控虚拟机商业价值。
+
+
+* Counter Evidence:
+
+
+   1. 少数涉密制药外企要求全合规审计（FDA 21 CFR Part 11），禁止在生产线上运行未经原厂认证的虚拟化操作系统。
+   2. 原始硬盘物理完全碎裂且此前没有任何镜像备份的极少极端物理损坏案例。
+
+
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，痛点真实刚性，软硬件寿命错配机制明确，小团队轻资产切入点极佳。
+
+
+* Resume Condition: 不适用（已完成）。
+
+
+* What became more likely: 实验室设备管理员将普遍采用基于虚拟化硬件欺骗与串口透传的低成本自愈包延长仪器服役期。
+
+
+* What became less likely: 资金受限的高校实验室因 PC 损坏就轻易报废数万美元的机械完好分析仪器。
+
+
+* What did we rule out: 排除了在未伪装原始主板 BIOS 与网卡 MAC 地址的前提下，直接将原厂带锁软件克隆到新电脑能正常运行的可能性。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-04T17:01:33+08:00
+
+
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向科研与生化实验室精密分析仪器的 P2V 虚拟机迁移与硬件特征锁欺骗自愈套件
+* Source Signal IDs: IBF-20261103-LabInstruments-LegacySoftwareLockout-VMSpoof
+
+
+* Source Signal References:
+
+
+   * Signal ID: IBF-20261103-LabInstruments-LegacySoftwareLockout-VMSpoof
+   * Generated At: 2026-11-03T17:45:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: https://docs.google.com/document/d/1LUEpIAOR2lYuAk4Z_d8-Hct0xZGc8N4R1rFlMtdQSLA/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-03T17:54:11+08:00
+
+
+* Money: 全球高校、药企与 CRO 机构运转中的数十万台原值在数万美元的高精生化仪器；面对原厂单次 $3,578 上门费或数万美元换新开销，实验室愿支付 $299–$499 采购一套即插即用的虚拟化自愈恢复包。
+
+
+* Mechanism: 针对仪器老电脑损坏或强升 Win11 后原厂软件因母板硬件特征锁（Node-lock）拒绝运行的痛点，工具打包为自动化恢复包：包含轻量 Disk2vhd 镜像抓取脚本、预配置的 Hyper-V/VirtualBox 虚拟机模版；PowerShell 脚本自动将老机 BIOS 序列号、网卡 MAC 地址与 CPU 特征注入虚拟机配置文件，精准复刻原机指纹以绕过重新激活验证，并配置 FTDI 芯片 USB 转 COM/GPIB 驱动透传，操作人员双击即可在现代电脑中无缝唤醒老控制台。
+
+
+* Capture: 1-3 人小团队构建自动化配置脚本与标准化虚拟机分发包，纯软件与调试指引，零实体库存、零硬件资产、高毛利。
+
+
+* Durability: 仪器硬件光学寿命达 20 年，Windows 持续滚动淘汰老驱动，实验室低成本延寿需求具备长期刚性。
+
+
+* Evidence:
+
+
+   1. Reddit r/labrats（2026-10-22）：https://www.reddit.com/r/labrats/comments/1xc2z49/dear_lab_supply_companies_please_give_me_the_free/ 证实 $3,578 暴利服务费与天价换代痛点。
+   2. PyLabRobot 社区：https://discuss.pylabrobot.org/ 证实开源社区逆向与虚拟机自救成熟度。
+   3. CSS Analytical（2026-10-20）：https://www.cssco.com/gcms-products/windows-11-chemstation-upgrades 证实 Win11 断代商业需求。
+
+
+* Counter Evidence:
+
+
+   1. GMP 生产车间对严格审计追踪的强制要求。
+   2. 物理原件完全粉碎无法读取。
+
+
+* Critical Unknown: 实验室技术员在面对串口通讯（RS232/GPIB）参数配置时的技术操作门槛与远程支持工时成本。
+
+
+* Falsification: 若各大分析仪器厂商联合宣布彻底废除老软件授权节点锁，并向公众免费分发全平台兼容的现代驱动包。
+
+
+* Next Test: 获取一台报废老 PC 中的 SoftMax Pro 硬盘镜像，在 Win11 宿主机上运行硬件欺骗脚本构建虚拟机，并连接物理 SpectraMax 仪器测试读板与数据导出是否完全正常。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-04T17:01:33+08:00
+
+
+* Role Spec Status: reviewed

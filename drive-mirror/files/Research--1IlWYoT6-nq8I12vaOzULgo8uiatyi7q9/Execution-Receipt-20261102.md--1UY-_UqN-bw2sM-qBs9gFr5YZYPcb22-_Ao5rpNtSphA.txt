@@ -1,0 +1,29 @@
+﻿Opportunity Runtime Researcher Execution Receipt
+* Task Version: researcher@0.2.2
+* Role Spec Status: reviewed
+* Timezone: Asia/Taipei (UTC+08:00)
+* Execution Cutoff Timestamp: 2026-11-02T17:17:16+08:00
+* Scanned Directory Scope:
+   * Signals Root: https://drive.google.com/drive/folders/1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI
+   * Business Input: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+   * Friction Input: https://drive.google.com/drive/folders/19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo
+   * Market Input: https://drive.google.com/drive/folders/12UTQ8sbPG0Ryv3mA0YB7EtWTjH3Ri0G2
+   * Research Output: https://drive.google.com/drive/folders/1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9
+* Total Discovered Observations: 48 items across input folders
+* Historical Observations Skipped: 44 items (all verified as covered in Research directory, including existing KILL coverage for the recurring MSP Autotask manual contract onboarding topic)
+* Current Batch Qualified Signals Processed: 4 items
+   1. UW-20261102-SmallBusiness-EquipmentLease-EvergreenAutoRenewalAudit -> HYPOTHESIS_READY
+   2. UW-20261102-SmallTenant-EstoppelSNDA-DiscrepancyAudit -> HYPOTHESIS_READY
+   3. UW-20261102-IndieMusic-MLC-UnmatchedMechanicalRoyaltiesClaimPacket -> HYPOTHESIS_READY
+   4. Business-20261101-japan-jct-crossborder-platform-taxation-toll -> HYPOTHESIS_READY
+* New Research Artifacts Created & Verified:
+   * Research-UW-20261102-SmallBusiness-EquipmentLease-EvergreenAutoRenewalAudit.md
+   * Research-UW-20261102-SmallTenant-EstoppelSNDA-DiscrepancyAudit.md
+   * Research-UW-20261102-IndieMusic-MLC-UnmatchedMechanicalRoyaltiesClaimPacket.md
+   * Research-Business-20261101-japan-jct-crossborder-platform-taxation-toll.md
+* Waiting / Pending Recovery: None
+* History Conflict / Verification Items: None
+* Excluded Items & Reasons:
+   * Apple Taiwan App Store commission rate reduction (30% to 26%): Tracked in Watch list, platform fee decrease without new third-party software capture point.
+   * TikTok Shop FBT heavy bulky logistics rate reduction: Excluded (heavy physical freight/warehousing assets).
+* Queue Status: NO_PENDING_SIGNALS

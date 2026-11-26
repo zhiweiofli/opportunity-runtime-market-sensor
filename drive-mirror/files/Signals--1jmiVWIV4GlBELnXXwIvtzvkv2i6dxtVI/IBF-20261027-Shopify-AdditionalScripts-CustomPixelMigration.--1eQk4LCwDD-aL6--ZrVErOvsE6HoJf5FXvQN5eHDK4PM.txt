@@ -1,0 +1,116 @@
+﻿signal_id: IBF-20261027-Shopify-AdditionalScripts-CustomPixelMigration
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: 2026年8月26日起，Shopify对全球所有剩余的非Plus及Plus商户强制启动了“Thank you（感谢页）”与“Order status（订单状态页）”的自动升级，全面移除了历史遗留的Additional Scripts（附加脚本）输入框并彻底禁用了基于ScriptTags的脚本注入。2026年10月中旬以来的实操证据显示，大量独立站虽然结账和交易流程正常，但依赖旧字段注入的Google Ads转化跟踪、Meta CAPI/像素、TikTok Pixel、联盟营销归因（Affiliate Postbacks）及售后问卷在升级后静默停摆，导致投放广告失去转化信号、ROAS断崖式下跌，而商户往往在数周后才察觉。
+money: 涉及全球数百万依赖付费流量（Google Ads/Meta Ads）的Shopify独立站卖家（月广告预算普遍在$5,000-$50,000+）。广告转化像素静默断开导致广告平台智能出价算法（Smart Bidding / Advantage+）失去正向反馈并产生严重预算错配；第三方数字营销与CRO代理商对通过Web Pixels API及Checkout Extensibility重构全套转化追踪的收费通常为$1,500-$3,500/店铺。
+
+
+evidence:
+  - id: E1
+    source: https://7seamarketing.com/blogs/guides/shopify-additional-scripts-custom-pixels
+    source_date: '2026-10-14'
+    accessed_at: '2026-10-27'
+    fact: 披露2026年8月26日Shopify强制升级后，大量非Plus商家遭遇Additional Scripts直接失效，必须通过沙箱化的Custom Pixels及Web Pixels API重构跨平台事件监听。
+  - id: E2
+    source: https://www.reddit.com/r/shopify/comments/1vgjmb0/nonplus_stores_your_thank_you_and_order_status/
+    source_date: '2026-08-05'
+    accessed_at: '2026-10-27'
+    fact: 社区详细揭示该故障的隐蔽性与杀伤力：店铺前台结账完全正常，后台报表不报错，但附加脚本静默停用，导致广告渠道看似突然“零转化”，若店铺代码经手过多任开发者，极难自行排查。
+  - id: E3
+    source: https://community.shopify.com/t/shopify-dropping-a-big-deadline-on-aug-26-for-non-plus-stores-and-most-people-have-no-idea/652934
+    source_date: '2026-07-19'
+    accessed_at: '2026-10-27'
+    fact: 商家讨论确认Shopify在2026年8月26日对所有未升级店铺执行自动切换，且旧脚本无法自动迁移至沙箱环境，必须手动按Web Pixels API重写。
+
+
+mechanism: Shopify为了提升结账安全性与页面加载性能，将结账与售后页面迁移至封闭沙箱（Web Worker/Iframe），彻底阻断了旧版直接向window/document注入外部JS的权限；但中小商户不具备编写Web Pixels API（如analytics.subscribe('checkout_completed')）沙箱代码的能力，且过去依赖的大量长尾SaaS插件原厂未及时重构，造成“平台强制升级而商户数据断流”的存量摩擦。
+persistence: Structural
+next_question: 在2026年8月26日后被Shopify自动升级的店铺中，因转化追踪丢失导致广告ROAS异常但尚未修复的活跃投放商户比例有多高？
+task_version: installed-base-friction@0.2
+generated_at: '2026-10-27T17:15:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+
+
+asset:
+  category: 独立站电商系统与广告归因中间件
+  brand: Shopify
+  model: Shopify Standard / Plus (Thank you & Order status pages)
+friction:
+  type: 脚本接口废除与静默不兼容
+  symptom: 结账流程正常，但广告回传、转化跟踪（Google Ads/Meta/TikTok）及联盟营销Pixel全部静默失效，广告投放数据断崖式下跌
+installed_base:
+  estimate: 全球超过200万家活跃Shopify独立站，其中数万家在8月26日前未完成手动像素迁移
+  basis: Shopify官方披露的大盘商户规模，及8月下旬社区集中反馈的大量中小商户在自动升级后才发现追踪异常。
+
+
+current_solution:
+  description: 1) 聘请营销代理商或Shopify Expert人工排查重写Web Pixels代码；2) 购买高价按月订阅的企业级归因SaaS（如Elevar/Triple Whale，月费$250-$1,000+）；3) 盲目关闭广告或任由广告出价模型跑偏。
+  oem_part_price: null
+  technician_repair_price: 2000.0
+  currency: USD
+  basis: 独立开发工作室及代理商重构Shopify Custom Pixels与CAPI的标准项目报价普遍在$1,500-$3,500之间。
+alternative:
+  description: 提供一套预配置好的标准化“Shopify Custom Pixel沙箱发信脚本包”与自动化像素验证工具
+  estimated_solution_cost: 99.0
+  currency: USD
+  basis: 单店铺买断式脚本代码包或一小时线上自检修复指导。
+gap:
+  vendor_support: discontinued
+  availability: medium
+  competition: medium
+  basis: Shopify官方明确彻底移除旧输入框并不再支持ScriptTags；现有大型归因SaaS价格门槛高且按月持续收费，缺乏针对中小型卖家的一次性低成本修复供给。
+signals:
+  recurrence: high
+  urgency: high
+  diy_activity: high
+  basis: 广告费用每日持续消耗，数据丢失直接导致ROAS劣化；Shopify Community与Reddit上有大量商家发帖求助如何将旧代码转为Custom Pixels。
+
+
+assessment:
+  installed_base: {value: high, basis: 全球极大规模的Shopify存量独立站生态}
+  friction_rate: {value: high, basis: 凡依赖Additional Scripts注入跟踪代码的未改造店铺100%失效}
+  failure_cost: {value: high, basis: 广告预算空转、出价模型紊乱，单月潜在广告浪费达数千至数万美元}
+  support_gap: {value: high, basis: 官方强制切断且无法回滚，沙箱机制不可逆}
+  switching_cost: {value: high, basis: 无法轻易更换建站平台，重构全套追踪逻辑需专业前端与营销分析能力}
+  vendor_repair_speed: {value: low, basis: 属于官方主动推进的安全演进，不可能回调旧特性}
+
+
+repair_leverage:
+  ratio: 20.2
+  baseline_cost: 2000.0
+  solution_cost: 99.0
+  currency: USD
+  scope: 基准成本为外部代理商实施Custom Pixels重构平均费用$2,000；替代方案为标准化脚本包$99
+  basis: 2000 / 99 = 20.2
+opportunity_durability:
+  value: high
+  basis: Shopify未来结账生态已全盘转向沙箱化Extensions与Web Pixels，所有存量及新增第三方脚本均必须遵守此架构。
+
+
+economic_value:
+  level: High
+  payer: 每月有$3,000-$50,000广告投放预算的中小Shopify独立站卖家、DTC电商品牌创始人
+  economic_anchor: 外部代理商$1,500-$3,500重构费、每日数百美元的无效广告投放浪费及每月$250+的归因SaaS订阅成本
+  capture_mechanism: 提供开箱即用的Web Pixels标准模版包（一键适配Google Ads Purchase、Meta Purchase CAPI、TikTok CompletePayment等主流事件），并附带控制台自测验证脚本
+  repeatability: Web Pixels API标准在全平台一致，编写一次可在数千家Shopify商户处直接复用
+  basis: 相比于高昂的代写服务或月付SaaS，数十美元一次性搞定主流转化回传具备极高吸引力
+
+
+personal_actionability:
+  fit: Good
+  route: 制作“Shopify Web Pixels标准替代脚本包”及一键式像素触发检测服务
+  target_customer: 遭遇8月升级后广告ROAS异常但缺乏专职前端的DTC独立站主
+  deliverable: 针对主流广告平台（Google/Meta/TikTok/Pinterest）的标准化Custom Pixel JS代码片段，附带详细的后台填报图文指南与Chrome控制台自测命令
+  pricing_hypothesis: $49-$99 一次性购买完整脚本包；或 $199 包含1小时远程协助验真
+  customer_entry: Reddit r/shopify、r/PPC、Shopify Community中搜索“Additional Scripts stopped working”或“Custom pixel GA4/Meta”的发帖者
+  fit_basis: 纯前端JS开发与API调用，无服务器维护成本、无库存、交付即结算
+  prerequisites: 熟练掌握Shopify Web Pixels API规范、常见广告平台转化回传payload结构
+  first_test: 在一个真实的Shopify测试店铺（或合作商家店铺）部署Custom Pixel代码，完成一笔模拟结账，验证Meta Events Manager与Google Analytics DebugView中是否精准捕获带金额与Currency的checkout_completed事件
+  time_budget: 90分钟
+  success_signal: 模拟下单后，测试工具与广告后台实时显示Purchase事件成功入库且参数完整
+  kill_signal: Shopify推出官方免费无缝的Additional Scripts自动转换器
+  key_unknown: 商户安装的各种小众长尾应用是否有复杂的私有转化逻辑无法被通用Web Pixel模版覆盖

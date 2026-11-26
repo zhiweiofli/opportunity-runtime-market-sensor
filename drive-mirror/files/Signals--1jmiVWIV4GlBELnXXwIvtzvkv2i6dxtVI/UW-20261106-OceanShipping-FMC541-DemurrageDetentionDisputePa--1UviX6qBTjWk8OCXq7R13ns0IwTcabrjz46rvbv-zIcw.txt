@@ -1,0 +1,56 @@
+﻿signal_id: UW-20261106-OceanShipping-FMC541-DemurrageDetentionDisputePacket
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年下半年核实（美国联邦海事委员会FMC最新法规、2025年9月哥伦比亚特区巡回上诉法院World Shipping Council v. FMC判决后修订框架，以及2026年海运账单审计指南），FMC依据《2022年海运改革法案》（OSRA 22）出台的滞期费与滞箱费最终规则（46 CFR Part 541，2024年5月28日起生效）持续产生强制性法律威慑：海运承运人、集装箱码头（MTO）及NVOCC向托运人开具滞期滞箱费（D&D）发票时，必须在最后计费日起30个自然日内出具，且发票必须完整载明集装箱号、免费期计算基准、起止日、适用费率及正式争议联络人等全部法定字段；第541.7条确立了刚性罚则——若发票缺失任一法定要素或逾期发出，被计费方的付款义务依法直接消除（Payment Obligation is Eliminated，既非打折亦非延缓，而是彻底归零）。
+money: 全美进口商与集装箱运输企业每年承受数十亿美元滞港滞箱费盘剥（FMC数据显示仅9家主流船东在2020至2025年间就收取了约154亿美元D&D）。单台集装箱单日延误罚费通常从$100–$150起步并阶梯暴涨至$300–$500/天，单张错账或争议账单金额通常在$250–$1,500美元之间。由于单笔金额相对整体货值较小，且传统企业级运费审计软件只服务年运费超百万美元的大企业，中小进口商与小车队在繁琐的证据核实面前普遍认为“嫌麻烦不值得争议（too much work to dispute）”，被迫全额支付不合规罚款。
+evidence:
+  - id: E1
+    source: https://invoicedataextraction.com/blog/demurrage-detention-invoice-processing
+    source_date: '2026-03-10'
+    accessed_at: '2026-11-06T00:30:00+08:00'
+    fact: 详述2026年46 CFR Part 541实务规则与诉讼后现状：1）船公司与码头必须在30天内出票并附带全部必填数据；2）第541.7条规定只要发票缺失法定要素，付款义务即刻归零；3）2025年9月D.C. Circuit判决虽撤销了541.4的受票主体限制，但30天出票红线、内容强制要件及付款消除条款完全有效；4）单箱费率阶梯达$100–$500/天，九大船司5年收取$154亿；5）最普遍错误包括从卸船日而非实际可用日（Availability Date）起算免费期、错计周末节假日、还箱后继续计费等。局限：为专业关务与物流发票审计机构的分析指南，侧重合规审查框架。
+  - id: E2
+    source: https://www.federalregister.gov/documents/2024/02/26/2024-02926/demurrage-and-detention-billing-requirements
+    source_date: '2024-02-26'
+    accessed_at: '2026-11-06T00:32:00+08:00'
+    fact: 联邦公报FMC 46 CFR Part 541法规原文确立争议权利：被开票方享有自收到发票起30个自然日的法定争议期，承运人收到争议后必须在30天内解决或给出书面明细理由，禁止以格式化模板泛泛驳回。局限：为联邦行政法规条文。
+  - id: E3
+    source: https://www.fmc.gov/wp-content/uploads/2022/10/2022-10-07NPRMDnDBillingRequirements.pdf
+    source_date: '2022-10-07'
+    accessed_at: '2026-11-06T00:35:00+08:00'
+    fact: FMC官方立法背景报告指出：出台 Part 541 的核心目的是治理海运承运人长期以来向进口商与货运司机开具“模糊、不可验证、事后数月突然袭击”的乱收费乱象，将举证与合规成本强制转移给船公司。局限：为法规草拟期经济影响分析。
+mechanism: 事实：46 CFR § 541.7赋予托运人法定核武器——只要D&D发票未在30天内发出，或漏填免费期基准、计算起止日、适用费率及争议接口，托运人依法享有零付款义务；托运人享有30天法定争议窗口，且承运人必须在30天内做出实质性书面回应（E1, E2）。推断：传统人工模式下，中小进口商或小拖车队的后勤调度员若要审核一张$450的滞期费账单，需调取集装箱码头闸口进出记录（Gate-in/out）、查验船司实际可提箱通知（Availability timestamp而非Discharge）、核对码头假日表与公布Tariff费率表并撰写正式法律信函，单箱耗时1–2小时，且担心被船司断供拉黑，在“单笔金额不足以请海事律师”的权衡下选择放弃争议直接付款；利用多模态LLM解析承运商D&D发票PDF，自动比对发票日期与最后计费日（秒级判定是否超30天出票期），逐项筛查Part 541法定必备字段完整性，调取码头真实可用与还箱时间戳，一键生成引用46 CFR § 541.7法条的“付款义务全额消除通知函”（Notice of Elimination of Payment Obligation）及证据清单，将数小时人工法律核查压缩至2分钟自动化输出，使单张$250–$1,500的中小额海运罚费免付抗辩首次具备正收益。
+persistence: Structural
+next_question: 在月均进口1–10个集装箱的中小进口商与本地拖车车队收到的D&D账单中，因开票超过30天或缺失Part 541法定必要字段而依法可直接豁免付款的发票比例有多高？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-06T01:18:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work: {task: 中小集装箱进口商、跨境电商及区域短途拖车队在收到船公司或码头出具的单张滞期/滞箱费（D&D）账单后30天内，依据FMC 46 CFR Part 541核查出票时效与法定字段完整性，调取闸口提还箱真实时间戳，提交法定免付声明或正式争议抗辩包, structure: 微价值×海量 / 规则遵从 / 对抗交互 / 昂贵信息获取, abandoned_value: 全美中小托运人与车队因发票核对繁琐（逐箱1–2小时）、海事律师门槛高而被迫支付的不合规D&D单票$250–$1,500海运罚金（行业年流失超数十亿美元）（E1, E2）, human_failure_reason: 单箱罚款几百美元，雇佣海事律师（时薪$400+）得不偿失；大货代审计工具门槛极高，中小货主缺乏码头实测时间戳与46 CFR法规武器，认定‘争不过大船司’而妥协付款（E1, E2）}
+ai_unlock: {changed_cost: 将海运D&D发票PDF的37项要素合规审查、30天出票期限核算、码头时间戳比对与FMC 541.7免付法律文书生成的边际成本从数百美元人工工时降至几美分, capability_basis: 物流发票多模态结构化抽取 + FMC 46 CFR Part 541合规规则校验引擎 + 码头EDI提还箱时间戳自动对齐与申诉信生成（E1, E2）, limitations: 1）若船公司发票字段完全合规且真实延误确实属于进口商自身提货不及时所致，541.7免付条款无法触发（仅能尝试提免免费期谈判）；2）若船司恶意扣押提单或后续集装箱（Hold Release），虽违反FMC反报复法规，但可能需向FMC消费者投诉专员升级}
+unit_economics:
+  unit: 1份单箱或多箱海运滞期/滞箱费（Demurrage & Detention）发票的FMC 46 CFR Part 541合规审查、证据链比对与正式免付声明包生成
+  currency: USD
+  region_and_date: 美国市场 / 2026年10月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖发票OCR解析、Part 541要件比对校验、码头公开船期/闸口时间戳查询、免付声明PDF输出及异常人工复核分摊；人工基准为物流专员翻找提单调单核查1–2小时工时（$40–$80/单）或海事法务顾问审查费
+  excluded_or_unknown_costs: 若船公司拒绝免付需向FMC正式发起46 U.S.C. § 41301行政申诉的官方规费、港口码头EDI查询接口月租、获客成本（CAC）尚未量化
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1与E2证实了46 CFR § 541.7法定付款义务全额消除的刚性条文，发票不合规即无需付款的逻辑清晰，算法校验发票字段与30天期限在技术上完全确定，判定为Plausible；因缺乏全美中小货主实际提交541.7免付函后船司全额撤销率的大盘统计，数值严格置为null
+value_capture: {beneficiary: 全美每年进口5–100个集装箱的中小型跨境电商、制造企业、商贸批发商及独立短途集装箱拖车行（Drayage Truckers）（E1, E2）, payer: 中小企业物流主管、进口商财务出纳或拖车公司老板, payment_evidence: 传统运费审计公司按追回金额抽取20%–30%佣金但只接大客户（E1），针对单票自动化免付自检工具收费属待验证商业假设, capture_node: 提供“上传D&D发票PDF → 10秒扫描判定是否触发‘30天逾期出票’或‘缺失法定必要字段’ → 一键生成直接抄送船司Dispute邮箱的46 CFR § 541.7法定免付主张公函”, pricing_hypothesis: 假设采用“单次发票自检免费 + 生成完整有效免付抗辩包收取免除金额的15%或单次买断$29–$49/份”；标记为待验证商业假设, customer_net_benefit: 托运人无需与客服反复拉扯，凭联邦法典刚性条文一键甩脱$300–$1,500的不合理海运罚单，零风险改善资金流}
+scale: {aggregation_unit: 进口商收到D&D账单后的30天法定争议黄金窗口期, repeatability: 46 CFR Part 541适用于全美所有口岸运营的海运承运人与码头（马士基、中远、达飞、地中海等均受约束），法律模板与校验算法全美统一，可无限次复用, reachable_volume: null, basis: 全美年集装箱进口量超数千万TEU，产生D&D争议的发票体量达到数百万张}
+action_loop: {observe: 托运人收到的Ocean Carrier或MTO开具的D&D滞期费/滞箱费发票PDF及原始海运提单（BOL）, judge: 提取发票出具日期与最后计费日比对是否>30天，逐行检查是否包含Part 541要求的免费期基准、费率表与联系人，比对真实可用日与还箱凭证, act: 设想自动组装指出违规缺陷并援引541.7条主张免除付款责任的正式函件，仅描述执行机制, verify: 检查承运人发回的冲正贷记凭证（Credit Note / Invoice Cancellation）或系统账单归零回执}
+required_access: {resources: 承运人D&D发票PDF、海运提单（BOL）编号、码头提还箱交接单（EIR/Gate Receipt）, availability: Available, authorizer: 托运人或收货人（Consignee/Billed Party）, authorization_status: 未取得, basis: 单据由被开票客户全权合法持有，海事法规为公开联邦法律，无特殊行政准入门槛}
+defensibility: {basis: 深入解析FMC Part 541法规明细要件、2025年上诉法院最新裁决判例边界，以及主流船司内部争议受理通道的自动化适配积累, alternatives_and_counterevidence: 现成替代为中小货主默默全额付款（最普遍现状），或花几千美元请海事法务；最强反证为若船公司发票极其规范没有任何字段瑕疵，则该工具无法利用541.7免除付款，只能转向事实性时间戳核对}
+personal_actionability: {fit: Good, target_customer: 刚收到大额集装箱滞期罚单、感到极其不公但无力聘请海事律师的中小企业出纳与车队调度, deliverable: 1份《D&D发票FMC Part 541合规漏洞诊断报告》 + 1份即用型46 CFR § 541.7法定免付异议公函PDF, customer_entry: 国际航运与外贸论坛（Reddit r/freightforwarding, r/Truckers）、跨境电商物流群及报关行交流圈, prerequisites: 精通美国海事法典OSRA 22、FMC 46 CFR Part 541条款及海运集装箱提还箱业务全流程, basis: 纯文档比对与法律模板组装，无重资产，客户痛点极其明确且价值即时兑现}
+seven_day_experiment: {critical_unknown: 中小进口商在收到D&D发票后，其发票中出现违反30天时效或缺少必备字段的实际瑕疵率是否达到30%以上？, test: 在物流论坛或中小外贸群中定向收集5份近期被开具的$300–$1,500滞期费发票，使用算法逐项对照Part 541进行要件扫描，出具免付诊断，测试发票真实不合规率与客户付费意愿, artifact: 1份《海运集装箱D&D发票FMC Part 541要件扫描与免付实测样本》, time_and_cost_budget: 7天 / 预算$20以内, success_signal: 5份发票中至少有2份被精准定位出出票超30天或缺失法定计算基准，且货主据此向船司提出异议并获受理, kill_signal: 样本中各大船司发票系统已100%自动化合规且完全无懈可击，无法利用541.7条实现程序性免除}

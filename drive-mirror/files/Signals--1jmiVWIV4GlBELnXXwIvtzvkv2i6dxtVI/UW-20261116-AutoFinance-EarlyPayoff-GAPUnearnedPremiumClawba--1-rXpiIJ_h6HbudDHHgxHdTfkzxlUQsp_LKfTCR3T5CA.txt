@@ -1,0 +1,56 @@
+﻿signal_id: UW-20261116-AutoFinance-EarlyPayoff-GAPUnearnedPremiumClawback
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年下半年核实（GAP Refund 2026深度行业指南、CFPB消费者保护简报及全美主要州立法与保险局通告），全美每年有超过80%的贷款购车用户在经销商金融与保险（F&I）环节捆绑购买了单价在$500–$1,000美元的前置差额保全保单（Guaranteed Asset Protection, GAP Insurance/Waiver）。当借款人因提前还款（Prepayment）、再融资（Refinancing）、车辆置换（Trade-in）或转售而在贷款期满前（如第30个月结清原72个月车贷）结清借款时，全美各州保险法典公认的“未到期保费信托原则”（Unearned Premium Doctrine）严格规定：承保风险终止后，承保机构无权扣留剩余未到期月份的保费，借款人依法享有按日历比例全额追溯退款的法定权利。加州民法典§ 2982.12（强制60个工作日内退款且禁止扣除取消手续费）、科罗拉多州C.R.S. § 5-9.3-106（强制30天内退款）等州法设立了严格时限。然而，由于放贷银行（Lienholder）在借款人结清后并不主动向第三方GAP承保公司报备，车商与保司利用“非自动退费黑洞”故意拖延，要求借款人自行提交复杂的结清函、里程证明与正式取消书面函件。
+money: 全美汽车金融行业统计显示，因提前结清、转贷与以旧换新而沉淀在承保机构与车商账户中的未认领GAP退费每年高达数以数十亿美元计。单笔提前还贷所对应的未到期GAP保费通常在$300–$750美元之间。由于银行客服推诿给车行、车行财务经理电话无人接听或以“没收到材料”拖延6–8周，普通借款人面对几百美元退款认定“跑几趟车行、打无数电话太折腾（not worth the hassle）”而中途放弃，导致原本属于消费者的真金白银沦为放贷机构与经销商的无风险净利润。
+evidence:
+  - id: E1
+    source: https://www.gap-refund.com/guide/gap-refund-early-payoff
+    source_date: '2026-01-24'
+    accessed_at: '2026-11-16T00:15:00+08:00'
+    fact: 拆解2026年全美车贷提前结清GAP退费底层逻辑与法律要件：1）未到期保费原则（Unearned Premium Doctrine）确立承保风险归零后必须按比例退款；2）非自动困境：放贷银行不通知GAP保司，导致全美每年数十亿美元退款沉睡；3）标准退费算式严格基于借款人实际零售购买价按剩余月份比例折算（例如72个月贷款第30个月结清，$800保费对应退款$466.67）；4）车商常以批发成本打折或故意称‘未收到申请’拖延，必须出具挂号信留存证据。局限：为专业汽车金融权益平台指引，侧重全美通则分析。
+  - id: E2
+    source: https://gapinsurancerefunds.com/how-long-gap-refund
+    source_date: '2026-11-08'
+    accessed_at: '2026-11-16T00:18:00+08:00'
+    fact: 梳理2026年各州GAP退费法定刚性时限：加州民法典§ 2982.12规定放贷方或保司必须在60个工作日内完成退款，科罗拉多州C.R.S. § 5-9.3-106规定30天内退款，佛州Statutes § 520.07赋予90天申请期；若超期未付，消费者有权向州金融监管局提出行政投诉。局限：为商业退费指引博客。
+  - id: E3
+    source: https://coverageclassroom.com/learn/gap-insurance-car-loan-worth-it
+    source_date: '2026-07-14'
+    accessed_at: '2026-11-16T00:20:00+08:00'
+    fact: 汽车保险权威实务指南证实：消费者在提前结清或置换车辆时必须主动向经销商/保司提供银行结清证明（Payoff Letter / Zero Balance Statement）、里程证明并正式行使取消权（Cancellation Request），否则保司绝不主动退回数百美元未使用保费。局限：侧重车贷全周期投保与退保决策分析。
+mechanism: 事实：未到期保费信托原则与加州民法典§ 2982.12等州法明确规定承保风险终止后必须在30–60天内将剩余保费按原路退回，退款基准必须按消费者实际支付的零售合同价折算且多州明令禁止扣除手续费（E1, E2）；但退款启动必须依赖消费者主动提供银行结清函、原保单号及正式签字声明（E1, E3）。推断：车主在结清车贷或办理置换后，通常误以为银行会自动结算一切；当发现银行未退还时，致电银行被告知需联系购车车商，致电车商又遭遇F&I经理推诿失联，单次人工来回拉扯耗费3–5小时通话与纸质扫描时间，面对三四百美元的零散金额，消费者在“不知道保司地址、不想去车商前台看冷脸”的摩擦下被动放弃；利用多模态LLM解析汽车购车合同（Buyer's Order / RISC）、银行结清函（Zero Balance Payoff Letter）与GAP保单单据PDF，30秒内提取原购车日期、总贷款期、结清日、原GAP零售金额、保单号与保司法定受理信箱，算法自动套用该州法定不扣手续费的Pro-Rata精算公式算出精确应退金额，一键生成引用该州保险法典时效要求的《GAP未到期保费法定取消与全额退款催告函》（Authenticated GAP Cancellation & Refund Demand Packet PDF）及预填妥的保司标准取消表格，并自动生成直发保司理赔合规邮箱的邮件文本与带追踪号的USPS挂号信格式，将原本耗时数月的踢皮球拖延压缩至3分钟自动化生成与递交，帮助车主在零人际摩擦下锁定单案$300–$750美元真金白银退费。
+persistence: Structural
+next_question: 在每年全美因以旧换新（Trade-in）、再融资或提前结清的数百万笔车贷中，购车时购买了GAP附加险但在结清后超过180天仍未向保司或车商主张未到期退款的沉睡订单比例是多少？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-16T00:56:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work: {task: 提前结清车贷、转贷或置换新车的车主在收到银行结清函后，调取原购车合同与GAP保单号、核算未到期月份比例、起草符合各州保险法规的正式取消声明并向GAP保司与车商主张追回$300–$750美元未到期保费, structure: 微价值×海量 / 规则遵从 / 昂贵信息获取 / 对抗交互, abandoned_value: 全美提前还贷车主因银行不主动通报、车商故意推诿且缺乏极简维权文书而每年被迫沉淀给保司与车商的数十亿美元合法未到期GAP保费（单案$300–$750）（E1, E2）, human_failure_reason: 银行与车商互相踢皮球，车商故意不接电话拖延，人工核对原合同与写公函耗费数小时精力；消费者面对几百美元觉得去跟车行争吵太折腾，被动任由款项沉睡（E1, E3）}
+ai_unlock: {changed_cost: 将原本需消费者耗费数小时翻找陈年购车单据、排查保司地址、计算折算公式并撰写正式退保公文的繁琐过程压缩至拍照上传后秒级完成精确金额测算与合规公函生成, capability_basis: 汽车金融分期合同（RISC）与银行结清函多模态OCR结构化抽取 + 全美50州GAP未到期保费法规公式库 + 商业保司标准化退费公文排版引擎（E1, E2）, limitations: 1）若借款人在贷款期内曾遭遇过整车全损事故且GAP保司已实际进行了差额理赔，根据法律保单价值已完全耗尽，无法退还保费；2）部分州允许在合同头30天后扣除微额行政注销费（通常$25–$50，加州等除外），算法需按州法精准折算净额}
+unit_economics:
+  unit: 1笔提前结清或置换车贷的GAP保单有效性排查、Pro-Rata未到期退费精确精算与符合州法规范的正式法定退款申索包生成
+  currency: USD
+  region_and_date: 美国市场 / 2026年10月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖购车合同与结清函OCR解析、各州保险法时效规则匹配、退费精算表生成、带法条引用的PDF公函排版及邮件/挂号信推送通道费；人工基准为车主耗费3–5小时电话争吵与去车行工时（$75–$150）或直接损失$450现金
+  excluded_or_unknown_costs: 挂号信物理寄送邮资（若车主选用USPS Certified Mail）、保司开具支票寄达的邮政耗时、获客成本（CAC）尚未量化
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1与E2证实了未到期保费信托原则的法律刚性及加州（60天）、科州（30天）等明确法定退款时限，公式计算具有100%确定性，算法解析合同与自动生成信函技术完全成熟，判定为Plausible；因缺乏全美个人车主自办退款最终支票承兑率的大盘统计，数值严格置为null
+value_capture: {beneficiary: 全美每年因多还月供提前还清、置换新车或办理再融资的数百万工薪家庭车主、网约车营运者及二手车买家（E1, E3）, payer: 提前结清车贷的借款人本人或协助客户办理二手车换购的独立二手车行销售专员, payment_evidence: 市场上缺乏专门针对提前还贷GAP退费的自动化自检工具，针对生成即插即用型官方退费包按单收取低额买断费属于待验证商业假设, capture_node: 提供“手机拍照上传购车合同F&I页 + 上传银行$0结清证明PDF → 15秒算出可退金额（如‘您剩余36个月未履约，应退$482.50’） → 一键生成引用州保险法的正式退款公函，直接电邮给GAP保司与车商合规部”, pricing_hypothesis: 假设采用“单次退款公函包买断收费$19–$29”或“承诺支票到账后按退回金额收取10%分成”；标记为待验证商业假设, customer_net_benefit: 车主无需去车商门店受气扯皮，花几分钟即可在结清车贷后凭空追回$300–$750美元意外现金支票，直接增厚家庭流动资金}
+scale: {aggregation_unit: 车主结清车贷、办理转贷再融资或在经销商处签署车辆置换协议后的30至90天黄金申索期, repeatability: 全美GAP保单合同条款、各州保险法未到期退保规则高度标准化，底层精算公式完全一致，可在全美数百万汽车消费者中规模化批量复用, reachable_volume: null, basis: 全美在贷汽车超1亿辆，每年提前还贷或转贷置换的案例达到上千万起，未退保费资金池达数十亿美元}
+action_loop: {observe: 车主提供的购车零售分期销售合同（RISC）中的GAP购买行项、保单单号，以及放贷银行出具的贷款全额结清证明单（Payoff Letter）, judge: 提取原保单总期长（如72个月）、实际结清月份（如第28个月）、原零售购买金额，对照所在州法典规章，核算出合法应退Pro-Rata未到期净金额, act: 设想自动排版包含州保险法条引用、合同条款编号、银行结清附件与直退借款人银行账户指示的正式申索公函，仅描述执行机制, verify: 检查GAP保司或车商财务部门核发的退款支票收据或直接转账至车主银行账户的入账明细}
+required_access: {resources: 原购车合同F&I明细页照片/PDF、汽车贷款结清证明PDF、GAP保司官方接收解约争议邮箱/挂号信地址, availability: Available, authorizer: 借款人本人, authorization_status: 未取得, basis: 单据由车主本人合法持有，州保险法典为公开现行法律，申索由车主自主行使，无特许准入门槛}
+defensibility: {basis: 深入掌握全美50州关于零售分期销售法案（ASFA/UCCC）中GAP手续费豁免限制、主流GAP保司（Assurant, Protective, Zurich等）直达解约通道以及精准Pro-Rata精算规则库沉淀, alternatives_and_counterevidence: 现成替代为借款人完全不知情任由款项沉睡（最普遍现状），或自行打电话到车商被无限拖延；最强反证为若借款人购车时并未单独购买独立GAP保单而是选择了部分信用卡附带的借贷保障计划，则适用不同的金融服务条款}
+personal_actionability: {fit: Good, target_customer: 刚卖车、置换新车或提前还清车贷、手里拿着结清信但不知道可以退还几百块钱GAP保费的普通车主, deliverable: 1份《GAP未到期保费法定退款金额精确精算单》 + 1份引用州保险法典的正式解约退费主张公函PDF, customer_entry: 个人理财社区（Reddit r/personalfinance, r/whatcarshouldIbuy）、车主还贷与再融资讨论组及汽车以旧换新交流群, prerequisites: 熟练掌握美国各州汽车零售分期销售合同结构、未到期保费精算原理及各州GAP退费法定时限标准, basis: 纯数据OCR解析、数学模型运算与标准文书交付，轻资产运作，切中消费金融明确的沉睡现金返还痛点}
+seven_day_experiment: {critical_unknown: 刚提前还清车贷的车主，在看到自己还有四五百美元未到期GAP保费可退时，是否愿意花$19购买一份全套申索文书去要钱？, test: 在Reddit r/personalfinance或汽车讨论区定向寻找3位在过去6个月内提前结清车贷或办理了置换的车主，免费帮其审查合同并出具一份正式退款公函包，测试其向保司发送后的实际退款反馈与付费意愿, artifact: 1份《提前结清车贷GAP未到期保费自动精算与法定追讨实测样本》, time_and_cost_budget: 7天 / 预算$20以内, success_signal: 至少有1位车主在发出该函后在4周内收到了保司或车商寄来的退款支票（金额>$300），并明确表示愿为此付费推荐给亲友, kill_signal: 车主普遍表示‘当年买车根本没买GAP，或者全额按期还满了72个月没有未到期月份’，目标客户筛选颗粒度不足}

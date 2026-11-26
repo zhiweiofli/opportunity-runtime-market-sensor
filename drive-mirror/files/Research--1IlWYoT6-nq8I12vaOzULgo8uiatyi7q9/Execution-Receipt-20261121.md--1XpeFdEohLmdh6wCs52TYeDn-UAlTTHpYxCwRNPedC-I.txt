@@ -1,0 +1,56 @@
+﻿Execution Receipt: Researcher Batch 20261121
+* Task Name & Version: Opportunity Runtime Researcher (researcher@0.2.2)
+* Execution Cutoff Timestamp: 2026-11-21T17:05:51+08:00 (Asia/Taipei)
+* Timezone: Asia/Taipei (UTC+08:00)
+* Batch Processing Status: COMPLETED
+* Queue Status: NO_PENDING_SIGNALS
+* Output Research Directory: Research Output Folder
+1. Batch Scan & Queue Audit
+Input Directory
+	Directory ID / Link
+	Scanned Files (New in Window)
+	Processed as Signals
+	Operational Exclusions
+	Unprocessed Remaining
+	Business Input
+	1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+	1 (Business-20261121-no-signal.md)
+	0
+	1 (Heartbeat run report NO_SIGNAL)
+	0
+	Friction Input
+	19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo
+	0
+	0
+	0
+	0
+	Market Input
+	12UTQ8sbPG0Ryv3mA0YB7EtWTjH3Ri0G2
+	0
+	0
+	0
+	0
+	Signals Root
+	1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI
+	0
+	0
+	0
+	0
+	Total
+	-
+	1
+	0
+	1
+	0
+	2. Underwriting Results in Current Batch
+本轮无新增合格待研究 Signal（所有截止时间前的历史 98 条有效观察均已有完整持久 Research 记录，已核对跳过）。
+3. Operational Exclusions & Skipped Checks
+* Operational Exclusions: Business-20261121-no-signal.md（business-sensor@0.2.1 常规心跳运行报告，判定结果 NO_SIGNAL，依据规则不进入真实研究）。
+* Skipped (Already Covered): 历史 98 条已承销观察（含 Batch 20261120 完成的 UW-20261120-Homeowner-Sub10kPropertyClaimSupplement、UW-20261120-SmallBusiness-IRSReasonableCauseForm843、Friction-2026-11-20-AuthFriction-Checkout-AppHandoff-FalseDecline、IBF-20261120-SharePoint-SP2010Workflow-InfoPath-July2027Removal、IBF-20261120-GoogleShopping-ContentAPISunset-MerchantAPIShadowDiff）均已有持久 Research 记录，本轮按观察键核对跳过。
+4. Cumulative Inventory Metrics
+* Prior Cumulated Underwritten Signals: 98
+* New Signals Underwritten in Current Batch: 0
+* Total Cumulated Underwritten Signals: 98
+* All-Time Underwriting Coverage: 100% of all discovered valid historical signals have persistent Research records in Research Output Folder.
+5. Integrity Statement
+本轮执行截止时间锁定为 2026-11-21T17:05:51+08:00。经全面扫描 Business、Friction、Market 与 Signals 根目录，除 1 份 NO_SIGNAL 运行报告外，无任何新增未处理 Signal，历史 98 条已覆盖 Signal 均已核对跳过。本轮队列状态确认：NO_PENDING_SIGNALS。

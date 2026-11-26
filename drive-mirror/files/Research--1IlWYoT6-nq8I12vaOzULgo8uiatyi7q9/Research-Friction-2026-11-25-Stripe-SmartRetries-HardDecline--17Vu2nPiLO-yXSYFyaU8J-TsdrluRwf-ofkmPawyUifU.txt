@@ -1,0 +1,53 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: Friction-2026-11-25-Stripe-SmartRetries-HardDecline-Manual
+* Source Signal References:
+   * Signal ID: Friction-2026-11-25-Stripe-SmartRetries-HardDecline-Manual
+   * Generated At: 2026-11-25T09:45:00+08:00
+   * Task Version: friction-sensor@0.2.1
+   * Source File URL: Friction-2026-11-25-Stripe-SmartRetries-HardDecline-Manual.md
+   * Source File Modified At: 2026-11-25T09:38:29+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: KILL
+* Final Status: KILL
+1. Unknown Ledger
+Known
+1. Stripe Smart Retries 对 expired_card 与 authentication_required 的重试逻辑：2026 年 11 月 23 日 Reddit r/stripe 讨论（Why do Stripe Smart Retries keep re-attempting expired_card declines?）指出 Smart Retries 对 expired_card 和 authentication_required 仍会继续发起 3–4 次重试。同帖高赞回复同时补充了技术真相：Stripe 后台运行着发卡行网络卡号更新器（Account Updater），部分过期卡会在两次重试间隔期间自动刷新有效期，因此彻底屏蔽 expired_card 重试反而可能误杀无感续费用户；真正需要立即路由催付的是需要客户在场 3DS 的 authentication_required 或 account_closed 等终端拒付码。
+2. 极度拥挤的红海赛道（10+ 家专门针对该精确痛点的竞品已成熟运营）：经检索核实，"按 Stripe 拒付原因码（expired_card / authentication_required）区分于默认 Smart Retries、立即抑制无效重试并触发分流 Dunning"这一精确细分赛道，已被超过 10 家商业 SaaS 彻底占据：
+   * 专门的垂直重构与恢复工具：RevRescue（官网直接主打"expired_card, Hard, No retry, sends the card update page right away — Turn off Smart Retries"）、RetryFix、Rebounce、Recoupt（官网同样直白主打"skips retries on expired_card or authentication_required and routes directly to dunning"）、RecurFlux、Revatto、RetryFi；
+   * 老牌头部工具：Churnkey（~$250/月）、Churn Buster、Baremetrics Recover、Stunning。
+3. 无独立小团队差异化捕获空间（Gate 4 失败）：在存在 10+ 家主打一模一样卖点（甚至连着陆页文案都精确针对 expired_card / authentication_required vs Smart Retries）的红海市场中，新进入的 1–5 人小团队无任何技术壁垒（自写一个监听 invoice.payment_failed 按 decline_code 分流的 Webhook 仅需开发者半天工时），面临极高获客成本与极低差异化溢价。
+Unknown
+在已有 10+ 家专门解决 Stripe Decline Code Dunning 工具的市场上，独立小团队是否还能找到未被 Churnkey / RetryFix / Recoupt / RevRescue 覆盖的细分切口。
+Decision-Critical Unknown
+面对 RevRescue、Recoupt、RetryFix、Rebounce、Churnkey 等 10+ 家已精确主打 expired_card / authentication_required 智能分流 Dunning 的成熟竞品，1–5 人新团队是否具备可防御的捕获节点（经审核已确认不存在，Gate 4 直接否决）。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	SaaS 非自愿流失（Involuntary Churn）确有真实商业预算（如 Churnkey 等工具月费 $250+），但预算已被大量成熟竞品瓜分。
+	Mechanism
+	未通过 (FAIL - Already Solved)
+	按 invoice.payment_failed 中的 decline_code 分流触发邮件/App 内更新卡链接，已被 RevRescue、Recoupt、RetryFix、Rebounce、Churnkey 等 10+ 家竞品完整产品化，且开发者自写 Webhook 门槛极低。
+	Persistence
+	通过 (PASS)
+	银行卡拒付码与非自愿流失是订阅商业长期存在的结构问题。
+	Capture
+	未通过 (FAIL - KILL)
+	严重红海不可捕获：仅 2026 年活跃在 Google 搜索首页的同质化垂直竞品就已超过 10 家（RevRescue、Recoupt、RetryFix、Rebounce、RecurFlux、Revatto、RetryFi、Churnkey、Churn Buster、Baremetrics、Stunning），1–5 人新团队缺乏技术护城河与获客杠杆。
+	3. Evidence & Counter Evidence
+Supporting Evidence (Symptom Existence)
+1. Reddit r/stripe 开发者讨论（2026-11-23）：Why do Stripe Smart Retries keep re-attempting expired_card declines? —— 确认开发者对 expired_card 与 authentication_required 重试行为的关注与自定义分流讨论。
+Counter Evidence (Refutation of Small-Team Opportunity)
+1. 10+ 家高度同质化竞品已占满该精确细分定位：RevRescue、Recoupt、RetryFix 与 Rebounce 均已把"绕过 Stripe Smart Retries 对 expired_card / authentication_required 直接发催付"做成现成标准化 SaaS。
+2. Account Updater 机制与低自研门槛：同帖指出 Stripe Account Updater 确实能在重试间隔刷新部分过期卡，且监听 invoice.payment_failed 按 decline_code 分流本身只需少量 Webhook 代码。
+4. Decision Trail & Metadata
+* Stop Reason: 该细分痛点已被 10+ 家专门主打相同 Decline-Code 分流逻辑的成熟 Stripe Dunning SaaS 彻底占据，属高度拥挤红海，Gate 2 与 Gate 4 未通过，裁定 KILL。
+* Resume Condition: 不适用（已裁定 KILL）。
+* What became more likely: "按 Stripe 拒付码分流智能催付"早已是独立 SaaS 竞争最激烈的成熟红海品类之一。
+* What became less likely: 1–5 人小团队能仅靠"帮 SaaS 屏蔽 expired_card 重试发邮件"建立差异化壁垒。
+* What did we rule out: 排除了在通用 Stripe Decline-Code Dunning 赛道重复造轮子的立项路径。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-25T17:52:27+08:00
+* Role Spec Status: reviewed

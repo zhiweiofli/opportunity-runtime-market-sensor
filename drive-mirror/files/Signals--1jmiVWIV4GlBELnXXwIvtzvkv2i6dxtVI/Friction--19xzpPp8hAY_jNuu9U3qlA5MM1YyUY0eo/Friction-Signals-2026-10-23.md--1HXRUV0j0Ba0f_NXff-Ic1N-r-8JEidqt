@@ -1,0 +1,55 @@
+# Opportunity Runtime Signals - Friction Sensor
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-10-23T09:45:00+08:00
+Role Spec Status: reviewed
+Observation Window: 2026-10-16T00:00:00+08:00 to 2026-10-23T09:37:00+08:00 (Asia/Taipei)
+Existing Signals: None (first trial run)
+
+---
+
+## Signal ID: Friction-2026-10-23-SaaS-Failed-Payment-Recovery
+Type: Friction
+What Changed: SaaS subscription billing flows continue to suffer failed renewals (expired cards, declines, insufficient funds) despite companies paying for billing platforms; basic dunning recovers only ~half, leading to silent involuntary churn. Observed ongoing in Oct 2026 discussions.
+Friction: Payment / Authentication / Support - Failed transaction recovery after first decline; dunning emails and simple retries insufficient for cross-border or issuer-specific declines.
+Money: SaaS companies already pay for billing platforms (e.g. Stripe) and customer subscriptions, yet still manually or basically handle recovery; unrecovered portion walks out as revenue loss. Example from original post: 8% of MRR at risk monthly, dunning recovers half, 12k/month lost on 300k MRR base. Industry reports cite 5-15% MRR lost to failed charges, involuntary churn 20-40% of total churn. Unknown exact aggregate beyond cited cases.
+Evidence:
+1. Original Reddit post (r/SaaS, ~2026-10-20): "About 8 percent of our MRR is at risk every month from failed payments. Dunning emails recover maybe half. The rest just churns silently. On a 300k MRR base that's 12k a month walking out the door because of expired cards and declined charges. We are using basic dunning through our billing platform but it feels like there should be a more sophisticated approach." URL: https://www.reddit.com/r/SaaS/comments/1xb4gj8/why_is_payment_recovery_so_hard_and_what_other/
+2. Payments Dive article (2026-10-22): Payment failures cost subscription companies up to $440 billion each year (Butter Payments cited); tools charge for incremental recovery beyond internal efforts. URL: https://www.paymentsdive.com/news/how-to-fix-subscription-pay-friction/811571/
+3. Supporting articles in window (2026-10-15 to 2026-10-22) on recovery rates, smart retries, and existing tools (Butter, ChurnBuster, etc.) confirming the leak and workaround costs.
+Mechanism: First-attempt declines (soft/hard) trigger basic retries/emails; unrecovered leads to grace period expiry and involuntary churn, blocking recurring revenue flow. Cross-border issuer declines often permanent without alternative payment methods. Inference: basic platform features insufficient for optimal timing/comms/alternative rails.
+Current Workaround: Basic dunning sequences + scheduled retries via billing platform; or specialized recovery tools (performance-based pricing, % of recovered). Cost: lost MRR (half of at-risk in example) + potential dispute fees from unexpected retries. Evidence from post and industry articles.
+Payer: SaaS founders/companies (already paying for billing and seeking better recovery; multiple tools exist with pay-on-recovered models, indicating willingness).
+Economic Effect: revenue loss / involuntary churn / failed transaction (also support cost if manual handling)
+Friction Value: Frequency high (monthly for all recurring subs, 5-15% MRR at risk industry-wide); single-event loss = full subscription value if unrecovered; recoverable rate ~50% with basic, higher with specialized (claimed 60-85% in some). Based on Reddit example and cited benchmarks; exact recoverable unknown without specific data.
+Persistence: Structural (card expirations, declines, issuer policies ongoing; not temporary bug)
+Next Question: What is the actual recovery rate delta between basic Stripe dunning vs specialized tools for mid-size SaaS, and average willingness-to-pay as % of recovered?
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-10-23T09:45:00+08:00
+Role Spec Status: reviewed
+
+---
+
+## Signal ID: Friction-2026-10-23-Frontline-Authentication-Friction
+Type: Friction
+What Changed: Organizations with frontline workers (healthcare, manufacturing) paying for authentication/access systems still experience high interruption rates, leading to productivity loss and security workarounds. Report published mid-Oct 2026.
+Friction: Authentication / Cross-device / Support - Shared devices, MFA prompts, password resets, connectivity causing repeated interruptions for frontline staff.
+Money: Organizations already invest in identity/auth solutions, yet workers lose ~2.5 hours/month each (affected), totaling ~32,400 hours/year for average 2,800-worker org. Workarounds (sharing credentials, staying logged in) create risk/compliance costs. Delays impact production/patient care (revenue/operational).
+Evidence:
+1. Imprivata + FIDO Alliance report "Frontline Friction" (survey Aug 2026, published ~2026-10-19): 37% frontline workers experience auth issue monthly; ~11 interruptions, 2.5h lost each; 95% orgs observe workarounds (40% stay logged in, 36% bypass MFA, 33% share credentials); only 40% confident in attribution. Average org loses 32,400 working hours annually. URL: https://fidoalliance.org/authentication-issues-cost-frontline-organizations-thousands-of-working-hours-each-year-according-to-research-from-imprivata-and-fido-alliance/
+2. Multiple coverage (Biometric Update, Security Magazine, etc., 2026-10-19 to 2026-10-22) confirming numbers and workarounds.
+Mechanism: Auth friction in shared/high-tempo environments forces manual interruptions or insecure workarounds, converting paid security controls into labor waste and residual risk. Inference: current password/MFA implementations poorly matched to frontline workflows.
+Current Workaround: Staying logged in, credential sharing, MFA bypass attempts. Cost: lost productive hours + security/accountability gaps (evidenced by survey).
+Payer: Frontline-intensive organizations / their IT/security teams (already paying for better auth solutions like Imprivata; passwordless adoption partial).
+Economic Effect: labor cost / time loss / potential operational revenue delay / compliance risk
+Friction Value: Frequency high (37% workers monthly, multiple interruptions); per-event ~minutes of lost time aggregating to 2.5h/worker/month; recoverable via better passwordless/shared-device auth (survey notes benefits for adopters). Based on survey estimates; monetary conversion of hours unknown.
+Persistence: Structural (shared devices, protective equipment, workflow constraints ongoing)
+Next Question: What is the willingness-to-pay or current spend on specialized frontline auth solutions vs residual hours lost, and adoption barriers for passwordless?
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-10-23T09:45:00+08:00
+Role Spec Status: reviewed
+
+---
+
+Note: Payment provider onboarding delays (PYMNTS Oct 15: 93% need ≥1 month to onboard new provider when primary declining) also shows structural revenue leakage from failed transactions during reintegration, but evidence is survey-based without original user posts in window. n8n credential handover pain (Reddit Oct 21) shows labor cost in paid workflow handovers but thinner scale evidence.
+
+Disclosed: Searched X, Web, Reddit; GitHub discussions older/outside window for some billing issues. No access issues for these sources.

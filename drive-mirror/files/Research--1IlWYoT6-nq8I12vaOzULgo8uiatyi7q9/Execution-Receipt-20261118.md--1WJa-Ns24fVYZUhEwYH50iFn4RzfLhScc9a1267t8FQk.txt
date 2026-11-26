@@ -1,0 +1,82 @@
+﻿Execution Receipt: Researcher Batch 20261118
+* Task Name & Version: Opportunity Runtime Researcher (researcher@0.2.2)
+* Execution Cutoff Timestamp: 2026-11-18T17:56:28+08:00 (Asia/Taipei)
+* Timezone: Asia/Taipei (UTC+08:00)
+* Batch Processing Status: COMPLETED
+* Queue Status: NO_PENDING_SIGNALS
+* Output Research Directory: Research Output Folder
+1. Batch Scan & Queue Audit
+Input Directory
+	Directory ID / Link
+	Scanned Files (New in Window)
+	Processed as Signals
+	Operational Exclusions
+	Unprocessed Remaining
+	Business Input
+	1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+	1 (Business-20261118-no-signal.md)
+	0
+	1 (Heartbeat run report NO_SIGNAL)
+	0
+	Friction Input
+	19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo
+	1 (Friction-2026-11-18-LemonSqueezy-ForcedMigration.md)
+	1
+	0
+	0
+	Market Input
+	12UTQ8sbPG0Ryv3mA0YB7EtWTjH3Ri0G2
+	0
+	0
+	0
+	0
+	Signals Root
+	1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI
+	3 (IBF-20261117-..., UW-20261118-... × 2)
+	3
+	0
+	0
+	Total
+	-
+	5
+	4
+	1
+	0
+	2. Underwriting Results in Current Batch (Chronological Order)
+Signal ID
+	Category
+	Generated At
+	Verdict
+	Analysis Summary
+	Generated Research Record
+	IBF-20261117-MicrosoftPublisher-Oct2026EOL-PubArchiveMigration
+	Installed Base Friction
+	2026-11-17T17:30:00+08:00
+	HYPOTHESIS_READY
+	四 Gate 全数通过：微软 2026-10 移除 M365 Publisher 且官方脚本依赖本地本体；针对拥有数百上千 .pub 文件的教会/学校/小印刷店，纯本地免联网盘点与批量转 PPTX/PDF 套件（$49–$79 买断）对比 Markzware $469/年具 5.94x 杠杆。
+	Research-IBF-20261117-MicrosoftPublisher-Oct2026EOL-PubArchiveMigration.md
+	UW-20261118-SmallEmployer-SUISeparationProtest
+	Uneconomic Work
+	2026-11-18T01:22:00+08:00
+	HYPOTHESIS_READY
+	四 Gate 全数通过：传统 TPA 服务门槛设在 50+ 雇员，50 人以下高周转小微企业面对 10–21 天 RSI 窗口易放弃导致 $20k–$50k+ 累计 SUTA 税负增量；AI 跨邮箱/Slack/手册生成 SIDES 抗辩包与季度账单稽核（$29–$49/月）具备强 ROI。
+	Research-UW-20261118-SmallEmployer-SUISeparationProtest.md
+	UW-20261118-AutoOwner-DiminishedValuePacket
+	Uneconomic Work
+	2026-11-18T01:22:00+08:00
+	HYPOTHESIS_READY
+	四 Gate 全数通过：保司滥用 17c 公式将 ~$2,850 实际 DV 压至 ~$400，而 USPAP 评估费 $300–$600 阻断了 $1,000–$2,200 中等贬值车主；AI 抽取汽修单 + 本地"无/有事故"真实车源对标（$49–$79 + 可选 $99 人工签章）精准填补供给断层。
+	Research-UW-20261118-AutoOwner-DiminishedValuePacket.md
+	Friction-2026-11-18-LemonSqueezy-ForcedMigration
+	Friction
+	2026-11-18T09:45:00+08:00
+	HYPOTHESIS_READY
+	四 Gate 全数通过：Lemon Squeezy 将于 2027-03-31 关停，Stripe Managed Payments 不支持 License Keys、文件交付、Affiliates、PayPal 迁移及 37 国外商家；提供兼容 LS API 的 Drop-in 履约桥接层与 PayPal 挽回流具极强紧迫付费需求。
+	Research-Friction-2026-11-18-LemonSqueezy-ForcedMigration.md
+	3. Cumulative Inventory Metrics
+* Prior Cumulated Underwritten Signals: 89
+* New Signals Underwritten in Current Batch: 4 (HYPOTHESIS_READY: 4, KILL: 0)
+* Total Cumulated Underwritten Signals: 93
+* All-Time Underwriting Coverage: 100% of all discovered valid historical signals have persistent Research records in Research Output Folder.
+4. Integrity Statement
+本轮执行截止时间锁定为 2026-11-18T17:56:28+08:00。经全面扫描 Business、Friction、Market 与 Signals 根目录，所有截止时间前的新增有效 Signal 已按观察时间顺序全部完成深度经济承销并落盘固化，历史 89 条已覆盖 Signal 均已核对跳过，无任何遗留待处理 Signal。本轮队列状态确认：NO_PENDING_SIGNALS。

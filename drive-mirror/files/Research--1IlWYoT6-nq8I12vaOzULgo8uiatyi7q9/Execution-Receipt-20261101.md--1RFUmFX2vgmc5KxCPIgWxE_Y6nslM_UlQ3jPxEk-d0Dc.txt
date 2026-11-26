@@ -1,0 +1,28 @@
+﻿Opportunity Runtime Researcher Execution Receipt
+* Task Version: researcher@0.2.2
+* Role Spec Status: reviewed
+* Timezone: Asia/Taipei (UTC+08:00)
+* Execution Cutoff Timestamp: 2026-11-01T17:47:41+08:00
+* Scanned Directory Scope:
+   * Signals Root: https://drive.google.com/drive/folders/1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI
+   * Business Input: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+   * Friction Input: https://drive.google.com/drive/folders/19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo
+   * Market Input: https://drive.google.com/drive/folders/12UTQ8sbPG0Ryv3mA0YB7EtWTjH3Ri0G2
+   * Research Output: https://drive.google.com/drive/folders/1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9
+* Total Discovered Observations: 44 items across input folders
+* Historical Observations Skipped: 41 items (all verified as covered in Research directory)
+* Current Batch Qualified Signals Processed: 3 items
+   1. Business-20261101-cloudflare-ai-search-metered-toll -> HYPOTHESIS_READY
+   2. Friction-2026-11-01-Autotask-M365-License-Reconciliation -> KILL
+   3. Friction-2026-11-01-Web3-Checkout-Gas-Dropoff -> KILL
+* New Research Artifacts Created & Verified:
+   * Research-Business-20261101-cloudflare-ai-search-metered-toll.md
+   * Research-Friction-2026-11-01-Autotask-M365-License-Reconciliation.md
+   * Research-Friction-2026-11-01-Web3-Checkout-Gas-Dropoff.md
+* Waiting / Pending Recovery: None
+* History Conflict / Verification Items: None
+* Excluded Items & Reasons:
+   * Salesforce Message Credits multiplier update for WhatsApp customer service: Tracked in Watch list, channel-side transmission of Meta toll already captured on Oct 14.
+   * Didit Identity Verification tier pricing change: Tracked in Watch list, regional/niche SaaS defense adjustment.
+   * NYSE American floor option fee increase: Excluded (heavy licensed capital market floor trading).
+* Queue Status: NO_PENDING_SIGNALS

@@ -1,0 +1,39 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: Friction-2026-10-23-Frontline-Authentication-Friction
+* Source Signal References:
+   * Signal ID: Friction-2026-10-23-Frontline-Authentication-Friction
+   * Generated At: 2026-10-23T09:45:00+08:00
+   * Task Version: friction-sensor@0.2.1
+   * Source File URL: https://drive.google.com/file/d/1HXRUV0j0Ba0f_NXff-Ic1N-r-8JEidqt/view?usp=drivesdk
+   * Source File Modified At: 2026-10-23T01:38:49.737Z
+* Research Level: R1 — Quick Structure
+* Stage Result: KILL
+* Unknown Ledger:
+   * Known: 医疗（Healthcare）与先进制造（Manufacturing）等拥有大量一线员工（Frontline workers）的机构，在共享工作站、移动医疗推车与多因素认证（MFA）打卡登录上普遍存在认证摩擦（平均每名受影响员工每月损失 2.5 小时）；但该领域的买家为大型医院集团与工业制造巨头，核心认证技术方案深度绑定物理硬件（如 RFID/NFC 工卡读卡器、智能指纹/掌静脉扫描仪、FIDO2 硬件密钥），且高度依赖与 Epic Systems、Cerner/Oracle Health 等医院核心电子病历（EHR）系统的深度对接；同时受制于极其严苛的联邦与行业合规管制（如医疗电子处方 EPCS 必须通过 DEA 认证的二级双因子认证，以及 HIPAA、HITRUST 认证）；市场被 Imprivata（OneSign / GroundControl）、Okta、Microsoft Entra ID 等重资产巨头深度垄断。
+   * Unknown: 无。
+   * Decision-Critical Unknown: 无（已在 R1 确认强反证并终止）。
+* Gate Checks:
+   * Money: 通过。大型医院与企业 IT 部门每年支付数百万美元的身份安全（IAM/SSO）采购预算。
+   * Mechanism: 未通过。一线认证摩擦的根源是物理操作环境（如医护人员戴无菌手套无法快速输密码、高频在多台病房电脑切换会话）与强监管合规（EPCS 防处方滥用法案要求强制生物识别/硬件验证码）之间的物理冲突。该问题无法通过纯轻量软件外挂解决，必须软硬一体化并在医院内网物理部署。
+   * Persistence: 未评估（R1 阶段终止）。
+   * Capture: 未通过。该场景严重违背 1-3 人小团队“轻资产、低客服、零硬件合规、高毛利”的核心约束：
+      1. 极重实体硬件集成：必须适配医院现有的各类实体工卡读卡器与专用医疗外设。
+      2. 漫长且繁重的大客户销售与现场实施：医院医疗信息化（Health IT）采购涉及长达 12-18 个月的公立招标/RFP 流程与重度驻场部署实施。
+      3. 医疗安全合规法律责任（HIPAA/EPCS）：一旦认证系统发生宕机或安全漏洞，将直接危害患者生命安全并面临联邦重罚，小团队无法承担法律与客服责任。
+* Final Status: KILL
+* Evidence:
+   1. Imprivata 与 FIDO Alliance 联合调研报告《Frontline Friction: The State of Authentication for Frontline Workers》（2026-10-19 发布）：官方报告指出 37% 一线员工每月遭遇认证阻碍，平均每年损失 32,400 工时；但报告本身系 Imprivata 用于推销其软硬一体解决方案的商业市场白皮书。
+   2. Biometric Update 行业分析《Authentication friction disrupts frontline work》（2026-10-20）：证实该痛点属于工业与医疗级 IAM 垂直场景，方案高度集中于专用生物识别读头与 FIDO Passkey 硬件。
+   3. Start With Identity 评论《FIDO and Imprivata survey: frontline authentication》（2026-10-19）：揭示主流解决路径为医院全面升级至支持 FIDO 的医疗推车硬件与企业集中目录服务。
+* Counter Evidence:
+   1. 客户群体与采购路径极端重资产：买家为医疗网络与大型工厂，依赖线下重度销售团队与多年期合同。
+   2. 硬件与线下集成壁垒：无法纯以云端无状态 API 交付，必须嵌入医院复杂的本地网络与工卡读卡器驱动层。
+   3. 巨头垄断与法律责任风险：Imprivata 垄断全美 80%+ 医院桌面认证，且涉及医疗过失连带责任。
+* Stop Reason: 存在足够强反证可 KILL。该摩擦本质为大型医疗与工业机构的重资产硬件集成与重度合规管理问题，完全违背 1-3 人小团队轻资产进入节点与低售后运营约束。
+* Resume Condition: 不适用（已 KILL）。
+* What became more likely: 大型医疗系统将继续采购 Imprivata 和微软的软硬件升级方案以逐步普及 Passkey。
+* What became less likely: 独立小团队能以纯软件/SaaS 模式切入医院工作站身份认证市场。
+* What did we rule out: 彻底排除了将一线医护/制造业物理认证摩擦作为小团队软件投资标的的可能。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-10-23T17:00:27+08:00
+* Role Spec Status: reviewed

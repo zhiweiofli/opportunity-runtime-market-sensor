@@ -1,0 +1,130 @@
+﻿Opportunity Runtime Research Record
+Meta Information
+Metadata Field
+	Value
+	Source Signal ID
+	UW-20261111-HOAResale-StatutoryFeeCap-OverchargeClawback
+	Generated At
+	2026-11-11T00:58:00+08:00
+	Task Version
+	uneconomic-work@0.1
+	Source File URL
+	https://docs.google.com/document/d/1fpDcowp47R8cpzOLPJan6lpfa9NeJNNm5H_fKqZLQ2o/edit?usp=drivesdk&ouid=101589702958564347595
+	Source File Modified
+	2026-11-10T17:01:11+08:00
+	Research Level
+	R2 — Economic Underwriting
+	Stage Result
+	HYPOTHESIS_READY
+	
+
+________________
+
+
+Unknown Ledger
+Known
+全美主要州（德州、佛罗里达州、内华达州、华盛顿州等）为了遏制物业管理行业向买卖双方乱收费，在州房产法典中明确设立了强制性的房屋转售披露文件包（HOA Resale Certificate / Estoppel Package）法定收费上限（如德州 Property Code § 207.003 上限 $375，佛州 Statute § 720.30851 上限 $299，内华达 NRS § 116.4109 上限 $185）；然而，全美大型物业管理集团（FirstService Residential, Associa）通过与其深度绑定的第三方数字垄断分发平台（HomeWiseDocs、CondoCerts），在房屋产权过户（Escrow Closing）倒计时的高压下，向售房业主强行捆绑不可选的加急费（$250）、清欠声明费（$150）及过户管理费，开具 $600–$1,200 的天价账单；业主为避免影响交割被迫在产权公司过户结算单（ALTA Settlement Statement）上签字代扣；交割完成后，因咨询执业律师起草函件单次收费高达 $350–$500，99% 的业主在"多一事不如少一事"的心态下放弃追偿，全美业主每年被非法超额收取的资金达数亿美元；各州法典明确规定超额收费构成违规，业主依法享有追索退款、甚至三倍惩罚性赔偿及法定律师费的权利。
+Unknown
+全美强制设立收费上限的各州中，物业管理公司在收到正式引用州法典的 Demand Letter 后主动退款（无需走小额法庭）的实际和解率。
+Decision-Critical Unknown
+刚刚完成房屋过户交割且结算单被扣除数百美元超额 HOA 披露费的售房业主或房产经纪人，对于一款"上传过户 Closing Disclosure 与 HomeWiseDocs 电子发票，15 秒比对州法典法定上限并核算出超额违法项目，一键生成正式追偿公函直接电邮物管公司合规部（单次买断 $29–$39，或追回退款后收取 20% 分成）"的工具的付费意愿。
+
+
+________________
+
+
+Gate Checks
+* Money: 通过。单案被多扣 $300–$800，全美每年二手房交易数百万套；$35 工具对比追回数百美元真金白银具备极佳 ROI。
+* Mechanism: 通过。各州法典设定的收费上限属于公法刚性红线，强制捆绑非必要费用直接构成违法；多模态 OCR 解析过户单与发票行项，自动匹配对应州 Property Code 条款并核算出差额，一键生成格式极其严谨的追偿公函并附带州不动产委员会投诉威胁，迫使物管公司法务合规部退款。
+* Persistence: 通过。各州关于 HOA 转售披露费上限的立法长期稳固，物管公司通过数字垄断平台超额收费的商业冲动长存。
+* Capture: 通过。纯软件与文档解析交付，零实体库存、零硬件风险、高毛利标准化交付，1–3 人小团队极度适配。
+
+
+________________
+
+
+Analysis & Evidence
+Final Status
+HYPOTHESIS_READY
+Evidence
+1. HOA Docs Direct 行业分析《HOA Resale Certificate Fee Caps by State》（2026-09）：证实德州（§ 207.003 封顶 $375）、佛州（§ 720.30851 封顶 $299）等各州法律红线，及 HomeWiseDocs 等平台单案推高至 $600–$1,000 的违规超额实录。
+2. 业主维权社区 MyHOAStory 实名案例库《HOA Resale Fee Overcharges》：记录大量售房业主在交割时被强制绑架收取高额加急费，事后因缺乏廉价法务工具而放弃追索。
+3. 州立法听证会报道《Realtors and Association Managers Split on Caps》（2026-04）：房产经纪人协会证实电子转售包边际成本不足 $50，物管公司索要 $800+ 构成制度性超收。
+Counter Evidence
+1. 极少数未对 HOA 转售披露费设定任何法定上限的州（如无上限保护的州仅能主张普通合同合理性）。
+2. 业主自身确实在合同约定外紧急要求 24 小时极速交付且签署了单独的自愿加急协议。
+Decision Trail
+Parameter
+	State / Outcome
+	Stop Reason
+	四 Gate 均已通过充分独立证据核实，州房产法典法定上限明确，超额收费事实确凿，过户后自动化维权追偿机制清晰，小团队轻资产切入点极佳。
+	Resume Condition
+	不适用（已完成）。
+	What became more likely
+	售房业主将普遍利用自动化法条对比与索赔公函工具在交割后追回被多收的转售披露费。
+	What became less likely
+	物管公司在收到带明确州法典法条引用的正式书面追偿函后会继续坚持拒不退还超额费用。
+	What did we rule out
+	排除了大型物业管理集团向业主开具上千美元转售披露费属于合法合规收费的可能。
+	Execution Metadata
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-11T17:01:46+08:00
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis
+面向二手房售房业主的 HOA 转售披露费法定封顶超额核验与过户后退款追偿系统
+Source Signal Reference
+* Signal ID: UW-20261111-HOAResale-StatutoryFeeCap-OverchargeClawback
+* Generated At: 2026-11-11T00:58:00+08:00
+* Task Version: uneconomic-work@0.1
+* Source File URL: https://docs.google.com/document/d/1fpDcowp47R8cpzOLPJan6lpfa9NeJNNm5H_fKqZLQ2o/edit?usp=drivesdk&ouid=101589702958564347595
+* Source File Modified: 2026-11-10T17:01:11+08:00
+
+
+________________
+
+
+Strategic Framework
+Money
+全美每年出售 HOA 或 Condo 公寓并在产权结算单上被扣除数百美元不明披露费的数百万售房业主；单案非法溢价达 $300–$800，业主愿支付 $29–$39（买断自发公函包）或承诺成功追回后支付 20% 分润。
+Mechanism
+针对业主在过户时被强制扣费、过户后请不起 $400/h 律师的痛点，工具提供：业主手机拍照或上传过户结算单（ALTA/CD）及 HomeWiseDocs/CondoCerts 发票 PDF，多模态 OCR 秒级定位房屋所在州县，自动调取该州最新 Property Code 法定封顶标准（如德州 $375、佛州 $299），精准筛除虚增的加急费与陈述费，一键生成引用州房产法典的《HOA 超额转售披露费正式法定追偿通知信》（Statutory Demand Letter PDF）以及向州不动产监管局的投诉证据包，用户只需一键电邮物管公司合规部即可在 15–30 天内拿回退款支票。
+Capture
+1–3 人小团队构建轻量 Web 文档解析工具与 50 州物管法规知识库，纯数据与文档交付，零硬件库存、零资金垫资风险、高毛利 SaaS。
+Durability
+各州房产法规长期有效，物管公司垄断收费长效存在，属于长期刚性高频民生需求。
+
+
+________________
+
+
+Evidence & Validation
+Supporting Evidence
+1. HOA Docs Direct (2026-09): 确认德州、佛州等各州法定上限与违规超额实录。
+2. MyHOAStory (2026): 确认业主被迫付款及事后放弃追索。
+3. Citizen Portal (2026-04): 确认房产经纪人协会推动限制暴利。
+Counter Evidence
+1. 少数未设立法定上限的自由州。
+2. 业主书面自愿签署合法加急豁免。
+
+
+________________
+
+
+Risk & Testing Matrix
+Category
+	Details
+	Critical Unknown
+	业主在发出自动化生成的 Demand Letter 后，物管公司合规部门在不经小额法庭立案情况下的直接退款率。
+	Falsification Condition
+	若全美大型物业管理集团主动在 HomeWiseDocs 结算后台设置硬性代码拦截，杜绝任何超过州法定上限的账单生成。
+	Next Test
+	收集 20 份德州与佛州过户结算单样本进行自动化解析，测试 Demand Letter 发送后物管公司的实际回复与退款周期。
+	Execution Metadata
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-11T17:01:46+08:00
+* Role Spec Status: reviewed

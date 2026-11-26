@@ -1,0 +1,87 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: IBF-20261124-VMware-BroadcomSubscriptionShock-ProxmoxMigrationAudit
+* Source Signal References:
+   * Signal ID: IBF-20261124-VMware-BroadcomSubscriptionShock-ProxmoxMigrationAudit
+   * Generated At: 2026-11-24T17:58:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: IBF-20261124-VMware-BroadcomSubscriptionShock-ProxmoxMigrationAudit.md
+   * Source File Modified At: 2026-11-24T17:56:00+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+1. Broadcom 取消永久许可后的 3–6 倍续约冲击：Broadcom 全面取消 VMware 永久许可并强制推行按物理 CPU 核心（每 CPU 最低 16 核）订阅制（VCF/VVF）。以 3 节点 6 颗 32 核 CPU（192 核）中小集群为例，VVF 参考年费约 $25,920/年（VCF 达 $45,312–$76,800/年），而改用按插槽计费的 Proxmox Standard 仅需 €3,300/年（Pogo Linux 2026-10-26、r/vmware 实录 2026-07-14）。
+2. "容易的 80% vs 硬 20%"迁移决策瘫痪：Proxmox VE 8.2+ 免费 ESXi 导入向导仅能平滑搬迁 80% 常规虚拟机；剩余 20% 硬骨头（Windows VM 缺 VirtIO 驱动蓝屏、UEFI/BIOS 错配、RDM/FC 共享盘、MAC 绑定授权失效、OVA 设备与 Veeam 重传）导致 25–500 台 VM 迁移耗时拉长至 2–6 个月（VMware Migration Hub 2026-07-16）。IT 主管常因无法在续约前快速摸清"硬 20%"阻塞项，被迫再签一年数万美元高价续约。
+3. 离线只读预检审计套件破局点：在本地只读解析 RVTools 导出的 XLSX 或 vCenter 只读 API（完全不触碰生产环境、不绑定特定硬件或托管商销售），10 分钟输出逐台 VM 迁移阻力评分、Windows VirtIO/RDM/MAC 风险清单、Wave 0 POC 选型与 3 年 TCO 对照表（定价 $299 单集群）。
+Unknown
+在面临 2026–2027 年 VMware 续约、规模在 25–300 台 VM 的中小企业 IT 团队与独立 MSP 中，对"无厂商利益绑定的纯离线 $299 迁前风险审计包"相较于系统集成商"免费评估（导流硬件/托管）"的付费偏好。
+Decision-Critical Unknown
+对于处于续约前 3–6 个月的 25–300 台 VM 中小集群 IT 经理，一款纯离线读取 RVTools XLSX 输出"硬 20% 阻塞清单 + Wave 0 POC 排期 + 3 年 TCO"的 $299 工具包，其自然检索与 r/vmware / r/sysadmin 社区的试跑转化率。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	真实预算与巨额价差明确：3 节点集群 VVF 参考年费 $25,920/年 vs Proxmox €3,300/年；及时启动迁移每年可节省 $20,000–$70,000+，$299 预检包具备极强决策杠杆。
+	Mechanism
+	通过 (PASS)
+	规则 100% 确定：RVTools 标准导出表包含每台 VM 的 OS 类型、BIOS/EFI、RDM 磁盘、快照、MAC 地址及磁盘容量；通过本地 Python/CLI 规则引擎即可精确筛出"硬 20%"并估算停机同步时长。
+	Persistence
+	通过 (PASS)
+	结构性持久需求：2024–2026 年签下的 1–3 年过渡合同将在 2026–2029 年陆续到期，迁出评估需求具备 3 年以上持续窗口。
+	Capture
+	通过 (PASS)
+	极佳的轻资产小团队契合度：纯离线解析 RVTools XLSX 的本地桌面/CLI 工具（$299 一次性买断或 MSP 多集群授权），零生产环境风险、零重度实施交付、1–2 人团队即可运营。
+	3. Evidence & Counter Evidence
+Supporting Evidence
+1. Reddit r/vmware 提价与迁出实录（2026-07-14）：Per core price increase —— 实报 VCF $236–$400/核/年、3–6 倍涨价及 SAN/OVA 迁移顾虑。
+2. VMware Migration Hub 迁移指南（2026-07-16）：VMware to Proxmox Migration —— 证实 80%/20% 难度分布、2–6 个月周期与 VirtIO/UEFI/MAC/Veeam 故障点。
+3. Pogo Linux 2026 年 10 月 TCO 测算（2026-10-26）：Proxmox vs VMware —— 测算 192 核 3 节点集群 VVF $25,920/年 vs Proxmox €3,300/年。
+Counter Evidence
+1. 集成商/MSP 免费漏斗竞争：Bridgepointe、Pogo Linux 等硬件与托管服务商常提供"免费迁移评估"作为销售硬件或托管云的获客漏斗（但带有明显利益倾向）。
+2. 仅解决决策评估、不自动执行搬迁：工具仅负责迁前审计与排期，实际迁移停机窗口与 Windows VirtIO 注入仍需管理员或 MSP 执行。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过真实提价报价、技术故障点与 3 年以上续约窗口交叉验证，满足 HYPOTHESIS_READY。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: IT 团队最怕的不是搬迁那 80% 常规 Linux VM，而是在续约前不知集群里有多少"硬 20%"阻塞项导致错过撤退窗口。
+* What became less likely: 中小集群管理员能直接靠 Proxmox 免费向导零规划一键无损迁移全集群。
+* What did we rule out: 排除了重资产远程代维迁移，聚焦纯本地只读 RVTools 预检审计工具。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-25T17:52:27+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+Title: VMware 迁出 Proxmox/Hyper-V 离线只读预检与"硬 20%"阻塞审计套件 (vExit Audit)
+Source Signal References
+* Signal ID: IBF-20261124-VMware-BroadcomSubscriptionShock-ProxmoxMigrationAudit
+* Generated At: 2026-11-24T17:58:00+08:00
+* Task Version: installed-base-friction@0.2
+* Source File URL: IBF-20261124-VMware-BroadcomSubscriptionShock-ProxmoxMigrationAudit.md
+* Source File Modified At: 2026-11-24T17:56:00+08:00
+Money
+面临 Broadcom 3–6 倍续约涨价（3 节点即达 $25k–$77k/年）的中小企业 IT 经理与独立 MSP。客户愿支付 $299 单集群买断（或 MSP 多集群授权）快速摸清集群迁出风险与 Wave 0 排期，避免被迫多续一年高价 VMware 订阅。
+Mechanism
+纯离线读取 RVTools 标准导出 XLSX 文件：1）自动标出每台 VM 的"硬 20%"阻塞项（RDM/共享盘、Legacy BIOS/UEFI、Windows VirtIO 缺口、未合并快照、MAC 绑定授权及 OVA）；2）计算按带宽与磁盘容量的停机时间窗口；3）输出 Wave 0 POC 选型清单与 Proxmox vs Hyper-V vs VMware 3 年 TCO 决策报告。
+Capture
+1–2 人小团队构建纯本地离线可执行工具，一次性买断授权（$299/集群），零生产权限接触、零硬件绑定利益冲突。
+Durability
+1–3 年 VMware 过渡合同在 2026–2029 年陆续到期，持续产生 3 年以上稳定迁出评估窗口。
+Evidence
+1. Reddit r/vmware 提价实录（2026-07-14）
+2. VMware Migration Hub 指南（2026-07-16）
+3. Pogo Linux TCO 测算（2026-10-26）
+Counter Evidence
+1. 硬件集成商与 MSP 常提供免费评估作为卖硬件/托管服务的引流漏斗。
+2. 仅输出审计报告与排期，不自动完成 VirtIO 注入与线上搬迁。
+Critical Unknown
+中小集群 IT 经理与独立 MSP 对中立纯离线 $299 预检工具包（对比集成商免费评估）的实际付费转化率。
+Falsification
+若 Proxmox 官方推出全自动免费 ESXi 集群预检评分与 Wave 编排器（或 Broadcom 大幅下调中小集群门槛），独立预检工具溢价将被消除。
+Next Test
+基于标准 RVTools XLSX 样本编写 Python 离线审计原型，在 r/vmware 与 r/proxmox 免费为 5 位管理员跑出《硬 20% 迁移阻塞报告》，验证准确度与 $299 付费意向。
+
+
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-25T17:52:27+08:00
+* Role Spec Status: reviewed

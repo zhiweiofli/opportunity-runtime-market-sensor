@@ -1,0 +1,87 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261125-STRHost-AirCoverSmallDamagePacket
+* Source Signal References:
+   * Signal ID: UW-20261125-STRHost-AirCoverSmallDamagePacket
+   * Generated At: 2026-11-25T01:18:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: UW-20261125-STRHost-AirCoverSmallDamagePacket.md
+   * Source File Modified At: 2026-11-25T01:10:26+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+1. AirCover 严苛举证与当日换房黄金窗口：Airbnb AirCover 要求房东在退房后 14 天内（实务上更是"下一位房客入住前"，当日周转仅数小时）发起赔偿请求，并在 30 天内提交带时间戳的入住前后对比照片、原始购买收据或现价替换链接及维修估价（GleamSync 2026-10-16、Airbnb Help #2869）。
+2. $100–$500 中小额损坏的高弃赔率：对于 $50–$150 小家具与 $150–$500 损坏家电，个人房东或管理 2–20 套房源的小型托管商（Cohosts）面对保洁员上传的几十张杂乱退房照，因翻找"入住前同角度基准照"与商品替换链接耗时 30–60 分钟且担心差评，往往直接放弃申报或因证据不足被拒（GleamSync 2026-10-16）。部分房东被迫向房客加收第三方损坏免责费（批发价约 $15/单，Revenuenaire 2026-10-21）。
+3. Vision AI 跨次视觉 Diff + 替换价自动取证机制：保洁员在 Turnover 结束上传退房照片后（通过 WhatsApp/Slack/轻量表单接入），Vision AI 自动与该房源"入住前基准照片库"按空间视角对齐做视觉 Diff，标出疑似损坏/缺失物品，自动检索 Amazon/Wayfair 同款替换链接与价格截图，并生成克制客观的 Resolution Center 索赔包与第 13 天盲评窗口提醒（定价 $9–$15/月/房源或 $19/次）。
+Unknown
+在管理 2–15 套 Airbnb 房源的独立房东与小型托管商中，具备保洁员每次拍照习惯但缺乏前后对比整理工具的比例，以及由 Vision AI 自动组装的 $100–$500 索赔包在 AirCover 中的实际获赔率。
+Decision-Critical Unknown
+对于管理 2–20 套房源的独立短租托管商（Cohosts），一款对接保洁退房照片流、5 分钟内自动输出"Before/After 时间戳对比图 + 同款替换链接 + Resolution Center 申诉包"的工具，其 $9–$15/月/房源的付费转化率与实际追回率。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	真实资金流明确：单次 $100–$500 家电/家具损坏属于 AirCover 明确可赔范畴；房东已愿为保洁调度软件支付 $8/月/房源或为损坏免责险支付 $15/单，以 $9–$15/月/房源挽回每年 1–2 次 $200+ 损坏即具备极高 ROI。
+	Mechanism
+	通过 (PASS)
+	Vision AI 跨时间同视角图像比对 + 电商同款替换价检索 + 14 天/盲评时间线管理在技术上高度成熟，将 30–60 分钟人工翻找压至 2 分钟确认。
+	Persistence
+	通过 (PASS)
+	结构性高频痛点：单个短租房源每年周转 30–100+ 次，Airbnb 14 天/下波入住前举证规则长期存在，且现有保洁软件（如 GleamSync）仅提醒拍照而未实现自动视觉比对取证。
+	Capture
+	通过 (PASS)
+	极佳的轻资产小团队契合度：通过 WhatsApp/轻量 Web 表单接入保洁照片流即可运行，无需破解 Airbnb 私有后台 API，零线下重资产，1–2 人团队即可运营。
+	3. Evidence & Counter Evidence
+Supporting Evidence
+1. GleamSync 短租损坏索赔实务指南（2026-10-16）：Airbnb Guest Damage Claims —— 确认 14 天/下波入住前死线、带时间戳前后对比照+替换链接要求及 $50–$500 损坏决策矩阵。
+2. Airbnb 官方条款页（2026-02-05）：Host Damage Protection —— 确认官方正式举证条款约束。
+3. Revenuenaire 损坏免责费策略（2026-10-21）：Airbnb Damage Waiver Fee Strategy —— 证实 AirCover 依赖 14 天窗口与单方裁量，促使房东寻找补充对冲方案。
+Counter Evidence
+1. 依赖"入住前拍照"前置条件：若房东或保洁员根本未在每次入住前拍下基准照片，AI 无法凭空生成入住前对比证据。
+2. 差评顾虑与免责范围限制：正常磨损与床单污渍属 AirCover 免责项，且部分房东即使备齐证据仍因害怕房客报复性差评而放弃索赔。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过行业保洁指南、Airbnb 官方条款与第三方替代定价交叉验证，满足 HYPOTHESIS_READY。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 保洁员已经拍了照片但"房东在换房几小时内没时间配对前后对比图和找替换链接"才是中小额 AirCover 弃赔的核心摩擦。
+* What became less likely: 房东会为了追回 $150 损坏物品在忙碌的换房日手动翻找几十张历史照片与 Amazon 链接。
+* What did we rule out: 排除了在无任何"入住前照片"基准的情况下强行申诉的路径，并将产品与"保洁完成拍照流"深度绑定。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-25T17:52:27+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+Title: 短租换房保洁视觉 Diff 自动取证与 AirCover 小额索赔包生成器 (TurnoverClaim AI)
+Source Signal References
+* Signal ID: UW-20261125-STRHost-AirCoverSmallDamagePacket
+* Generated At: 2026-11-25T01:18:00+08:00
+* Task Version: uneconomic-work@0.1
+* Source File URL: UW-20261125-STRHost-AirCoverSmallDamagePacket.md
+* Source File Modified At: 2026-11-25T01:10:26+08:00
+Money
+管理 2–20 套 Airbnb/VRBO 房源的独立房东与小型短租托管商（Cohosts），每年因在当日换房几小时窗口内来不及翻找前后对比照与替换价而放弃 $100–$500 小家电/家具 AirCover 索赔。客户愿支付 $9–$15/月/房源（或 $19/次）自动完成视觉取证与索赔包组装。
+Mechanism
+保洁员每次 Turnover 结束通过 WhatsApp/轻量表单上传退房照片：1）Vision AI 自动关联该房源上一次"入住前基准照"执行同视角 Diff，标出破损或缺失物件；2）自动检索 Amazon/Wayfair 同款替换价与商品链接；3）5 分钟内拼装带时间戳的 Before/After 对比图、客观克制的 Resolution Center 文案与第 13 天盲评窗口提醒。
+Capture
+1–2 人小团队通过轻量 Web + WhatsApp Bot 交付，无需破解 Airbnb 后台 API，可与中小型保洁调度工具或 Cohost 社群合作分发。
+Durability
+短租房源年均周转 30–100+ 次，Airbnb 14 天/下波入住前举证死线长期存在，属于高频结构性需求。
+Evidence
+1. GleamSync 短租损坏索赔指南（2026-10-16）
+2. Airbnb 官方房东损坏保障条款（2026-02-05）
+3. Revenuenaire 损坏免责费分析（2026-10-21）
+Counter Evidence
+1. 必须依赖保洁员具备每次入住前拍照的基准习惯。
+2. 正常磨损/床品污渍不赔，且部分房东仍顾虑报复性差评。
+Critical Unknown
+管理 2–20 套房源的 Cohost 群体中已固定要求保洁拍照但缺乏自动视觉比对工具的比例，及 $9–$15/月/房源的付费意愿。
+Falsification
+若 Airbnb 官方推出内置保洁照片库自动比对工具，或 GleamSync/Turno 等主流保洁软件免费内置 Vision AI 自动损坏识别与一键生成 AirCover 索赔包功能，独立第三方工具空间将被大幅压缩。
+Next Test
+招募 3–5 位管理 3 套以上房源的本地 Airbnb 房东/Cohost，用其历史保洁照片测试 Vision AI 前后 Diff 与替换价检索原型，验证 5 分钟出包的准确度与 $9–$15/月/房源付费意愿。
+
+
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-25T17:52:27+08:00
+* Role Spec Status: reviewed

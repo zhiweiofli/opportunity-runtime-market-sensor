@@ -1,0 +1,84 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: Friction-2026-10-29-MSP-Autotask-Manual-Contracts-Onboarding
+
+
+* Source Signal References:
+
+
+   * Signal ID: Friction-2026-10-29-MSP-Autotask-Manual-Contracts-Onboarding
+   * Generated At: 2026-10-29T09:37:00+08:00
+   * Task Version: friction-sensor@0.2.1
+   * Source File URL: https://drive.google.com/file/d/1VrlI0Pc24h4ozU1um5Ix9YPvBlG-WOC-/view?usp=drivesdk
+   * Source File Modified At: 2026-10-29T09:38:09+08:00
+
+
+* Research Level: R1 — Quick Structure
+
+
+* Stage Result: KILL
+
+
+* Unknown Ledger:
+
+
+   * Known: 小型 IT 管理服务提供商（MSP）在签约新客户与入驻（Onboarding）时，若采用手工复制 Word MSA/SOW 模板、转 PDF、通过 Adobe Sign 发送并在签署后手工录入 Autotask PSA 进行计费，确实存在耗时和重复劳动；但深入调研证实：
+      1. 市场上针对 Autotask PSA 的合同生成、电子签名、自动化客户入驻与双向计费同步，早已存在极其成熟且广泛普及的商业标准解决方案（如 Zomentum、Quoter、CloudRadial 以及 Kaseya/Autotask 原生的 Datto Commerce / CPQ 模块），这些工具能够完全实现一键生成 MSA/SOW、嵌入式合法电子签名并自动回写 Autotask 合同与周期计费账户。
+      2. Reddit 原帖（r/msp 及 r/SmallMSP）作者自建 Docker + SignWell 脚本，本质是 1–2 人极微型 MSP 为节省每月数十至上百美元的商业软件订阅费而进行的周末 DIY 编程项目，属于个别微型经营者的自制工具，并非市场上缺乏成熟方案的结构性真空。
+      3. 商业可行性严重不足：极微型 MSP（每月仅 onboarding 1–2 家客户）支付意愿极低，而有预算的中小型 MSP 均已采购 Zomentum 或 Quoter 等成熟系统；新进入者面临高昂的 Autotask API 复杂计费规则适配维护成本与极高的获客壁垒。
+
+
+* Unknown: 无。
+
+
+* Decision-Critical Unknown: 无（已在 R1 确认强反证并终止）。
+
+
+* Gate Checks:
+
+
+   * Money: 未通过。微型 MSP 新客入驻频次极低（月均 1–2 次），缺乏为独立窄门类入驻工具持续支付订阅费的真实预算；中大型 MSP 预算已锁定在现成全功能 CPQ/PSA 套件。
+   * Mechanism: 未通过。该摩擦已有成熟的行业标准商业答案（Zomentum、Quoter、Datto Commerce 原生支持），不存在未被满足的结构性机制断层。
+   * Persistence: 未评估（R1 阶段终止）。
+   * Capture: 未通过。面对已有深度双向 API 同步且支持全球多税率、阶梯定价与硬件目录的成熟竞品，小团队开发独立 Autotask 合同小工具缺乏竞争优势，客服与接口变更维护成本高。
+
+
+* Final Status: KILL
+
+
+* Evidence:
+
+
+   1. Reddit r/msp 讨论帖《From Manual Contracts to Automated Onboarding》（2026-10-24）：微型 MSP 分享自建 Docker 脚本以替代手工流程，回复指出后续合同变更、席位调整与发票对齐将面临复杂维护。
+   2. Zomentum Autotask 官方集成文档《MSP E-Signature & Contract Management Software》：成熟支持一键发送提案合同、合法电子签名及自动创建 Autotask 合同与计费行项。
+   3. Quoter 官方 Autotask PSA 集成指南《Contracts: Overview and Document Creation》：详述成熟商业软件如何实现全自动合同签署并直连 Autotask 销售与计费。
+
+
+* Counter Evidence:
+
+
+   1. 商业竞品成熟完备：Zomentum、Quoter 等已彻底解决该摩擦。
+   2. 个人 DIY 替代商业付费：原帖仅反映单人小店不愿支付商业软件订阅费的自研行为，非市场供给缺失。
+
+
+* Stop Reason: 存在足够强反证可 KILL。该场景属于已有公认成熟标准商业软件（Zomentum, Quoter, Datto Commerce）完全覆盖的领域，源信号为极微型经营者规避商业订阅费的个人自建行为，缺乏小团队可持续切入与捕获的商业空间。
+
+
+* Resume Condition: 不适用（已 KILL）。
+
+
+* What became more likely: 小型 MSP 将继续在预算充裕时选用成熟的 Zomentum/Quoter，或在微型阶段自行编写简单脚本。
+
+
+* What became less likely: 独立第三方小团队通过单独封装一个针对 Autotask 的合同入驻微工具能建立可规模化的 SaaS 业务。
+
+
+* What did we rule out: 彻底排除了将已由成熟行业 CPQ 软件覆盖的单一平台操作摩擦当作全新产品机会的可能。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-10-29T17:29:33+08:00
+
+
+* Role Spec Status: reviewed

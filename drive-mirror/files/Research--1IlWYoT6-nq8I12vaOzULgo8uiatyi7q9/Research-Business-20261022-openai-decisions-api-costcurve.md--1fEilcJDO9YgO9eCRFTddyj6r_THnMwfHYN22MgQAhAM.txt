@@ -1,0 +1,65 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: Business-20261022-openai-decisions-api-costcurve
+* Source Signal References:
+   * Signal ID: Business-20261022-openai-decisions-api-costcurve
+   * Generated At: 2026-10-27T09:23:56+08:00
+   * Task Version: business-sensor@0.2.1
+   * Source File URL: https://docs.google.com/document/d/1lmYaWBDOAZsBnMiBnVBOZZkq-fzYcZ2utOfvUe-NymE/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-27T09:26:36+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Unknown Ledger:
+   * Known: OpenAI 于 2026-10-22 全面开放 Decisions API 通用可用性（GA），基于 GPT-6 Luna 架构，专为智能体路由、分类与布尔判断设计；定价仅 $0.10/100万输入 Tokens（缓存 $0.01/100万），且完全免除输出 Token 费用；支持单次请求并发提问多达 400 个结构化问题，p95 延迟压至 280ms 以内（比通用生成提速 10 倍）；头部应用（Sierra 单调用成本降 90%、Ramp 降 30%、Speak 延迟降低 90%）验证了其剧烈的成本效益。
+   * Unknown: 开发者将通用框架（如 LangChain / AutoGen）中现存基于 JSON Schema 与自然语言 CoT 的复杂路由提示词重构为 Decisions API 规范的改造成本与工程兼容性。
+   * Decision-Critical Unknown: 拥有月均数十万次大模型编排调用的 AI 原生应用开发团队，对于能够自动拦截自然语言路由并透明重定向至 Decisions API 的“智能体热路径决策压缩中间件（如按月订阅 $49~$149）”的付费采购意愿。
+* Gate Checks:
+   * Money: 通过。全球使用大模型构建 Agent 的数百万开发者算力预算，输出 Token 免费将单次决策纯推理成本压至 $0.0001 以下，存在 90% 降本空间。
+   * Mechanism: 通过。双层架构（Two-tier Architecture）将决策判定从自由文本生成解耦，消除了自回归解码的时间与算力损耗，制造了显著的成本剪刀差。
+   * Persistence: 通过。OpenAI 官方核心 GA 原语，与旗舰模型及 GPT-Live 实时语音会话深度绑定，属于长期基础设施演进。
+   * Capture: 通过。1-3 人小团队可构建针对主流开发框架的开源代理中间件（Decisions-First Agent Router）或实时互动音视频状态机 SDK，纯软件服务，零重资产、零实体库存、高毛利。
+* Final Status: HYPOTHESIS_READY
+* Evidence:
+   1. OpenAI 官方发布公告《Build more responsive apps with the Decisions API》（2026-10-22）：官方宣布 GA，确认 $0.10/M 输入、零输出费、400 问并发及 Sierra 等生产降本数据。
+   2. OpenAI 官方定价文档与使用规范（2026-10）：证实 predicate、choice、score 三类确定性结构及与 GPT-Live 实时语音原生结合。
+   3. Adlega 2026 SaaS 定价调研（2026-10-23）：证实企业对削减高频不可控的推理调用账单具有最高优先级诉求。
+* Counter Evidence:
+   1. 仅限有界答案（Bounded Answers）：不支持长文本自由生成，无法处理开放式复杂推理任务。
+   2. 竞品跟进预期：Anthropic 与 Google 可能在未来季度推出同类超低价决策端点。
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，技术与商业机制极其坚固，小团队轻资产切入点明确。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 智能体应用将普遍采用双层架构，将前置路由、敏感词审核与下一步判定全量迁移至 Decisions API。
+* What became less likely: 开发者会继续容忍使用昂贵、慢速的标准 Responses API 处理简单的意图分支。
+* What did we rule out: 排除了 OpenAI 会在短时间内对 Decisions API 恢复收取输出 Token 费用的可能。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-10-27T17:38:48+08:00
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向 AI 智能体的 Decisions-First 热路径请求压缩与路由中间件
+* Source Signal IDs: Business-20261022-openai-decisions-api-costcurve
+* Source Signal References:
+   * Signal ID: Business-20261022-openai-decisions-api-costcurve
+   * Generated At: 2026-10-27T09:23:56+08:00
+   * Task Version: business-sensor@0.2.1
+   * Source File URL: https://docs.google.com/document/d/1lmYaWBDOAZsBnMiBnVBOZZkq-fzYcZ2utOfvUe-NymE/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-27T09:26:36+08:00
+* Money: 企业在大模型推理上的月度账单（特别是多轮 Agent 路由判断环节）；团队愿为降低 70%+ 的 Token 账单并提速 4-10 倍支付每月 $49~$149 的中间件订阅费。
+* Mechanism: 针对通用 LLM 在进行分类和工具选择时输出长文本带来的高成本与高延迟，中间件无缝集成在现有 LangChain / AutoGen 管道中：自动将开发者的分支条件转换为 Decisions API 的 predicate/choice 格式，利用零输出 Token 费与缓存优势，将单次判定成本降低 90% 并把延迟压至 280ms 内。
+* Capture: 1-3 人小团队构建轻量开源 SDK + 托管代理网关，提供“即插即用路由转换器 + 实时决策缓存看板”，纯 API 软件服务，零重资产。
+* Durability: OpenAI 将其确立为核心 API 架构，且智能体复杂化带来决策调用量指数级上升。
+* Evidence:
+   1. OpenAI 官方公告（2026-10-22）：https://openai.com/index/decisions-api/ 确认定价与头部企业生产数据。
+   2. OpenAI 文档与指南（2026-10）：证实端点调用规范与零输出费。
+   3. Adlega 调研（2026-10-23）：证实企业控费需求迫切。
+* Counter Evidence:
+   1. 仅限确定性离散选择，开放式综合分析仍需调用完整大模型。
+   2. 开发者可能自研简单的端点调用代码。
+* Critical Unknown: 复杂业务 Agent（如涉及 20+ 工具库）在向 Decisions API Choice 迁移时的工具定义格式映射复杂度与准确率损失。
+* Falsification: 若 OpenAI 宣布将标准 Responses API 的输出 Token 价格永久降至与输入同等水平（消除价格剪刀差）。
+* Next Test: 构建一个开源 Python 适配器库，测试在 3 个典型 Agent 工作流（客户工单分类、代码审核守卫、多工具分发）中将 GPT-6 路由改为 Decisions API 后的准确率与账单节省幅度。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-10-27T17:38:48+08:00
+* Role Spec Status: reviewed

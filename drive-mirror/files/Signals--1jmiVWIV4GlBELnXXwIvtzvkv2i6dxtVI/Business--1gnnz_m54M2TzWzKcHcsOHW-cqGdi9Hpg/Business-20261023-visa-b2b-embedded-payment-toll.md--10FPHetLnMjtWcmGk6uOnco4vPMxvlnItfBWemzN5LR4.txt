@@ -1,0 +1,42 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+* Task Version: business-sensor@0.2.1
+* Role Spec Status: reviewed
+* 观察窗口: 2026-10-18 09:00:36 至 2026-10-25 09:00:36 (Asia/Taipei)
+* 已有 Signal 索引/全文: 已核对历史文件 Business-20261014-autodesk-aps-passthrough-billing.md、Business-20261001-whatsapp-service-message-toll.md、Business-20261015-github-agentic-autofix-metered-toll.md、Business-20261014-hubspot-flexible-seats-credits-toll.md、Business-20261017-deepseek-flash1017-costcurve-searchtoll.md、Business-20261023-vercel-deployment-storage-toll.md 与 Business-20261021-salesforce-headless-agent-api-toll.md，本轮已执行跨历史核对与去重
+* 输出逻辑位置: Opportunity Runtime/Signals/Business/
+* 实际输出文件夹 URL: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+待研究 Signal (Qualified Signals)
+Signal ID: Business-20261023-visa-b2b-embedded-payment-toll
+* Type: Business
+* What Changed: 2026年10月23日，Visa 官方针对全美收单机构（Acquirers）正式执行 2026 年秋季银行卡网络费率调整，全新设立"Visa 商业解决方案收单嵌入式支付附加费"（New Acquirer Charge for Visa Commercial Solutions - Embedded Payments）。核心结构性变更为：Visa 正式对所有通过企业业务软件（涵盖 ERP、会计系统、采购与供应链财务软件等）内部嵌入式接口生成的虚拟卡（Virtual Card / Virtual Accounts）B2B 交易，直接向收单机构强制加征 0.10%（10 个基点 / 10 bps） 的网络规费（Association Charge）。此前，B2B 虚拟卡交易仅按标准商业交换费（Commercial Interchange）结算，无针对"软件嵌入式发起场景"的额外网络抽成；新规下，系统根据交易是否来自 Visa 嵌入式支付集成进行底层识别并单独计费。此变更属于 New Toll Booth（卡组织首次在 B2B SaaS 嵌入式金融与虚拟卡支付的核心资金管道上设立专属过路收费站）与 Budget Migration（B2B 软件支付与收单通道成本结构发生迁移，收单机构将该 10 bps 规费 100% 穿透转嫁给开具发票的 B2B 批发商、制造企业及垂直 SaaS 平台）。
+* Money: 涉及全美及跨国供应链数万亿美元规模的 B2B 虚拟卡与 ERP 嵌入式发票结算资金池。根据收单机构 Xplor Pay、Wind River Payments 及 CELER Merchants 发布的官方网络通告，该 0.10% 规费由 Visa 强制征收，并在"成本加成"（Interchange-Plus / Cost-Plus）计费模式下全额转嫁给商户。对于年处理 5,000 万美元 B2B 虚拟卡结算的中大型批发商或供应链平台，该单项每年直接新增 $50,000 的纯网络规费净支出；单笔 100 万美元的大宗工业采购将直接被多扣除 $1,000 渠道规费，促使企业财务团队与 B2B 软件商必须紧急审计收单账单并寻找支付路由优化方案。
+* Evidence:
+   1. Xplor Pay 官方收单机构通告《October 2026 Association Updates》（发布日期：2026-10-09，生效执行日：2026-10-23）：官方通告载明"Effective 23 October 2026, Visa will introduce a new Acquirer Embedded Payment charge applicable to acquirers processing qualifying Embedded Payment transactions. Visa is introducing a new 0.10% (10 basis points) Embedded Payments Acquirer Charge applied to eligible Visa Commercial Solutions (VCS) virtual card transactions used in embedded payments flows. An Embedded Payment transaction is identified based on the use of virtual accounts provisioned through Visa's Embedded Payments integrations from business applications—such as enterprise resource planning (ERP), accounting, procurement or other software... The charge goes live October 23, 2026 for U.S. merchants"。
+   2. 支付网络深度分析指南《Visa Acquirer Embedded Payment Charge: Oct. 2026 Guide》（发布日期：2026-10-20）：基于收单行网络简报详细拆解了该 10 bps 费用的穿透机制，明确指出"Starting October 23, 2026, Visa charges U.S. acquirers 0.10% on qualifying B2B virtual card payments made through business software, and processors usually pass that cost on to merchants. B2B, wholesale and invoice-based sellers are the most likely to see the charge... check your October and November statements and ask your processor how it passes the fees through"。
+   3. 商业收单机构合规指引《Visa Embedded Payments Acquirer Charge》（CELER Merchants，发布日期：2026-10-13）：详细阐明了受影响的交易类型限于通过 ERP / 财务软件接口动态发放的虚拟账户，证实标准个人消费卡不受影响，但 B2B 批发与供应链商户面临直接的结算加价。
+* Mechanism:
+   1. B2B 嵌入式金融红利被卡组织底层设卡拦截（事实）：过去数年，B2B SaaS 行业（如 NetSuite、SAP、QuickBooks、Coupa）通过集成虚拟卡"嵌入式支付"，从传统支票与 ACH 抢夺了巨额结算流水，并借助 1.5%–2.5% 的商业卡交换费获得丰厚软件返佣。Visa 敏锐捕捉到 ERP 场景下资金流的高利润集中度，直接在清算层建立 10 bps 的专项收费站（New Toll Booth），强行切分嵌入式金融利润池。
+   2. 收单加成穿透与企业端利润侵蚀（事实/推断）：B2B 交易普遍单笔金额巨大且利润率薄。收单机构将 10 bps 直接计入发票账单，使开具发票的商户承担额外的结算摩擦，直接激发商户对"支付方式动态智能分流"与"自动化向买方收取技术服务费"的强烈诉求。
+   3. 小团队轻资产进入节点（推断）：
+      * B2B 虚拟卡智能路由与费率分流网关（B2B Virtual Card Surcharge & Routing Gateway）：面向使用 NetSuite、QuickBooks 或 Xero 的大宗批发与制造企业，开发轻量支付插件。当检测到买家提交的是触发 10 bps 附加费的 Visa VCS 虚拟卡时，自动在结算页面向买家提供 0.15% 的 ACH / FedNow 即时付款折扣，或自动合规拆分出"软件处理附加费（Technology Fee）"，直接帮卖家年省数万美元通道税。
+      * B2B 收单月结账单自动化审计与加价索赔探针（Acquirer Statement Fee Auditor）：收单行在 10 月、11 月的对账单中通常以复杂的行业简称（如 VCS EMBED 0.10%）模糊打包，许多收单行甚至会趁机对该规费上浮 5–10 bps 谋取私利。为年交易额在千万美元级的中型企业提供纯代码化的账单 OCR 审计 SaaS，一键识别收单行异常加成并自动生成费率索赔函件。
+      * 符合 1–3 人小团队偏好：纯软件/API 与数据分析工具，零重资产、零线下、高客单价 B2B 订阅。
+* Magnitude: Large。依据：Visa 是全球卡支付底层事实标准，B2B 虚拟卡更是整个商业支付与嵌入式金融中规模最大、增长最快的核心支柱，该 10 bps 节点的确立重构了全球企业级软件端商业结算的利润流向。
+* Persistence: Persistent。依据：已正式作为 Visa 2026 年秋季官方网络规费指令（Association Release）在全美收单体系强制落地，属于清算底层不可逆的长期制度性定价。
+* Next Question: 面对 10 bps 的新增网络硬成本，大型 B2B 供应商是否会开始在 ERP 内部主动屏蔽商业虚拟卡通道，转而加速拥抱基于 FedNow / RTP 的下一代实时清算直连网络？
+* Task Version: business-sensor@0.2.1
+* Generated At: 2026-10-25T09:00:36+08:00
+* Role Spec Status: reviewed
+观察与过滤池 (Watch & Ignore List)
+1. 线索: Adlega 发布 2026 公开 SaaS 定价全样本研究报告（涵盖 62 家 BVP 云指数公司）（2026-10-23 发布）
+* 判定: WATCH
+* 原因: 2026-10-23 经 Adlega 深度定价调研 证实，在跟踪的 62 家 BVP 纳斯达克新兴云指数成分股中，仅 48%（30家）公开标价，但已有 10 家（涵盖 Salesforce、HubSpot、Atlassian、GitLab、Figma、Adobe、Asana、PagerDuty、Snowflake、Braze）全面引入 Credit-based 混合计费模式，且采用用量计费的 SaaS 企业净美元留存率（NRR 中位数 116.6%）显著跑赢纯席位制企业（104%）。属于整个 B2B 软件行业从纯席位转向"席位 + AI/自动化点数"宏观范式转移的实证总结，但属于行业宏观研究报告而非单一突发收费节点变更，故列入持续观察池。
+* 等待证据: 观察尚未推出点数包的其余头部企业（如 ServiceNow、Workday）是否在随后的季度财报窗口集中跟进混合计费。
+2. 线索: Nebius（Nasdaq: NBIS）上线公开实时 GPU Spot 算力定价 API 与闲置算力返利计划（Capacity-Rebate Program）（2026-10-21 发布）
+* 判定: WATCH (维持追踪)
+* 原因: Nebius 在柏林 NVIDIA GTC 上正式推出实时 GPU Spot 抢占式实例公开价格与 API（nebius.com/spot-prices），并与 Shadeform、Silicon Data 打通，支持闲置预留 GPU 释放回池换取返利（参考 Nebius 官方新闻稿）。虽然推动了欧洲 AI 推理成本下降，但底层算力比价已被成熟聚合器覆盖，Capacity-Rebate 仍在早期试点，小团队套利壁垒尚待验证。
+* 等待证据: 观察 Capacity-Rebate 返利机制的公开结算费率与 API 自动化挂单规则是否向第三方开放。
+3. 线索: MadeForTrade / Dhan 券商更新美股交易零入金费用与下调佣金费率（2026-10-24 公布）
+* 判定: IGNORE (快速 Kill)
+* 原因: 属于海外零售券商对散户跨境炒股产品的常规佣金价格战与促销拉新，属于重资金、强牌照金融经纪业务，小团队无法轻资产切入，且缺乏企业级可持续利润池。

@@ -1,0 +1,100 @@
+﻿Execution Receipt: Researcher Batch 20261125
+* Task Name & Version: Opportunity Runtime Researcher (researcher@0.2.2)
+* Execution Cutoff Timestamp: 2026-11-25T17:52:27+08:00 (Asia/Taipei)
+* Timezone: Asia/Taipei (UTC+08:00)
+* Batch Processing Status: COMPLETED
+* Queue Status: NO_PENDING_SIGNALS
+* Output Research Directory: Research Output Folder
+1. Batch Scan & Queue Audit
+Input Directory
+	Directory ID / Link
+	Scanned Files (New in Window)
+	Processed as Signals
+	Operational Exclusions
+	Unprocessed Remaining
+	Business Input
+	1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+	1 (Business-20261125-google-workspace-mcp-api-toll.md)
+	1
+	0
+	0
+	Friction Input
+	19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo
+	1 (Friction-2026-11-25-Stripe-SmartRetries-HardDecline-Manual.md)
+	1
+	0
+	0
+	Market Input
+	12UTQ8sbPG0Ryv3mA0YB7EtWTjH3Ri0G2
+	0
+	0
+	0
+	0
+	Signals Root
+	1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI
+	5 (IBF-20261124-... × 3, UW-20261125-... × 2)
+	5
+	0
+	0
+	Total
+	-
+	7
+	7
+	0
+	0
+	2. Underwriting Results in Current Batch (Chronological Order)
+Signal ID
+	Category
+	Generated At
+	Verdict
+	Disqualification / Analysis Summary
+	Generated Research Record
+	IBF-20261124-VMware-BroadcomSubscriptionShock-ProxmoxMigrationAudit
+	Installed Base Friction
+	2026-11-24T17:58:00+08:00
+	HYPOTHESIS_READY
+	四 Gate 全数通过：Broadcom 订阅涨价 3–6 倍（VVF $25k+/年 vs Proxmox €3.3k/年），纯离线只读解析 RVTools XLSX 识别"硬 20%"阻塞项（$299/集群）解决续约前决策瘫痪。
+	Research-IBF-20261124-VMware-BroadcomSubscriptionShock-ProxmoxMigrationAudit.md
+	IBF-20261124-KingdeeKIS-YongyouT3-2026Sunset-LedgerMigrationAudit
+	Installed Base Friction
+	2026-11-24T17:58:00+08:00
+	HYPOTHESIS_READY
+	四 Gate 全数通过：KIS/T3 2026 年集中退市且官方实施费 2k–20k 元；纯本地离线试算体检 + 脱离客户端 30 年合规 HTML+SQLite 归档包（199 元/套）具 10.05x 杠杆。
+	Research-IBF-20261124-KingdeeKIS-YongyouT3-2026Sunset-LedgerMigrationAudit.md
+	IBF-20261124-WindowsServer-SeptNov2026CU-Type3PrintDriverBreakage
+	Installed Base Friction
+	2026-11-24T17:58:00+08:00
+	KILL
+	Gate 1、Gate 2、Gate 4 未通过：缺乏付费先例；用收费工具对抗 sfc 回填旧 OS DLL 属高售后风险的脆弱 Hack，正规队列盘点已被系统原生命令及 PaperCut/Pharos 等竞品覆盖。
+	Research-IBF-20261124-WindowsServer-SeptNov2026CU-Type3PrintDriverBreakage.md
+	UW-20261125-SmallBusiness-UtilityBillTariffAudit
+	Uneconomic Work
+	2026-11-25T01:18:00+08:00
+	HYPOTHESIS_READY
+	四 Gate 全数通过：传统 35%–50% 分成水电审计设 $50k/年门槛；针对 $12k–$48k 小微企业提供公开 Tariff 比对与州销售税豁免自查套件（$79 固定价）具极高止损 ROI。
+	Research-UW-20261125-SmallBusiness-UtilityBillTariffAudit.md
+	UW-20261125-STRHost-AirCoverSmallDamagePacket
+	Uneconomic Work
+	2026-11-25T01:18:00+08:00
+	HYPOTHESIS_READY
+	四 Gate 全数通过：AirCover 要求 14 天/下波入住前提交前后对比照与替换链接；Vision AI 自动配对保洁照片 Diff + 电商替换价检索（$9–$15/月/房源）解决 $100–$500 弃赔痛点。
+	Research-UW-20261125-STRHost-AirCoverSmallDamagePacket.md
+	Friction-2026-11-25-Stripe-SmartRetries-HardDecline-Manual
+	Friction
+	2026-11-25T09:45:00+08:00
+	KILL
+	Gate 2、Gate 4 未通过：按 Stripe 拒付码分流绕过 Smart Retries 的精准赛道已被 Churnkey、RevRescue、Recoupt、RetryFix、Rebounce 等 10+ 家竞品占满，属严重红海。
+	Research-Friction-2026-11-25-Stripe-SmartRetries-HardDecline-Manual.md
+	Business-20261125-google-workspace-mcp-api-toll
+	Business
+	2026-11-25T09:52:30+08:00
+	HYPOTHESIS_READY
+	四 Gate 全数通过：Google Workspace 强制 AI Agent 走 MCP 并清零 Scaled Tier 免费额度（search_threads $0.005/次、isError: true 照扣、full 3x）；无状态 MCP FinOps 节流代理（$49–$199/月）直接削减 50%–70% 账单。
+	Research-Business-20261125-google-workspace-mcp-api-toll.md
+	3. Cumulative Inventory Metrics
+* Prior Cumulated Underwritten Signals: 104
+* New Signals Underwritten in Current Batch: 7 (HYPOTHESIS_READY: 5, KILL: 2)
+* Total Cumulated Underwritten Signals: 111
+* All-Time Underwriting Coverage: 100% of all discovered valid historical signals have persistent Research records in Research Output Folder.
+4. Integrity Statement
+本轮执行截止时间锁定为 2026-11-25T17:52:27+08:00。经全面扫描 Business、Friction、Market 与 Signals 根目录，所有截止时间前的 7 份新增有效 Signal 已按观察时间顺序全部完成深度经济承销并落盘固化，历史 104 条已覆盖 Signal 均已核对跳过，无任何遗留待处理 Signal。本轮队列状态确认：NO_PENDING_SIGNALS。

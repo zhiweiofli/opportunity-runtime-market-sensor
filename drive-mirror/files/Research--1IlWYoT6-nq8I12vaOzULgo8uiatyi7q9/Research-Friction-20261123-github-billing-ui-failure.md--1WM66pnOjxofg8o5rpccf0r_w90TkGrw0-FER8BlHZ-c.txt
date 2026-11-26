@@ -1,0 +1,53 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: Friction-20261123-github-billing-ui-failure
+* Source Signal References:
+   * Signal ID: Friction-20261123-github-billing-ui-failure
+   * Generated At: 2026-11-23T09:45:00+08:00
+   * Task Version: friction-sensor@0.2.1
+   * Source File URL: Friction-20261123-github-billing-ui-failure.md
+   * Source File Modified At: 2026-11-23T09:38:03+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: KILL
+* Final Status: KILL
+1. Unknown Ledger
+Known
+1. GitHub 计费页面 UI 故障与印度 RBI e-mandate 扣款摩擦：GitHub Community 讨论（Discussion #205518 等）与官方排障文档（GitHub Billing Troubleshooting）记录了"Save payment information / Pay now 按钮无响应"或"Payment didn't go through"导致 Actions/Copilot 被锁的问题；同时印度地区因 RBI 周期扣款新规产生额外认证失败（GitHub 已于 2026 年 8 月 10 日上线合资格信用卡的 RBI e-mandate 支持，非合资格卡需点击 Pay now 手动授权）。
+2. 两大维度均无法被外部独立小团队捕获（Gate 4 致命阻塞）：
+   * GitHub 网页结账 UI Bug 属封闭第一方领地：github.com/settings/billing 表单无响应或风控拒付属于微软/GitHub 自有前端与支付后端内部故障，外部第三方 1–5 人小团队无法注入代码修复按钮或绕过 GitHub 账单系统，且社区已有免费绕过方案（GitHub Mobile App 内使用 Apple Pay / Google Pay 或提交工单）。
+   * 印度跨境 USD 虚拟卡赛道高度饱和且受金融牌照强管制：本信号引用的核心证据 Xflowpay (2026-11-20) 本身就是一家持牌跨境支付金融科技公司的获客指南，专门向印度工程团队提供美国发行的 USD 虚拟企业卡来解决 GitHub/GCP/Figma 美元账单续费；同类持牌玩家还包括 Wise、Payoneer、RazorpayX 等。发行美元虚拟卡需要银行合作、外汇合规、KYC/AML 与 SWIFT/NEFT 资金通道，完全违背轻资产、零金融牌照的独立小团队约束。
+Unknown
+GitHub 全球付费用户中每月因网页计费 UI 故障而非银行卡本身问题导致工单升级的精确占比。
+Decision-Critical Unknown
+1–5 人独立小团队（无银行/跨境支付牌照，亦无 GitHub 内部权限）在 GitHub 账单 UI 故障或印度跨境美元付汇场景中是否拥有任何可行的软件捕获节点（经审核已确认不存在，Gate 4 直接否决）。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	开发者与企业确有付费意愿支付 GitHub Pro/Copilot/Actions 账单，且印度团队会使用 Xflowpay 等跨境美元卡服务。
+	Mechanism
+	未通过 (FAIL - First-party / Licensed)
+	1）网页按钮无响应只能由 GitHub 官方工程团队修复，外部软件无法干预；2）印度美元虚拟卡机制已被 Xflowpay/Wise 等持牌金融科技平台完整覆盖。
+	Persistence
+	通过 (PASS)
+	跨境金融合规与大型 SaaS 计费边缘 Bug 长期存在。
+	Capture
+	未通过 (FAIL - KILL)
+	致命不可捕获：1）第一方封闭平台 UI Bug 无法由第三方软件介入修复；2）绕过印度本地卡限制提供 USD 虚拟卡属于重度金融牌照/KYC/资金清算业务（且 Xflowpay 等现成持牌玩家已在积极投放内容获客），完全超出 1–5 人轻资产团队能力与合规边界。
+	3. Evidence & Counter Evidence
+Supporting Evidence (Symptom Existence)
+1. GitHub Community 讨论：Discussion #205518 —— 记录网页端保存支付信息按钮无响应，用户使用 GitHub Mobile + Apple/Google Pay 绕过。
+2. GitHub 官方计费排障文档：GitHub Billing Troubleshooting —— 确认常见拒付、预授权冻结与工单解锁流程。
+Counter Evidence (Refutation of Small-Team Opportunity)
+1. GitHub 已原生上线部分 RBI e-mandate 且 Xflowpay 等持牌服务已覆盖：Xflowpay 2026-11-20 指南 证实 GitHub 已于 2026-08-10 上线 RBI e-mandate 支持，且 Xflowpay 自身即直接提供美卡 USD 虚拟卡服务，属重牌照金融赛道软文引流。
+2. 第一方封闭 UI 不可介入：外部小团队无法修复 GitHub 自身的 React/Rails 结账表单或 Stripe 风控策略。
+4. Decision Trail & Metadata
+* Stop Reason: 兼具"第一方封闭 SaaS UI Bug（外部无法接入）"与"重牌照跨境美元发卡赛道（已有 Xflowpay 等持牌玩家覆盖）"双重不可捕获阻塞，Gate 2 与 Gate 4 未通过，裁定 KILL。
+* Resume Condition: 不适用（已裁定 KILL）。
+* What became more likely: 大型开发者平台的计费 UI 故障与特定国家外汇/e-mandate 限制，只能由平台自身或持牌跨境金融科技公司解决。
+* What became less likely: 独立小团队能开发无金融牌照的轻资产软件来修复 GitHub 账单页按钮卡死或替代跨境美元企业卡。
+* What did we rule out: 排除了将大型 SaaS 第一方结账 Bug 与持牌 Fintech 获客教程转化为独立小团队软件机会的路径。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-23T17:37:22+08:00
+* Role Spec Status: reviewed

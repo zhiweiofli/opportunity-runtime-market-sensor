@@ -1,0 +1,48 @@
+Signal ID: Friction-2026-11-03-MSP-Autotask-Manual-Contracts-Onboarding
+Type: Friction
+What Changed: 已付费使用 Autotask PSA 的小型 MSP 在新客户 onboarding 时，仍需手动复制/编辑 MSA/SOW 合同、生成 PDF、通过电子签名工具发送，并在签署后手动将数据录入 Autotask 进行计费；问题在 2026-10-24 Reddit 帖中被报告为持续痛点，模式在观察窗口内仍可核验。
+Friction: Onboarding / Setup / Manual operation / Integration（合同生成、电子签名与 PSA 计费数据录入的手工流程）
+Money: MSP 已为 Autotask（及其他工具如 Adobe Sign）付费，但每位新客户仍需人工处理合同与数据录入；关联 labor cost / time（重复手动工作占用可创收时间）与潜在 error cost。具体损失金额未知。
+Evidence: 
+1. Reddit r/msp 帖（2026-10-24）：“One of my biggest pain points has always been contracts. My process involved making a copy of our MSA/SOW, manually updating it in Word, saving it as a PDF, and then sending it out through Adobe Sign. Once everything was signed, I still had to enter the information into Autotask for billing. It worked, but it was time-consuming, repetitive, and left plenty of room for human error.” 作者随后用 ChatGPT 构建自定义 Docker 应用集成 Autotask API 与 SignWell 以自动化。URL: https://www.reddit.com/r/msp/comments/1xeq8gs/from_manual_contracts_to_automated_onboarding/
+2. 同内容在 r/SmallMSP 重发（2026-10-24/25）。URL: https://www.reddit.com/r/SmallMSP/comments/1xeok1c/from_manual_contracts_to_automated_onboarding/
+3. 帖文：“Every minute I'm not spending copying contracts, updating documents, or manually entering billing information is time I can spend on more productive, revenue-generating activities.”
+4. 观察窗口内相关讨论持续存在于 MSP 社区。
+Mechanism: 已付费的 PSA 提供核心服务管理与计费，但合同生命周期（生成、定制、签名、回写计费）未原生闭环；导致每个 onboarding 重复手工步骤，阻断人员时间流向更高价值活动，并增加人为错误风险。推断：标准合同流程在小规模 MSP 中高频重复。
+Current Workaround: 手动 Word/PDF + Adobe Sign + 手动录入 Autotask；或自建自定义应用（如帖中 Docker + API 集成）；或第三方自动化工具。成本：每次 onboarding 数小时人工（未知精确，但作者描述为 time-consuming）；自建需开发/维护时间；第三方有订阅费。依据：帖文原话。
+Payer: 小型/中型 MSP（已付费使用 Autotask 或其他 PSA）愿意为减少手动 onboarding 时间的集成工具或模板付费，以释放劳动时间。依据：作者投入时间构建自定义解决方案，并公开分享，表明价值；市场已有相关自动化工具存在。
+Economic Effect: labor / time（主要）；潜在 conversion / revenue（错误导致延迟或丢失计费）
+Friction Value: 频率 ≈ 每个新客户一次（小团队高频但精确未知）；单次经济影响 ≈ 数小时劳动成本（未知精确，基于 time-consuming 描述）；可回收比例未知，但自动化可大幅减少。依据：帖文定性描述，无量化。
+Persistence: Structural（Autotask 等 PSA 的合同与计费流程设计未原生覆盖完整 onboarding 闭环，长期存在）
+Next Question: 有多少 MSP 仍在使用此手动流程，平均每次 onboarding 耗时与错误率？是否有原生功能即将解决？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-03T09:37:00+08:00
+Role Spec Status: reviewed
+
+---
+
+Signal ID: Friction-2026-11-03-Autotask-M365-License-Reconciliation
+Type: Friction
+What Changed: 已付费使用 Autotask PSA 的 MSP 在处理 Microsoft 365 许可证计费时，座位数量波动未自动同步至合同，导致成本与收入不匹配；2026-10-27 专文及工具文档详细描述该持续缺口。
+Friction: Billing / Integration / Manual operation / Configuration（Microsoft Partner Center 或分销商的座位变化与 Autotask 合同记录之间的手动或第三方对账）
+Money: MSP 已为 Autotask（及 Microsoft 许可证）付费，但座位增加未及时进入合同导致承担未计费成本/流失 margin；删除座位仍计费或需人工纠正。关联 revenue loss（未计费座位）与 cost（持有未回收成本）。具体金额未知。
+Evidence: 
+1. Proxuma 博客（2026-10-27）：“Autotask does not track or reconcile fluctuating Microsoft 365 subscriptions on its own.” 列出失败模式。URL: https://proxuma.io/autotask-microsoft-365-license-billing/
+2. 同文确认原生集成仅覆盖邮件/日历，不覆盖许可；需要第三方对账层。
+3. Sync 365 等工具定位为填补此缺口（网站描述自动对账并推送至 Autotask）。URL: https://try.sync365license.com/autotask/
+4. 观察窗口内多篇相关文章确认此过程缺口。
+Mechanism: 已付费的 PSA 作为计费系统 of record，但缺乏对动态 SaaS 许可证的原生实时对账；座位变化在 Microsoft 端立即影响成本，在 Autotask 端需人工或第三方同步，导致未计费收入流失或延迟纠正。推断：高频于有多客户、座位频繁变动的 MSP。
+Current Workaround: 手动检查与合同调整；或使用第三方对账工具（如 Sync 365 带 review step）；分销商门户同步。成本：第三方订阅费 + 设置时间；手动则月度对账劳动（未知精确小时）。依据：博客与工具描述。
+Payer: MSP（已使用 Autotask 并管理 M365 许可证）为对账/同步工具或更好原生集成付费，以回收未计费 margin 并减少劳动。依据：多个商业工具已存在并针对此缺口定价。
+Economic Effect: revenue / cost / labor
+Friction Value: 频率 ≈ 每月或每次座位变动（精确未知）；单次经济影响 ≈ 未计费座位价值或对账劳动（未知精确）；可回收比例取决于自动化覆盖率。依据：定性描述与工具存在，无公开量化数据。
+Persistence: Structural（Autotask 原生不支持 M365 座位实时对账，需第三方层，长期设计缺口）
+Next Question: 平均 MSP 因未对账损失的月度收入或 labor 小时是多少？Autotask 是否有计划原生支持？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-03T09:37:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-10-27 至 2026-11-03（Asia/Taipei），基于实际可访问资料。
+已有历史 Signal 存在类似主题（如 Friction-2026-10-29-MSP-Autotask-Manual-Contracts-Onboarding 等），本轮作为首次试跑按输入处理，未声称跨历史去重；如需合并请人工核对。
+无法访问部分平台（如完整 Reddit 评论细节因页面抓取限制），但主帖与相关文章可核验。
+待人工保存。

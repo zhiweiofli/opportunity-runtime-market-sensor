@@ -1,0 +1,116 @@
+﻿signal_id: IBF-20261030-NiagaraAX-JACE6-JavaAppletLockout
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: 随着现代主流浏览器（Chrome、Edge、Firefox）彻底清除NPAPI插件接口、Oracle永久终止Java Web Start以及微软Windows 10/11累积更新频繁破坏Edge“IE模式（Internet Explorer Mode）”，全球数以万计安装在商业写字楼、医院、学校和工业厂房中的Tridium Niagara AX 3.8楼宇自控控制器（以Honeywell WEBs JACE-600/6E、Johnson Controls FX-JACE、Distech EC-BOS-600系列为代表）遭遇严重的“数字锁死”。尽管现场的嵌入式控制器硬件坚固耐用、暖通水阀与风机机械控制运行完好（预期机械寿命可达15-20年），但物业与暖通运维人员在现代办公电脑上完全无法打开基于Java Applet与Pxg图形视图的Web监控界面，无法调取温度设定点、警报及日程表。
+money: 全球存量仍在运行的JACE-2/3/6系列控制器数以万计。Tridium官方已对Niagara AX执行End of Life（EOL），明确拒绝为旧硬件开发HTML5前端更新，原厂系统集成商（如Honeywell/Johnson Controls等）唯一的官方解决方案是要求业主整机硬替换为新一代Niagara 4/5控制器（JACE-8000 / JACE-9000），单台控制器连带软件授权、点位迁移与重新调试费用报价高达$8,000-$25,000美元；一所拥有5-10个配电与空调控制柜的学校或中型医院，完整改造成本达$50,000-$200,000美元。目前现场物业人员只能通过保留未联网的Windows 7淘汰笔记本或忍受繁琐脆弱的Java安全白名单设置苟延残喘。
+
+
+evidence:
+  - id: E1
+    source: https://www.reddit.com/r/BuildingAutomation/comments/1avrvgr/niagara_38_ax_help/
+    source_date: '2024-02-20'
+    accessed_at: '2026-10-30'
+    fact: 楼宇自控工程师详细记录Niagara 3.8 AX存量控制器的普遍困境：所有现代浏览器均不支持Java Applet，用户被迫在Edge IE模式中手动将JACE IP添加到Java控制面板安全例外列表，但系统更新频繁导致组件崩溃。
+  - id: E2
+    source: https://www.reddit.com/r/BuildingAutomation/comments/1k7t5es/sysadmin_question_ax_to_n4_migration_is_this/
+    source_date: '2025-04-25'
+    accessed_at: '2026-10-30'
+    fact: 披露暖通集成商对从JACE 6迁移至Niagara 4的高昂报价单，指出原厂推销新硬件往往迫使业主重做全部图形与站点绑定，费用以数万美元计。
+  - id: E3
+    source: https://controlcoblog.wordpress.com/2019/05/15/tridium-releases-new-web-launcher-to-combat-java-se-8-end-of-life/
+    source_date: '2019-05-15'
+    accessed_at: '2026-10-30'
+    fact: 确认Niagara Web Launcher补丁包历史沿革，指出只有打过特定补丁（AX 3.8.401）且环境受控的机器才能运行Launcher，大量未打补丁的JACE-600控制器在现代Windows 11环境下直接丧失Web访问能力。
+
+
+mechanism: 楼宇暖通现场硬件机械耐用度（20年）远超消费级操作系统与浏览器前端技术的更迭周期（3-5年）；原厂为了推动每年高额的软件维护协议（SMA）与新硬件销售，主动终止对老架构的向下兼容支持；而学校、医院及公共建筑预算审批周期漫长，无法因浏览器无法打开网页就批复数十万美元换新预算，导致“设备运行正常但无法被人操控”的长期存量悬崖。
+persistence: Structural
+next_question: 在使用JACE-600但未升级Niagara 4的中小型公立机构与商业楼宇中，物业工程部为恢复日常Web监控画面，愿意为开箱即用的便携访问网关盒支付多少费用？
+task_version: installed-base-friction@0.2
+generated_at: '2026-10-30T17:40:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+
+
+asset:
+  category: 商业建筑楼宇自控与暖通空调（BAS/HVAC）控制器
+  brand: Tridium / Honeywell / Johnson Controls / Distech
+  model: JACE-600 / JACE-6 / JACE-3 / JACE-7 (Niagara AX 3.8)
+friction:
+  type: 客户端运行环境淘汰与原厂支持强制退出
+  symptom: 硬件与暖通控制完全正常，但现代PC浏览器无法运行Java插件，报安全阻止或空白页面，导致运维人员无法监控设备
+installed_base:
+  estimate: 全球超过10万台仍在服役的Niagara AX控制柜
+  basis: Tridium Niagara是全球商用建筑事实上的统一集成操作系统，JACE 6自2008-2018年主导市场十余年，存量保有量极为惊人。
+
+
+current_solution:
+  description: 1) 花费$8,000-$25,000/台强制升级至JACE-8000/9000（Niagara 4）；2) 在机房长期保留一台老旧未打补丁的Windows 7古董电脑专门开监控；3) 运维人员手动配置复杂的虚拟机或面临极易失效的Edge IE模式。
+  oem_part_price: 12000.0
+  technician_repair_price: 4000.0
+  currency: USD
+  basis: 原厂集成商单台JACE-8000硬件加授权均价在$8,000-$15,000，加上现场图形重建与工程调试工时（约$3,000-$6,000），整单通常在$12,000-$20,000。
+alternative:
+  description: 交付一套便携式、免配置的“Niagara AX Station Web终端访问包”（基于受控隔离Chromium+内嵌兼容JRE 8环境的绿色便携客户端，或插在现场交换机上的轻量级HTML5代理中继微型盒）
+  estimated_solution_cost: 149.0
+  currency: USD
+  basis: 便携免安装软件客户端授权或微型硬件中继网关单价。
+gap:
+  vendor_support: discontinued
+  availability: low
+  competition: low
+  basis: 原厂彻底对AX停止服务且推销高价换代；市面上缺少专门针对楼宇物业非技术人员的一键化即插即用安全访问工具。
+signals:
+  recurrence: high
+  urgency: high
+  diy_activity: high
+  basis: 物业工程师每日巡检必须查看空调风机与机房温度；Reddit r/BuildingAutomation与各大暖通技术群常年存在大量关于Java报错与浏览器访问失效的自救探讨。
+
+
+assessment:
+  installed_base: {value: high, basis: 全球商业建筑最核心的集成控制器存量，使用基数巨大}
+  friction_rate: {value: high, basis: 任何使用现代Windows 10/11系统的办公机尝试直连AX JACE 100%遭阻断}
+  failure_cost: {value: high, basis: 官方整机替换方案单台需上万美元，多台连带改造超十万美元}
+  support_gap: {value: high, basis: 官方宣布EOL并不再提供任何补丁，集成商拒绝修旧只推新}
+  switching_cost: {value: high, basis: 更换系统需要全楼停空调打断业务、重新点对点校核BACnet/Lon点位与图形}
+  vendor_repair_speed: {value: low, basis: 原厂主动淘汰旧代际，依靠断代促成硬件循环换新}
+
+
+repair_leverage:
+  ratio: 107.4
+  baseline_cost: 16000.0
+  solution_cost: 149.0
+  currency: USD
+  scope: 基准成本为单台JACE升级至Niagara 4的设备+集成中位总包价（$16,000）；替代方案为便携绿色客户端工具/中继盒（$149）
+  basis: 16000 / 149 = 107.38
+opportunity_durability:
+  value: high
+  basis: 商业建筑硬件更换周期通常为15-20年，公共机构受制于预算将长期留存JACE 6机组，对低成本维持操控访问的需求具有长效韧性。
+
+
+economic_value:
+  level: High
+  payer: 商业写字楼物业工程部经理、公立学校学区设施主管、医院后勤设备处长、独立暖通外包维护服务商
+  economic_anchor: 原厂单台升级改造报价$8,000-$25,000；老电脑崩溃后现场运维失控引发的租户温度投诉与巡检延误
+  capture_mechanism: 提供一键式“Niagara AX图形控制台访问工具包”（打包定制隔离沙箱，预置合法安全证书、Java安全白名单与JNLP一键拉起），或提供局域网即插即用微型中继设备，按站点收取买断费
+  repeatability: Niagara AX 3.8的Pxg页面与Java Web Start交互规范全行业完全一致，交付物可零边际成本无限次分发
+  basis: 相对于向管委会或财政申请数万美元的改造专项资金，物业主管使用部门小额报销额度（数十至数百美元）即可立刻解决监控盲区
+
+
+personal_actionability:
+  fit: Good
+  route: 封装制作“Niagara AX一键访问工作台（绿色便携免配置版）”与自动化网络配置脚本
+  target_customer: 正在为无法打开JACE 6网页而焦头烂额的中小楼宇工程主管与暖通技师
+  deliverable: 一个免安装的Windows便携运行包（内置轻量沙箱浏览器、针对性打补丁的嵌入式JRE 8环境、自动导入JACE自签名根证书的向导，支持输入IP直接秒开Pxg图形）
+  pricing_hypothesis: $99-$149 单授权买断（包含使用指南与证书自动化批处理工具）
+  customer_entry: Reddit r/BuildingAutomation、HVAC-Talk论坛“Controls”板块中求助“JACE 6 Java access broken”的工程师
+  fit_basis: 纯客户端运行环境隔离与配置自动化，无危险代码修改、不侵入控制器底层固件、无需上门接线，交付确定性极高
+  prerequisites: 深入理解Java Web Start（JNLP）协议、熟悉Chromium便携打包及Windows注册表URL协议绑定
+  first_test: 在一台纯净安装最新补丁的Windows 11电脑上，利用开源便携浏览器与精简JRE构建一个启动器包，测试直连一台预设的Niagara AX模拟站点，验证能否绕过所有Java安全弹窗在5秒内渲染出完整设备图形
+  time_budget: 90分钟
+  success_signal: 在无任何外部前置Java安装的干净PC上，双击运行启动器后顺利直达JACE监控界面，Pxg动效与设定点修改完全正常
+  kill_signal: 发现目标控制器的嵌入式Web服务（Jetty）因证书过期发生硬崩溃，必须物理登录串口刷机方能恢复
+  key_unknown: 目标客户企业IT对公司发放电脑运行未经企业MDM签名的便携软件是否有强行阻断策略

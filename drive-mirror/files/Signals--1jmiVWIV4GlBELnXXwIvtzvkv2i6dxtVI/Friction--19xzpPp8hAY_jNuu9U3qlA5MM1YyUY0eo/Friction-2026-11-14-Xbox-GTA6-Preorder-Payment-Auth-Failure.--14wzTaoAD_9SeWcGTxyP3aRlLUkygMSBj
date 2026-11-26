@@ -1,0 +1,22 @@
+Signal ID: Friction-2026-11-14-Xbox-GTA6-Preorder-Payment-Auth-Failure
+Type: Friction
+What Changed: 在 GTA 6 数字预购临近发售窗口（约 2026-11-09 起，发售 11-19），Xbox/Microsoft Store 对高价预购（尤其 Ultimate Edition）出现重复支付授权失败；用户已下单意图付款，但系统无法完成扣款，且无法手动取消订单。
+Friction: Payment / Authentication 环节的授权失败（“We're having trouble authorising your payment”）。受影响用户在 India 等区域无法使用已添加的卡或 UPI，系统锁定自动重试流程，阻止钱流完成。
+Money: 用户已提交预购（意图支付约 $50–100+ 游戏价款），Microsoft/Xbox 面临 conversion loss 与 failed transaction；用户额外承担 labor/time 成本（多次尝试、支持对话、并行下单）；平台承担 support cost。具体损失金额未知。
+Evidence:
+1. r/XboxIndia 原帖 “GTA 6 Pre Order 2nd Payment Attempt Failed too”（约 2026-11-11/12）：用户 11-09 与当日均收到相同授权失败邮件，预购未取消，无 UPI 选项、卡无法使用。https://www.reddit.com/r/XboxIndia/comments/1xu39xk/gta_6_pre_order_2nd_payment_attempt_failed_too/
+2. 同帖及关联评论（多用户）：尝试多张卡无效、国际交易已开启仍失败；有用户在支持聊天超过 90 分钟后改用 PS5 在 10 秒内完成购买；多人采用“另下 Standard Edition + UPI 成功，再等 Ultimate 自动取消后升级/退款”的并行订单 workaround。
+3. 其他同期原帖（r/XboxIndia “GTA 6 Change Payment Issue Nightmare” 约 11-10、“GTA 6 payment failed” 约 11-11）：支持告知需等待系统第 3 次尝试失败后自动取消才能重新下单；用户改用 gift card / 新卡 / Venmo / 实体版绕过。
+4. Microsoft/Xbox 官方支持文档确认预购重试逻辑与失败后取消规则（可核验）。
+Mechanism: 授权失败（银行/处理器/区域限制/卡限额/2FA 等因素，当事人未明确根因）阻断扣款；自动化重试锁定订单状态，用户无法即时手动取消，导致并行订单或延迟购买，直接造成 failed transaction 与潜在 conversion loss。推断：高价值单品临近发售放大影响。
+Current Workaround: 换卡/gift card/新支付方式、另下 Standard Edition 用 UPI 成功后等待原订单取消、联系支持请求取消/退款、改平台（PS5）或买实体版。成本依据：用户自述数十分钟到 90+ 分钟支持时间、多次尝试、双订单退款风险；平台支持负荷增加。精确时薪/单次成本未知。
+Payer: Microsoft/Xbox（减少重大发售的 conversion loss 与支持负荷）；可能的支付优化/重试工具供应商。依据：多帖集中投诉、支持交互明确、用户已证明有付费意图且在其他平台可完成交易。
+Economic Effect: failed transaction / conversion loss / support cost（labor / time）
+Friction Value: 频率在受影响区域发售窗口内较高（多独立原帖+重复评论，非单纯转载）；单次经济影响≈游戏价款或一次支持工单成本（具体数值未知）；可回收比例在发售前较高（及时修复可挽回），但窗口有限。不编造精确数字。
+Persistence: Temporary（明确绑定 GTA 6 预购与发售窗口；类似问题可能在未来重大数字发售重现，但本轮证据为单点事件集群）
+Next Question: Microsoft 实际取消率或该窗口未完成交易的收入影响是多少？是否存在可识别的区域/处理器特定模式？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-14T09:37:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-11-07 至 2026-11-14（Asia/Taipei），基于实际可访问的 Reddit 原帖与支持文档。X 与部分页面有限访问，未发现更强独立证据。已有历史 Signal 存在相关支付恢复主题，本条为新主题（Xbox 预购授权）。未升级为 Opportunity。

@@ -1,0 +1,65 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: Business-20261023-vercel-deployment-storage-toll
+* Source Signal References:
+   * Signal ID: Business-20261023-vercel-deployment-storage-toll
+   * Generated At: 2026-10-23T09:01:17+08:00
+   * Task Version: business-sensor@0.2.1
+   * Source File URL: https://docs.google.com/document/d/1zTsCbZuIX2iHYV_dR_e4OKNBp2QzAs3R9U_54m658EI/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-23T09:04:13+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Unknown Ledger:
+   * Known: Vercel 于 2026-10-23 正式面向存量 Pro 团队全面执行 30 天部署生命周期保留缩减政策，并落地“部署存储”（Deployment Storage）与“函数存储”（Functions Storage）单独计量计费（$0.10 / GB-月）；超过 30 天的历史部署若未付费保留将被永久物理删除（返回 410 Gone，并彻底丧失即时回滚能力）；采用 AI 编程工具（Cursor、Claude Code、v0）高频触发 CI/CD 的团队单月累积沉淀存储可达数百 GB，新增存储支出常达每月 $50-$100+，远超基础 Pro 席位费（$20/月）。
+   * Unknown: 研发团队在生产故障时需要回滚到超过 30 天以前的历史版本（如依赖旧版本构建产物）的实际年度发生概率。
+   * Decision-Critical Unknown: 拥有 10+ 活跃 Web 项目的中小开发团队，对于能够自动清理 AI 僵尸分支预览、瘦身 Function 包并将超期构建快照转存至零出网费对象存储（Cloudflare R2，仅 $0.015/GB）的轻量级归档与一键重推插件的月费付费意愿（如 $15-$30/月）。
+* Gate Checks:
+   * Money: 通过。全球使用 Vercel Pro 进行全栈开发的企业与创业团队面临真实的基础设施账单支出；$0.10/GB-月的沉没工件存储费直接折算为每月数十至数百美元硬成本。
+   * Mechanism: 通过。双重套利机制：1) New Toll Booth：Vercel 对过去免费无限保留的构建包设卡计费，促使企业具有强烈的成本控制诉求；2) Storage Arbitrage：Vercel 内部存储单价（$0.10/GB）较通用冷备对象存储（Cloudflare R2 $0.015/GB，AWS S3 $0.023/GB）存在高达 6-7 倍的价差，且通过 Vercel API 可以在需要时快速拉取归档工件并触发重部署，实现“以极低成本保留永久回滚能力”。
+   * Persistence: 通过。Vercel 官方已在 Pricing 与 Changelog 中将该策略作为长期不可逆的基础计费架构固化，10 月 23 日开始的自动化数据清理不可逆。
+   * Capture: 通过。1-3 人小团队可利用 GitHub Actions、Vercel Integration 或轻量 Webhook 构建“Vercel 存储瘦身与 R2 归档中继器（Bundle Shrinker & Cold Archiver）”以及“AI 僵尸预览部署清理机器人”，纯软件 API 驱动，零重资产、零重售后。
+* Final Status: HYPOTHESIS_READY
+* Evidence:
+   1. Vercel 官方更新日志《Deployment Storage billing begins for existing Pro teams》（2026-10-09 发布，2026-10-23 生效）：明确向存量 Pro 团队开征 $0.10/GB-月 存储费，并将默认保留期强制缩短为 30 天。
+   2. Vercel 官方技术文档《Deployment Retention》（2026-09 至 2026-10 更新）：公布 Pro 团队历史构建自动过期与 410 状态码规则。
+   3. 独立工程报告《Vercel storage billing and 30-day retention》（2026-10-10）：详述高频构建团队面临的月度账单激增与回滚链断裂风险。
+* Counter Evidence:
+   1. 原生设置开关：Vercel 允许管理员在设置中直接将 Retention 手动设置为 30 天（忍受丢失旧版回滚），部分对历史回滚不敏感的小型展示站会直接放任删除，无需外部优化工具。
+   2. 纯静态站点体积小：如果团队站点主要为轻量 SSG 静态页，每月存储账单仅增加数美元，缺乏采购独立优化软件的动力；因此工具必须精准切入“拥有庞大 Serverless Function / Next.js 复杂应用且日均构建十次以上”的高频团队。
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，商业机制坚固、价格套利空间明确，小团队切入逻辑高度成立。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 全栈前端开发团队将更积极地对 Next.js 构建产物进行依赖瘦身，并引入自动化脚本清理未合并分支的预览部署。
+* What became less likely: Vercel 会重新为 Pro 团队恢复长达 180 天至 1 年的免费无限制工件存储。
+* What did we rule out: 排除了在 AI 编程高频提交普及的背景下团队工件体积会自然维持在低位的可能。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-10-23T17:00:27+08:00
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向 Vercel Pro 团队的构建工件 R2 归档与 AI 预览部署清理中继器
+* Source Signal IDs: Business-20261023-vercel-deployment-storage-toll
+* Source Signal References:
+   * Signal ID: Business-20261023-vercel-deployment-storage-toll
+   * Generated At: 2026-10-23T09:01:17+08:00
+   * Task Version: business-sensor@0.2.1
+   * Source File URL: https://docs.google.com/document/d/1zTsCbZuIX2iHYV_dR_e4OKNBp2QzAs3R9U_54m658EI/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-23T09:04:13+08:00
+* Money: Vercel Pro 团队每月按 $0.10/GB-月 支付的新增 Deployment Storage 账单；高频开发团队每月新增 $50-$150+ 存储开销，愿支付节省金额的 20%~30% 作为治理工具订阅费。
+* Mechanism: 利用 Cloudflare R2（$0.015/GB，无出网流量费）与 Vercel 原生存储（$0.10/GB）之间 6.6 倍的存储成本差；工具自动化监控 Vercel 部署列表，将超过 25 天的非生产/已归档部署元数据与编译产物自动镜像至商户自有的 R2 桶，随后调用 Vercel API 释放存储；当需要回滚历史版本时，通过一键工作流从 R2 重建快照并在秒级推回 Vercel 激活。
+* Capture: 1-3 人小团队构建 GitHub Action 或轻量 Vercel Marketplace App，提供“存储消耗分析雷达 + 自动 R2 冷备 + 僵尸预览一键清理”，纯无状态 API 服务，零重资产。
+* Durability: Vercel 存储商业化政策不可逆，前端复杂化与 AI 智能体提交频率持续走高。
+* Evidence:
+   1. Vercel 官方公告（2026-10-09）：https://vercel.com/changelog/deployment-storage-pricing-expands-to-existing-teams 证实 10 月 23 日执行 $0.10/GB 计费与 30 天自动清理。
+   2. Vercel 官方文档（2026-10）：https://vercel.com/docs/deployment-retention 确认删除后 410 Gone 机制。
+   3. 行业分析（2026-10-10）：https://dev.to/davekurian/vercel-storage-billing-and-30-day-retention-what-pro-teams-should-check-before-oct-23-3dfl 测算 AI 高频提交下的账单压力。
+* Counter Evidence:
+   1. 许多静态单页项目体积较小，对月增几美元脱敏。
+   2. 极少数团队选择直接切换至 Cloudflare Pages 或自建 Coolify。
+* Critical Unknown: 中型 Next.js 团队对于“外部自动化脚本调用 Vercel API 删除部署工件”的安全权限授权意愿与审计合规审批门槛。
+* Falsification: 若 Vercel 官方后续为 Pro 团队大幅赠送数百 GB 基础免费存储配额，或上线官方低成本冷归档层。
+* Next Test: 发布一个开源的 GitHub Action，支持扫描 Vercel 组织内所有未合并且超过 7 天无活动的预览部署，并在生成账单浪费报告后一键批量清理，验证前 50 个开发者的安装转化与存储削减数据。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-10-23T17:00:27+08:00
+* Role Spec Status: reviewed

@@ -1,0 +1,125 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: Business-20261125-google-workspace-mcp-api-toll
+* Source Signal References:
+   * Signal ID: Business-20261125-google-workspace-mcp-api-toll
+   * Generated At: 2026-11-25T09:52:30+08:00
+   * Task Version: business-sensor@0.2.1
+   * Source File URL: Business-20261125-google-workspace-mcp-api-toll.md
+   * Source File Modified At: 2026-11-25T09:54:24+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+
+
+________________
+
+
+1. Unknown Ledger
+Known
+1. Google Workspace AI Agent 强制改道 MCP 与"首请求起扣"新收费站：2026 年 11 月 24 日（UTC），Google Workspace 正式上线 Standard Tier 与 Scaled Tier，并发布《Workspace AI Tools Addendum》（Pricing Docs、Usage Tiers Docs、AI Tools Addendum）：
+   * 法务与技术强制分流（2027-02-01 生效）：任何 AI Agent / AI Harness / AI 模型驱动的工具访问 Gmail、Calendar、Drive，必须使用官方 MCP Servers（如 gmailmcp.googleapis.com、calendarmcp.googleapis.com、drivemcp.googleapis.com），否则无论是否付费均锁死在 Standard Tier 配额。
+   * Scaled Tier 免费额度清零（2027-04-01 强制扣费）：Standard Tier 限制每项目每产品每日 5,000 次请求；一旦升级至 Scaled Tier（整 Cloud Project 生效），传统 REST API 仍享千万级免费额度，但 Gmail/Calendar/Drive MCP 每日免费额度直接清零（0 免费），从第 1 次成功请求起按 Light ($0.10/1K)、Medium ($0.20/1K)、Plus ($0.25/1K)、Premium ($0.50/1K) 计费（$0–$20,000/月区间 0% 折扣）。
+2. 四大隐藏计费倍增陷阱制造极高 FinOps 浪费：依据 Gmail API and MCP server quotas (2026-11-24)：
+   * list_drafts 与 search_threads 单次调用即按 10 个计费单元扣费（每次 search_threads 即耗资 $0.005）；
+   * 默认拉取 full/raw 完整正文消耗是 metadata/minimal 的 3 倍；
+   * JSON-RPC 参数转换或工具执行报错仍返回 HTTP 200 (isError: true)，报错请求照常扣费；
+   * Scaled Tier 整项目清零，导致未隔离的混合项目连低频调试也失去 5,000/日免费基数。
+3. 无状态 MCP FinOps 防呆代理中间件切入点：3–5 人小团队可构建严格遵守《Workspace AI Tools Addendum》数据留存限制的无状态 MCP FinOps 代理网关（Stateless MCP Guardrail Proxy）：1）请求抵达 gmailmcp/drivemcp 前执行本地 JSON Schema 强校验，以 HTTP 4xx 拦截必报错请求（isError: true 不计费，而 4xx 也不计费！）；2）自动将默认 full 降级为 metadata/minimal 两段式按需拉取（削减 66% 正文配额）；3）拦截 Agent 死循环重复调用 10x 计费的 search_threads 并提供单租户/多项目预算熔断。
+Unknown
+在 2026-11-24 至 2027-04-01 强制扣费前的 4 个月窗口期内，主流 Agent 编排框架（LangChain、n8n、Zapier）是否会原生补齐 Schema 预检与 minimal 默认降级，以及企业 AI SaaS 团队对独立 MCP FinOps 代理的 $49–$199/月付费意愿。
+Decision-Critical Unknown
+对于重度调用 Gmail/Drive/Calendar 的 AI Agent 初创团队与企业内部自动化团队，一款"5 分钟接入、实时拦截 isError: true 空烧、强制 minimal 两段式读取并防止 search_threads 死循环"的无状态 MCP FinOps 代理，在 2027-02-01 / 04-01 前的测试安装与付费转化率。
+
+
+________________
+
+
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	一手官方定价凭证极其清晰：Scaled Tier 下 MCP 零免费额度，Premium $0.50/1K 叠加 search_threads 10x 单元（$0.005/次）、full 3x 放大与报错照扣；高频 Agent 每百万次无优化搜索即耗费 $5,000+，节省 50%–70% 费用即可轻松覆盖 $49–$199/月代理费。
+	Mechanism
+	通过 (PASS)
+	计费规则存在明确的技术套利杠杆：4xx 客户端错误不计费而 JSON-RPC isError: true（HTTP 200）照扣——本地预校验即可 100% 拦截无效扣费；metadata 两段式读取直接省去 2/3 配额；无状态循环熔断避免 Agent 失控烧钱，且不违规长久缓存用户邮件正文。
+	Persistence
+	通过 (PASS)
+	不可逆的平台基础设施商业化重构：已写入正式法务协议《Workspace AI Tools Addendum》（2027-02-01 生效）及 Google Cloud Billing 控制台（2027-04-01 强制扣费），Docs/Sheets/Slides/Chat MCP 后续也将纳入。
+	Capture
+	通过 (PASS)
+	极佳的轻资产小团队契合度：纯无状态代理/SDK 中间件（Cloudflare Workers / 轻量 Docker），零客户敏感数据持久化留存、零重资产运维、1–3 人技术团队即可极速交付。
+	
+
+________________
+
+
+3. Evidence & Counter Evidence
+Supporting Evidence
+1. Google Workspace 官方定价文档（2026-11-24）：Understand Google Workspace API and MCP server pricing and billing tiers —— 公布 Light ($0.10/1K) 至 Premium ($0.50/1K) 四档单价，确认 Scaled Tier 下 MCP 每日免费额度为 0 且 4xx 不计费。
+2. Google Workspace 官方分级与路线图（2026-11-24）：Usage tiers and quotas —— 确认 2026-11-24 上线、2027-02-01 强制 Agent 走 MCP、2027-04-01 强制扣费。
+3. Gmail API 与 MCP Server 配额细则（2026-11-24）：Gmail API and MCP server quotas —— 证实 isError: true (HTTP 200) 照常扣费、search_threads/list_drafts 占 10 单元、full/raw 耗费 3 倍配额。
+4. Google Workspace AI Tools Addendum（2026-11-24）：Workspace AI Tools Addendum —— 法务强制 AI Agent 必须使用 Google MCP。
+Counter Evidence
+1. 主流编排框架或原生集成基础优化：LangChain、LlamaIndex、n8n 等框架可能在 2027 年 4 月扣费前逐步内置部分 minimal 参数默认或基础 Schema 校验（但通常缺少跨团队预算熔断与多项目配额路由）。
+2. 数据留存合规限制：Addendum 严格限制外部工具对 Workspace 数据的衍生留存，因此代理工具严禁做长期跨用户邮件缓存，必须严格保持无状态实时过滤/熔断定位。
+
+
+________________
+
+
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过 Google Workspace 2026-11-24 最新发布的四份官方一手文档交叉验证，时间线、单价、计费陷阱与法务边界完全清晰，满足 HYPOTHESIS_READY。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 2027 年 2 月至 4 月期间，大量直接把 Google Workspace MCP 接入 AI Agent 的团队将首次体验到"搜索一次 $0.005 + 报错照扣钱 + 整项目免费额度归零"的账单冲击，催生专用 MCP FinOps 代理需求。
+* What became less likely: AI Agent 能长期免费通过传统 Gmail/Drive REST API 绕过 Google Workspace 商业收费站。
+* What did we rule out: 排除了靠"长期缓存用户 Gmail/Drive 内容来省调用费"的重数据缓存路线（违背 Workspace AI Tools Addendum 合规条款），锁定无状态实时拦截与两段式按需降级。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-25T17:52:27+08:00
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis
+Title: Google Workspace MCP 无状态 FinOps 节流网关与防错烧钱熔断代理 (MCP-TollGuard for GWS)
+Source Signal References
+* Signal ID: Business-20261125-google-workspace-mcp-api-toll
+* Generated At: 2026-11-25T09:52:30+08:00
+* Task Version: business-sensor@0.2.1
+* Source File URL: Business-20261125-google-workspace-mcp-api-toll.md
+* Source File Modified At: 2026-11-25T09:54:24+08:00
+Money
+所有在生产环境中运行 AI Agent 访问 Gmail、Calendar、Drive 且日请求量突破 5,000 次（被迫升级至 Scaled Tier、MCP 免费额度归零）的 AI 助手初创公司、SaaS 自动化团队与企业内部 AI 工程团队。客户愿支付 $49–$199/月代理与监控费，以削减 50%–70% 的无效 MCP 账单消耗（避免 search_threads $0.005/次死循环与 isError: true 空烧）。
+Mechanism
+在 AI Agent 与 Google 官方 MCP Server（gmailmcp/calendarmcp/drivemcp）之间部署无状态透明代理中间件（严格不持久化留存邮件/文件正文）：
+
+
+1. 本地 Schema 强预检：拦截必触发 isError: true（HTTP 200 照扣费）的参数错误请求，直接本地返回 4xx；
+2. 智能两段式降级：自动将默认 full/raw 请求降级为 metadata/minimal（削减 66% 配额消耗），仅在 Agent 确认命中的线程 ID 后按需拉取正文；
+3. 10x 计费循环熔断与项目隔离：实时检测 Agent 死循环重复调用 search_threads / list_drafts 并执行预算熔断，协助团队隔离 Standard（5,000/日免费）与 Scaled 项目。
+Capture
+1–3 人小团队交付开源核心 + 托管云端 FinOps 控制台（Cloudflare Workers / 自托管 Docker），零客户敏感正文存储风险、极低边际成本、高毛利订阅制。
+Durability
+已写入《Workspace AI Tools Addendum》（2027-02-01 生效）及 Google Cloud 计费控制台（2027-04-01 强制扣费），属永久性平台基础设施收费架构。
+Evidence
+1. Google Workspace API & MCP 定价文档（2026-11-24）
+2. Google Workspace 分级与路线图文档（2026-11-24）
+3. Gmail API 与 MCP 配额细则（2026-11-24）
+4. Workspace AI Tools Addendum（2026-11-24）
+Counter Evidence
+1. LangChain/n8n 等主流编排框架后续可能内置部分基础 minimal 默认参数优化。
+2. Addendum 限制衍生数据留存，代理必须严格保持无状态实时处理。
+Critical Unknown
+在 2027-04-01 正式扣费前，AI SaaS 与企业 Agent 团队对"无状态 MCP FinOps 节流代理"的提前部署意愿及 $49–$199/月付费转化率。
+Falsification
+若 Google 在 2027-04-01 扣费启动前调整规则免除 isError: true 计费、并允许 Scaled Tier 保留单接口免费额度，或主流 Agent SDK 全面原生内置两段式降级与循环熔断，独立代理溢价将被压缩。
+Next Test
+在 72 小时内发布开源轻量"GWS MCP Cost Simulator & Schema Guardrail Middleware"（读取 Agent 调用日志即可用 2026-11-24 官方单价估算 2027-04-01 后的月账单与可省金额），在 Hacker News、r/LangChain 与 r/SaaS 发布，收集测试量与企业托管版预约意向。
+
+
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-25T17:52:27+08:00
+* Role Spec Status: reviewed

@@ -1,0 +1,116 @@
+﻿signal_id: IBF-20261106-Atlassian-JCMA-JSM-AssetsRelationalSchemaLoss
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: 随着Atlassian正式终结Jira Server并宣布Data Center于2026年3月停止销售新许可、2029年彻底EOL，全球数以万计的企业与IT运维团队被迫将本地部署的Jira Service Management (JSM) 全面迁往Jira Cloud。然而官方主推的迁移工具Jira Cloud Migration Assistant (JCMA) 存在致命功能断层：JCMA明确官方不支持迁移Assets（原Insight CMDB资产管理）的对象模式（Schemas）、对象类型（Object Types）、属性及核心的对象间关联引用（Reference Fields）。Atlassian官方给出的唯一替方案是“手动导出CSV再重新导入”，但这直接导致复杂的对象网状依赖关系（如员工-电脑-保修-软件授权关联）、自定义图标及属性继承彻底降维为扁平文本，进而导致迁移后JSM客户服务台申请表单（Portal Request Forms）引用的资产下拉框全线失效、自动化派单规则静默断流、工单无法自动关联硬件。
+money: 全球有超过5万家中大型企业使用JSM Assets作为核心企业服务台与ITIL资产配置库（CMDB），管理着数十万至数百万条员工硬件、云资源与许可证数据。手动CSV重构与关系重构需耗费企业IT人员数周至数月时间；若聘请Atlassian官方认证解决方案合作伙伴（Solution Partners，如Appfire、OpsHub等）定制开发迁移管道或人工校对，单个企业迁移服务报价通常在$10,000-$40,000美元之间。迁移失败导致的新员工入职资产调配延误与服务单积压，每天造成数千美元隐性工时损失。
+
+
+evidence:
+  - id: E1
+    source: https://community.atlassian.com/forums/discussion/3256836/atlassian-data-center-end-of-support-what-actually-happens-to-your-jsm-assets-after-2029
+    source_date: '2026-07-08'
+    accessed_at: '2026-11-06'
+    fact: Atlassian资深社区专家明确列出JCMA的迁移盲区清单：官方JCMA完全不尝试迁移Assets对象模式、属性、对象以及引用字段；官方CSV手工方案破坏网状依赖结构，导致客户服务台在Day 1直接遭遇损坏的提交表单。
+  - id: E2
+    source: https://community.atlassian.com/forums/discussion/3201378/server-to-cloud-migration-what-are-the-best-practices-for-jira-cloud-migration
+    source_date: '2026-03-04'
+    accessed_at: '2026-11-06'
+    fact: Atlassian Solution Partners多位顾问实务复盘确认：JCMA仅处理核心Issue与用户数据，插件与资产（Assets）数据断层是导致Server-to-Cloud迁移延期与失败的“第一大杀手（#1 cause of migration delays）”，需要提前做复杂的预审和定制脚本。
+  - id: E3
+    source: https://community.atlassian.com/forums/discussion/2249819/issue-links-broken-after-jira-software-migration-to-cloud
+    source_date: '2026-02-15'
+    accessed_at: '2026-11-06'
+    fact: 社区持续记录从Server/DC迁移至Cloud后的大面积断链与宏损坏问题，证实原生迁移工具在处理复杂网状关系和历史URL替换上存在长期结构性缺陷。
+
+
+mechanism: Atlassian官方JCMA工具由于架构限制，仅关注通用的核心Jira实体，将高度复杂、定制化强的Assets对象图谱排除在开箱即用支持之外；而大厂方案商主要面向拥有数千人的大客户收取数万美元的整套咨询重构费，导致数万家拥有数千条资产但预算有限的中型企业陷入“手动导CSV丢失关系导致业务停摆，或者高价采购咨询外包”的夹缝之中。
+persistence: Structural
+next_question: 在计划于未来12个月内从Server/DC迁移至Jira Cloud的JSM企业客户中，已建立超过3层对象嵌套依赖关系但尚未采购第三方迁移工具的团队占比有多高？
+task_version: installed-base-friction@0.2
+generated_at: '2026-11-06T17:15:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+
+
+asset:
+  category: 企业级IT服务管理（ITSM）与资产配置管理库（CMDB）
+  brand: Atlassian
+  model: Jira Service Management (JSM Assets / Insight CMDB)
+friction:
+  type: 平台官方迁移工具断代与核心数据结构丢失
+  symptom: 使用JCMA将JSM迁入Cloud后，Assets资产对象全部丢失，或手动导入CSV后对象关联引用断裂、服务台工单表单报错
+installed_base:
+  estimate: 全球超过5万家运行JSM并深度依赖Assets管理IT设备与许可证的本地部署企业
+  basis: Atlassian官方历史财报与JSM市场份额报告确认其在企业ITSM领域的绝对主导地位，存量本地服务器基础庞大。
+
+
+current_solution:
+  description: 1) 耗费数周时间手动导出CSV，手工在Cloud后台重新连线对象依赖（极易出错）；2) 支付$10,000-$40,000采购大型实施服务商的端到端迁移咨询；3) 购买高价按年订阅的商业中间件工具（如OpsHub等）。
+  oem_part_price: null
+  technician_repair_price: 10000.0
+  currency: USD
+  basis: Atlassian Solution Partners进行JSM Assets复杂模式迁移与表单验证的标准交付起步报价通常为$10,000。
+alternative:
+  description: 交付轻量级“JSM Assets网状模式与引用依赖保真迁移工具包”（利用本地Insight REST API与Jira Cloud Assets REST API，自动双向递归抽取Schema对象继承拓扑，两阶段还原对象属性与Reference引用，实现一键无缝还原）
+  estimated_solution_cost: 499.0
+  currency: USD
+  basis: 单次完整迁移交付脚本包或按实例买断授权定价。
+gap:
+  vendor_support: discontinued
+  availability: low
+  competition: medium
+  basis: Atlassian官方JCMA明确将Assets排除在外且不打算补齐；现有企业级迁移软件按坐席重度收费且配置极重，缺乏针对中型IT团队的一键式轻量保真迁移脚本。
+signals:
+  recurrence: high
+  urgency: high
+  diy_activity: high
+  basis: 每次执行Cloud迁移切流时必现；Atlassian官方论坛中关于Assets数据断崖与CSV导入报错的讨论极度活跃。
+
+
+assessment:
+  installed_base: {value: high, basis: 全球海量正在经历向Jira Cloud强制迁移的JSM企业客户}
+  friction_rate: {value: high, basis: 凡使用JCMA迁移JSM Assets的企业100%无法带走网状关系}
+  failure_cost: {value: high, basis: 外部咨询动辄上万美元，内部手工重构耗费数十天且工单瘫痪}
+  support_gap: {value: high, basis: 官方明确Out of Scope，推向手动CSV或高价合作伙伴}
+  switching_cost: {value: high, basis: 企业内部ITIL流程高度绑定JSM，无法轻易更换底层工单系统}
+  vendor_repair_speed: {value: low, basis: 官方重心已转向推动企业为云端订阅付费，无动力免费重写复杂的本地导入器}
+
+
+repair_leverage:
+  ratio: 20.0
+  baseline_cost: 10000.0
+  solution_cost: 499.0
+  currency: USD
+  scope: 基准成本为外部实施商JSM Assets专项迁移起步服务费（$10,000）；替代方案为保真自动化迁移脚本（$499）
+  basis: 10000 / 499 = 20.04
+opportunity_durability:
+  value: high
+  basis: Atlassian Data Center EOL死线持续推进至2029年，未来数年全网企业将处于持续迁向Cloud的高峰窗口期。
+
+
+economic_value:
+  level: High
+  payer: 企业IT运维总监（IT Operations Director）、Jira系统管理员、ITSM项目经理
+  economic_anchor: 外部合作伙伴$10,000-$40,000实施合同，企业内部IT人员数周繁琐手工录入工时成本
+  capture_mechanism: 提供“JSM Assets两阶段保真迁移CLI工具”（阶段1：建立Schema/Type拓扑并创建原始对象；阶段2：打通Reference字段依赖关系指针与图片元数据），按迁移实例收取买断费
+  repeatability: JSM on-premise与Cloud的Assets REST API接口标准统一，迁移引擎可对所有JSM租户零成本批量复用
+  basis: 相对于耗费上万美元购买咨询大单或手工录入导致工单业务停摆，花费数百美元购买即插即用的保真迁移脚本具备极强采购确定性
+
+
+personal_actionability:
+  fit: Good
+  route: 制作“JSM Assets全模式与依赖关系无损迁移自动化工具”
+  target_customer: 正筹备从Server/Data Center迁往Cloud但发现JCMA无法迁移Assets资产库的中型企业IT负责人
+  deliverable: 一个单文件Python/Node.js CLI工具：通过REST API连接源端与目标端，自动完成：1）Schema结构递归克隆；2）对象平铺导入；3）依赖引用二次解析与反向指针更新；附带前置校验与差异对比报告
+  pricing_hypothesis: $299 单次迁移自测版（支持至1,000个对象）；$499 企业无限制版（含全程依赖关系校验报告）
+  customer_entry: Atlassian Community“Jira Cloud Migration”版块、Reddit r/jira中发帖抱怨“JCMA does not migrate assets”的系统管理员
+  fit_basis: 纯API层面的数据结构递归映射与数据流水线，无实体资产，无硬件库存，交付成果为成功迁移的Cloud资产库
+  prerequisites: 深入掌握Atlassian Assets REST API架构、对象关系图谱（Graph Dependency）解析算法及Token鉴权机制
+  first_test: 在本地部署一个包含多层嵌套对象（如员工关联电脑、电脑关联软件）的JSM Server测试实例，编写Python脚本递归拉取并在Jira Cloud测试环境中成功无损还原所有Reference字段与表单绑定
+  time_budget: 90分钟
+  success_signal: Cloud端的Assets不仅包含全量数据，且相互点击引用链接能够正常跳转，JSM服务台表单能正常拉出对应资产
+  kill_signal: 发现Jira Cloud Assets API对写入请求施加了极端严格的速率限制（Rate Limiting），导致万级以上对象需要耗费数周时间才能跑完
+  key_unknown: 目标企业内部的Assets配置是否普遍包含大量由停更第三方插件自定义的非标属性类型

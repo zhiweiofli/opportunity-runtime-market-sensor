@@ -1,0 +1,93 @@
+﻿Opportunity Runtime Research Record (Incremental R2 Underwriting)
+* Source Signal IDs: Friction-20261117-paid-not-provisioned
+* Source Signal References:
+   * Signal ID: Friction-20261117-paid-not-provisioned
+   * Generated At: 2026-11-17T09:45:00+08:00
+   * Task Version: friction-sensor@0.2.1
+   * Source File URL: Friction-20261117-paid-not-provisioned.md
+   * Source File Modified At: 2026-11-17T09:38:11+08:00
+* Related Prior Research: Research-Friction-2026-11-15-stripe-webhook-provisioning-leak.md（增量续研：本观察键为独立新观察，新增消费级/开发者平台实体案例与客服人工兜底证据，细化目标客群与捕获切入点）
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+1. "已扣款但仍显示 Free"跨层级普遍复现：新证据显示该摩擦不仅限于早期 AI-built 应用，连高速成长的 AI SaaS（如 Meshy）乃至大型基础设施平台（如 Cloudflare Workers Paid $5 套餐）均持续出现。
+   * Cloudflare 连续多月复现案例：2026 年 8 月至 11 月 16 日，Cloudflare Community 出现至少 5 起独立报告（2026-11-16 案例、2026-09-16 案例、2026-09-10 案例、2026-09-04 案例、2026-08-29 案例），共同特征为发票已显示 Paid、Audit Log 显示 Pay Invoice，但 Billing -> Subscriptions 仍锁定为 Workers Free - Active，且账单支持门户缺少创建工单按钮。
+   * Meshy 官方帮助中心人工兜底实证：Meshy Help Center (2026-11-09 更新) 专门为此设立排障指南，明确指出同步延迟可达 1–5 分钟，最常见原因为用户混用 Google 登录与邮箱密码登录导致"付费账户与登录账户错配"，且最终兜底方案仍是要求用户发邮件至 support@meshy.ai 附带 Stripe 收据由客服人工修复（"we'll fix it manually"）。
+2. 商业边界收敛（排除大厂自建计费，锁定 SMB/AI SaaS）：像 Cloudflare 这样的超大型云厂商拥有封闭的自研计费与权限系统，外部独立团队无法作为第三方中间件接入其内部状态机；但面向成千上万使用 Stripe 的中小 SaaS、AI 应用（如 Meshy 同类成长型 AI 工具、Cursor/Lovable/Replit 构建的 SaaS），其痛点完全可通过外部轻量对账与自助核验组件解决。
+3. 现有工程共识与付费锚点：结合前序研究（r/SaaS 漏单复盘、uxcontinuum 诊断指南 与 Hookdeck 最佳实践），单纯依赖 Webhook 无法消除账户错配、429 限流与状态机遗漏，必须结合定时对账（Reconciliation）与用户侧自助收据核验（Self-Serve Receipt Verification）。
+Unknown
+在月活付费用户 500–10,000 人的中小 SaaS 与 AI 应用团队中，"付费后仍显示 Free"客服工单里，究竟有多少比例是由"Webhook/状态机同步失败"引起，又有多少比例是由"用户双账户登录错配（Google OAuth vs 邮箱密码）"引起？
+Decision-Critical Unknown
+对于使用 Stripe 计费的中小 SaaS 与 AI 应用团队，在"后台夜间自动对账修复（Stripe vs DB）"基础上增加"前端自助权益找回小组件（用户输入邮箱或 Stripe 收据号自动跨账号核验并触发同步/提示登录账号）"，能否将客服人工处理该类工单的工时降低 80% 以上并支撑 $29–$79/月的独立订阅付费？
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	真实资金流与损失明确：1）用户已通过 Stripe/平台完成真实付款（$5–$200+/笔），但被锁在 Free 无法使用服务，直接引发退款、拒付与初期流失；2）SaaS 团队承担高昂客服人工核查成本（需人工比对 Stripe 收据与数据库并手动改表，如 Meshy 明确需发邮件由人工修复）；3）行业已有 $299 专项排查（uxcontinuum）与 $39–$299/月 Webhook 中间件锚点。
+	Mechanism
+	通过 (PASS)
+	价值产生机制清晰且经本轮证据进一步强化：除后端 Webhook 静默失败外，本轮新发现"用户双账户登录错配"与"状态同步延迟 1–5 分钟导致工单拥挤"两大高频诱因。通过"Stripe 只读 API 定时差额对账 + 前端自助收据/邮箱核验与权益同步（Entitlement Sync Guard）"，同时拦截技术漏单与登录错配，无需客服人工介入即可完成闭环修复。
+	Persistence
+	通过 (PASS)
+	结构性持久痛点：2026 年 8 月至 11 月跨平台持续复现（Cloudflare 多月未根治、Meshy 11 月更新专门人工兜底文档、r/SaaS 持续讨论）。支付状态与业务权限表分离、多 OAuth 登录方式并存是现代 SaaS 长期架构常态，不会自动消失。
+	Capture
+	通过 (PASS)
+	符合轻资产小团队约束（需严格限定客群为中小 SaaS / AI 应用，排除 Cloudflare 级封闭大厂）：1–2 人小团队可交付"Serverless 只读对账引擎 + 可嵌入前端自助核验 Widget（类似 Restore Purchase Web 版）"，零支付牌照风险、零实体资产、低客服开销、高毛利。
+	3. Evidence & Counter Evidence
+Supporting Evidence
+1. Cloudflare Community 连续多月实证（2026-08-29 至 2026-11-16）：Paid for Workers Paid, still showing Workers Free 及同期案例（959664、957265、953547）—— 证实即使在成熟基础设施平台，发票已 Paid 但权限仍为 Free 且支持工单入口缺失的断链现象仍高频发生。
+2. Meshy Help Center 官方人工兜底文档（2026-11-09 更新）：I Paid but My Account Still Shows Free — What Do I Do? —— 证实高速成长的 AI SaaS 普遍面临 1–5 分钟同步延迟、双账户错配，且仍需依赖 support@meshy.ai 人工核对 Stripe 收据并手动修复（"we'll fix it manually"）。
+3. Reddit r/SaaS 漏单与 DLQ 复盘（2026-11-05）：The silent revenue leak: Paying customers charged in Stripe but never provisioned in CRM —— 证实 Stripe 扣款成功但下游未开通导致 48 小时后客诉爆发，部署对账与死信队列后账单客诉归零。
+4. Hookdeck Stripe Webhook 最佳实践（2026-01-27）：Guide to Stripe Webhooks: Features and Best Practices —— 明确建议实施周期性对账作业（periodic reconciliation jobs）作为 Webhook 兜底机制。
+Counter Evidence
+1. 大型封闭平台不可捕获：Cloudflare 等头部大厂拥有自研计费引擎与严格合规隔离，绝不会采购外部第三方小团队的权限同步工具（因此必须将 Cloudflare 仅视作"问题普遍性的行业佐证"，而非目标付费客户）。
+2. 成熟计费抽象层竞争：部分新创 SaaS 开始采用内置完整 Entitlement 管理的中立计费层（如 Schematic、Stigg、Autumn 或 Stripe Billing Portal 原生 Customer Portal），若团队从第一天起即使用成熟 Entitlement SDK，可减少部分自建同步 Bug（但仍无法完全消除多登录方式错配与自定义 Webhook 断链）。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过充分独立一手证据交叉验证，且本轮增量证据清晰界定了"排除大厂自建计费、聚焦中小/AI SaaS 权益同步与自助恢复"的精确产品边界，满足 HYPOTHESIS_READY 终止条件。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: "已付费但仍显示 Free"的根本原因不仅在于后端 Webhook 丢包，还高度集中于"多登录方式导致账户错配"与"缺少 Web 端自助 Restore Purchase 机制"；将后台定时对账与前端自助收据找回结合的产品切入点更易打动 SaaS 创始人。
+* What became less likely: 仅靠单向 Webhook 监听就能保证高并发或复杂登录体系下 100% 实时权益开通；以及向 Cloudflare 级别大型基础设施厂商兜售外部对账 SaaS 的可行性。
+* What did we rule out: 排除了将超大型云厂商（如 Cloudflare）作为目标付费客户群的假设，并将产品形态从纯后端脚本进一步聚焦为"对账引擎 + 自助权益恢复 Widget"。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-17T17:09:15+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+Title: 面向中小 SaaS 与 AI 应用的 Stripe 权益同步守护与自助恢复组件 (Entitlement Sync Guard & Web "Restore Purchase" Widget)
+Source Signal References
+* Signal ID: Friction-20261117-paid-not-provisioned
+* Generated At: 2026-11-17T09:45:00+08:00
+* Task Version: friction-sensor@0.2.1
+* Source File URL: Friction-20261117-paid-not-provisioned.md
+* Source File Modified At: 2026-11-17T09:38:11+08:00
+Money
+成千上万使用 Stripe 收款的中小 SaaS 与成长型 AI 应用（如 Meshy 同类应用、Cursor/Lovable 构建的 SaaS）。每起"付费仍显示 Free"事件不仅威胁 $5–$200+ 的订阅收入（退款/拒付/流失），更消耗宝贵的客服与工程排查工时。客户愿支付 $29–$79/月订阅轻量守护服务以消除人工 support@ 手动修表工单。
+Mechanism
+1. 定时只读对账引擎：每 5–15 分钟或夜间自动比对 Stripe 有效 checkout.session / subscription 与应用数据库（Supabase/Postgres/Clerk）的权限字段，发现"已付费但仍为 Free"立即自动触发补发或告警。
+2. Web 端自助"Restore Purchase"恢复弹窗：为 SaaS 提供一行代码嵌入的自助恢复入口——当用户付费后仍显示 Free 时，无需发邮件找客服，直接输入邮箱或 Stripe 收据/发票号，系统自动核验 Stripe 实时状态，若属同步延迟则立即刷新权限，若属"Google 登录 vs 邮箱密码登录"错配则明确提示其付费所属账号。
+Capture
+1–2 人小团队基于 Cloudflare Workers / Serverless 构建轻量 SaaS + 可嵌入 JS Widget，通过 Stripe 只读/受限 API Key 接入，零支付资金经手、零重度运维、高毛利订阅交付。
+Durability
+支付网关（Stripe）与应用认证/权限库（Supabase/Auth0/自建 DB）的异步解耦架构、以及多 OAuth 登录方式导致的账户碎片化是长期结构性现象，未来 3–5 年随 AI 应用爆发将持续存在。
+Evidence
+1. Cloudflare Community 连续案例（2026-08 至 2026-11-16）：发票 Paid 但权限仍为 Free 且无法提交账单工单。
+2. Meshy Help Center 官方文档（2026-11-09）：证实 1–5 分钟同步延迟、双账户错配及需联系 support@meshy.ai 人工修复。
+3. Reddit r/SaaS 漏单复盘（2026-11-05）：部署对账与 DLQ 后账单争议工单归零。
+4. Hookdeck Stripe Webhook 指南（2026-01-27）：官方建议周期性对账作业兜底。
+Counter Evidence
+1. 头部基础设施大厂（如 Cloudflare）不会采购外部第三方权益同步工具。
+2. 早期即采用 Schematic/Stigg 等完整 Entitlement 平台的团队可降低部分同步错误，但仍难以完全消除双账号登录错配问题。
+Critical Unknown
+中小 SaaS 团队在"免费开源对账脚本"与"$29–$79/月托管对账 + 自助 Restore Purchase 恢复组件"之间的实际付费转化意愿。
+Falsification
+若 Stripe 官方原生推出开箱即用的跨数据库权限同步代理及内嵌式客户账号自检恢复组件，且主流认证框架默认合并 OAuth 与邮箱账号，该独立机会将被大幅压缩。
+Next Test
+在 Research-Friction-2026-11-15-stripe-webhook-provisioning-leak.md 提出的 GitHub Action 验证基础上，追加一个极简 Web "Restore Purchase" Demo（输入 Stripe Receipt ID + Email 自动诊断同步延迟或账号错配），向 r/SaaS 与 Indie Hackers 创始人收集 20 份真实工单样本与试用预约。
+
+
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-17T17:09:15+08:00
+* Role Spec Status: reviewed

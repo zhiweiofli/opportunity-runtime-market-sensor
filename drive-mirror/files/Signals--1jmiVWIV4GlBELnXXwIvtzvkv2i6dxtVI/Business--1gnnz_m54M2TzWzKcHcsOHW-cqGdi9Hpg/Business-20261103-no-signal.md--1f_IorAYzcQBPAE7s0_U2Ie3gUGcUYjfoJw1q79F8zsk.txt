@@ -1,0 +1,37 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+* Task Version: business-sensor@0.2.1
+* Role Spec Status: reviewed
+* 观察窗口: 2026-10-27 09:43:00 至 2026-11-03 09:43:00 (Asia/Taipei)
+* 已有 Signal 索引/全文: 已核对历史文件 Business-20261014-autodesk-aps-passthrough-billing.md、Business-20261001-whatsapp-service-message-toll.md、Business-20261015-github-agentic-autofix-metered-toll.md、Business-20261014-hubspot-flexible-seats-credits-toll.md、Business-20261017-deepseek-flash1017-costcurve-searchtoll.md、Business-20261023-vercel-deployment-storage-toll.md、Business-20261021-salesforce-headless-agent-api-toll.md、Business-20261023-visa-b2b-embedded-payment-toll.md、Business-20261020-eu-customs-handling-fee-pid-toll.md、Business-20261022-openai-decisions-api-costcurve.md、Business-20261025-aws-shield-waf-antiddos-migration-toll.md、Business-20261028-github-enterprise-copilot-dollar-entitlement.md、Business-20261029-googleplay-agentic-purchases-billing-toll.md、Business-20261030-visa-installment-credential-plt-expansion.md、Business-20261101-cloudflare-ai-search-metered-toll.md 与 Business-20261101-japan-jct-crossborder-platform-taxation-toll.md，本轮已执行跨历史核对与去重
+* 输出逻辑位置: Opportunity Runtime/Signals/Business/
+* 实际输出文件夹 URL: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+本轮运行结果: NO_SIGNAL
+检索窗口与判定说明
+* 检索窗口: 2026-10-27 09:43:00 至 2026-11-03 09:43:00 (Asia/Taipei)
+* 原因与事实依据:
+本轮全面感知核查了全球云计算、AI API、软件定价、卡组织与电商平台动态。在 7 天观察窗口内，深入复核了以下 4 项核心异动，均未能完全满足交付 Researcher 的五个准入门槛（Money Evidence、非单一新闻、结构性变化、持续性、潜在小团队 Capture 路径），严格执行"证据不足不凑数"规则，输出 NO_SIGNAL：
+   1. Apple 台湾 App Store 佣金率由 30% 下调至 26%（2026-10-29 公布，2026-10-31 生效）：
+虽然属于官方真实分成比例变动（参考 Apple Developer 公告），并直接为台湾区 iOS 应用开发者释放了 400 个基点的净利润，但该举措系苹果与台湾公平交易委员会（TFTC）反垄断协商达成的单边降费让利。关键在于，苹果在台湾并未像欧盟那样开放第三方支付（Alternative Payments）或允许外部 Web 结算链接，所有数字交易仍受限于苹果原生封闭的 In-App Purchase 管道。对于独立小团队而言，既不存在第三方支付中间件的进入机会，也不存在可搭建的合规数据服务，缺乏明确、可行的 Capture 节点，故列入 WATCH，不作独立待研究 Signal 交付。
+   2. Anthropic Message Threads 模式公测与 Usage & Cost Analytics API（2026-10-29 / 2026-11-02 发布）：
+经核查 Anthropic 官方发布说明 与 Message Threads 文档，官方明确强调"Threads do not change pricing or rate limits. Token usage stays the same"，仅为长对话请求传输体积与首字延迟的纯技术优化；而 Cost Analytics API 属于纯可观测性接口演更，模型底层推理牌价未发生结构性变动，缺乏直接驱动利润池转移的商业变化。
+   3. Didit 身份验证新定价体系生效（2026-11-01 生效）：
+经 Didit 官方博客 核实，Didit 终结每月 500 次免费额度，改为 $10 统一积分包。属于单一初创公司的正常商业化收紧与防御性调整，行业波及面局限于其既有客群，未形成全行业宏观预算迁移或底层过路费转移。
+   4. TikTok Shop FBT 70–150 磅大件履约费下调（2026-11-01 生效）：
+虽有真实履约费目调整，但重度依赖线下重资产仓储物流运输，属于角色规范中明确排除的重资产、重线下经营形态，已执行快速 Kill（IGNORE）。
+观察与过滤池 (Watch & Ignore List)
+1. 线索: Apple 宣布台湾 App Store 佣金率由 30% 正式下调至 26%（2026-10-29 公布，2026-10-31 生效）
+      * 判定: WATCH (维持追踪)
+      * 原因: 2026-10-29 经 Apple Developer 官方公告 证实，苹果在与台湾公平交易委员会（TFTC）协商后，正式自 2026年10月31日 起将台湾区 App Store（iOS/iPadOS）标准应用内购买（IAP）与付费应用的分成比例由 30% 下调至 26%。虽然属于重大的应用商店分成费率（Take Rate）调整并直接为台湾本土 iOS 开发者带来 400 个基点的净利润释放，但属于反垄断行政协商带来的降费让利，苹果并未在台湾开放第三方支付或引入新的外部抽税节点，缺乏小团队可独立切入的计费软件或中间件 Capture 路径。
+      * 等待证据: 观察台湾公平会后续是否进一步施压要求苹果允许第三方支付接入，以及是否在亚太其他国家（如韩国、日本）引发连锁降费诉求。
+2. 线索: Anthropic 正式推出 Usage and Cost Analytics API 并在 11月2日 公测 Message Threads（2026-10-29 / 2026-11-02）
+      * 判定: WATCH (维持追踪)
+      * 原因: 经 Anthropic 官方发布说明 与 Claude 平台文档 证实，Anthropic 上线 Usage and Cost Analytics API 测试版（支持服务账号 Service Account 独立维度），并在 11月2日 开启 Message Threads 公测以缩短首字延迟。但官方明确说明 Token 计费规则与底层牌价未变，属于工程与可观测性接口演进，尚未直接引发真实钱流与收费节点的重构。
+      * 等待证据: 观察企业在接入该统一分析 API 后，是否催生出标准化的多智能体云端 FinOps 成本优化代理与配额套利工具的稳定采购需求。
+3. 线索: Didit 身份验证新定价结构全面生效：终结 500 次免费额度并推行 $10 通用积分（2026-11-01 生效）
+      * 判定: WATCH (维持追踪)
+      * 原因: 经 Didit 官方博客 确认，Didit 自 2026年11月1日 起正式废除原有的每月 500 次免费基础核验额度，变更为全产品通用的 $10/月 积分额度（约覆盖 30 次完整身份核验），超出部分按列表价扣除（完整 ID 校验 $0.33/次、黑名单筛查 $0.20/次）。属于中小型合规 SaaS 的常规防御性调整，行业波及面局限于其既有客群。
+      * 等待证据: 观察中小型初创客户流失率及竞品（如 Sumsub、Veriff）是否针对性推出免费迁移吸客策略。
+4. 线索: TikTok Shop 下调 70–150 磅大件重货 FBT 履约物流单价（2026-10-26 公布，2026-11-01 生效）
+      * 判定: IGNORE (快速 Kill)
+      * 原因: 属于 TikTok Shop 对美国本土 70–150 磅重型大件商品（Heavy Bulky）单件履约与最后一公里派送费率的线下物流降价（参考 Broadi 行业报道），重度依赖线下实体仓储网络、干线卡车车队与重资产搬运，不符合小团队轻资产数据/软件自动化偏好。

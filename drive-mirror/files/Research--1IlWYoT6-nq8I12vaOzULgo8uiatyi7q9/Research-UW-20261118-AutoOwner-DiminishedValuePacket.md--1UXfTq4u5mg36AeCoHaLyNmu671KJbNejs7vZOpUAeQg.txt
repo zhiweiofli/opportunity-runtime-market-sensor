@@ -1,0 +1,89 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261118-AutoOwner-DiminishedValuePacket
+* Source Signal References:
+   * Signal ID: UW-20261118-AutoOwner-DiminishedValuePacket
+   * Generated At: 2026-11-18T01:22:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: UW-20261118-AutoOwner-DiminishedValuePacket.md
+   * Source File Modified At: 2026-11-18T01:17:43+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+1. 保司滥用 17c 公式导致的巨额残值压价缺口：非过错方车主在车辆碰撞修复后，因 Carfax/AutoCheck 留下事故记录而承受 10%–25% 固有二手残值损失（Diminished Value, DV），较新车辆合理赔付通常在 $1,000–$5,000（ChooseFI 2026-10-08）。但保司普遍套用未获监管批准的"17c 公式"，导致初始报价极低（佐治亚州实际平均 DV 约 $2,850，而无正式证据时的保司初始报价均值仅约 $400，Claims Concierge 2026-02-18）。
+2. 中低额案件（$800–$2,200）存在显著供给断层：市场分化为两极（SnapClaim 2026-03-27、Property Damage Pros 2026-04-16）：$50–$150 纯公式模板报告因缺乏本地真实可比车源（Comps）被理赔员直接驳回；而独立持证 USPAP 评估报告收费高达 $300–$600（全套谈判 $500–$700+），且律师因纯物损标的 <$10,000 普遍拒接。导致 $1,000–$2,200 中等贬值车主面临"评估费占赔付 25%–50%"的畏难门槛而放弃追索。
+3. AI 本地真实车源对标 + 人机协同签章路由机制：AI 多模态解析汽修结算单提取结构件/喷漆严重度，自动抓取车主邮编半径内同款 VIN 配置"无事故 vs 有事故"实时二手车挂牌差价，先免费预估净收益并过滤不划算案件，再以 $49–$79 生成含真实本地 Comps 锚点与 30 天正式索赔函的初稿包；若遇保司强硬拒绝或进入小额法庭，再提供低成本按需路由持证 USPAP 评估师复核签章（Human-in-the-loop sign-off）。
+Unknown
+在理论 DV 介于 $800–$2,200 的第三方非全损理赔中，一份包含本地真实"无事故 vs 有事故"挂牌车源对标表与维修严重度拆解的 AI 生成索赔包（无 USPAP 签章 vs 叠加低价人工复核签章），在保司理赔和解阶段及小额法庭中的实际采信回款率差异。
+Decision-Critical Unknown
+在独立钣喷汽修厂（Body Shops）交车结算环节通过二维码切入时，使用 $49–$79 AI 真实车源证据包（附带可选 $99 USPAP 复核升级）的车主，其无诉讼直接逼退保司提升和解报价的比例是否能超过 50%。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	真实资金流与市场付费习惯已验证：佐治亚州保司初始报价（~$400）与实际 DV（~$2,850）存在 ~$2,450 价差；市场上已有车主向 SnapClaim 支付 $350 或向 Property Damage Pros 支付 $400。$49–$79 轻量 AI 真实车源包在 $1,000–$2,500 中等标的具备极强性价比。
+	Mechanism
+	通过 (PASS)
+	价值来自消除信息与取证门槛：区别于被秒拒的 $50 纯公式模板，AI 结合汽修单 OCR 与本地实时 VIN 级"有/无事故"挂牌价差回归，生成有真实市场锚点的证据包；并保留按需路由持证评估师签章的合规逃生通道。
+	Persistence
+	通过 (PASS)
+	结构性持久痛点：保司压低赔付、滥用 17c 公式的激励机制与 Carfax 事故折价是车险行业长期结构现实；律所拒接 <$10,000 纯物损案与人工 USPAP $300–$600 的人力成本下限不会短期消失。
+	Capture
+	通过 (PASS)
+	符合轻资产小团队约束：纯软件数据抓取 + 汽修单 OCR + 文档生成（可选外包合作持证评估师做轻量化签章复核），无重资产、无线下门店，可通过独立汽修厂交车环节低成本获客。
+	3. Evidence & Counter Evidence
+Supporting Evidence
+1. Claims Concierge 2026 行业实证（2026-02-18）：How Much Value Does Your Car Lose After an Accident? —— 证实佐治亚州车辆平均贬值 ~$2,850，保司无正式证据时初始报价均值仅 ~$400，且 17c 公式并未获保险专员批准用于个案理赔。
+2. ChooseFI 车险 DV 实务指南（2026-10-08）：Diminished Value Claim Guide —— 证实事故记录导致 10%–25% 折损、典型赔付 $1,000–$5,000，以及 $200–$500 评估费对小额案件的门槛阻断。
+3. SnapClaim 定价与市场分层分析（2026-03-27）：How Much Does a Diminished Value Appraisal Cost? —— 证实 $50–$150 纯公式模板被理赔员秒拒，而独立 USPAP 报告需 $300–$600（SnapClaim $350）。
+4. Property Damage Pros 对比报告（2026-04-16）：Independent Appraiser vs Insurance Adjuster —— 证实 $400 USPAP 评估平均多追回 $4,800，同时提醒非 USPAP 格式截图在法庭可能被折价。
+Counter Evidence
+1. 州法第一方索赔限制：大多数州不允许车主向自己保司索赔第一方 DV（佐治亚州为例外，无过错州如密歇根州高度受限），目标场景须严格限定为允许第三方 DV 索赔的州且为非过错方。
+2. USPAP 持证签章硬门槛风险：部分强硬理赔员与小额法庭仍要求持证 USPAP 评估师签章，纯 AI 报告若无低成本人机协同签章选项，在进入对抗诉讼阶段可能被折价。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过多份独立行业指南与竞品定价实证验证，停止条件满足。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 用"本地真实有/无事故二手车挂牌差价 + 维修严重度 OCR 拆解"取代 $50 纯公式模板，并叠加"免费资格预审 + 汽修厂交车分发 + 可选低价持证复核"，能精准打通 $1,000–$2,200 中等 DV 市场。
+* What became less likely: 车主愿意在不确定能否获赔的情况下为 $1,200 贬值前置掏出 $400–$600 买传统评估报告。
+* What did we rule out: 排除了纯公式无真实车源的 $50 廉价报告模板（已被证明会被理赔员直接驳回），以及在禁止第一方 DV 的州推广自损索赔。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-18T17:56:28+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+Title: 碰撞修复后车险贬值（DV）本地真实车源对标与索赔证据包生成器 (DV Claim Evidence Agent)
+Source Signal References
+* Signal ID: UW-20261118-AutoOwner-DiminishedValuePacket
+* Generated At: 2026-11-18T01:22:00+08:00
+* Task Version: uneconomic-work@0.1
+* Source File URL: UW-20261118-AutoOwner-DiminishedValuePacket.md
+* Source File Modified At: 2026-11-18T01:17:43+08:00
+Money
+全美允许第三方 DV 索赔各州的非过错方车主（车龄 5 年内、修复后理论贬值 $1,000–$2,500），因传统 USPAP 评估收费 $300–$600 过贵而放弃追索，被保司以 ~$400 17c 报价打发。车主或合作汽修厂愿支付 $49–$79 生成真实可比车源索赔包（需要硬碰硬时另加 $99 路由持证评估师复核签章）。
+Mechanism
+在汽修厂交车结算环节接入，1 分钟上传维修单与 VIN：1）免费资格筛查（剔除高龄/低价值/不可索赔州）并测算预期 DV 缺口；2）多模态抽取维修结构损伤严重度，并抓取本地半径内同款配置"无事故 vs 有事故"实时二手车挂牌价差；3）一键输出带真实 Comps 证据锚点、17c 反驳论证与 30 天正式索赔函的 PDF 包，支持按需路由持证评估师轻量化复核签章。
+Capture
+1–2 人小团队构建 Web 工具，通过独立钣喷汽修厂（Body Shops）交车二维码合作分润或理赔 SEO 获客，纯软交付、极低边际成本、高毛利。
+Durability
+保司压价（17c 公式）与 Carfax 事故折价是车险理赔的长期结构性冲突，律所与传统评估师的人力成本底线决定了中低额 DV 市场长期存在供给空白。
+Evidence
+1. Claims Concierge 佐治亚州 DV 数据实证（2026-02-18）
+2. ChooseFI 车险 DV 实务指南（2026-10-08）
+3. SnapClaim 评估定价对比（2026-03-27）
+4. Property Damage Pros 评估对比报告（2026-04-16）
+Counter Evidence
+1. 绝大多数州禁止第一方 DV 索赔，需在产品前端严格按州法与责任方过滤资格。
+2. 强硬保司或小额法庭可能要求持证 USPAP 评估师签章，纯 AI 包无签章存在被折价风险。
+Critical Unknown
+不含持证 USPAP 签章但附带真实本地"有/无事故"挂牌车源对标表的 $49–$79 AI 索赔包，在第三方保司理赔员阶段的直接和解通过率。
+Falsification
+若各州监管强制禁止保司使用 17c 公式并要求按固定公开算法自动赔付残值，或 SnapClaim 等平台将全套持证 USPAP 评估降至 $99 以下，该机会空间将被大幅压缩。
+Next Test
+搭建免费"VIN + 维修单 DV 缺口测算器"并在 3 家独立汽修厂或 r/insurance 测试，收集 20 份真实第三方理赔案例测试本地车源包（对比是否叠加 USPAP 复核）的实际保司和解回款率。
+
+
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-18T17:56:28+08:00
+* Role Spec Status: reviewed

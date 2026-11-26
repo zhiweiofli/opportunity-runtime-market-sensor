@@ -1,0 +1,88 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261125-SmallBusiness-UtilityBillTariffAudit
+* Source Signal References:
+   * Signal ID: UW-20261125-SmallBusiness-UtilityBillTariffAudit
+   * Generated At: 2026-11-25T01:18:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: UW-20261125-SmallBusiness-UtilityBillTariffAudit.md
+   * Source File Modified At: 2026-11-25T01:10:25+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+1. <$50,000/年水电支出小微企业被传统分成审计商明确排除：商业能源顾问 Inertia Resources (2026-09-02) 明确划定行业门槛——"全账户年水电支出低于约 $50,000 时，正式风险代理审计（抽取退款及 12–36 个月未来节省的 35%–50%）通常不划算（not worth a contingency engagement）"。但同时指出电表倍率（Meter Multiplier）、费率等级（Rate Classification）、未申报州销售税豁免（制造业/农业/非营利）及附加费错误在账单中占比极高，建议小企业自查这三项，且各州回溯退费期常为 12、24 或 48 个月。
+2. 现有 AI PropTech 工具聚焦大中型地产组合：AI PropTech 目录（AI for PropTech）收录的 Zentility、Billee 等账单解析工具主要服务大型商业地产组合与多户住宅运营商，尚未针对年水电费 $10,000–$48,000 的单店小微制造作坊、干洗店、餐饮、诊所与非营利机构提供轻量自助核查入口。
+3. AI 账单抽取 + 公开 Tariff 匹配 + 免税筛查机制：多模态 AI 读取用户上传的 12 个月水电燃气账单 PDF（与可选电表铭牌照片），自动对照所属公用事业公司公开费率表（Tariff PDF）及所在州制造业/非营利公用事业免税法条，先免费用最近 1 个月账单测算销售税豁免与费率错配风险，再以 $79 固定价输出全年度《三项核心自查诊断报告》与《费率重分类/免税退费申请函》。
+Unknown
+在年水电燃气支出 $12,000–$48,000 的小型餐饮、干洗、食品加工厂及非营利机构中，实际检出存在"未申报销售税豁免、费率错配或倍率异常"的占比，以及企业主对 $79 固定价核查包的付费意愿。
+Decision-Critical Unknown
+对于年水电费 <$50,000 的小微制造/餐饮/非营利机构，一款"上传 1 个月账单免费预检免税与费率风险 + $79 解锁全年 12 个月账单 Tariff 比对与退款申请函"的 Web 工具，其真实异常检出率与付费转化率。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	真实资金流与止损逻辑明确：年水电费 $12k–$48k 小微企业被 $50k 门槛排除，无法使用 35%–50% 分成审计；一旦命中销售税豁免（如 6%–8% 州税）或费率重分类，单年即可节省 $800–$3,500+ 并在 12–48 个月回溯期追回退税，$79 固定价具备极高 ROI。
+	Mechanism
+	通过 (PASS)
+	公用事业公司公开 Tariff 手册与各州制造业/非营利免税条款高度标准化，且同一家公用事业公司（如 PG&E、ConEd、Duke Energy）的规则可在辖区内成千上万家小微企业间 100% 复用。
+	Persistence
+	通过 (PASS)
+	结构性持久存在：公用事业按月机械计费、费率表复杂晦涩、12–48 个月回溯期限及 $50,000 人工审计门槛长期存在。
+	Capture
+	通过 (PASS)
+	极佳的轻资产小团队契合度：纯用户上传 PDF 账单处理（无需对接 Green Button 或电网 API 授权），零线下勘验、零 36 个月分成合同绑定，1–2 人小团队即可交付。
+	3. Evidence & Counter Evidence
+Supporting Evidence
+1. Inertia Resources 商业水电审计指南（2026-09-02）：Utility Bill Audit Guide —— 确认 $50,000/年最低门槛、35%–50% 分成模式、12–48 个月回溯期及电表倍率/费率错配/未申报免税三大自查项。
+2. Diversegy 能源审计与隐性收费解析（2025-01-05）：Why Hire an Energy Broker —— 印证放松管制市场中隐性转嫁与自动续约高价陷阱。
+3. AI for PropTech 市场缺口印证：AI for PropTech —— 证实商业账单 AI 提取在技术上已成熟，但现有产品主要面向大型地产组合。
+Counter Evidence
+1. 受管制市场费率选项有限：在部分高度受管制的单一费率辖区，小微商业可切换的 Tariff 档位极少（此时核心价值主要集中在销售税豁免与倍率/附加费核查）。
+2. 物理倍率错配需现场核对：若错误源于电表物理倍率录入有误，仍需企业主拍摄电表铭牌照片或约公用事业人员现场复核。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过 $50k 行业门槛证据、三大可自查错算规则与公开 Tariff 复用性交叉验证，满足 HYPOTHESIS_READY。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 用"$79 固定价（免费首月免税/费率预检）+ 不绑定 36 个月分成"切入，能精准捕获被 $50,000 门槛拒之门外的小微企业。
+* What became less likely: 传统抽取 35%–50% 分成的人工水电审计机构能经济地服务年支出 $10k–$45k 的单店小微商户。
+* What did we rule out: 排除了需要接入复杂电力公司私有 API 才能进行账单审计的技术假设（用户自有 PDF 账单 + 公开 Tariff 手册已足够）。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-25T17:52:27+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+Title: 年支出 <$50,000 小微企业水电账单 Tariff 错配与免税资格 AI 自查套件 (UtilityTariff Check)
+Source Signal References
+* Signal ID: UW-20261125-SmallBusiness-UtilityBillTariffAudit
+* Generated At: 2026-11-25T01:18:00+08:00
+* Task Version: uneconomic-work@0.1
+* Source File URL: UW-20261125-SmallBusiness-UtilityBillTariffAudit.md
+* Source File Modified At: 2026-11-25T01:10:25+08:00
+Money
+全美年水电燃气总支出在 $12,000–$48,000 之间、被专业审计机构 $50,000 门槛排除的小型制造/食品加工厂、干洗店、餐饮店、健身房与非营利机构。客户愿支付 $79 固定价完成 12 个月账单深度体检与退税/改档申请，以追回 12–48 个月回溯期内的超额税费与水电费。
+Mechanism
+1. 免费首月快筛：上传最近 1 个月水电账单 PDF 与行业/非营利类型，自动核查是否被误征州销售税或处于高价过时费率表。
+2. 全年深度核查与申诉包（$79）：多模态抽取 12 个月账单的 kWh、峰值 kW 需量、倍率与 Tariff 代码，对照所属公用事业公司公开 Tariff 手册，输出《倍率/费率/免税三项自查诊断报告》及可直接提交客服的《费率重分类或免税退费申请信》。
+Capture
+1–2 人小团队构建轻量 Web 工具，固定价格交付（不签 36 个月分成合同），优先切入制造业/非营利协会与独立记账会计师渠道。
+Durability
+公用事业月度机械计费、复杂 Tariff 手册与 $50,000 人工审计门槛长期存在，同一公用事业公司规则可在辖区数万家小企业间 100% 复用。
+Evidence
+1. Inertia Resources 商业水电审计指南（2026-09-02）
+2. Diversegy 能源经纪分析（2025-01-05）
+3. AI for PropTech 工具目录
+Counter Evidence
+1. 高度受管制市场小微商业费率选项较少，节省空间主要依赖免税与倍率排查。
+2. 物理电表倍率错误仍需企业主拍照或约公用事业人员现场复核。
+Critical Unknown
+年水电费 $12k–$48k 小微企业中实际存在三项核心错误的比例，以及免费首月预检到 $79 全年核查包的转化率。
+Falsification
+若全美主要公用事业公司全面在账单首页强制提供全自动智能费率优化提示与在线一键免税退费通道，独立第三方诊断工具需求将被大幅压缩。
+Next Test
+针对加州/德州/纽约州 3 家主流公用事业公司的公开商业 Tariff 与制造业/非营利免税法条，用 5 份脱敏小微企业账单跑通抽取与比对原型，测试能否定位真实免税或费率优化空间。
+
+
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-25T17:52:27+08:00
+* Role Spec Status: reviewed

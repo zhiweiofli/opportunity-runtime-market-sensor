@@ -1,0 +1,89 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261120-Homeowner-Sub10kPropertyClaimSupplement
+* Source Signal References:
+   * Signal ID: UW-20261120-Homeowner-Sub10kPropertyClaimSupplement
+   * Generated At: 2026-11-20T00:48:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: UW-20261120-Homeowner-Sub10kPropertyClaimSupplement.md
+   * Source File Modified At: 2026-11-20T00:41:35+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+1. <$10,000 小额房屋理赔被公共理赔师（PA）市场排除：美国持证公共理赔师普遍按赔付额收取 5%–20% 风险代理费，行业通行底线仅受理争议额 >$10,000 的案件（$10,000–$25,000 为边缘区间）（ClaimsMate 2025-03-08、Barclays Public Adjusters 2026-10-11）。争议缺口在 $1,500–$9,500 之间的房主既请不动 PA 或律师，也看不懂数十页 Xactimate/Symbility 估价单（含折旧扣减、O&P 管理费遗漏、建筑规范升级缺失），被迫自掏腰包补差额。
+2. 严格的"无证公共理赔"法律红线：以佛罗里达州法典 § 626.854（FL Senate § 626.854）为代表，各州严禁无证人士代被保险人评估或谈判保险理赔（佛州属三级重罪，最高罚 $10,000–$20,000/次）。但房主本人依法有权向保险公司提交自整理的差异清单与复检申请（Reinspection Request）（Insuranceopedia 2026-11-03）。
+3. 纯自助对比工具的合规破局：多模态 LLM 交叉比对保司估价单 PDF、承包商维修报价单、现场照片与保单 Declarations 页，严格限定为"纯信息比对与房主自用文书排版工具"（固定低价 $49–$79，严禁按赔付抽成、不代联系保司），输出《逐行工程量差异表 + 房主自签复检信草稿》，同时对 >$10,000 案件自动提供持证 PA 转介出口。
+Unknown
+争议额 <$10,000 的房主与小型水损/屋顶修缮承包商，对于"纯自用比对报告（不代为给保司打电话谈判）"支付 $49–$79 固定费用的意愿，以及房主自行提交后保司追加核增赔付的实际比例。
+Decision-Critical Unknown
+对于收到比装修报价低 $1,500–$9,500 初始估价单的房主与合作修缮承包商，一份 $49–$79 的"逐行 Xactimate 漏项对照表 + 房主自用复检信"是否足以推动保司在复检后核增赔付，还是房主普遍认为"不代谈就没有付费价值"。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	真实资金流明确：单案被漏算/低估维修缺口 $1,500–$9,500；PA 因佣金低于 $500–$1,500 拒接 <$10,000 案件；$49–$79 固定工具费对比挽回 $1,500–$5,000 赔付具备极高 ROI，也可由小型承包商作为签单辅助工具采购。
+	Mechanism
+	通过 (PASS)
+	价值来自语义拆单对齐：普通房主无法读懂 Xactimate 编码及 O&P、Recoverable Depreciation、Ordinance or Law 批单；AI 将两份 PDF 逐行对齐的边际成本降至美分级，在严格不触碰"代为谈判"红线的前提下赋能房主自助申请复检。
+	Persistence
+	通过 (PASS)
+	结构性持久痛点：美国住宅水灾/风雹理赔高频且 Xactimate 格式高度标准；PA 按比例收费的 $10,000 人力接单门槛与各州无证谈判禁令长期存在。
+	Capture
+	通过 (PASS)
+	符合轻资产小团队约束（须严守合规边界）：纯 PDF 多模态比对 Web 工具，无线下勘验、不经手理赔款、1–2 人小团队即可运营；但产品文案与收费模式必须严格固定收费、严禁代谈与抽成。
+	3. Evidence & Counter Evidence
+Supporting Evidence
+1. ClaimsMate 行业实务准则（2025-03-08）：Public Adjuster Myths —— 证实 PA 收取 5%–20% 代理费且行业普遍排除 <$10,000 争议案件。
+2. Barclays Public Adjusters 2026 水损指南（2026-10-11）：Hiring a Public Adjuster for Water Damage —— 证实 $10,000–$25,000 为 PA 边缘区间，<$10,000 通常不划算。
+3. 佛罗里达州法典 § 626.854：FL Statutes § 626.854 —— 明确无证代评估或代谈判属违法重罪，确立工具绝不可越界代谈的合规底线。
+4. Insuranceopedia 升级阶梯指南（2026-11-03）：Insurance Claim Adjuster Secret Tactics —— 证实房主自助申请复检（Reinspection）为标准前置救济途径。
+Counter Evidence
+1. 合规越界高风险：各州保险监管对"AI 辅助生成补充理赔文件"界定敏感，若工具宣传或收费模式稍有越界（如按赔付抽成或代发邮件）即面临重罚风险。
+2. 免费通用 AI 替代：部分房主或承包商可能尝试直接将两份 PDF 丢进通用 ChatGPT 进行初步对比。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过行业佣金底线、法规红线与自助救济路径交叉验证，满足 HYPOTHESIS_READY。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 严格定位为"房主自用 PDF 差异比对与复检文书排版助手（固定低价 + 大额案件转介持证 PA）"是唯一合法且可轻资产捕获 <$10,000 理赔市场的方式。
+* What became less likely: 第三方无证 SaaS 能以"代房主与保险公司谈赔付/按回收额抽成"模式合法规模化运营。
+* What did we rule out: 排除了任何涉及代客谈判、代客发函或按赔付比例抽成的商业模式。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-20T17:30:48+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+Title: <$10,000 小额房屋保险理赔估价单逐行比对与自助复检助手 (ClaimGap Check)
+Source Signal References
+* Signal ID: UW-20261120-Homeowner-Sub10kPropertyClaimSupplement
+* Generated At: 2026-11-20T00:48:00+08:00
+* Task Version: uneconomic-work@0.1
+* Source File URL: UW-20261120-Homeowner-Sub10kPropertyClaimSupplement.md
+* Source File Modified At: 2026-11-20T00:41:35+08:00
+Money
+美国每年数百万起住宅水损/屋顶/局部火灾理赔中，争议缺口在 $1,500–$9,500 之间且被持证公共理赔师拒接的房主及小型修缮承包商。客户愿支付 $49–$79 固定工具包费（严禁抽成）以快速查清漏项并自行提交复检，多追回 $1,500–$5,000 修缮款。
+Mechanism
+房主或承包商上传保司 Xactimate/Symbility 估价单 PDF、承包商报价单及保单 Declarations 页：系统自动逐行对齐工序单价、工程量、O&P 管理费与折旧扣减，若争议 >$10,000 则提示转介持证 PA；若 <$10,000 则生成供房主本人核对并自行寄送的《逐项工程量差异表》与《复检请求信草稿》。
+Capture
+1–2 人小团队开发纯软 PDF 多模态比对 Web 工具，通过独立屋顶/水损修缮承包商社群及 r/homeowners 获客，零线下勘验、严守非执业合规边界。
+Durability
+Xactimate 估价体系的高度专业化壁垒与 PA 的 $10,000 接单佣金底线长期存在，属于结构性供给空白。
+Evidence
+1. ClaimsMate PA 接单底线与法规说明（2025-03-08）
+2. Barclays 2026 水损理赔实务（2026-10-11）
+3. 佛州法典 § 626.854 无证执业红线
+4. Insuranceopedia 复检升级阶梯（2026-11-03）
+Counter Evidence
+1. 各州对无证理赔辅助的严格合规界定要求零越界。
+2. 房主或承包商可能尝试使用免费通用大模型自行比对。
+Critical Unknown
+在严守"不代谈、不代发"合规边界下，房主与小型修缮承包商对 $49–$79 纯比对文书包的实际付费意愿。
+Falsification
+若各州监管认定任何 AI 自动生成的保单/估价单差异分析工具均构成无证公共理赔执业，或保险公司全面开放面向房主的透明自助漏项核对门户，该机会将被终结。
+Next Test
+收集 5–10 份脱敏的保司 Xactimate 估价单与实际修复报价单，生成《逐行差异与漏项诊断样本报告》，向 5 家小型水损/屋顶承包商验证能否找出其原本遗漏的高价值工序及 $49–$79 付费意向。
+
+
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-20T17:30:48+08:00
+* Role Spec Status: reviewed

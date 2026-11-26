@@ -1,0 +1,94 @@
+﻿Opportunity Runtime Research Record (Incremental R2 Underwriting)
+* Source Signal IDs: Friction-2026-11-24-lemonsqueezy-migration
+* Source Signal References:
+   * Signal ID: Friction-2026-11-24-lemonsqueezy-migration
+   * Generated At: 2026-11-24T09:37:00+08:00
+   * Task Version: friction-sensor@0.2.1
+   * Source File URL: Friction-2026-11-24-lemonsqueezy-migration.md
+   * Source File Modified At: 2026-11-24T09:38:34+08:00
+* Related Prior Research: Research-Friction-2026-11-18-LemonSqueezy-ForcedMigration.md（增量续研：新增 11 月 19–24 日 Reddit 桌面应用/年付计划边缘痛点实证，并核查过去 6 天内集中涌现的 5+ 竞品对捕获边界的重大收敛影响；注：原信号 What Changed 中误笔为 2026-03-31，经核对官方证据实际停服日期为 2027-03-31）
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+1. 桌面客户端与 PayPal 年付流失成为最痛细分缺口：本轮新增的一线开发者证据进一步锁定了两项最高痛点：
+   * 重授权流失成本高于技术开发：Reddit r/SaasDevelopers (2026-11-20) 开发者明确指出，PayPal 订阅无法迁移，且用户重新授权/重新绑卡导致的流失（churn）成本往往高于集成开发本身（"churn from re-consent tends to cost more than the integration work"），老旧年付方案边缘情况极多。
+   * 桌面软件存量版本无法强更：Reddit r/softwaredevelopment (2026-11-20) 桌面应用开发者急需在不自建授权服务器的前提下，确保已售出的存量 License Keys 在 2027-03-31 后继续通过验证；官方 Digital Fulfillment 文档 也证实若不迁移历史订单，买家在 2027-03-31 后将永久失去 Keys、文件与下载链接。
+2. 过去 6 天内"通用 License Key 迁移"赛道迅速拥挤（重要反证收敛）：2026-11-16 至 11-21 期间，市场上已快速涌现至少 5 家专门针对 LS License Key 与商品导入的直接工具或竞品：
+   * LicenseManager (2026-11-19)：已发布完整 Node 导出脚本与 Stripe 订阅绑定教程；
+   * LicenseSeat (2026-11-16)：提供 100 台设备以内免费层；
+   * Clavem (2026-11-19)、Kelviq (2026-11-20) 与 MigrateFromLemonSqueezy.com (2026-11-17) 均已上线导入工具；另有 Creem、Paddle、AgentaOS 提供免费人工协助迁移。
+3. 仅存的高价值差异化切入点：通用"导出并导入 License Keys"已成红海；真正尚未被 LicenseManager / LicenseSeat 解决、且开发者痛感最强的是 PayPal 不可迁移订阅的自动化挽回漏斗（保留老价格 + 一键 Stripe Checkout 重绑 + 续费防流失序列）。
+Unknown
+在活跃 Lemon Squeezy 商家（如 trustmrr 样本中 212 家有真实营收的初创公司及约 1,206 家活跃商店）中，PayPal 订阅占总 MRR 比例超过 15% 的商家占比，以及其对"PayPal 客户一键保留老价格重绑 Stripe 工具"的付费意愿。
+Decision-Critical Unknown
+面对 LicenseManager、LicenseSeat 等已免费/低价切入 License Key 迁移的竞品，将产品聚焦于"PayPal 订阅零代码挽回漏斗（自动识别 PayPal 订户、匹配老价格 Coupon/Price ID、发送分阶段一键重绑邮件与流失看板）"是否能获得比通用授权管理更高的 $99–$199 转化率。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	真实资金流与止损逻辑明确：PayPal 订阅无法迁移至 Stripe Managed Payments，且重授权流失成本高于开发集成工作量；对有 15%–50% PayPal 订户的微 SaaS 而言，挽回数位年付/月付订阅户即远超 $99–$199 工具费。
+	Mechanism
+	通过 (PASS)
+	机制清晰：通过 LS 只读 API 筛选所有 payment_method = paypal（或印度需重授权卡）的活跃订阅，自动在 Stripe 中映射对应原价/折扣 Price ID 并生成预填邮箱的一键 Checkout Session 链接，结合截止日前分段催促与未重绑预警，最大化压缩人为流失。
+	Persistence
+	通过 (PASS - 窗口收敛)
+	急性爆发窗口明确锁定在 2026-11 至 2027-03-31（约 4 个月）；2027-03-31 之后可延伸为通用的"跨支付网关订阅迁移与续费挽回（Dunning & Re-consent）"工具。
+	Capture
+	通过 (PASS - 须避开纯 Key 导入红海)
+	关键收敛：若仍做纯 License Key 导入将正面撞车 LicenseManager、LicenseSeat（100 设备免费）、Clavem 与 Kelviq；聚焦 PayPal 订阅防流失挽回自动化 则是 1–2 人团队可快速上线、且上述授权码工具未覆盖的轻资产切入点。
+	3. Evidence & Counter Evidence
+Supporting Evidence
+1. Reddit r/SaasDevelopers 流失成本实证（2026-11-20）：Lemon Squeezy is shutting down —— 明确指出 PayPal 订阅无法迁移（"if half your subscribers pay with paypal, start now"），且重授权流失成本高于开发工作。
+2. Reddit r/softwaredevelopment 桌面软件实证（2026-11-20）：Lemon Squeezy shutting down - what are other options —— 证实桌面开发者急需无缝替代而不愿自建维护授权服务器。
+3. Lemon Squeezy 官方迁移与数字履约文档（2026-11-24 核实）：Migration Docs & Digital Fulfillment —— 确认 PayPal 不支持迁往 Managed Payments、License Keys/文件需独立方案、3-31 后历史订单访问终止。
+Counter Evidence
+1. License Key 迁移赛道一周内迅速拥挤：LicenseManager、LicenseSeat（含免费层）、Clavem、Kelviq 与 MigrateFromLemonSqueezy.com 已于 11 月 16–21 日密集上线，纯授权码迁移溢价已被严重压缩。
+2. 急性截止日期临近衰减：2027-03-31 停服后，LS 专属迁移工具需求将立即归零，必须提前规划向通用订阅挽回/Dunning 转型或按一次性冲刺产品定位。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已完成增量核查，且成功识别出 11 月 16–21 日新涌现的 5 家 License Key 迁移竞品，将商业切入点收敛至尚未被覆盖的"PayPal 订阅防流失挽回漏斗"，满足 HYPOTHESIS_READY。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: "PayPal 订阅无法迁移导致的重授权流失"比单纯"导出 CSV/导入 Key"更具付费痛感，且目前尚未出现专用自动化挽回工具。
+* What became less likely: 1–2 人新团队仅靠做一个通用的"LS License Key 导入替代品"能轻易获取高利润（一周内已涌入 LicenseSeat 免费层等 5+ 竞品）。
+* What did we rule out: 排除了在通用 License Key 导入工具方向上与 LicenseSeat/LicenseManager 正面打价格战的路线。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-24T17:02:45+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+Title: Lemon Squeezy PayPal 订阅无损挽回与老价格重绑自动化漏斗 (SubRescue for LS)
+Source Signal References
+* Signal ID: Friction-2026-11-24-lemonsqueezy-migration
+* Generated At: 2026-11-24T09:37:00+08:00
+* Task Version: friction-sensor@0.2.1
+* Source File URL: Friction-2026-11-24-lemonsqueezy-migration.md
+* Source File Modified At: 2026-11-24T09:38:34+08:00
+Money
+在 2027-03-31 前必须迁离 Lemon Squeezy、且拥有较高比例 PayPal 订阅户或印度需重授权银行卡用户的微 SaaS 与独立开发者（据 r/SaasDevelopers 反馈，重授权流失成本高于开发工作量）。商家愿支付 $99–$199 一次性套件费（或按挽回成功 MRR 分成）自动挽回无法迁移的 PayPal 订阅户。
+Mechanism
+1. LS PayPal 订户自动审计：只读连接 Lemon Squeezy API，自动拉取全部无法迁入 Stripe Managed Payments 的 PayPal 订阅及历史年付/老价格折扣方案（Grandfathered Plans）。
+2. 保留原价的一键 Stripe 重绑漏斗：自动在商家 Stripe 账户生成匹配原价与剩余周期（Trial/Proration）的专用 Checkout Link，通过高转化分段邮件序列引导老客户 10 秒完成绑卡并自动取消 LS 侧旧订阅，实时追踪未重绑名单。
+Capture
+1–2 人小团队基于 Serverless + Stripe Connect/API Key 极速交付，避开拥挤的通用 License Key 管理红海，直击高客单价 MRR 保卫战，零重资产与高毛利。
+Durability
+急性窗口期锁定至 2027-03-31 停服；窗口期后底层引擎可直接复用于通用 SaaS 跨支付网关迁移与过期卡/失败扣款挽回（Dunning）。
+Evidence
+1. Reddit r/SaasDevelopers 流失实证（2026-11-20）
+2. Lemon Squeezy 官方迁移与数字履约文档（2026-11-24 核实）
+3. LicenseManager 竞品动态（2026-11-19，反向证实 Key 迁移已拥挤而 PayPal 挽回仍缺位）
+Counter Evidence
+1. 若商家 PayPal 订阅占比极低（<5%），仅发几封群发邮件即可，无需额外采购挽回工具。
+2. 通用 License Key 导入赛道已被 LicenseSeat（含免费层）、LicenseManager、Clavem 等 5+ 竞品迅速填满。
+Critical Unknown
+活跃 Lemon Squeezy 商家中 PayPal 订阅占比 >15% 的实际比例，以及开发者对"保留老价格一键重绑漏斗"的 $99–$199 付费意愿。
+Falsification
+若 Stripe Managed Payments 在 2026 年 12 月 2 日迁移工具上线时意外宣布支持 PayPal 订阅无缝迁移，或 Polar/Paddle 实现 PayPal 跨平台 token 级自动继承，该机会将被直接消除。
+Next Test
+在 r/SaasDevelopers 与 r/SaaS 针对正在迁移 LS 的创始人发布免费"PayPal 订阅流失风险计算器 + 一键生成带剩余周期折扣的 Stripe 重绑链接脚本"，统计使用量与 $99 托管版预约转化。
+
+
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-24T17:02:45+08:00
+* Role Spec Status: reviewed

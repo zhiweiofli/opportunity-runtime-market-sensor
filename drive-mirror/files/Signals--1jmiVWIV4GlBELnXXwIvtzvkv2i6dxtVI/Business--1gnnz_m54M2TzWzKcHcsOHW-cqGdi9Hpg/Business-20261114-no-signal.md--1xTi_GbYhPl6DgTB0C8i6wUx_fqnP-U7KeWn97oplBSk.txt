@@ -1,0 +1,33 @@
+﻿Business Sensor 观察记录：NO_SIGNAL (2026-11-14)
+* 任务版本：business-sensor@0.2.1
+* 角色规范状态：reviewed
+* 观察窗口 (Asia/Taipei)：2026-11-07 09:38:22 至 2026-11-14 09:38:22 (UTC+08:00)
+* 判定结果：NO_SIGNAL
+* 逻辑存储路径：Opportunity Runtime/Signals/Business/Business-20261114-no-signal.md
+* 实际输出目录：Opportunity Runtime/Signals/Business/
+* 历史去重核对：已核对历史 19 项商业信号及此前归档的 NO_SIGNAL 检查点
+1. 检索与核实范围 (Retrieval Scope)
+本轮感知重点覆盖 2026-11-12 至 2026-11-14（Asia/Taipei）全球最新发布的 企业级 SaaS 席位改版与捆绑续约、图像多模态生成 API 费率表、开发者开发环境模型集成、以及头部 Agent 基础设施融资动向等一手动态。重点核实了 Salesforce 停售 Enterprise/Unlimited 席位并以 Core/Advanced 强制加价捆绑推进企业续约、Meta 正式上线 Muse Image 1.0 单张 $0.01 商业 API 费率表、GitHub Copilot 全平台支持 Gemini 4 Hydrogen 模型选择器、以及 LangChain 完成 3 亿美元 Series C 融资等候选事件。
+2. 候选动态逐项评估与过滤原因 (Evaluated Events & Filtering)
+* 候选事件 1：Salesforce 废止 Enterprise 席位全面转向 Core/Advanced 续约涨价潮（2026-11-13 行业复盘）
+   * 事实摘要：行业顾问与 SalesforceBen 复盘 Salesforce 9 月份启动的产品线重构：正式停售传统 Enterprise Edition（$175/用户/月）与 Unlimited Edition（$350），改由 Core（$195，涨幅 11%）与 Advanced（$395，涨幅 13%）接替，并在每个版本中捆绑 Slack、Tableau Next 及 50 万至 100 万 Flex Credits。近期临近年底续约窗口，大批企业面临被动加价升级谈判。
+   * 门槛对照与过滤原因：未通过门槛 1（时效与一手新事实变更）与门槛 5（小团队捕获路径）。该重构核心方案与定价早在 2026 年 9 月 3 日即已正式对外发布并生效，近期仅为企业财年续约周期的常规采购策略咨询；且本质属于大厂内部存量客户的打包提价与负向防守，缺乏独立小团队可切入并长期维持的外部收费卡点或全新预算池，列入 WATCH。
+* 候选事件 2：Meta Muse Image 1.0 商业 API 确认执行按张 $0.01 计费（2026-11-13）
+   * 事实摘要：权威定价库 AI Pricing Guru 证实 Meta Muse Image 1.0 (muse-image-1.0) 商业 API 费率表生效：单张成功生成/编辑图像固定收取 0.01 美元，失败或被安全拦截的图像不计费，包含内置网络检索与生成工具，不按输出 Token 计量。
+   * 门槛对照与过滤原因：未通过门槛 3（底层商业逻辑结构性变化）。单张 1 美分的图像生成 API 价格与当前开源托管（如 Fal、Replicate、Novita 上运行的 Flux Schnell / SDXL 约 $0.003–$0.01）保持在既有同一量级，并未形成类似此前 OpenAI/Google Decisions API 消除整个中继层或 90% 级别断崖式的成本位移；且图像生成属于供给充分的红海基础设施，缺乏小团队建立独立防御性收费站的结构性空间，执行快速 Kill（IGNORE）。
+* 候选事件 3：GitHub Copilot 正式上线 Gemini 4 Hydrogen 模型选择（2026-11-13）
+   * 事实摘要：GitHub 官方发布 Changelog，向 Copilot Pro/Business/Enterprise 用户全面灰度开放 Google 最新推出的日常代码模型 Gemini 4 Hydrogen，并宣布将于 12 月废止部分早期旧模型。
+   * 门槛对照与过滤原因：未通过门槛 3（底层商业逻辑结构性变化）。属于集成平台对上游底座模型的常规功能支持，并未发生开发者订阅价格或平台扣费规则的重新设计，列入 WATCH。
+* 候选事件 4：LangChain 宣布获得 3 亿美元 Series C 融资（2026-11-13）
+   * 事实摘要：LangChain 创始人 Harrison Chase 宣布公司以 30 亿美元估值完成 3 亿美元融资，资金将用于扩大企业级 LangSmith / LangGraph 智能体平台部署。
+   * 门槛对照与过滤原因：未通过门槛 1（一手真实资金流凭据）与第三层线索排除规则。属于股权融资新闻与资本事件，无法证明下游真实企业客户采购预算和可持续利润池的形成，禁止作为独立商业信号，执行快速 Kill（IGNORE）。
+3. 判定依据与准则遵循 (Justification)
+本传感器严格遵循"宁缺毋滥，证据不足不凑数"的核心准则。当选事件若仅为：大厂历史打包提价的存量合同续约发酵、行业常规梯队内的平价模型费率卡、开发者平台的模型列表常规增加、或风投资本融资公关，均不满足 Business Sensor 必须同时具备的"一手资金凭证、非单点偶发、结构性变化、持续性、小团队可捕获"五项核心门槛。因此确认为 NO_SIGNAL。
+4. 持续追踪与忽略清单 (Watch & Ignore List)
+* 持续追踪 (Watch List)：
+   * Salesforce Flex Credits 真实消耗率：密切跟踪企业在被迫升级至 Core/Advanced 方案后，捆绑赠送的 50 万至 100 万 Flex Credits 是否会在实际生产中快速见底，从而衍生出针对第三方无头智能体（Headless Agent）降本网关的预算溢出。
+   * Google Gemini Decisions API 与 OpenAI Decisions API 落地进展：观察 11 月 11 日 Google 全模态决策端点发布后，在各垂直音视频/客服质检工作流中的实际迁移规模。
+* 明确忽略 (Ignore List)：
+   * 早期及成长期企业的股权融资通告与资本估值新闻。
+   * 平台针对已发布基础模型的常规 IDE 插件版本适配。
+   * 缺乏防御性且竞争充分的平价图像生成 API 渠道更新。

@@ -1,0 +1,92 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: Business-20261022-openai-decisions-api-costcurve
+* Source Signal References:
+   * Signal ID: Business-20261022-openai-decisions-api-costcurve
+   * Generated At: 2026-11-12T09:59:46+08:00
+   * Task Version: business-sensor@0.2.1
+   * Source File URL: Business-20261112-google-gemini-decisions-api-costcurve.md
+   * Source File Modified At: 2026-11-12T10:02:21+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+2026年11月11日，Google 官方与 Alphabet CEO Sundar Pichai 正式宣布面向全球开发者上线全新的 Gemini Decisions API 及专属模型 Gemini Decision 1 (gemini-decision-1)，在 Google AI Studio 与全套 SDK 中全面开放 GA。核心结构性变更为：
+
+
+1. 价格重构与免除输出费用：输入 Token 仅 $0.10 / 100万 tokens，完全免除输出 Token 费用（$0 for output tokens, zero output tokens generated），无变量思考 Token 账单，无单独音频转录与 OCR 费用，提供免费原型测试层。
+2. 从纯文本拓展至全模态单次前向打分：原生支持文本、高低分辨率图像、音频录音、视频切片及多页 PDF（单次请求最大 256K tokens 上下文与 100MB 内联文件），在一道共享输入的前向传播中直接返回确定性决策结果，无需逐字生成自然语言。
+3. 超高并发多题裁决与极低延迟：单次 API 请求支持并发评估最多 1,000 个独立问题（包含 yes/no 概率判定、2 至 255 项分类选择 choice、以及 0 阶递增量表评分 score），在 16K 长度下端到端延迟仅 150–250 ms（模型计算耗时仅 50–100 ms），且多题并发时耗时近乎平直。
+4. 双寡头确立行业标准决策原语：Google 与 OpenAI 双寡头共同将决策原语（Decisions API）固化为全球智能体编排基础设施标准，驱动应用开发预算彻底从昂贵全量生成接口向专用低价决策端点迁移（Cost Curve Shift & Budget Migration），总成本较 Gemini 3.5 Flash-Lite 降低近 5 倍（从 $4.14 降至 $0.88）。
+Unknown
+在拥有月均 100 万次以上多模态内容审核或工单分类的成熟 SaaS 平台中，开发团队因既有 Prompt 工程锁定（Prompt Lock-in）而不愿重写路由逻辑至 Decisions API 的阻力比例。
+Decision-Critical Unknown
+使用 LangChain、LiteLLM、Pydantic AI 或 LiveKit 框架构建生产级 Agent 的工程团队，对于一款能够"无缝反向代理、自动将复杂分类与多模态初筛提示词透明重定向至 Google/OpenAI Decisions API 并降低 80%+ 推理账单的跨云决策优化中间件（Cross-Cloud Decisions Router，定价 $49–$199/月 或按节省账单抽成 15%）"的直接订阅意愿。
+2. Gate Checks
+评估维度
+	检查结果
+	详细判定说明
+	Money
+	通过
+	涉及全球开发者在 Agent 意图识别、路由分发、实时音视频审核与多模态工单初筛上的数十亿美元推理预算。单次多题判定成本低于 $0.0001，比 Flash-Lite 便宜近 5 倍，输出 Token 永久免费带来巨大的确定性资金套利空间。
+	Mechanism
+	通过
+	双层架构（Two-Tier Architecture）消除了自回归解码（Autoregressive Decoding）的时间与算力损耗，模型单次前向传播直接输出分类概率标量，从根本上消除了输出 Token 账单与解析胶水代码（Pydantic parsing failures）。
+	Persistence
+	通过
+	Google 与 OpenAI 两大基础模型霸主均已 GA 该端点并写入长期官方计费表，各开源框架（LiteLLM, LangChain, Vercel）已完成原生合并，属于不可逆的底层 AI 架构演更。
+	Capture
+	通过
+	1–3 人小团队构建基于 LiteLLM/LangChain 的无感知决策分流网关插件（Decisions FinOps Proxy）或垂直多模态初筛微 SaaS（如电商退货图片 1 秒初审、客服通话合规静音监控），纯 API 软件服务，零硬件制造、零实体库存、极高毛利。
+	3. Evidence & Counter Evidence
+Supporting Evidence
+1. Google 官方开发者博客公告《Gemini Decisions API: Fast multimodal decisions》（2026-11-11 发布）：Min Choi 与 Felix Yu 详细披露技术与计费细节："Gemini Decision 1 is priced at $0.10 per 1M input tokens and $0 for output tokens... evaluate up to 1,000 yes/no, choice, and rubric-scoring questions in a single pass across text, images, audio, video, and PDFs... 150-250 ms end-to-end latency... nearly 5x cheaper than Gemini 3.5 Flash-Lite."
+2. Alphabet CEO Sundar Pichai 官方声明（2026-11-11 于社交平台发布）："Today we're launching the Gemini Decisions API, powered by our new Gemini Decision 1 model. Instead of generating text token by token, it's built for closed-set choices scoring up to 1,000 questions across text, images, audio, video + PDFs in a single pass. $0.10 / 1M input tokens with $0 billed for output tokens (~5x cheaper than Flash-Lite)."
+3. CellCog 独立基准与定价评测《Gemini Decision 1: Price, Benchmarks and Limits》（2026-11-11 发布）：证实其标价与 OpenAI Decisions API 持平（$0.10/M tokens，零输出费），是唯一官方支持音频与视频直接作为输入的决策模型；单次评估问题上限达 1,000 道；在与 Jev 及 GPT-6 Luna 的多项共享测试中综合成本表现极低（总成本 $0.88 对比 Flash-Lite 的 $4.14）。
+4. eesel AI 架构与商业复盘《Gemini Decisions API (2026): how it works, pricing, vs OpenAI and Jev》（2026-11-11 发布）：强调决策接口最核心的商业杀伤力是消除解析胶水层代码与输出 Token 浪费："generates zero text tokens, so output token usage is always 0... Your code branches on a number instead of parsing a sentence... removes that whole layer."
+Counter Evidence
+1. 仅限有界离散决策（Bounded Choices）：无法生成自由文本回答或执行复杂的长链条创造性推理。
+2. 头部框架可能逐步内置简单的单厂商封装代码，独立网关需具备跨 OpenAI 与 Google 的混合动态调度壁垒。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，Google 与 OpenAI 双寡头格局确立决策原语标准，全模态零输出费机制清晰，小团队轻资产切入点极佳。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 全球 AI Agent 编排流水线将全量将前置路由、多模态审核与决策分流迁移至零输出费的专用 Decisions API。
+* What became less likely: 开发者继续为大模型在多模态分类场景下生成的长文本自然语言支付高昂的输出 Token 账单与转录费。
+* What did we rule out: 排除了 Decisions API 属于单一厂商短期试验性产品的假说，确认为全行业标准底层原语。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-12T17:57:55+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+Title: 面向 AI 智能体流水线的跨云多模态 Decisions 路由降本网关与实时合规守卫（Decisions Cross-Cloud Gateway）
+Source Signal References
+* Signal ID: Business-20261022-openai-decisions-api-costcurve
+* Generated At: 2026-11-12T09:59:46+08:00
+* Task Version: business-sensor@0.2.1
+* Source File URL: Business-20261112-google-gemini-decisions-api-costcurve.md
+* Source File Modified At: 2026-11-12T10:02:21+08:00
+Money
+涉及全球构建 AI Agent、客服机器人、多模态审单与内容风控的企业数亿美元推理账单。团队愿为降低 80%+ 的分类决策 Token 账单并提速至 150ms 支付每月 $49–$199 的网关订阅费，或按节省账单金额的 15% 分成。
+Mechanism
+针对通用多模态 LLM 在处理单据初筛、音频审核或意图路由时生成冗长文本带来严重延迟与输出计费膨胀的痛点，中间件提供：
+
+
+1. 自动格式翻译与跨云路由：无缝拦截现有 LiteLLM/LangChain 请求，自动将分类条件转换为 Google Gemini Decision 1 或 OpenAI Decisions API 规范，根据输入类型（音视频自动路由至 Google，纯文本智能比价分流），利用 $0.10/M 零输出费优势直接削减 80%+ 成本。
+2. 多模态极速初筛微服务：面向电商退换货（瑕疵图片审核）、保险理赔（保单 PDF 与定损照片）、在线教育通话（音频合规风控），提供开箱即用的 50 项预置合规规则包，单次调用即可返回确定性分数与分支结论。
+Capture
+1–3 人小团队构建轻量开源代理包（兼容 LiteLLM 协议）与托管管理控制台，纯软件与 API 转发，零实体库存、零硬件风险、高毛利 SaaS。
+Durability
+Google 与 OpenAI 共同将 Decisions API 确立为核心基础设施，大模型向两层架构演进属于行业技术演进长期趋势。
+Evidence
+1. Google 官方发布通告：Gemini Decisions API 证实 $0.10/M、零输出费、全模态音视频支持及 5 倍降本基准。
+2. Alphabet CEO Sundar Pichai 官方声明确认 1,000 题单次并发。
+3. CellCog 独立评测：Gemini Decision 1 Benchmarks 证实实测低成本。
+4. eesel AI 商业复盘：Gemini Decisions API Guide 确认代码胶水层消除。
+Counter Evidence
+1. 复杂开放式推理仍需调用全量前沿模型。
+2. 基础框架未来可能集成简单的单点调用封装。
+Critical Unknown
+企业现有生产级 Agent（如已有庞大 Function Calling 库的系统）在向 Decisions API Choice 结构迁移时的平滑度与意图丢失率。
+Falsification
+若云厂商在主流对话模型上完全取消输出 Token 溢价并实现单次前向直接返回概率标量，消除专用端点的价格剪刀差。
+Next Test
+基于 LiteLLM 编写一个 Python 中间件原型，在电商图片退货审核与客户服务意图分类两个场景中接入 Gemini Decision 1，测算端到端延迟与实际 Token 账单削减幅度。

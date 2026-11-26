@@ -1,0 +1,140 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261030-PropertyTax-SmallCommercial-AssessmentAppealPacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261030-PropertyTax-SmallCommercial-AssessmentAppealPacket
+   * Generated At: 2026-10-30T01:30:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/1eNPUnBMfDFi9J4zZB_jdrjASViUnHNpOFCjPQSMuiPg/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-30T01:13:58+08:00
+
+
+* Research Level: R2 — Economic Underwriting
+
+
+* Stage Result: HYPOTHESIS_READY
+
+
+* Unknown Ledger:
+
+
+   * Known: 全美房产评估值与财产税在 2025–2026 周期内全国平均跳涨 6.5%，各县评估局基于批量算法（CAMA）导致 30%–60% 的房产被高估 10%–20%（单户多缴 $400–$1,500）；各州法定申诉规费极低（如佛州 VAB 仅 $15），但有 25–45 天严苛窗口（如佛州 TRIM 通知、德州评估通知）；传统抽成律师（抽成 25%–40%）普遍设立门槛（仅受理 >$750k 住宅或 >$1M 商业物业），普通平价住宅（$150k–$500k）和小商铺由于自办需花费 10–15 小时去县档案网站筛选有效成交（Comps）并折算特征，超过 90% 的业主因“太麻烦不划算”而直接交钱放弃申诉。
+   * Unknown: 各县评估局在业主提交标准化非正式复核（Informal Review）材料后，不经正式听证会直接主动和解核减的比例。
+   * Decision-Critical Unknown: 处于 25–45 天申诉倒计时内的平价住宅小业主，对于一款售价 $29–$39 买断（或基础检测免费 + 减税分成 15%）的“县官方级 5 套强力低价 Comps 证据表与 VAB 申诉包自动生成器”的付费转化率。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。单户每年超额多缴 $400–$1,500，全美平价住宅超 8,000 万套；$29 工具对比每年节省数百美元具有清晰的投入产出杠杆。
+   * Mechanism: 通过。县评估局批量加价漏洞明确，法条赋予业主举证权；多模态解析通知单 PIN 码，自动抓取县级公开地籍/MLS 数据，剔除非正常交易并进行标准特征（GLA/房龄/地块）平价调整，一键导出符合县价值调整委员会（VAB/ARB）格式的证据表，将数十小时调研压缩至几分钟。
+   * Persistence: 通过。全美各县房产税每年周期性下发通知与对账，法定申诉程序制度化长存。
+   * Capture: 通过。1-3 人小团队构建轻量 Web 工具，纯公开数据聚合与算法特征对齐，零实体资产、零库存、高毛利。
+
+
+* Final Status: HYPOTHESIS_READY
+
+
+* Evidence:
+
+
+   1. LowPropTax 行业实务报告《Best Property Tax Appeal Services》（2026-10-01）：披露 6.5% 税率跳涨、普通业主放弃心理及商业机构专注豪宅的供给断层。
+   2. Hampton REA 佛州房产税申诉全景指南《Property Tax Assessment Appeals: A Step-by-Step Guide for Florida Investors》（2026 适用）：指出合理申诉普遍能获得 5%–15% 估值下调（$400k 房屋每年节省约 $400 税金），详述 TRIM 收到后 25 天非正式复核与 VAB 听证流程。
+   3. TaxDrop 佛州实务拆解《How Much Does a Property Tax Appeal Cost in Florida》（2026-09-21）：证实 VAB 法定规费仅 $15，自办核心阻力在于有效成交搜寻工时。
+   4. ProdigyRE 2026 房产重估报告《NJ Revaluation Letter Guide 2026》：确认高出 10%–15% 具备强申诉价值，调取房产卡排除非正常交易是胜诉关键。
+
+
+* Counter Evidence:
+
+
+   1. 极少数乡村县近期无足够可比销售交易。
+   2. 少数州县听证会要求必须本人线下出席答辩。
+
+
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，痛点真实刚性，公开数据与算法平价机制成立，小团队轻资产切入点极佳。
+
+
+* Resume Condition: 不适用（已完成）。
+
+
+* What became more likely: 平价住宅与小商铺业主将普及基于地籍开放数据与算法的自动化房产税申诉包。
+
+
+* What became less likely: 传统抽成税务代理人会下沉为估值仅数十万美元的小物业提供低价服务。
+
+
+* What did we rule out: 排除了小业主在无标准化可比交易表格支持下口头申诉能够成功降税的可能。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-10-30T17:20:52+08:00
+
+
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向平价住宅与小商业业主的房产税评估虚高审计与 VAB/ARB 申诉证据包生成器
+* Source Signal IDs: UW-20261030-PropertyTax-SmallCommercial-AssessmentAppealPacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261030-PropertyTax-SmallCommercial-AssessmentAppealPacket
+   * Generated At: 2026-10-30T01:30:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/1eNPUnBMfDFi9J4zZB_jdrjASViUnHNpOFCjPQSMuiPg/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-30T01:13:58+08:00
+
+
+* Money: 全美平价住宅与临街小商铺每年被高估征收的数十亿美元房产税（单户每年多缴 $400–$1,500）；业主愿支付 $29–$39 买断证据包或按减税金额的 15% 付费。
+
+
+* Mechanism: 针对县评估局计算机辅助模型（CAMA）机械抬价且小业主不懂如何排除无效成交与折算建筑面积（GLA）的痛点，工具通过多模态解析评估通知单提取地块号（PIN），调用公开地籍与销售数据库，基于加权特征算法自动筛选出本街区最强 3–5 套低价成交 Comps 并计算折让差额，自动填充生成县价值调整委员会（VAB/ARB）正式请愿书与证据附表，使维权在 25 天期限内一键完成。
+
+
+* Capture: 1-3 人小团队开发轻量 Web 工具，纯数据处理与表单填充，零重资产、零实体库存、高毛利。
+
+
+* Durability: 房产税每年周期性征收与评估，申诉制度由州宪法与税法确立，具备长期复购生命周期。
+
+
+* Evidence:
+
+
+   1. LowPropTax（2026-10）：https://lowproptax.com/blog/best-property-tax-appeal-services-top-companies-reviewed 证实税负跳涨与小业主服务真空。
+   2. Hampton REA 指南（2026）：https://www.hamptonrea.com/guides/property-tax-assessment-appeals-a-step-by-step-guide-for-florida-investors/ 证实 5%–15% 调减与 TRIM 25 天时效。
+   3. TaxDrop（2026-09）：https://www.taxdrop.com/blog/how-much-does-a-property-tax-appeal-cost-in-florida 确认 $15 规费门槛。
+
+
+* Counter Evidence:
+
+
+   1. 成交低迷地区 Comps 稀缺。
+   2. 少数辖区听证会要求到场。
+
+
+* Critical Unknown: 各县房地产税评估通知单集中下发季节（如佛州 8–9 月、德州 4–5 月）的地域性流量获取效率与获客成本。
+
+
+* Falsification: 若各县税务评估局彻底实现点对点精准单户真实交易评估，完全消除 CAMA 模型的系统性高估。
+
+
+* Next Test: 选取佛罗里达州 Orange County 或德州 Harris County 5 套估值在 $250k–$400k 的真实住宅，自动抓取该县公开评估数据库计算差额并生成 VAB 证据表，测试与正式评估员结论的吻合度。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-10-30T17:20:52+08:00
+
+
+* Role Spec Status: reviewed

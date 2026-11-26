@@ -1,0 +1,101 @@
+﻿signal_id: UW-20261123-SmallContractor-WorkersCompAuditDispute
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年11月核实（Payroll Training Center 2026-07、FirstHR 2026-10及WorkersCompAuditPrep 2026-11对比），美国每个工伤保险（Workers' Compensation）保单周期结束时都会触发保费终审（Premium Audit），且在加州等州承保商甚至可追溯审计过去3年记录；若小企业未能提交规范分类账，审计员默认将100%薪资归入最高费率工种（如屋顶工$18–$25+/百元薪资 vs 文职$0.15–$0.30/百元薪资）、把未剥离加班溢价的加班费全额计费（注：2026年OBBBA Form W-2新规刚好要求单独拆分合格加班溢价）、并把缺少有效保险凭证（COI）的1099分包商全部付款视同雇主自有高危薪资，动辄开出$7,000–$90,000的天价补缴账单。然而专业按效果分成保费追回机构（如Apex Services）将门槛设在年保费$100,000以上，年保费$5,000–$50,000的小型承包商被排除在专业风控之外。
+money: 涉及全美数百万家年工伤险保费低于$100,000的建筑分包商、屋顶/装修/清洁/园林及小型制造企业。真实案例显示，一家仅3名员工、年薪资$250,000（原缴$5,500保费）的保温小企业在审计后被追缴$19,500；一家北卡小型清洁公司收到$7,000补缴账单；另一家清洁公司因1099分包商缺失COI被追缴$90,000（E4）。而如果企业拒绝配合审计，根据NCCI Item B-1429规则还会被直接加收最高相当于预估年保费2倍的“审计不合规罚金”（E3）。
+evidence:
+- id: E1
+  source: https://www.apexservices.com/refunds/save-on-future-premiums/
+  source_date: null
+  accessed_at: '2026-11-23T00:55:00+08:00'
+  fact: 仅读取搜索摘要（Search Snippet）：专业工伤险保费合规审计与退费追回机构Apex Services明确设定服务门槛：“如果您每年支付约$100,000或以上的保证成本/损失敏感型保费，我们将按结果分成（contingency-fee）开展合规审计”。直接印证年保费<$100,000的小微企业被排除在头部风险代理服务之外。局限：为单一头部机构门槛，未读取全文。
+- id: E2
+  source: https://www.payrolltrainingcenter.com/blog/calculate-workers-comp-premiums-biid1001975
+  source_date: '2026-07-22'
+  accessed_at: '2026-11-23T00:55:00+08:00'
+  fact: 全文核实：给出工伤险计算核心公式（Payroll ÷ 100 × Class Rate × EMR）及三大高发多缴错误：1）将文职（$0.30/$100）误归入操作工（$8.50/$100）；2）薪资系统未独立拆分加班溢价导致全额按1.5倍计费（指出2026年OBBBA Form W-2刚好也强制拆分合格加班溢价，一举两得）；3）高管薪酬未按州法定上限截断；明确指出保费审计结果常含错误且仅在有限窗口内可申诉。局限：为薪酬培训机构教程。
+- id: E3
+  source: https://www.workerscompauditprep.com/compare/audit-prep-kit-vs-audit-consultant-vs-cpa
+  source_date: null
+  accessed_at: '2026-11-23T00:55:00+08:00'
+  fact: 仅读取搜索摘要（Search Snippet，页面含2026年11月价格对比表）：清晰揭示现有替代断层——静态Excel准备包（$19–$299）“不核对您的真实数字、不检查已完成审计账单、不写抗辩信”；人工审计复核顾问（Reliable Premium Management）按$40/小时收费但通常需通过保险经纪或CPA接入；过往保费追回机构（Premium Paybacks）仅做历史保单追回而不做审计前预检。局限：为模板包卖家自比页面。
+- id: E4
+  source: https://thecoylegroup.com/the-definitive-workers-comp-audit-guide/
+  source_date: '2026-04-22'
+  accessed_at: '2026-11-23T00:53:00+08:00'
+  fact: 仅读取搜索摘要（Search Snippet）：披露真实小微企业审计暴雷案例（3人保温公司原缴$5,500保费审计后被追缴$19,500；清洁公司因1099分包商无COI被追缴$90,000；北卡清洁公司收到$7,000补缴通知），并列出工种费率悬殊（文职$0.15–$0.30、零售$1.50–$2.50、园林$8–$12、屋顶$18–$25+）。局限：未读取全文。
+mechanism: 事实：年保费低于$100,000的小承包商被传统按效果付费追回机构门槛排除（E1），现有的$19–$299静态Excel模板包只给清单而不帮老板核对真实数字（E3），而外包审计员单次仅拿约$150包干费追求速战速决，导致小企业一旦941表、加班拆分或1099分包商COI有瑕疵就会被默认按最高危工种计费（E2, E4）。推断：小承包商并非不想合规，而是日常跑工地无暇在审计前把QuickBooks/Gusto薪资明细、941季度税表、加班溢价（结合2026 OBBBA拆分需求）以及几十家1099分包商的COI有效期对齐。AI工作流可一键读取保单Declarations页、全年薪资流水、941税表及分包商COI文件夹，在审计前15分钟自动标出“未拆分加班溢价金额、缺失/过期COI的分包商名单（及对应潜在补缴风险）、可降档文职/高管封顶员工”，并生成审计提交文件夹及事后《保费审计异议申诉信》，把原本无人帮小企业核对真实数字的真空地带变成低成本自动化服务。
+persistence: Structural
+next_question: 在年工伤险保费$5,000–$50,000的美国小型建筑/装修/清洁企业中，有多少比例在收到年度保费审计通知前从未核对过1099分包商COI覆盖期与加班溢价拆分，且愿为“审计前AI体检+异议核查”支付$99–$199？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-23T01:02:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work:
+  task: 年工伤险保费<$100,000的小型建筑/服务承包商在保单到期审计前，核对941与薪资账目一致性、剥离加班溢价与高管超限薪酬、排查1099分包商COI有效日期并按实际工种拆分Payroll，以及在收到错误审计补缴单后逐行核对审计工作表并提出申诉
+  structure: 规则遵从 / 昂贵信息获取 / 厌恶工作
+  abandoned_value: 小微承包商因缺失COI、未拆加班费或工种默认归高而多缴的$3,000–$20,000+/年可避免工伤险保费与补缴账单（E2, E4）
+  human_failure_reason: 按结果分成追回机构设置$100,000年保费门槛排除小微企业（E1）；静态$299 Excel包不核对用户真实数字（E3）；小企业主忙于现场施工，直到收到天价补缴单才发现错过了审计准备与异议时机（E4）
+ai_unlock:
+  changed_cost: 将跨保单Declarations页、QuickBooks薪资导出表、Form 941及数十份分包商COI PDF的人工对账与错漏排查从数小时CPA/老板核查降至15分钟自动出检
+  capability_basis: 多模态PDF抽取（保单费率表 + 941 + 1099分包商COI起止日期校验） + 州别加班溢价剥离与高管封顶算式校验 + 审计抗辩函生成（E2）
+  limitations: 1）若1099分包商在施工期间确实完全没有购买工伤险（非遗失文件），AI无法消除合规补缴责任，只能在事前预警；2）跨州经营企业涉及各州独立评定局（NCCI vs CA WCIRB/NYCIRB）特殊规则，需逐州维护规则库（E2）
+unit_economics:
+  unit: 1次年保费<$100,000小微企业的工伤险保费审计前数字预检（或已出审计账单异议核查）
+  currency: USD
+  region_and_date: 美国市场 / 2026年11月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本包括保单/941/薪资CSV/分包商COI PDF解析、三项核心算式校验与审计提交包/申诉函生成，及异常规则更新；不含人工保险顾问介入费与获客成本（CAC）
+  excluded_or_unknown_costs: 小微承包商使用AI预检包后的实际审计补缴下降均值、各州异议申诉成功率及获客成本（CAC）尚未取得公开基准，严格置为null
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1与E3证实了$100k保费门槛及静态模板“不核对真实数字”的明确供给缺口，E2与E4证实了加班/工种/COI错算动辄带来数千至数万美元冲击，而AI核对CSV与COI日期在技术上成熟，判定为Plausible；因缺乏小微企业实测挽损率大盘数据，数值严格置为null
+value_capture:
+  beneficiary: 年工伤险保费在$5,000–$80,000的美国小型承包商、屋顶/装修/园林/清洁公司及小型制造厂（E1, E4）
+  payer: 小企业主本人，或服务小微承包商的独立记账会计师（Bookkeeper）/中小型商业险经纪（作为留存客户的增值工具）
+  payment_evidence: 市场已有小企业愿为仅含空白Excel的Prep Kit支付$149–$299或按$40/小时聘请审计复核员（E3），但对AI实数预检包的付费意愿尚待7天验证
+  capture_node: 1）保单到期前30天收到承保商Audit Notice邮件时；2）已收到意外$3,000+补缴账单准备核查申诉时
+  pricing_hypothesis: 假设采用“$99–$149/次审计前数字体检与COI排查包（含已出账单异议模板）”或向商业险经纪按$29/客户批量授权；标记为待验证商业假设
+  customer_net_benefit: 在不被$100k保费门槛拒之门外的前提下，比$299空白模板更进一步直接核对真实941/COI/加班数字，避免动辄数千至数万美元的意外审计补缴
+scale:
+  aggregation_unit: 小微企业每年一次的工伤险保单到期审计通知
+  repeatability: 所有持工伤险保单的雇主每年固定经历一次（100%年度复发），且941/OBBBA加班/COI校验逻辑高度标准化
+  reachable_volume: null
+  basis: 尚未量化年保费$5k–$80k区间且未使用专业经纪审计服务的小微企业精准存量，reachable_volume置为null
+action_loop:
+  observe: 企业主或记账员上传工伤险Declarations页、年度薪资明细CSV（含加班栏）、4份季度Form 941、1099供应商付款汇总及分包商COI PDF文件夹
+  judge: 核对薪资总额与941是否一致、按州规则计算可剥离的加班溢价与高管封顶额、比对每家1099分包商的COI有效日期是否完整覆盖付款施工期、并标记兼职人员是否可拆回低费率工种
+  act: 输出《审计前风险整改清单》（如立刻补齐某3家分包商COI、在薪资表拆分OBBBA加班溢价）与按承保商要求排版好的《审计提交包》或《审计账单异议申诉函》
+  verify: 企业补齐缺失COI后提交审计材料，比对最终承保商审计账单与AI预检基准，确认未出现非预期工种上调或无证分包商加罚
+required_access:
+  resources: 企业自有保单PDF、941税表、薪资导出CSV及分包商COI文件（无需对接承保商私有系统）
+  availability: Available
+  authorizer: 企业主或授权记账员直接上传文件
+  authorization_status: 完全基于企业内部财税与供应商文档，无需第三方API或保险经纪牌照授权
+  basis: 仅做企业内部数据自检与文档整理，不代客户向承保商签署或谈判保单条款，无保险经纪持证准入壁垒
+defensibility:
+  basis: 初期可通过结构化校验快速上线，长期壁垒在于积累NCCI与独立州（CA/NY/PA等）工种代码、加班剥离及高管封顶年度规则库，并与建筑行业记账软件/商业险独立经纪建立渠道绑定
+  alternatives_and_counterevidence: 1）现有替代：Pay-As-You-Go按薪资实时扣费工伤险（如ADP/Gusto集成）可减少部分年底补缴惊喜，静态模板包$149–$299及$40/小时人工审计顾问（E3）；2）最强反证：大型商业险经纪（如Brown & Brown）对自有保单客户免费提供复核，若小企业主已通过优质经纪投保且使用Pay-As-You-Go，独立工具需求会减弱
+personal_actionability:
+  fit: Good
+  target_customer: 年保费$5,000–$80,000、使用传统分包商且未享受到免费经纪审计复核的美国小型建筑/装修/清洁/园林承包商
+  deliverable: 一份《工伤险审计实数预检报告 + 分包商COI缺口清单 + 审计提交/抗辩包》
+  customer_entry: 建筑承包商社群（r/Construction, r/sweatystartup, r/smallbusiness）、建筑行业记账员（Construction Bookkeepers）及“workers comp audit surprise bill”长尾SEO
+  prerequisites: 明确免责声明“不构成保险经纪或法律建议”，并仅在核查出真实数字差异时提示申诉，不虚构工种归类
+  basis: 输入数据为标准PDF与CSV，无需执业牌照即可交付高含金量的实数交叉核对，个人/小团队7天内可验证
+seven_day_experiment:
+  critical_unknown: 年保费<$100k的小型承包商或建筑业记账员，在已有$40/小时人工审计顾问（通过经纪接入）与Pay-As-You-Go工具的背景下，是否仍愿为$99–$149的AI实数审计预检包付费
+  test: 调研近6个月Reddit（r/smallbusiness, r/Construction, r/sweatystartup）中10个遭遇工伤险审计天价补缴的真实发帖，并与2–3名服务小承包商的独立记账员访谈，实测其最常漏查的COI与加班拆分痛点
+  artifact: 1份《10例小承包商工伤险审计暴雷原因拆解表》及1套可运行的941+COI+加班溢价交叉校验脚本原型
+  time_and_cost_budget: 7天内完成，预算<$20（纯公开检索与校验脚本测试）
+  success_signal: 至少一半以上暴雷案例源于可在审计前通过数据比对拦下的COI过期/加班未拆分/文职误归类，且记账员或承包商认可$99–$149预检包能直接省下数千美元
+  kill_signal: 小承包商普遍已切入Pay-As-You-Go且核心痛点是“施工时根本没找有保险的分包商”（工具事后无解），而非文件核对成本

@@ -1,0 +1,116 @@
+﻿signal_id: IBF-20261106-AWSRDS-MySQL-ExtendedSupport-ZombieTax
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: 2026年下半年，AWS对存量云数据库执行了严苛的生命周期收费策略：1）MySQL 5.7在2026年3月起正式迈入第3年扩展支持期（Year 3 Extended Support），费率直接翻倍至$0.200/vCPU-小时；2）2026年8月1日起，MySQL 8.0标准支持全面截止，AWS在未获用户主动确认的情况下，将全网未升级的存量RDS/Aurora MySQL 8.0实例强制自动纳入付费扩展支持（$0.100/vCPU-小时起，后续翻倍）。大量中小企业与SaaS开发者在收到账单时突发遭遇单实例每月$292至$1,000+美元的“僵尸附加税”（Zombie Tax）。企业之所以迟迟无法升级至现代MySQL版本，核心原因在于升级会直接破坏历史存量代码：默认认证变更为caching_sha2_password直接导致老版PHP/Python/Java驱动无法建连、sql_mode强制启用only_full_group_by导致历史报表SQL崩溃、查询缓存（Query Cache）被物理移除导致未经索引优化的老代码性能骤降5-10倍。
+money: 全球有数十万家中小企业在AWS RDS与Aurora上运行着建于2015-2022年的老旧业务数据库。一台常见的4核多可用区实例（如db.r5.large或db.m5.xlarge）在第3年扩展支持下，每月仅附加税即高达$584美元（单年额外损耗达$7,008美元）；8核实例年损耗超$14,000美元。外部专业数据库咨询机构（如Percona、Pythian或资深DBA顾问）针对主版本迁移与SQL兼容性审计的立项报价通常在$5,000-$20,000美元之间。
+
+
+evidence:
+  - id: E1
+    source: https://www.reddit.com/r/aws/comments/1u86lrr/psa_rds_mysql_80_standard_support_ends_july_31/
+    source_date: '2026-06-18'
+    accessed_at: '2026-11-06'
+    fact: AWS技术社区警告：自2026年8月1日起，所有未升级的MySQL 8.0实例全部被自动纳入Extended Support按vCPU每小时扣费；一台未维护的multi-AZ r5.large每月直接多出约$292美元账单，强调大量闲置或开发库在无人看管下静默扣费。
+  - id: E2
+    source: https://aws.amazon.com/about-aws/whats-new/2026/06/rds-mysql-es-extension/
+    source_date: '2026-06-17'
+    accessed_at: '2026-11-06'
+    fact: AWS官方通告确认MySQL 5.7在2026年延续执行第3年高费率定价（$0.200/vCPU-hr），且明确官方扩展支持为刚性自动扣费机制。
+  - id: E3
+    source: https://www.reddit.com/r/aws/comments/1gjdp5c/upgraded_yesterday_from_rds_mysql_5744_extended/
+    source_date: '2024-11-04'
+    accessed_at: '2026-11-06'
+    fact: 真实企业主反馈其运行MySQL 5.7的RDS账单在被强制计收Extended Support后，总成本从原本不足$100/月飙升5倍至$556/月，成为倒逼升级的最强财务压力点。
+
+
+mechanism: 云厂商为了转嫁上游开源社区已淘汰版本的安全维护成本并提升单客收入，设置了极高惩罚性费率（$0.1-$0.2/vCPU-hr）；但存量业务代码由历史外包团队编写、文档缺失且缺乏单元测试，升级到MySQL 8.0/8.4直接面临认证协议与SQL语法的破坏性断层，企业既不敢贸然升级导致线上宕机，又无力支付数万美元请专业DBA驻场，陷入“每月被动被云厂商扣除数百至数千美元罚款”的结构性困境。
+persistence: Structural
+next_question: 在每月被收取$300以上RDS Extended Support附加费的中小团队中，仅需通过Parameter Group兼容配置（如保持mysql_native_password与放宽sql_mode）即可实现免改代码平滑升级的数据库占比有多高？
+task_version: installed-base-friction@0.2
+generated_at: '2026-11-06T17:15:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+
+
+asset:
+  category: 云原生托管数据库与企业核心数据层
+  brand: Amazon Web Services (AWS)
+  model: Amazon RDS / Aurora for MySQL (5.7.x / 8.0.x)
+friction:
+  type: 原厂惩罚性高价支持与破坏性版本升级不兼容
+  symptom: 每月AWS账单突发多出$300-$1,000+的Extended Support扣费；尝试升级后应用报认证不支持（caching_sha2_password）或报表SQL报错
+installed_base:
+  estimate: 全球数以万计中小型企业、初创团队与独立SaaS服务商仍将核心库停留在旧版MySQL
+  basis: AWS官方财报与开发者调查显示MySQL是RDS第一大引擎，存量技术债导致大量企业在过去数年间选择被动续费而非重构。
+
+
+current_solution:
+  description: 1) 被动接受每月数百至数千美元的Extended Support账单罚款；2) 花费$5,000-$20,000聘请外部DBA团队进行全面排查与代码重构；3) 强行升级后遭遇生产事故被迫回滚。
+  oem_part_price: null
+  technician_repair_price: 5000.0
+  currency: USD
+  basis: 外部第三方数据库专业咨询机构针对版本大升级与慢查询改造的起步评估报价通常在$5,000以上。
+alternative:
+  description: 交付一套“AWS RDS MySQL扩展支持止血与免改代码平滑升级蓝图套件”（只读账号一键扫描schema、存储过程与慢日志，自动标记only_full_group_by隐患，并自动生成最佳兼容Parameter Group配置模板与回滚演练脚本）
+  estimated_solution_cost: 149.0
+  currency: USD
+  basis: 单个数据库实例的自动化检测报告与定制化兼容参数模板定价。
+gap:
+  vendor_support: discontinued
+  availability: low
+  competition: medium
+  basis: AWS官方仅提供基本的升级前检查工具（Upgrade Prechecks），只检测基础元数据错误，不分析应用层SQL模式与驱动兼容陷阱，更缺乏立即可用的“免改代码降成本”配置包。
+signals:
+  recurrence: high
+  urgency: high
+  diy_activity: high
+  basis: 每月AWS账单生成时产生极强财务痛感；Reddit r/aws与各大技术社区常年存在大量关于如何停止Extended Support扣费的讨论。
+
+
+assessment:
+  installed_base: {value: high, basis: 全球AWS上数万个运行多年且未经历重构的中小企业MySQL实例}
+  friction_rate: {value: high, basis: 凡未升级实例100%被强制计费，尝试直升的应用大概率踩坑}
+  failure_cost: {value: high, basis: 每年多付数千至上万美元空转费用，升级失败导致全站停摆}
+  support_gap: {value: high, basis: 官方标准支持已彻底终结，云厂商以高价倒逼用户自救}
+  switching_cost: {value: high, basis: 数据库为核心资产，迁出AWS或更换PostgreSQL工程浩大}
+  vendor_repair_speed: {value: low, basis: 属于云厂商既定商业变现策略，绝不可能取消高额支持费}
+
+
+repair_leverage:
+  ratio: 23.5
+  baseline_cost: 3500.0
+  solution_cost: 149.0
+  currency: USD
+  scope: 基准成本按节省6个月的最低Extended Support罚款差额（以4核实例$584/月×6计约$3,500）或外部咨询费计算；替代方案为自动化诊断套件（$149）
+  basis: 3500 / 149 = 23.49
+opportunity_durability:
+  value: high
+  basis: 随着MySQL 5.7持续维持第3年高费率，以及MySQL 8.0进入扩展支持周期，企业降本诉求在未来3-5年内持续爆发。
+
+
+economic_value:
+  level: High
+  payer: 中小型技术团队CTO、SaaS初创企业创始人、负责AWS账单的DevOps工程师
+  economic_anchor: 每月$300-$1,000+的刚性AWS账单扣费，外部DBA咨询收费$5,000+
+  capture_mechanism: 提供“RDS Extended Support一键体检与止血指南”（提供单文件Python脚本，通过只读权限提取数据库结构与慢日志特征，自动出具《平滑升级兼容性风险报告》并生成免改动配置代码），按数据库收取买断诊断费
+  repeatability: MySQL 5.7至8.0的核心破坏性特性（auth插件、group by、字符集）全国通用，规则库完全标准化
+  basis: 客户在面临下月必付的数百美元AWS账单与潜在宕机风险时，花费百余美元获取一份经过验证的平滑升级避坑方案具备极高转化确定性
+
+
+personal_actionability:
+  fit: Good
+  route: 制作“AWS RDS MySQL平滑升级与账单止血自检工具包”
+  target_customer: 正在为AWS账单中多出的Extended Support费用头疼但不敢贸然升级的中小团队负责人
+  deliverable: 一个单文件Python脚本与配置包：自动连接只读库，3分钟内检测：1）是否存在不兼容的group by语法；2）连接池与客户端驱动认证支持；3）输出一份定制的AWS RDS Parameter Group参数文件（锁定历史平价表现与兼容模式）与蓝绿部署验证手册
+  pricing_hypothesis: $99 单实例自检报告；或 $199 包含一键Terraform/CloudFormation蓝绿升级演练模板
+  customer_entry: Reddit r/aws、Hacker News、V2EX中搜索“Extended Support bill”或“MySQL 5.7 upgrade broken”的求助者
+  fit_basis: 纯只读数据分析与配置生成，不触碰生产写入，零实体库存，零云端托管开销
+  prerequisites: 深入掌握MySQL 5.7至8.0底层架构演进、AWS RDS Parameter Group参数优化与只读查询分析
+  first_test: 搭建一个包含MySQL 5.7典型旧代码（含非标准GROUP BY与旧版驱动连接）的测试环境，运行自研脚本提取风险特征，并验证根据脚本生成的参数包能否在升级至8.0后零代码修改正常跑通业务查询
+  time_budget: 90分钟
+  success_signal: 升级后老代码零报错顺利执行，且AWS控制台成功解除Extended Support标记
+  kill_signal: 发现目标用户绝大多数数据库深度依赖已彻底被MySQL 8.0移除的专有引擎功能（导致纯参数兼容无法解决，必须重构大量核心业务逻辑）
+  key_unknown: 中小型团队是否普遍具备执行一次基础RDS只读蓝绿测试的技术操作意愿

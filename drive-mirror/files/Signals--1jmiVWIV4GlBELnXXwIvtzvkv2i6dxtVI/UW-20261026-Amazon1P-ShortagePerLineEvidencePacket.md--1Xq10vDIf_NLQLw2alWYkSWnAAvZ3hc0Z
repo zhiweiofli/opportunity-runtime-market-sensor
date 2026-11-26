@@ -1,0 +1,96 @@
+signal_id: UW-20261026-Amazon1P-ShortagePerLineEvidencePacket
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 2025至2026年间，Amazon Vendor Central（1P供应商平台）收紧了短装扣款（Shortage Claims / PQV）申诉规则：1）取消批量申诉（Bulk disputes are discontinued），强制要求在Dispute Management中逐条提交（Every claim must be filed individually）；2）争议有效期窗口限制为约2年（超过2年自动拒付并成为永久坏账），且发票到期后前35天处于自动匹配锁定期（不可申诉）；3）在人工审核前引入AI初筛（AI screens your submission before a human sees it），不完整或未按规范命名标记（PO号、扣款ID、文档类型）的证据包会被机器直接拒回。
+money: CPG与1P供应商通常因短装索赔和合规罚款损失总销售额的1%–3%（如年出货2,000万美元的供应商按2%短装率计算，每年面临约40万美元短付扣款）。取消批量申诉后，针对数百条中低金额短装明细逐单捞取PO、ASN、装箱单、签收POD并重命名打包的人工成本过高，导致大量供应商直接放弃申诉并吞下损失（stop filing and eat the loss）。
+evidence:
+  - id: E1
+    source: https://tahitinorth.com/insights/amazon-shortage-claim-dispute-guide
+    source_date: '2026-07-11'
+    accessed_at: '2026-10-26T20:24:00+08:00'
+    fact: 披露2025-2026年Amazon短装争议三项规则变更：批量申诉取消（必须逐单提交，导致人工成本高昂，许多团队停止申诉并自行承担损失）、2年硬性窗口（超期自动拒付）、提交后由AI先行初筛（未按PO/扣款ID/文档类型规范命名的不完整证据包被直接自动驳回）以及发票到期后约35天的自动匹配冻结期。局限：仅读取到公开搜索长摘要与核心章节文本，文中提及部分市场宣传胜率数据不可信，未提供单笔人工工时精确均值。
+  - id: E2
+    source: https://www.kuudo.com/guides/amazon-shortage-claims/
+    source_date: '2026-10-25'
+    accessed_at: '2026-10-26T20:24:00+08:00'
+    fact: 确认截至2026年10月24日核实的Amazon 1P短装核对流程：必须逐行核对发票（PO、开票数量与包装层级、ASN、承运商装运记录、Amazon收货视图及后续SCR冲销记录），并在确认未自动冲销后准备带来源标签的证据包（source-labeled evidence packet）交由授权人员在Vendor Central提交；同时指出可通过Selling Partner API / MCP读取Finance Remittance与PO/Shipment数据。局限：来自自动化工具厂商操作指南摘要，未披露具体API速率限制细节。
+  - id: E3
+    source: https://www.tryglimpse.com/post/stop-cpg-margin-leakage-improve-ebitda
+    source_date: '2026-07-08'
+    accessed_at: '2026-10-26T20:24:00+08:00'
+    fact: 引用Supply Chain Digest与Retail Value Chain Federation数据指出，CPG供应商常因短装索赔（shortage claims）与合规罚单损失总销售额的1%至3%，且多数扣款无效、因缺乏核对与申诉人手而被直接核销（written off instead of disputed）。局限：来自全托管服务商Glimpse博客摘要，其自身客户回收率（约2.5%–3%营收提升）属于商业宣传口径，待独立样本核验。
+mechanism: 事实：Amazon取消批量争议并将初审改为AI格式与完整性拦截，把原本一次性的表格批量上传拆碎为逐单跨系统（ERP、WMS、承运商门户、Vendor Central）检索、多模态单据对齐（PO+ASN+Packing Slip+Signed BOL/POD）和严格文件重命名工作；同时规定跳过逐单申诉的供应商无资格进入后续汇总和解谈判（aggregate settlement）。推断：人工处理单笔小额短装（如50–200美元行项目）的搜证与命名排版耗时超过期望回收额，迫使财务团队放弃长尾行项；而视觉/文档解析模型结合SP-API可将“跨源捞单+签收章核验+按AI初筛规则命名打包+35天解冻监控”的边际准备成本压缩至美分级，使逐单合规建包首次具备经济可行性。
+persistence: Structural
+next_question: 在年销售额500万至3,000万美元的Amazon 1P供应商中，单笔金额在30至300美元之间、因“取消批量申诉”而被直接放弃（未满2年窗口）的短装扣款行项占总短装金额的比例是多少？
+task_version: uneconomic-work@0.1
+generated_at: '2026-10-26T20:26:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work:
+  task: Amazon 1P供应商（Vendor Central）针对中低面额短装扣款行项（Shortage Claims / PQV）的35天窗口监控、跨系统四单匹配（PO/ASN/Packing Slip/Signed POD）及符合Amazon AI初筛规范的逐单证据包组装
+  structure: 微价值×海量 / 对抗交互 / 昂贵信息获取
+  abandoned_value: 供应商总销售额1%–3%的短装扣款中，因失去批量申诉入口而放弃逐单申诉的中小面额账款及后续汇总和解资格（E1, E3）
+  human_failure_reason: Amazon取消批量申诉要求逐笔提交，且前置AI初筛直接拒回证据不全或命名不规范的申请；人工为数百条分散扣款逐一去承运商网站下载签收POD、核对包装层级并重命名附件的工时成本高于中小面额扣款的回收期望（E1, E2）
+ai_unlock:
+  changed_cost: 将跨系统单据对齐（Remittance SC行与SCR冲销核对）、承运商签收单（Signed BOL/POD）视觉核验及按Amazon AI审核规范（PO号+扣款ID+文档类型）自动重命名打包的边际人力检索与排版成本大幅降低
+  capability_basis: Selling Partner API (Finance Remittance / Vendor Orders) 结构化读取能力 + 多模态文档解析/VLM（识别扫描版POD签字与件数异常）+ 确定性PDF拆分重命名脚本（E1, E2）
+  limitations: 承运商外部网站无统一API时需人工导出或邮件抓取POD；若物理交付环节本身缺失签收POD（Unsigned or missing POD），AI无法凭空捏造证据获胜；最终在Vendor Central提交及60天Case升级仍需客户授权账号操作或人工确认（E1, E2）
+unit_economics:
+  unit: 1条已过35天匹配锁定期的Amazon 1P短装扣款明细行（Shortage Claim line item）的核对与合规证据包生成
+  currency: USD
+  region_and_date: 美国市场 / 2026年10月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖SP-API/数据拉取、多模态OCR/VLM解析承运商POD与装箱单、匹配逻辑计算、PDF重命名打包、异常重试及人工抽检复核分摊；人工成本涵盖财务/运营专员跨系统检索、下载、核对及在Vendor Central逐单填报工时
+  excluded_or_unknown_costs: 承运商门户验证码/反爬维护成本、缺少POD时的线下向物流商索证沟通成本、客户获客分摊（CAC）及60天未决工单的二次人工申诉接管成本尚未量化
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1与E2证实了“取消批量申诉+AI初筛拦截”导致人工逐单建包不划算而弃权，且基于SP-API与多模态解析自动组装标准化证据包的降本机制有明确技术与业务来源支撑，因此判定为Plausible；但公开来源缺乏同口径的每单精确人工工时成本、中低面额行项均值及独立验证的申诉成功率（E1明确指出市面上流传的胜率对比多源于服务商营销而非实测数据），故严格将具体数值与比率置为null，不作心算或虚构估算
+value_capture:
+  beneficiary: Amazon 1P中小型品牌供应商（年1P营收200万–3,000万美元，缺乏专职扣款申诉团队，正因批量申诉取消而放弃中小额短装索赔）（E1, E3）
+  payer: 1P供应商的财务负责人（VP of Finance / Controller）或电商运营总监，其预算来自直接挽回的应收账款（AR recovery）或外包代运营/财务审计预算（E1, E3）
+  payment_evidence: 市场已有Glimpse、Wake Commerce、Reason Automation等机构通过全托管抽成（No upfront cost / pay on recovery）或软件订阅模式向1P供应商收费（E3及同行对比证据），证明客户为短装回收付费的意愿真实存在；但针对“纯自动化长尾证据包生成工具”的独立付费标准仍属待验证假设
+  capture_node: 替客户完成“Remittance短装行筛查（剔除35天内及已SCR冲销项）→ 匹配PO/ASN/Invoice/Signed POD → 生成可直接通过Amazon AI初筛的标准化命名附件包与申诉文案”
+  pricing_hypothesis: 假设采用“基础月费（如$199/月覆盖数据同步与监控）+ 实际冲销回款额（SCR verified in remittance）的10%–15%绩效抽成”，或按生成的合格证据包按量计费（如$2/包）；标记为待验证商业假设
+  customer_net_benefit: 客户无需雇佣全职专员处理枯燥的逐单捞单与重命名，不仅直接挽回原本被核销的1%–3%长尾货款，且保留了向Amazon发起年度汇总和解（aggregate settlement）的合规前置资格；未知项为客户内部导出承运商POD的配合摩擦成本
+scale:
+  aggregation_unit: 按单个1P供应商账号（Vendor Code）聚合其历史24个月内未超期的全部短装扣款行，并跨多个1P品牌复用同一套SP-API对账与PDF命名打包管线
+  repeatability: 高度可重复；所有Amazon 1P供应商面对相同的Vendor Central Remittance报表结构、35天锁定规则、2年有效期及相同的四单证据命名规范（E1, E2）
+  reachable_volume: null
+  basis: Amazon拥有数以万计的1P供应商，单个年销2,000万美元的供应商每年即可产生数百至上千条短装扣款记录（E1）；但本轮无公开统计数据可精确量化中小1P供应商的总体有效长尾单量，故reachable_volume置为null
+action_loop:
+  observe: 读取供应商导出的Vendor Central Remittance报表、Backup Report、PO/ASN记录及物流承运商签收单（BOL/POD）文件夹（E1, E2）
+  judge: 1）过滤未满35天自动匹配期或已有SCR冲销的记录；2）按2年到期日倒序与金额排序；3）校验PO数量、包装层级（case/inner pack）、ASN与Signed POD签收数量是否一致，并检查POD是否有有效签章（E1, E2）
+  act: 自动裁切、高亮并按Amazon AI初筛要求的规则（PO_Number + Deduction_ID + Doc_Type.pdf）重命名生成单笔申诉证据包与精简说明文案，推送至待提交队列供客户授权人员一键上传至Vendor Central Dispute Management（仅描述机制，需人工接管最终提交与二次升级）
+  verify: 跟踪30天/60天Case状态，并在后续Remittance账单中核对是否出现对应的SCR（Shortage Claim Reversal）回款行项（E1, E2）
+required_access:
+  resources: Amazon Vendor Central Remittance/Backup报表、PO与ASN数据（可通过客户导出的CSV/Excel或授权SP-API读取）、仓库装箱单及承运商签收POD文件
+  availability: Unknown
+  authorizer: Amazon 1P供应商的财务/运营负责人（针对离线文件导出或SP-API只读授权）
+  authorization_status: 未取得（Sensor阶段仅做公开研究，不接触任何真实客户账号）
+  basis: 技术上支持客户离线导出Remittance CSV并拖入POD文件夹（无需高危写权限），或通过Selling Partner API读取；但具体目标客户是否愿意向外部小团队开放财务汇款报表及物流底单尚未经实测验证，故availability严格记为Unknown
+defensibility:
+  basis: 早期壁垒在于对Amazon不同物流承运商非标POD单据的版面解析准确率、包装层级（package hierarchy）错配诊断经验，以及沉淀各品类被Amazon AI初筛驳回的负样本规则库；纯代码层面的壁垒有限，属于速度与垂直工作流嵌入优势
+  alternatives_and_counterevidence: 现成替代包括：1）全托管代追机构（如Glimpse、Wake Commerce，通常针对年销数百万至数千万美元客户，抽取较高比例分成）；2）数据平台（如Reason Automation、Kuudo）。最强反证：若中小1P供应商短装的根因绝大多数是“承运商根本未提供签收POD”（E1指出无Signed POD几乎无法获胜），则单靠AI组装现有文档无法提高回收率
+personal_actionability:
+  fit: Good
+  target_customer: 年1P销售额在200万–2,000万美元之间、使用第三方物流（3PL）发货、被Amazon短装扣款困扰但雇不起全职对账团队的欧美消费品/家居/电子配件品牌商
+  deliverable: 一份《历史24个月未申诉短装扣款可回收诊断表》+ 首批20笔高确定性短装扣款的标准化命名申诉证据包（ZIP含重命名PDF与申诉说明文本）
+  customer_entry: Reddit (r/AmazonVendorCentral, r/FulfillmentByAmazon)、LinkedIn上的1P品牌财务总监/电商运营负责人、Amazon 1P供应商社群与独立顾问转介绍
+  prerequisites: 熟悉Amazon Vendor Central短装代码（PQV/SC/SCR）对账逻辑、具备Python PDF处理与多模态OCR/VLM调用能力；未知项为目标客户手头是否保存了完整的历史承运商POD底单
+  basis: 个人或1–3人小团队完全可通过“离线报表+单据文件夹上传”的轻量化数据情报/自动化交付包切入，无需垫资、无需线下重资产、无需一开始申请复杂的平台写权限，直接交付可换回现金的证据包
+seven_day_experiment:
+  critical_unknown: 中小1P供应商放弃申诉的短装行项中，究竟有多少比例是因为“已有POD但嫌逐单核对重命名太耗时”，多少比例是因为“根本拿不到签收POD”？
+  test: 在公开论坛/技术文档中收集Amazon Vendor Central标准Remittance/Backup Report字段模板与典型承运商BOL/POD样例，用Python编写一个本地批处理原型脚本（自动过滤35天锁定期与SCR冲销、对齐PO与POD件数、按PO+扣款ID+文档类型自动生成合规PDF包），并在公开社区发布展示贴或寻找1–2名公开抱怨Amazon短装扣款的1P卖家提供脱敏历史账单做免费诊断测试（本步骤仅作为给用户的验证建议，Sensor不执行外部联络）
+  artifact: 可运行的《Amazon 1P Shortage Evidence Packet Builder》本地脚本及1份基于真实字段结构的样例证据包输出
+  time_and_cost_budget: 2天开发调试（约8–12小时），API推理与测试成本低于$10（待用户确认）
+  success_signal: 至少1家真实1P供应商确认其拥有POD底单但因取消批量申诉而积压未报，且脚本生成的标准化证据包在结构上100%符合Vendor Central上传要求
+  kill_signal: 访谈/验证发现目标中小1P供应商90%以上的未决短装均无法从承运商处获取签收POD，或已被低门槛全自动免费插件充分解决

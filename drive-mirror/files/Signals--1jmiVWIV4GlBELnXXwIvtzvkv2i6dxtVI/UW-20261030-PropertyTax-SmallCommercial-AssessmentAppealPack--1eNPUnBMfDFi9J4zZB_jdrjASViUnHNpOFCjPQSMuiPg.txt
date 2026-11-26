@@ -1,0 +1,56 @@
+﻿signal_id: UW-20261030-PropertyTax-SmallCommercial-AssessmentAppealPacket
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年10月核实（LowPropTax 2026-10行业评测、TaxDrop 2026-09指南及ProdigyRE 2026新泽西重估报告），全美房产评估值与财产税账单在2025–2026年周期内出现全国平均6.5%的大幅跳涨（创十年最大升幅）；然而在各县税务评估局（County Property Appraiser / Assessor）基于计算机辅助批量评估模型（CAMA）进行一刀切加价的背景下，传统房产税抗辩律师与抽成顾问（通常抽取首年节省额的25%–40%）普遍设立了严格的受理门槛（例如仅受理估值>$750,000的豪宅或>$1,000,000的商业物业，或单案税收节省>$1,500），将全美数千万套估值在$150,000–$500,000的平价独立屋、连排公寓及小商铺拒之门外。
+money: 涉及全美平价民居业主与临街小商户每年被多征收的房产税。行业统计显示，约30%–60%的房产税评估存在虚高（平均多估10%–20%，对应单户每年多缴房产税$400–$1,500）。由于传统法律顾问拒接低估值案件，而小业主在收到评估通知（如佛州TRIM通知、德州Notice of Appraised Value）后仅有25–45天法定申诉窗口，面对复杂的县级可比成交（Comps）调取、面积与成色折算、以及填写价值调整委员会（VAB/ARB）正式申诉书的繁重工作，超过90%的小业主认定“太麻烦不划算（complicated or not worth the hassle）”而直接缴纳，每年数千元税收在复利效应下被永久放弃。
+evidence:
+  - id: E1
+    source: https://lowproptax.com/blog/best-property-tax-appeal-services-top-companies-reviewed
+    source_date: '2026-10-01'
+    accessed_at: '2026-10-30T01:30:00+08:00'
+    fact: 揭示2026年全美房产税申诉现状：全美房产税账单在2025年跳涨6.5%，绝大多数普通业主直接交钱，普遍误以为“申诉太复杂或不值得折腾（complicated or not worth the hassle）”；梳理主流商业机构（Ownwell、O'Connor、CutMyTaxes等），指出Ownwell仅覆盖26州且抽成30%，O'Connor专注百万元以上大案，仅极少数平台（如AppealDesk）尝试提供$49固定费自助申诉选项。局限：为商业评测导购文章，侧重头部SaaS功能对比。
+  - id: E2
+    source: https://www.taxdrop.com/blog/how-much-does-a-property-tax-appeal-cost-in-florida
+    source_date: '2026-09-21'
+    accessed_at: '2026-10-30T01:31:00+08:00'
+    fact: 披露佛罗里达州2026年房产税申诉刚性门槛：价值调整委员会（VAB）法定申诉规费仅$15（法案194.013条），但该$15不包含任何可比交易（Comps）、照片或收益证明材料；业主从收到TRIM通知起仅有约25天申诉期限，一旦错过当年彻底丧失申诉资格；商业顾问抽成费用高，而自办最大成本在于腿脚与取证工时（who does the legwork）。局限：为单一州实操指南。
+  - id: E3
+    source: https://prodigyre.com/blog/nj-revaluation-letter-what-to-do-2026-guide
+    source_date: null
+    accessed_at: '2026-10-30T01:32:00+08:00'
+    fact: 2026年新泽西房产重新评估指南明确指出申诉经济性分界线：房产评估值高出真实市场价0–5%时“不值得申诉（Not worth it）”；高出10%–15%以上才具备明确胜算空间；关键在于调取房产卡（Property Record Card）并锁定同一评估基准日内的同类有效交易（Non-usable sales deed exclusion）。局限：为地方经纪团队实务分析。
+mechanism: 事实：县评估局用批量算法统一抬高地价，但法条规定VAB/ARB申诉仅需$15–$30微额规费并在25–45天内提交3–5个同区域同时间段有效可比销售（Comps）（E1, E2）；传统顾问抽成30%–40%因无法在小单上赚回人工分析师工时而设下高门槛，将小业主排除在供给之外（E1）。推断：普通小业主不懂如何剔除亲属买卖或法拍等无效成交（Non-arms length sales），也不会对建筑面积（GLA）、建造年代及车库露台进行标准的特征平价调整，花10–15小时去各县公开房产数据库抓取数据往往无功而返，最终在25天时钟归零前放弃；利用多模态LLM解析房产税通知单PDF，自动提取地块编号（Parcel ID/PIN）、当前评估值及建筑明细，调用县级开放评估数据（Open County Assessor Data/MLS），基于特征对齐算法自动筛选出5套最近成交且特征最相近的可比成交样本，并自动套用州法合规折算公式生成标准的VAB/ARB一页纸抗辩证据表与正式请愿书，将数十小时专业评估工时压缩至几分钟生成，让单户$400–$1,200的税金减免首次值得执行。
+persistence: Structural
+next_question: 在房产估值低于$500,000的平价独立屋与小临街商铺中，使用自动化生成的标准Comps证据表向县评估员提交非正式复核（Informal Review）后，评估员在不上听证会的前提下主动核减估值的成功率是多少？
+task_version: uneconomic-work@0.1
+generated_at: '2026-10-30T01:30:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work: {task: 估值在$150,000–$500,000之间的平价住宅业主与小型商业店铺主，在收到年度房产税评估通知后25–45天内，核查房产卡错误、调取县级有效可比成交（Comps）并组装正式的价值调整委员会（VAB/ARB）申诉抗辩包, structure: 微价值×海量 / 昂贵信息获取 / 对抗交互 / 规则遵从, abandoned_value: 全美小业主因批量评估模型（CAMA）虚高10%–20%而每年多缴、但因传统律师拒接且自办耗时而在25天窗口内放弃的单户$400–$1,500房产税（E1, E2）, human_failure_reason: 专业税务代理人只接大案（年节省>$1,500或房产>$750k），小业主自身面对非标地籍数据、有效交易筛选与繁复表格无从下手，认定“太麻烦不划算”而全额交税（E1, E2）}
+ai_unlock: {changed_cost: 将原本需专业地价评估师耗费数小时人工拉取房产卡、剔除异常交易、折算建筑面积平米单价并填写申诉书的边际成本从数百美元降至美分级, capability_basis: 评估通知单多模态抽取 + 县评估局/地籍开放数据库API自动检索 + 房产可比销售特征对齐（GLA/房龄/地块）与VAB法定表格自动生成引擎（E1, E2）, limitations: 1）若所在县房产市场近期交易极少缺乏足够同款Comps，模型无法无中生有；2）部分州县（如德州部分区域）要求线上仲裁或必须出席现场听证会，AI仅能交付文书，若需线下答辩需业主自行前往或授权代理人}
+unit_economics:
+  unit: 1套平价住宅或小型临街商铺（估值<$500k）的房产卡错账筛查、5套有效可比销售对齐、单价平价折算及VAB法定申诉请愿书生成
+  currency: USD
+  region_and_date: 美国市场（佛州、德州、新泽西等房产税高且时效严格州） / 2026年10月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖评估通知单OCR解析、地籍公开API或爬虫检索、Comps特征加权平价算法运行、各县官方PDF表单填充及异常人工复核分摊；人工基准为传统房产税代理最低收费（通常设$500保底或按节省额抽成30%–40%）或业主10小时工时
+  excluded_or_unknown_costs: 县价值调整委员会法定规费（如佛州$15/单）、线上电子提交通道手续费、各县评估局对数据接口反爬限制带来的维护成本、获客成本（CAC）尚未量化
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1与E2证实了6.5%税率跳涨、$15法定规费、25天时钟倒计时以及小房产被商业大机构排除的证据链，通过自动化算法完成Comps特征对齐具备扎实的可行性支撑，判定为Plausible；因缺乏全美低估值房产非正式复核批复核减率的统计数据，数值严格置为null
+value_capture: {beneficiary: 全美数千万套估值在$150,000–$500,000的平价住宅、出租物业、连排公寓及独立临街小商铺业主（E1, E2）, payer: 房产业主、小房东或小型连锁物业管理人, payment_evidence: 市场已有AppealDesk按单次自办申诉包收取$49（E1），传统机构按抽成收费，针对极度轻量的一键式证据包收费属待验证商业假设, capture_node: 提供“输入房产地址或上传评估通知单PDF → 1分钟自动匹配本街区最强3–5套低价成交Comps并计算出过高估值差额 → 导出县官方认可的整套申诉材料与填报指导”, pricing_hypothesis: 假设采用“单次买断生成$29–$39/套”或“基础核验免费 + 成功减税后自愿打赏/收取15%”；标记为待验证商业假设, customer_net_benefit: 小业主无需支付数千元律师费，仅花数十美元和数分钟时间即可在25天期限内完成专业级抗辩，每年持续节省数百美元真金白银}
+scale: {aggregation_unit: 每年各州各县集中下发年度评估通知（Notice of Appraised Value）后的25–45天法定申诉窗口（如佛州8–9月、德州4–5月）, repeatability: 各县CAMA评估逻辑与VAB申诉流程高度标准化，同县规则一旦建立可面向该县所有住宅批量复用, reachable_volume: null, basis: 全美平价住宅超8,000万套，但申诉窗口高度受限于当地县税务日程}
+action_loop: {observe: 县评估局寄出的年度房产税评估通知单（Notice of Appraised Value / TRIM Notice）或县网站房产卡, judge: 提取评估建筑面积、房龄、土地价值及评估总价，比对周边半英里内同类型房产在评估基准日前的实际成交均价，筛选出评估值虚高>10%的案例, act: 设想调用地籍数据匹配3–5个有效成交并生成VAB申诉请愿书与Comps网格表，仅描述执行机制, verify: 检查县评估局发回的非正式调整确认书（Informal Agreement）或VAB听证会减税裁决书}
+required_access: {resources: 房产税评估通知单PDF、县级Property Appraiser公开地籍与销售数据库、县VAB官方申诉表格模板, availability: Available, authorizer: 房产业主本人, authorization_status: 未取得, basis: 县地籍与成交记录为公开公共记录（Public Records），申诉由业主本人签署或提交，无特殊审批壁垒}
+defensibility: {basis: 深入掌握全美数千个县对于“有效交易（Arms-length transaction）”的判定规则库、CAMA模型反向对齐算法及各县表单填充规范, alternatives_and_counterevidence: 现成替代为业主自行放弃全额缴纳，或聘请Ownwell等商业平台（但覆盖面有限且抽成30%）；最强反证为如果当地县评估员极其强硬、非正式复核直接一律驳回且必须参加繁琐的现场听证会，小业主可能因不愿请假出庭而放弃最后一步}
+personal_actionability: {fit: Good, target_customer: 收到评估暴涨通知、感觉估值不公但请不起律师的普通独立屋房主与小房东, deliverable: 1份标准VAB房产税申诉请愿书 + 1份包含3–5套本地真实可比成交（带调整计算明细）的一页纸证据表PDF, customer_entry: 本地社区论坛（Nextdoor, Reddit 本地板块）、房产投资者俱乐部（BiggerPockets）及小业主邮件群, prerequisites: 熟练掌握县评估局CAMA运作机制、有效成交筛选代码与各县VAB申诉时效日历, basis: 纯公开数据计算与表单组装，无重资产，零实体交付}
+seven_day_experiment: {critical_unknown: 普通平价住宅业主在看到自己房产被高估数百美元的计算证据后，是否愿意花$29购买一份现成的申诉包去提交？, test: 在正处于申诉窗口期的某特定县（如佛州或德州某代表性县）社区群定向寻找5位抱怨房产税上涨的小业主，使用公开销售数据为其生成包含3套Comps的申诉表格，测试其提交意愿与支付转化率, artifact: 1份《平价住宅房产税自动化Comps抗辩数据包实例》, time_and_cost_budget: 7天 / 预算$0–$30（公开政府数据查询）, success_signal: 至少有3位业主确认Comps有效，并直接拿着该表格向县评估局提交了非正式复核申请, kill_signal: 业主普遍认为“省几百块钱即便有表格也懒得去县网站上传或寄信，宁愿多交税”}

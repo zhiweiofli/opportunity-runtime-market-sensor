@@ -1,0 +1,120 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: Friction-2026-11-18-LemonSqueezy-ForcedMigration
+* Source Signal References:
+   * Signal ID: Friction-2026-11-18-LemonSqueezy-ForcedMigration
+   * Generated At: 2026-11-18T09:45:00+08:00
+   * Task Version: friction-sensor@0.2.1
+   * Source File URL: Friction-2026-11-18-LemonSqueezy-ForcedMigration.md
+   * Source File Modified At: 2026-11-18T09:40:17+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+
+
+________________
+
+
+1. Unknown Ledger
+Known
+1. Lemon Squeezy 强制关停与 4.5 个月倒计时：2026 年 11 月 16 日，Stripe 旗下 Merchant of Record (MoR) 平台 Lemon Squeezy 宣布立即关闭新商店注册，并将于 2027 年 3 月 31 日 全面停止所有交易处理（包含现有订阅续费）（Saying goodbye to Lemon Squeezy、r/SaaS 2026-11-16 讨论）。官方推荐商家迁移至 Stripe Managed Payments（迁移工具预计 2026-12-02 上线），并明确提醒完整迁移可耗时达 8 周（Lemon Squeezy Migration Docs）。
+2. Stripe Managed Payments 存在四大结构性功能断点：
+   * 履约层全面缺失：Stripe Managed Payments 仅覆盖支付、全球税务与订阅计费，不提供 License Keys 授权码管理、数字文件交付、下载链接、Storefront 店面与 Affiliates 联盟分销（AffiliateToggle 分析 2026-11-16）。
+   * PayPal 订阅无法迁移：所有通过 PayPal 付款的订阅客户无法自动迁移至 Stripe Managed Payments，必须逐一通知客户重新下单/重新授权，面临极高流失率。
+   * 37 国地域准入限制：Stripe Managed Payments 仅接受来自 37 个国家的企业；来自印度、阿联酋、印尼、菲律宾等非列表国家的现有 LS 商家完全无法迁入，被迫寻找替代 MoR（TransactBridge 迁移指南 2026-11-17）。
+   * 存量规模与强烈付费意愿：Storeleads 数据显示约 1,206 个活跃商店在运营，X 上有年流水 $300k 量级的商家公开求助（"migration is gonna be a nightmare"）。
+3. 精准技术切入点（License & Fulfillment Bridge + PayPal 挽回流）：商家最痛的不是导出一张 CSV，而是代码中硬编码了 api.lemonsqueezy.com/v1/licenses/* 与 Webhook 契约、以及没有替代品承接 License Keys + 数字文件交付 + PayPal 客户一键重新订阅。提供一个兼容 Lemon Squeezy API 契约的 Drop-in 授权码与数字交付桥接层，配合自动化的 PayPal 客户分段挽回邮件流，可将 4–8 周的痛苦重构压缩至几天。
+Unknown
+在约 1,200+ 活跃 Lemon Squeezy 商店中，重度依赖 License Key 校验或数字文件交付、且选择迁往 Stripe Managed Payments（而非直接整站迁往 Polar/Paddle）的商家占比。
+Decision-Critical Unknown
+对于年流水 $50k–$300k+、急需在 2027-03-31 前完成迁移的 Lemon Squeezy 商家，一款"一键导入 LS 存量 License Keys / 订单并兼容原 LS License API 端点 + 自动化 PayPal 订阅挽回链接"的轻量桥接工具，其 $99–$299 一次性迁移/首年授权（或 $29–$79/月长期履约托管）的付费转化率。
+
+
+________________
+
+
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	真实资金流与紧迫性极强：存量 ~1,206 家活跃商店（含 $300k+ 流水商家）面临 2027-03-31 硬停服断流风险；官方称完整迁移需 4–8 周工程工时。为保住 MRR 不断流并节省数周开发时间，商家对 $99–$299 迁移桥接或 $29–$79/月履约托管付费意愿极高。
+	Mechanism
+	通过 (PASS)
+	价值来自"API 契约兼容与履约解耦"：Stripe 官方 12-02 上线的迁移工具仅搬运卡订阅，不解决 License Key 校验接口失效、数字文件交付与 PayPal 流失。通过导出 LS Keys + 提供兼容 LS /v1/licenses/activate & /validate 响应格式的 Drop-in 代理端点 + 对接 Stripe Managed Payments / Polar Webhook，实现客户端代码零重写或极小改动平滑过渡。
+	Persistence
+	通过 (PASS)
+	中短期爆发 + 长期结构性留存：迁移窗口（2026-11 至 2027-03-31）为 4.5 个月刚性爆发期；但 Stripe Managed Payments 永久剥离了 License Key 与数字交付功能，迁入商家在 2027-03-31 之后仍需长期外部履约层，具备持续留存基础。
+	Capture
+	通过 (PASS)
+	极佳的轻资产小团队契合度：纯 Serverless API（Cloudflare Workers + D1/KV 托管 License Key 校验与 R2 文件签名下载）+ 迁移导入脚本，零资金经手、零 MoR 税务合规负担、1–2 人独立开发者即可在 1 周内上线捕获首波流量。
+	
+
+________________
+
+
+3. Evidence & Counter Evidence
+Supporting Evidence
+1. Lemon Squeezy 官方停服公告（2026-11-16）：Saying goodbye to Lemon Squeezy —— 正式宣布关闭新注册，并于 2027-03-31 停止所有交易与订阅续费。
+2. Lemon Squeezy 官方迁移文档：Lemon Squeezy Migration Docs —— 确认 PayPal 无法迁移、License Keys / 文件交付 / Affiliates 不在 Stripe Managed Payments 范围内，迁移可耗时 8 周。
+3. TransactBridge 地域限制与迁移指南（2026-11-17）：Lemon Squeezy Shutting Down? Migrate Before March 31, 2027 —— 揭露 Stripe Managed Payments 仅支持 37 国，印度/阿联酋/东南亚商家被拒之门外。
+4. AffiliateToggle 替代方案分析（2026-11-16）：Lemon Squeezy Shutting Down: Best Alternatives —— 确认 Stripe Managed Payments 缺少联盟分销与数字履约。
+5. Reddit r/SaaS 开发者一线反馈（2026-11-16）：Lemon Squeezy is shutting down on March 31, 2027 —— 开发者担忧导出 Keys 断链与老客户失去访问权限。
+Counter Evidence
+1. Stripe 官方 12-02 迁移工具覆盖基础卡订阅：Stripe 将于 2026-12-02 发布官方迁移工具，可自动迁移 37 国合规商家的信用卡订阅（但明确不覆盖 License Keys、文件交付、Affiliates 与 PayPal）。
+2. 竞品 MoR 免费抢客：Polar.sh、Paddle 等替代 MoR 已发布免费迁移指南吸引 LS 商家直接整站迁出（但若商家希望留在 Stripe 生态使用 Managed Payments，仍需独立履约层）。
+
+
+________________
+
+
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过官方公告、迁移文档、第三方解析与社区一线反馈交叉验证，满足 HYPOTHESIS_READY。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 留在 Stripe Managed Payments 生态的开发者最急需的不是"另一个支付网关"，而是能无缝接管 LS 存量 License Keys、数字文件下载与 PayPal 客户挽回的轻量级履约桥接层。
+* What became less likely: Stripe Managed Payments 会在 2027-03-31 前紧急补齐 License Key 管理、Storefront 与 PayPal 订阅自动迁移。
+* What did we rule out: 排除了在纯信用卡订阅搬运上与 Stripe 12-02 官方免费迁移工具正面竞争，并将切入点精确锁定在"LS-API 兼容履约桥接 + PayPal 挽回 + 非 37 国迁移辅助"。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-18T17:56:28+08:00
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis
+Title: Lemon Squeezy 强制退场履约桥接与 PayPal 订阅挽回套件 (LS-Bridge / KeyKeep)
+Source Signal References
+* Signal ID: Friction-2026-11-18-LemonSqueezy-ForcedMigration
+* Generated At: 2026-11-18T09:45:00+08:00
+* Task Version: friction-sensor@0.2.1
+* Source File URL: Friction-2026-11-18-LemonSqueezy-ForcedMigration.md
+* Source File Modified At: 2026-11-18T09:40:17+08:00
+Money
+约 1,206 家活跃 Lemon Squeezy 商店（含流水达 $300k+ 的独立 SaaS 与桌面/插件开发者）必须在 2027-03-31 停服前完成迁移。Stripe Managed Payments 不提供 License Keys、文件交付、Affiliates 与 PayPal 迁移。商家愿支付 $99–$299 一次性迁移桥接包或 $29–$79/月履约托管费，以节省 4–8 周研发工时并避免订阅断流。
+Mechanism
+1. Drop-in License Key & 文件交付桥接层：一键导入 LS 导出的历史 License Keys、激活设备数与文件资产，对外暴露与 api.lemonsqueezy.com/v1/licenses/* 响应结构兼容的验证端点（客户端仅需替换 Base URL 即可继续校验），同时无缝对接 Stripe Managed Payments / Polar Webhook 自动签发新 Key。
+2. PayPal 订阅自动挽回漏斗：识别无法迁移的 PayPal 订阅户，自动生成带专属迁移折扣/保留老价格（Grandfathered Price）的 Stripe Checkout 一键重绑链接并发送分段提醒邮件，最大化降低 2027-03-31 断流损失。
+Capture
+1–2 人小团队基于 Cloudflare Workers + D1 + R2 极速构建，零支付资金经手、零 MoR 税务包袱、高毛利订阅/买断交付。
+Durability
+2026-11 至 2027-03-31 为高紧迫度集中迁移窗口；由于 Stripe Managed Payments 永久不包含 License Key 与数字文件履约，已接入商家的履约托管留存可持续至迁移窗口之后。
+Evidence
+1. Lemon Squeezy 官方停服公告（2026-11-16）
+2. Lemon Squeezy 官方迁移文档
+3. TransactBridge 37 国限制分析（2026-11-17）
+4. Reddit r/SaaS 开发者讨论（2026-11-16）
+Counter Evidence
+1. Stripe 12-02 官方工具将免费解决符合条件的信用卡订阅迁移。
+2. Polar.sh 等竞品 MoR 正在免费抢夺 LS 商家整站迁入。
+Critical Unknown
+依赖 Lemon Squeezy License Key 或数字文件交付、且最终决定留在 Stripe Managed Payments（而非整站迁往 Polar/Paddle）的商店占比。
+Falsification
+若 Stripe 在 12-02 迁移工具发布时宣布免费附带开源/托管的 License Key 兼容桥接器，或 Polar.sh 上线一键兼容 LS License API 代理端点，独立第三方桥接工具的差异化空间将被快速吞噬。
+Next Test
+在 48 小时内上线开源/轻量"LS License Export-to-Cloudflare-Worker 兼容验证模板 + 托管版预约页"，在 r/SaaS、r/microsaas 与 X 讨论串下精准触达正在抱怨迁移的 LS 开发者，测试付费托管与 PayPal 挽回插件的预购转化。
+
+
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-18T17:56:28+08:00
+* Role Spec Status: reviewed

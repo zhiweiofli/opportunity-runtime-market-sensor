@@ -1,0 +1,32 @@
+﻿Opportunity Runtime Researcher Execution Receipt
+* Task Version: researcher@0.2.2
+* Role Spec Status: reviewed
+* Timezone: Asia/Taipei (UTC+08:00)
+* Execution Cutoff Timestamp: 2026-11-04T17:01:33+08:00
+* Scanned Directory Scope:
+   * Signals Root: https://drive.google.com/drive/folders/1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI
+   * Business Input: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+   * Friction Input: https://drive.google.com/drive/folders/19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo
+   * Market Input: https://drive.google.com/drive/folders/12UTQ8sbPG0Ryv3mA0YB7EtWTjH3Ri0G2
+   * Research Output: https://drive.google.com/drive/folders/1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9
+* Total Discovered Observations: 56 items across input folders
+* Historical Observations Skipped: 51 items (all verified as covered in Research directory, including finalized records for duplicate Autotask onboarding/reconciliation observations)
+* Current Batch Qualified Signals Processed: 5 items
+   1. IBF-20261103-LabInstruments-LegacySoftwareLockout-VMSpoof -> HYPOTHESIS_READY
+   2. IBF-20261103-Salesforce-LegacyAPIRetirement-410GoneAudit -> HYPOTHESIS_READY
+   3. UW-20261104-SMBImporter-DutyDrawback-UnusedExportPacket -> HYPOTHESIS_READY
+   4. UW-20261104-AirlinePassenger-DOTPart260-CashRefundDemandPacket -> HYPOTHESIS_READY
+   5. UW-20261104-IndependentPharmacy-PBM-MACAppealPacket -> HYPOTHESIS_READY
+* New Research Artifacts Created & Verified:
+   * Research-IBF-20261103-LabInstruments-LegacySoftwareLockout-VMSpoof.md
+   * Research-IBF-20261103-Salesforce-LegacyAPIRetirement-410GoneAudit.md
+   * Research-UW-20261104-SMBImporter-DutyDrawback-UnusedExportPacket.md
+   * Research-UW-20261104-AirlinePassenger-DOTPart260-CashRefundDemandPacket.md
+   * Research-UW-20261104-IndependentPharmacy-PBM-MACAppealPacket.md
+* Waiting / Pending Recovery: None
+* History Conflict / Verification Items: None
+* Excluded Items & Reasons:
+   * Business-20261104-no-signal.md: Excluded (sensor operational run report / NO_SIGNAL).
+   * IBM Planning Analytics price increase: Excluded (single-vendor routine annual price coordination).
+   * Interac debit card fee update: Tracked in Watch list, minor acquirer adjustment.
+* Queue Status: NO_PENDING_SIGNALS

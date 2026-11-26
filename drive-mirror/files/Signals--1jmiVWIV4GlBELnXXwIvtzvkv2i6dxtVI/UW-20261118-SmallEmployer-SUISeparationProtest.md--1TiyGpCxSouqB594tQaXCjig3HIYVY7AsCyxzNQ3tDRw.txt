@@ -1,0 +1,73 @@
+﻿signal_id: UW-20261118-SmallEmployer-SUISeparationProtest
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年下半年核实（USC 2026-05及2026-09雇主SUI实务指南、ADP 2025-08 SUI税率管理报告），全美各州失业保险（SUI/SUTA）采用经验费率制（Experience Rating），雇主必须在收到离职信息请求（RSI）后10至21个自然日（自邮寄日起算，如华盛顿州约10–12个工作日、密苏里州10天）内通过SIDES E-Response或州门户提交事实与证据抗辩，并在季度/年度福利扣费账单（Benefit Charge Statement）发出后约30天内稽核错误扣费。与此同时，2026年华盛顿州应税工资基数已升至$78,200/人（四年回溯窗口），单笔未抗辩的错误申领不仅造成$10,000级别直接福利扣费，还会在3–5年经验费率周期内触发累计$20,000–$50,000+的SUTA附加税负。
+money: 涉及全美数百万家雇员在50人以下或跨2–5州运营但无专职UI团队的中小微与高周转企业（餐饮、零售、仓储物流、诊所）。单笔$10,000福利扣费可在3–5年内放大为$20,000–$50,000+额外SUTA税负（E2）；然而在低应税工资基数州或面对单笔边缘申领时，小雇主常因整理考勤、书面警告、规章签收与证人时间线耗时过高而理性放弃抗辩（E1, E3）。传统第三方行政管理商（TPA，如USC）将免费风险审计与主要服务门槛设在50人以上雇主（E2），50人以下单州小微企业被排除在专业TPA服务之外。
+evidence:
+- id: E1
+  source: https://www.uscorp.com/insights/washington-unemployment-claims
+  source_date: '2026-09-02'
+  accessed_at: '2026-11-18T01:15:00+08:00'
+  fact: 全文核实：华盛顿州2026年SUI应税工资基数达$78,200/人（2025年为$72,800），采用4个财年经验费率回溯；RSI回复窗口约10–12个工作日、OAH听证上诉期30天；明确指出在低工资基数州雇主常认定边缘申领“不值得抗辩（not worth contesting）”，未附细节的一行式回复或逾期将直接默认判给申领人。局限：为专业UI管理商USC州别实务指南。
+- id: E2
+  source: https://www.uscorp.com/insights/in-house-vs-outsourced-claims
+  source_date: '2026-05-15'
+  accessed_at: '2026-11-18T01:18:00+08:00'
+  fact: 全文核实：单笔导致$10,000福利扣费的未抗辩申领，在3–5年回溯期内可产生$20,000–$50,000+累计SUTA税率冲击；各州初始响应期为10–21天（自邮寄日起算）；福利扣费对账单错误频发但申诉窗口常短至30天；明确指出50人以下单州企业通常只能靠兼职HR通才自行应对，USC免费风险暴露评估面向50人以上雇主。局限：为TPA机构立场文章。
+- id: E3
+  source: https://www.adp.com/spark/articles/2025/08/sui-tax-management-strategies-to-control-your-state-unemployment-tax-rate
+  source_date: null
+  accessed_at: '2026-11-18T01:15:00+08:00'
+  fact: 全文核实（发布于2025年8月）：各州要求雇主按严格截止日期提交离职原因、雇佣起止日期与离职补偿金信息；若因日常运营繁忙错过时限或无法搜集上诉证据及参加行政听证，将丧失抗辩权（protest rights）并导致SUI税率上涨。局限：为大型薪酬服务商ADP科普博客，未披露小客户TPA门槛价格。
+- id: E4
+  source: https://datagrid.com/blog/ai-unemployment-benefits-claims-processing
+  source_date: '2025-08-15'
+  accessed_at: '2026-11-18T01:18:00+08:00'
+  fact: 仅读取搜索摘要（Search Snippet）：指出规则引擎与AI代理工作流可自动抓取申领数据、交叉比对季度薪资记录、路由离职信息请求并保留完整审计追踪，从而消除人工在多系统间翻找记录的延迟交接。局限：侧重政府/机构端UI流程，未在摘要中披露雇主端独立SaaS定价。
+mechanism: 事实：SUI离职抗辩与账单稽核具有极短刚性期限（10–21天响应RSI、30天上诉与账单纠错），且胜诉高度依赖“具体违纪条款+员工签收记录+按时间顺序排列的警告记录+一线目击主管姓名”的结构化叙事，而非泛泛填写“违纪开除”（E1, E2）。推断：50人以下小微企业既无预算聘请企业级TPA，兼职HR或老板也难以在几天内从微信/Slack、邮箱、考勤表与PDF员工手册中拼凑出符合特定州（如WA RCW 50.04.294或MO标准）举证要件的完整证据包，最终任由逾期默认扣费或长期支付虚高SUTA税率；AI代理通过接入HRIS/考勤/邮件/Slack，在收到州RSI通知或季度账单PDF后自动抽取离职时间线、匹配员工手册对应条款与历史警告附件，按州法典标准自动起草“何人/何时/何地/何因/何证”结构化SIDES抗辩文本与听证一线证人简报，并将季度账单与历史裁决比对以自动标出重复/已推翻扣费，从而把原本需要专职HR或TPA数小时的跨系统取证与文书工作压缩至分钟级。
+persistence: Structural
+next_question: 在雇员规模10–49人的高周转行业（餐饮、零售、诊所）小企业中，过去12个月因错过10–21天RSI窗口或未稽核季度SUI账单而产生可避免SUTA税率跳升的比例及平均年度多缴税额是多少？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-18T01:22:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work:
+  task: 50人以下或缺乏专职UI专员的中小雇主在10–21天窗口内，跨考勤、聊天、邮件与员工手册整理离职证据链并撰写符合州法举证标准的SIDES E-Response抗辩叙事，以及在30天内逐行核对季度SUI福利扣费账单
+  structure: 规则遵从 / 昂贵信息获取 / 对抗交互
+  abandoned_value: 单笔未抗辩$10,000申领在3–5年内触发$20,000–$50,000+累计SUTA税负增量，以及季度账单中未纠偏的错误/重复扣费（E1, E2）
+  human_failure_reason: 10–21天窗口自邮寄日起算，兼职HR/店主忙于日常运营无暇翻找零散警告与规章记录，企业级TPA重点服务50人以上客户，小雇主往往直接放弃或仅提交无证据的一行式回复导致默认败诉（E1, E2, E3）
+ai_unlock:
+  changed_cost: 将跨HRIS/邮件/即时通讯/PDF手册抽取离职时间线、匹配特定州“故意不当行为（Willful Misconduct）”举证要件并生成SIDES结构化抗辩文书与账单稽核清单的边际人工成本从数小时降至分钟级复核
+  capability_basis: 多源非结构化文本/PDF取证与时间线重构 + 全美各州SUI离职法定抗辩标准映射 + 季度福利扣费账单自动对账（E2, E4）
+  limitations: 1）若雇主在员工离职前完全未留存任何书面规章、签收记录或警告痕迹，AI无法无中生有创造证据；2）若申领人上诉进入行政听证（OAH），州行政法官仍要求具备第一手目击证人（Firsthand Witness）出庭/电话作证，AI只能准备证人提纲而不能替代真人作证（E1）
+unit_economics:
+  unit: 1起员工离职RSI抗辩证据包生成与SIDES提交辅助（含后续季度账单核对）
+  currency: USD
+  region_and_date: 美国市场（含WA/MO等体验费率州） / 2026年11月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本包括州通知PDF/邮件OCR解析、跨企业工具检索离职记录、州法规则匹配与结构化SIDES文本/听证提纲生成，及雇主10分钟人工复核；不包含OAH现场律师代理费与客户获取成本（CAC）
+  excluded_or_unknown_costs: 面向50人以下小雇主的真实TPA市场单案定价、各州平均抗辩胜诉率及小雇主获客成本（CAC）尚未取得公开可比基准，故严格置为null
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1与E2证实了单笔未抗辩申领可引发$20,000–$50,000+三年至五年SUTA税率增量及企业级TPA对50人以下客户的覆盖空白，而AI结构化提取分离事实与核对账单在技术上成熟，判定为Plausible；因缺少50人以下小微企业单案胜诉率与TPA基准报价，具体数值严格置为null
+value_capture:
+  beneficiary: 全美雇员在10–49人、缺乏专职UI团队的高周转行业中小微企业（餐饮、零售、诊所、物流、物业）（E1, E2）
+  payer: 中小企业主/财务负责人，或作为增值模块集成至面向小微企业的薪酬/HR SaaS平台（如Gusto/Rippling生态应用或地方记账代账机构）
+  payment_evidence: 传统TPA服务于50人以上中大企业并证明SUTA税率节省可覆盖服务费（E2），但面向50人以下小企业的按单/低月费AI抗辩与账单稽核付费意愿尚属待验证商业假设
+  capture_node: 在雇主收到州SUI电子/纸质RSI通知或季度账单PDF时接入，一键对接考勤与Slack/邮件，输出可复制粘贴至SIDES E-Response的州法对齐抗辩包与账单异议表
+  pricing_hypothesis: 假设采用“基础月费$29–$49（含季度账单自动稽核）+ 成功免除扣费/按次抗辩包$49”或面向代账/薪酬伙伴B2B2B授权；标记为待验证商业假设
+  customer_net_benefit: 避免10–21天窗口逾期导致的默认判赔，将单次数小时取证压缩至10分钟确认，锁定未来3–4年SUTA税率不被错误申领推高
+scale:
+  aggregation_unit: 小企业员工非自愿离职/主动辞职后收到州RSI通知，及每季度收到州SUI福利扣费账单
+  distribution_channel: 1）SMB薪酬软件（Gusto/QuickBooks Payroll）应用市场与财税记账师事务所渠道；2）针对加州/华盛顿州等高工资基数、高SUTA税负州的直接SEO/工具获客
+  supply_threshold_check: 企业级TPA（USC等）将免费审计与服务重心设在50+雇员及多州企业（E2）；50人以下企业因单案频率不足以支撑高额TPA年费而被排除，且兼职HR无暇应对10–21天短窗口，供给缺口明确
+  defensibility: 初期可快速冷启动，长期壁垒在于积累各州（52个UI司法辖区）行政裁决判例微调库、SIDES格式直连及嵌入企业离职前“前置文档合规检查”工作流

@@ -1,0 +1,56 @@
+﻿signal_id: UW-20261113-ASC-ImplantCarveOut-UnderpaymentAudit
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年下半年核实（日间手术中心收益管理权威Staffingly 2026-07/10深度实务指南、Medical Billers and Coders 2026-09分析及GoHealthcare MSK收益完整性报告），全美独立非卧床日间手术中心（Ambulatory Surgery Centers, ASCs）在开展骨科关节置换、脊柱融合及神经调控等高值手术时，尽管商业保司网络合同普遍明确签署了高值植入耗材“单独除外报销条款”（Implant Carve-Out，如按进货发票成本加成Cost-Plus 10%或超过门槛金额全额单列报销），但商业保司在下发电子汇款通知单（835 ERA / EOB）时，系统普遍默认将单件价值$2,000至$19,000美元的昂贵人工关节与脊柱内固定耗材按“已捆绑计入基础手术操作费（Bundled into Procedure Rate）”执行低额清算。
+money: 全美有超过6,000家独立与多专科ASC手术中心。行业全盘核算数据显示，单家专注于骨科或脊柱外科的ASC中心，每年因高值耗材单独报销条款（Carve-Out）被保司暗中克扣、未被核对而悄然冲销的合法医疗营收在六位数区间（平均单店每年流失$100,000–$300,000美元）。单次手术涉及被漏付的器械垫资差额通常在$1,500–$8,000美元不等。由于保司给出的汇款单直接显示为“已付款（Paid in Full）”，账单系统将其直接归档为闭环正常结算，导致中心在不知不觉中承担巨额器械垫资亏损，且在60–90天法定申诉时效（Timely Filing Window）过后永久丧失追索权。
+evidence:
+  - id: E1
+    source: https://staffingly.com/insights/pain-points-solutions/asc-implant-carve-out-denials-despite-invoices/
+    source_date: '2026-07-15'
+    accessed_at: '2026-11-13T00:15:00+08:00'
+    fact: 拆解ASC高值耗材单独报销流失全流程：中心在每一例手术中都依规上传了供货商发票，但保司EOB依然经常将高达1.9万美元的器械视作捆绑包，仅支付基础手术费；由于系统将其标记为‘已付款’，账单录入员直接跳过；单家骨科中心年损失达六位数；一旦通过年度审计发现，往往已有超过一半账目超过了60–90天的法定申诉期限而永久作废；实测只要在期限内引用保司自身合同条款并附带发票发起精准申诉，保司通常全额补付。局限：为专业ASC收入周期管理机构白皮书，样本偏向骨科与脊柱中心。
+  - id: E2
+    source: https://www.medicalbillersandcoders.com/article/ASC-Facility-and-Professional-Fee-Synchronization.pdf
+    source_date: '2026-09-09'
+    accessed_at: '2026-11-13T00:18:00+08:00'
+    fact: 医疗账单与编码协会技术报告确认：随着高复杂度手术持续向门诊手术中心转移，商业保司加大了对植入物Carve-Out与捆绑逻辑的隐性降费审核，机构必须建立实时合同条款预期收益对账机制，否则设施费用差额将自动沉没。局限：侧重日间手术设施费与专业医师费对齐视角。
+  - id: E3
+    source: https://www.gohealthcarellc.com/revenue-integrity-msk-specialty-care.html
+    source_date: null
+    accessed_at: '2026-11-13T00:20:00+08:00'
+    fact: 骨科与疼痛专科收入完整性指南指出：各保司合同中的Carve-Out公式差异极大（发票成本加成、定额附加、单件起付线），缺乏自动化核对工具的机构根本无法对每日几十笔回款做人工二次算账，形成常态化坏账漏洞。局限：为医疗咨询机构行业建议。
+mechanism: 事实：商业保司面对高额器械账单，利用自动化结算规则默认执行全额捆绑（Bundled），并利用账单系统‘状态为Paid’的假象掩盖少付事实；合同赋予ASC在60–90天内依据专有Carve-Out条款与供货商发票提起复核差额申诉（Reconsideration Appeal）的法定权利，且合同引用明确的申诉获赔率极高（E1, E2）。推断：传统人工模式下，ASC中心只有2–3名账单出纳，每月面对数百起手术，若要对每一笔回款调取手术室耗材记录表（OR Log）、翻找医疗器械厂商（Stryker, Zimmer Biomet, DePuy等）送货发票、对照数十家保司复杂的专有合同条款重新计算预期应收款，并撰写包含合同条款引用与差额明细的正式申诉信，单案耗时30–45分钟（人工成本$30–$50）；因为系统未报错报警，账单员普遍认定‘已经结案付钱就不必再查’，导致数十万美元纯利润在不知不觉中滑过时效窗口；利用多模态LLM自动对齐手术室耗材植入记录、器械商采购发票PDF与835 ERA电子汇款单，自动比对该保司签约合同中的Carve-Out精算法则（自动判定应付值与实付值），在赔付到账的24小时内秒级检出‘被当做捆绑而少付’的高危隐性欠付单，一键组装带发票附件与合同特定条款引述的标准化《植入物单独报销欠付申诉包》（Implant Carve-Out Underpayment Appeal Packet PDF），将原本耗时数周的手工审计压缩为每日自动流水线拦截，帮助ASC在时效闭合前追回单店每年数十万美元真金白银。
+persistence: Structural
+next_question: 在每年开展超过500例骨科或脊柱内固定手术的独立ASC手术中心中，商业保司实际回款金额低于合同约定Carve-Out应付金额、但因被系统标记为Paid而从未被员工人工发起过申诉的耗材批次占比是多少？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-13T00:40:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work: {task: 独立日间手术中心（ASC）账单人员在收到商业保司电子汇款通知（835 ERA）后60–90天时效内，将每笔高值手术器械进货发票与签约合同Carve-Out条款逐行比对、甄别被默认捆绑少付的耗材差额、撰写包含合同条款引用的正式欠付申诉函并向保司提交, structure: 微价值×海量 / 规则遵从 / 昂贵信息获取 / 对抗交互, abandoned_value: 全美独立ASC机构因保司静默捆绑少付且出纳误以为结清而在60–90天窗口关闭后彻底流失的单店每年$100,000–$300,000美元合法器械垫资款（单案$1,500–$8,000）（E1, E3）, human_failure_reason: 账单系统将差额回款显示为正常Paid，不触发拒赔警报；人工逐单调取器械发票核对各保司非标数学公式耗时太长，出纳人员无暇细查，导致大额差额在沉默中超过申诉期失效（E1, E2）}
+ai_unlock: {changed_cost: 将手术室器械记录、厂商发票PDF、保司合同精算条款与835汇款单的多模态交叉比对及标准申诉书生成的边际成本从数十美元专业工时降至零边际成本, capability_basis: 医疗器械发票/OR Log多模态结构化抽取 + ASC商业保司Carve-Out精算条款规则库 + 835 ERA自动对账与合规欠付申诉信生成引擎（E1, E2）, limitations: 1）若手术中心在手术时确实漏记了器械编码（从未上报该耗材），申诉无法凭空主张（需先做前置修正申报）；2）若保司合同本身为全包病例单价（Flat Case Rate）且明文不含任何植入物除外条款，则无法进行差额追讨}
+unit_economics:
+  unit: 1例发生隐性捆绑欠付的骨科/脊柱高值植入耗材手术（涉及$1,500–$8,000欠付差额）的合同公式自动核算、发票证据链对齐与正式Carve-Out申诉包生成
+  currency: USD
+  region_and_date: 美国市场 / 2026年10月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖835 ERA与发票PDF多模态解析、合同Carve-Out算法比对、欠付红线提示、标准格式PDF申诉书排版及异常人工复核分摊；人工基准为专业RCM账单审计专员单次耗费30–45分钟审查工时（$30–$50）或中心承担数千美元坏账
+  excluded_or_unknown_costs: ASC中心系统（如SurgiSource、AdvantX）只读API数据抽取网关费用、保司二次驳回时的人工电话协调成本、获客成本（CAC）尚未量化
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1直接提供了骨科中心每年六位数（$100k–$300k）流失与发函即补付的行业铁证，E1与E3指明了保司利用‘Paid’状态掩盖少付的机制，算法自动对账发票与合同条款在技术上完全成熟，判定为Plausible；因缺乏全美ASC应用自动对账后保司二次补款率的统计大盘，数值严格置为null
+value_capture: {beneficiary: 全美超过6,000家常态化开展骨科关节置换、脊柱融合、神经电刺激等高值植入物手术的独立与合伙制ASC手术中心（E1, E2）, payer: 手术中心执行院长（Administrator）、首席财务官（CFO）或主刀医生合伙人, payment_evidence: 传统外部追讨外包团队每周收取$349–$399美元服务费（E1），针对纯自动化按追回欠款抽成或按月订阅工具模式属于待验证商业假设, capture_node: 提供“连接ASC计费系统835流 + 上传当期采购发票PDF → 每日自动出具《高值耗材静默欠付预警单》 → 一键生成包含保司合同条款原文引用的标准申诉函与附件包”, pricing_hypothesis: 假设采用“按成功追回欠款金额收取10%分成”或“单中心月度监控订阅$299–$499/月”；标记为待验证商业假设, customer_net_benefit: 手术中心无需额外聘请全职审计员，每月自动从保司手中拦截截留$10,000–$25,000美元被暗中克扣的器械本金，直接增厚中心现金利润}
+scale: {aggregation_unit: 手术中心每周835 ERA批量结账与未结欠款对账周期（严格锁死在60–90天时效前）, repeatability: 全美日间手术主流骨科/脊柱耗材编码（HCPCS C-codes/L-codes）与保司合同模板高度标准化，同一套算法可在全美各独立ASC中心无缝批量复用, reachable_volume: null, basis: 全美ASC年手术量超数千万台，涉及高值植入耗材的手术占比超过25%，存在巨大沉淀利润池}
+action_loop: {observe: ASC中心接收到的商业保司835 ERA回款明细、手术室耗材记录单（OR Log）及器械厂商进货发票PDF, judge: 提取回款行项的手术CPT代码与器械代码，调用签约合同Carve-Out计算模型，比对实付款是否低于‘发票成本+约定加成’且被系统标记为已清算, act: 设想自动排版包含合同第几条第几款原文引用、发票凭据与差额测算表的正式申诉公函，仅描述执行机制, verify: 检查保司在下一期或专门调整批次（Adjustment Remittance）中补发的差额支票与调整入账代码}
+required_access: {resources: 手术中心835 ERA回款文件、器械厂商商业发票PDF、该中心与主流商业保司签署的有效费率协议文件, availability: Available, authorizer: 手术中心法定负责人（Administrator/CFO）, authorization_status: 未取得, basis: 单据由手术中心自身合法持有并受HIPAA BAA协议保护，合同由中心自主提供，无外部审批门槛}
+defensibility: {basis: 深入掌握全美主要商业保司（UHC, BCBS, Aetna等）对于ASC植入物Carve-Out审计暗黑规则库、器械发票行项自动折算引擎及高通过率法律申辩措辞积累, alternatives_and_counterevidence: 现成替代为中心完全不管默认冲销（普遍现状），或花数万美元雇佣外包团队手工查账；最强反证为若某保司在续签合同时强行删除了Carve-Out条款并转为强制DRG单病种全包付费，该保司的差额申诉机制将失效}
+personal_actionability: {fit: Good, target_customer: 开展大量骨科、脊柱手术但常年感觉‘耗材费用收不回来、现金流被供货商发票压垮’的独立ASC运营院长与财务主管, deliverable: 1份《高值植入耗材静默少付漏洞审计报告》 + 1套即用型合同条款抗辩申诉包与发票装订规范, customer_entry: 日间手术中心行业协会（ASCA - Ambulatory Surgery Center Association）年会、贝克尔医疗评论（Becker's ASC Review）社群及骨科医生合伙集群, prerequisites: 熟练掌握ASC设施费计费规则（UB-04/837I）、植入物Carve-Out合同结构及商业健康险及时申报时效法规, basis: 纯财务数据与合同文本多模态对齐，轻资产运作，切中手术中心最大资金出血点，客户价值感知极高}
+seven_day_experiment: {critical_unknown: 独立骨科ASC中心在看到自己过去60天内的回款中存在被保司当做捆绑而少付的大额耗材账目时，是否愿意花$299使用自动化工具生成申诉包并向保司要钱？, test: 联络2家熟识的独立骨科或脊柱ASC中心财务负责人，获取其上个月的脱敏835 ERA与耗材发票样本，使用算法自动检测静默欠付项并生成1份现成的申诉数据包，测试其申诉意愿与分成付费倾向, artifact: 1份《骨科ASC手术中心高值植入物静默欠付与合同条款申诉实测样本》, time_and_cost_budget: 7天 / 预算$30以内, success_signal: 样本中成功检出超过3笔单笔欠付超$2,000的有效案例（累计欠付额>$8,000），且中心财务主管直接采用生成的申诉信向保司提交并表达强烈采购意愿, kill_signal: 中心财务表示‘其核心保司合同早在一年前就取消了Carve-Out改成了全包打包价’，导致客观上不存在可申诉的合同法理基础}

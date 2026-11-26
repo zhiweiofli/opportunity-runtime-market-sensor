@@ -1,0 +1,49 @@
+﻿Opportunity Runtime — Judge | 2026-11-15 19:01 Asia/Taipei
+
+
+A. 本轮结论
+本轮最重要的发现不是新生意，而是 Research 对同一 Stripe 付款成功但权限漏开问题，在 11 月 9 日判 KILL、11 月 15 日却重新判 HYPOTHESIS_READY；新研究没有给出足以推翻既有竞争/付费反证的实质证据。建议 NOW 为空，不在本周另开产品验证。Cloudflare AI Search 本周暂缓是 11 月 14 日人类明确决策，严格保留；QuickBooks/Cloudflare 上周执行情况未知。
+
+
+B. 本轮决策看板
+优先级 | 机会 | 变化与受影响者 | 钱与轻捕获 | 最大未知 | 结论
+1 | QuickBooks Desktop 迁出后的历史账套离线归档 | 停售/迁移使小企业与记账师担心旧账不可查 | Research 引用续费约 $999–$1,200/年与归档竞品 $1,499；先做只读数据核对服务 | 是否有可接触的记账师愿意为导出及迁移核对付费 | NEXT
+2 | Dynamics GP 退市迁移的历史财务归档 | ERP 迁云后旧总账明细、SmartLists 查询流程可能断裂 | Research 引用 Popdock $150–$650/月；轻路径是迁前归档审计 | 迁移顾问是否采购独立归档而非 VAR 捆绑方案 | NEXT
+3 | Stripe 扣款成功但应用权限漏开 | Stripe Webhook 与业务数据库异步不同步，独立 SaaS 可能出现付费用户未开通 | 排查工时、退款风险；现成 Cron/Hookdeck/Svix 已覆盖核心机制 | 与 11/09 KILL 相比新增何种可付费差异化？ | DROP（重复历史 KILL）
+4 | Windows 11 升级后旧复合机扫描失败 | SMB 安全要求改变，旧设备不能扫描到共享文件夹 | 避免换机费用；仅考虑安全的只读兼容诊断 | 能否在不降低安全基线下复现且修复？ | WATCH
+5 | Cloudflare AI Search 按量计费成本审计 | 使用 AI Search 的 RAG 团队可能出现新增账单 | 只读成本分析；尚无真实客户节省额 | 是否有真实且足够大的可优化月账单？ | WATCH（本周人类暂缓）
+
+
+C. 重点机会
+QuickBooks：旧流程是在 Desktop 账套内查询历史交易，退出订阅/迁移后可能无法按原方式访问；研究设想在仍能导出数据时，将总账、试算平衡、应收应付导出为本地可检索档案，并对照新账套核对。真正经济锚是持续订阅和现有商业归档产品的标价，并非客户已愿意购买 $99 工具。最大反证：标准导出已足够，客户被锁定后工具无法读取，或记账师已使用成熟迁移服务。NEXT 而非 NOW，因为历史 QuickBooks 验证尚未确认，重复推进会浪费人类注意力。唯一下一动作（待确认，不在本周执行）：取得一位迁出记账师的匿名导出样本及其当前核对工作流。若其有真实未解决的核对缺口与付费意向再升级；否则 WATCH。
+Dynamics GP：中型企业迁往 Business Central 后，历史总账/定制报表可能留在旧 ERP；旧流程是持续运行 GP/SQL 或购买外部查询服务。研究声称 Popdock $150–$650/月，但没有目标客户付款或替代工具接受证据。关键反证是 VAR 捆绑、复杂定制表、审计完整性要求。唯一下一动作（仅作为后续建议）：向一位 GP 迁移顾问核实是否存在不被现有方案覆盖的历史查询需求与采购权。无可接触买方则 WATCH。
+
+
+D. 二阶洞察
+Installed-base Friction 的共性是平台退出或安全升级后，企业仍珍惜旧账簿、报表或硬件；优先验证只读审计与数据导出，而非先开发兼容桥接。Stripe 案例提示另一类更重要的模式：工程问题真实不等于可经营的市场缺口。
+
+
+E. 其余队列
+NEXT：QuickBooks、Dynamics GP；此前 AWS RDS Extended Support、Atlassian Assets 迁移审计保留但不占本周主动槽。
+WATCH：Windows 11 SMB 扫描、牙科旧传感器兼容（禁止以关闭安全保护作为卖点）、Gemini Decisions API 跨云降本（研究报价与厂商能力需独立复核）、商用车误识罚单、批发商免税证书核验、HOA 超额费用、EIDL 顺位申请、医疗欠付与申诉、地产留置权、无主财产申领、UCC 解除、P2P 医保申诉。升级条件均是可核验真实损失、可接触付费买方或实际可复现的合规缺口；没有声称已配置自动监控。
+DROP：Stripe Provisioning Guard（重复 11/09 KILL：成熟替代与独立付费差异化不足）；SCIM 长尾开通（AccessOwl 等成熟竞品与维护成本）；agency 多 SaaS onboarding（成熟自动化工具）；Xbox GTA6 预购支付失败（短期事件、封闭支付生态）；此前 Google Forms 支付对账（成熟替代）。
+Cloudflare AI Search：2026-11-09 至 11-15 人类明确暂缓，非永久 DROP；2026-11-16 后可重新判断，不自动推断执行。
+
+
+F. Runtime 反馈
+重大 Negative Memory 失效：11/09 Stripe 同一付款与开通不一致 Signal 已 R1 KILL；11/15 新 Signal 用相同机制、同类来源和现成解决方案重写为 R2 HYPOTHESIS_READY。建议在 Research 前对 canonical problem fingerprint（Stripe + paid-not-provisioned + webhook reconciliation）执行 KILL 检索，要求列出 delta evidence：新细分买家、独有机制或付款证据；否则不再消耗 R2 预算。Research 对价格锚、推测愿付价格与实际付款证据混写，需分列；技术文档不能证明 100% 兼容/成功或合法合规。
+
+
+G. Human Decision Needed
+1. 是否同意本周 NOW 留空，不启动新的验证？是/否。
+2. QuickBooks / Cloudflare 上周执行结果是否有一项可确认？有/尚未确认。
+3. 下一周期是否优先找一位 QuickBooks 迁出记账师，而非开发工具？A 找买方 / B 暂缓。
+
+
+H. 审计
+Input Research References：Research 文件夹 2026-11-09 至 11-15 的 Research，包含 Stripe 11/09 与 11/15、QuickBooks、Dynamics GP、Windows SMB、Dental、Gemini Decisions、SCIM、agency、Xbox、HOA、ASC、Fleet、RealEstate、UCC、P2P、EIDL、ResaleCert、UnclaimedProperty 等；历史 Judge 2026-11-08、2026-11-01。研究文件的修改时间、ID 可由源 Google Drive 元数据核对。Market paused；demo/PILOT excluded。
+Task Version: judge@0.2.2
+Generated At: 2026-11-15T19:01:46+08:00
+Role Spec Status: reviewed
+Human time budget/current work: unknown; all proposed time budgets require confirmation.
+Archive Status: pending verification.

@@ -1,0 +1,87 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261116-CommercialTenant-CivCode19507-SecurityDepositClawback
+* Source Signal References:
+   * Signal ID: UW-20261116-CommercialTenant-CivCode19507-SecurityDepositClawback
+   * Generated At: 2026-11-16T00:56:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: UW-20261116-CommercialTenant-CivCode19507-SecurityDepositClawback.md
+   * Source File Modified At: 2026-11-16T01:01:03+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+1. 加州民法典 § 1950.7 刚性时限与恶意扣押惩罚：全美商业租赁中，小商户（临街餐厅、诊所、零售店、工作室）在签约时被收取 1–3 个月租金的巨额押金（$5,000–$25,000）。根据加州民法典 § 1950.7（及纽约州同类法条），房东在租户交出物业后 30 天内（仅租金扣除限 14 天内）必须全额退还押金余额。法律明确限定扣款仅能用于实际欠租、实质损毁修复（排除正常合理损耗 Ordinary Wear and Tear）与合同必要清洁；加州判例（Sherwood Partners v. Zoro）更明确禁止房东扣除未来租金或用于物业资本化改造。民法典 § 1950.7(f) 更规定房东恶意扣押需支付法定惩罚赔偿。
+2. 房东滥用虚高预估单与小商户维权困境：实务中商业房东在第 29 天出具一纸无真实发票的概括性"粉刷、地毯、空调整备"账单，直接侵吞 $3,000–$12,000 押金。小商户聘请地产律师需预付 $2,500–$5,000，且商业纠纷不适用简易小额法庭，导致商户在"请律师比被扣押金还贵"的算计下忍痛放弃。
+3. AI 多模态审查与法定公函赋能：利用多模态 LLM 解析商业租约（核验是否放弃 1950.7 保护）、腾退移交报告与房东扣款账单，秒级识别非法扣除项（如将合理折旧作为损毁扣款），一键组装引用加州民法典 § 1950.7 与 Sherwood 判例的《商业押金非法扣留正式法定追偿律师公函》，并附带要求房东限期出具独立持牌分包商真实付款凭证的证据索要清单，以极低成本击穿房东的侥幸心理。
+Unknown
+在面临退租押金纠纷的独立临街商户中，租约内包含明确"完全放弃（Waive）加州民法典 § 1950.7 所有法定抗辩权利"专有免责条款的比例。
+Decision-Critical Unknown
+对于退租后遭遇押金被扣的小微店主，一款收费 $99–$199 的"商业租约押金扣款合法性智能审查 + 引用加州民法典 1950.7 判例的正式追索公函生成工具"，在小微商户社群（如独立餐饮协会、零售商联盟）中的自然推荐与付费转化率。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	真实资金流明确：单店被扣押金 $3,000–$12,000，商户痛感强烈；聘请传统律师需 $2,000+，采用 $99–$199 自动化法定公函包具备超 20 倍成本杠杆。
+	Mechanism
+	通过 (PASS)
+	法定依据确凿：加州民法典 § 1950.7 的 30 天时限、正常磨损排除原则以及 Sherwood Partners 判例规则高度明确；AI 将合同法律长文本审查与判例映射边际成本降至零，迫使房东在面临诉讼与惩罚赔偿风险时妥协退费。
+	Persistence
+	通过 (PASS)
+	结构性持久痛点：商业地产租赁交接中的信息不对称与房东博弈心理是行业长期常态；小商户流动换址或关停每月都在发生，需求具备持续性。
+	Capture
+	通过 (PASS)
+	极佳的轻资产契合度：纯软件交付（合同解析 + 合规公函 PDF 生成），无需介入线下诉讼，零实体资产，1–2 人团队即可维持高毛利运营。
+	3. Evidence & Counter Evidence
+Supporting Evidence
+1. 加州商业押金实务指南（2026-11-11）：Footprint Lease: California Commercial Security Deposit Guide —— 拆解 1950.7 刚性 30 天时限、恶意扣押惩罚及房东滥用预估单（Estimates）冲抵押金的典型侵害模式。
+2. KTS 权威地产法务专著：Kimball, Tirey & St. John LLP: The Commercial Security Deposit —— 证实房东扣除必须属于"合理且必要"的实际修复，严禁用于未来租金损失或正常损耗，违规构成非法商业行为。
+3. SEC 公开标准商业租约归档实证：SEC: Commercial Lease Agreement Form —— 证实标准租约中关于设施维修与押金抵扣的约定及房东滥用自由裁量权的结构性缺口。
+Counter Evidence
+1. 若商户在原始租约中明确白纸黑字放弃（Waive）了民法典 § 1950.7 的保护，法条追索力度将受到限制。
+2. 若租户确实造成了严重的实质性物理破坏（如拆改承重结构），房东持有确凿照片与发票的扣款合法。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 全部通过，法律要件、经济损失、AI 解锁机制与捕获节点清晰。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 小型商业租户在面临房东滥用维修名目扣押押金时，将借助轻量法律 AI 工具以低成本发出法定公函迫使房东和解退费。
+* What became less likely: 房东在收到引用民法典 1950.7(f) 恶意惩罚条款且附带发票清单的正式公函后，仍能肆无忌惮全额克扣押金。
+* What did we rule out: 排除了商业房东有权单方面将正常自然损耗计入押金扣款的合法性。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-16T17:09:14+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+Title: 商业租约退租押金非法扣留智能审查与法定追偿公函生成器 (Commercial Tenant Security Deposit Clawback Agent)
+Source Signal References
+* Signal ID: UW-20261116-CommercialTenant-CivCode19507-SecurityDepositClawback
+* Generated At: 2026-11-16T00:56:00+08:00
+* Task Version: uneconomic-work@0.1
+* Source File URL: UW-20261116-CommercialTenant-CivCode19507-SecurityDepositClawback.md
+* Source File Modified At: 2026-11-16T01:01:03+08:00
+Money
+全美每年退租迁址的数十万家独立临街小微商户，面临 $3,000–$12,000 被侵吞押金损失。商户愿支付 $99–$199 买断专业审查与法定追偿函件包以追回大额押金。
+Mechanism
+多模态长文本 LLM 自动提取商业租约关键条款（排查 1950.7 豁免），对照房东扣款单与交房验收记录，判定正常损耗与虚假整改项，一键组装引用加州民法典 § 1950.7 与判例的正式追索律师公函及分包商发票证据索要清单。
+Capture
+1–2 人小团队开发 Web 端自检工具，按单收取 $99–$199 服务费，纯软交付、零线下介入、高毛利。
+Durability
+商业租赁合同博弈与信息差是持久存在的结构性机制，小商户缺乏常年法务顾问的现状在未来多年不会改变。
+Evidence
+1. Footprint Lease 加州商业押金实务指南（2026-11-11）
+2. KTS 商业押金法律专著
+3. SEC 标准商业租约实证
+Counter Evidence
+1. 租约包含明确的民法典 1950.7 放弃免责条款。
+2. 租户现场存在重大实质性物理破坏。
+Critical Unknown
+加州中小型临街商业租约中，实际包含 1950.7 放弃条款的合同比例与房东收到引用法典的正式公函后的主动退款和解率。
+Falsification
+若各州立法推行统一的商业押金第三方政府托管监管账户（Escrow Account），消除房东单方扣款权力，该机会将被大幅压缩。
+Next Test
+针对在 Google Maps 标明"即将搬迁/Relocating"或 Yelp 登记闭店的小微商户定向推送"退租押金被扣？3 分钟免费检测房东扣款是否违反加州民法典 1950.7"，测试商户上传租约的转化率。
+
+
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-16T17:09:14+08:00
+* Role Spec Status: reviewed

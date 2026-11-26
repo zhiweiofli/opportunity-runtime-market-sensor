@@ -1,0 +1,116 @@
+﻿signal_id: IBF-20261030-WooCommerce-PHP82-LegacyGatewayCheckoutFailure
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: 2026年10月下旬，随着PHP安全漏洞（CVE-2026-109618等）披露及上游老版本彻底停止维护，各大主流托管主机（WP Engine、Kinsta、SiteGround、Cloudways等）全面强制执行PHP 8.2+环境升级，且WooCommerce官方正式宣布新内核将强制要求PHP 8.1+。在此背景下，全球数十万个建站于2017-2022年、长期奉行“只要能跑就别动”而停留在PHP 7.4/8.0的存量WooCommerce电商独立站被强制切入高版本PHP；升级后不仅导致老旧自定义函数（如create_function、money_format）直接触发Fatal Error导致全站瘫痪，更普遍的隐蔽故障是PHP 8.2废弃动态属性（Creation of dynamic property is deprecated）及Null传递警告污染了AJAX响应流，导致前台结账（wc-ajax=checkout）静默卡死在“Processing...”转圈状态，或导致停更的原生支付网关插件直接拒绝扣款。
+money: 涉及全球大量月流水在$5,000-$50,000美元的中小独立电商卖家。结账页面卡死或报错直接导致购物车放弃率升至100%，单店单日直接营业额损失在数百至数千美元；第三方WordPress/WooCommerce专业开发机构或紧急救援服务（如Codeable、InstantNerds等）针对PHP兼容性排障、老代码重构与支付网关修复的项目收费通常在$1,000-$3,500美元。
+
+
+evidence:
+  - id: E1
+    source: https://www.reddit.com/r/woocommerce/comments/1xbjrss/woocommerce_116_planned_for_february_2027_will/
+    source_date: '2026-10-21'
+    accessed_at: '2026-10-30'
+    fact: 独立站开发者详述2026年10月老店从7.4硬跳8.2后的真实死因：1）functions.php中历史复制的弃用函数引发全站Fatal Error；2）停更超2年的冷门支付插件直接死机；3）PHP 8.2动态属性警告注入AJAX响应破坏JSON结构，导致结账与购物车静默失效，前台看似正常但无法收钱。
+  - id: E2
+    source: https://instantnerds.com/fix/wordpress-php-8-4-incompatibility
+    source_date: '2026-06-25'
+    accessed_at: '2026-10-30'
+    fact: 行业技术服务商指出Managed WordPress主机（WP Engine/Kinsta）强制升级PHP是导致存量外贸与电商独立站突发故障的最大诱因，老插件与定制主题缺乏维护形成刚性技术断层。
+  - id: E3
+    source: https://www.codeable.io/blog/php-vulnerability-cve-2026-109618/
+    source_date: '2026-10-21'
+    accessed_at: '2026-10-30'
+    fact: 证实2026年10月21日PHP官方高危安全更新导致主机商加速清退PHP 8.1以下老环境，倒逼全网旧站点进入硬性迁移窗口。
+
+
+mechanism: 编程语言为了类型安全与性能，在跨大版本时强制弃用动态属性与宽松弱类型特性；但存量电商独立站高度依赖历史定制代码与数年前购买的非标长尾插件，原厂开发者多数已转行或停止维护；托管云厂商出于服务器集群合规与安全，单方面关停旧版PHP解释器，造成“底层运行环境不可逆升级而业务代码缺乏维护者”的结构性断层。
+persistence: Structural
+next_question: 在使用受影响老版WooCommerce的活跃商户中，因动态属性警告导致AJAX JSON解析失败但后台未记录Fatal Error的静默故障占比有多高？
+task_version: installed-base-friction@0.2
+generated_at: '2026-10-30T17:40:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+
+
+asset:
+  category: 独立电商建站系统与PHP支付中间件
+  brand: WooCommerce / WordPress
+  model: WooCommerce 4.x - 7.x 存量老店 (PHP 7.4/8.0 依赖站)
+friction:
+  type: 语言环境升级不兼容与废弃插件维护断代
+  symptom: 主机升级PHP 8.2后网站报500错误，或前台结算按钮转圈卡死、AJAX返回格式错误、自定义网关无法调起
+installed_base:
+  estimate: 全球数以万计月流水超数千美元但从未重构过底层代码的存量WooCommerce老店
+  basis: WooCommerce占全球电商建站大盘20%+，历史存在大量运行5年以上的稳定老店，社区讨论证实大批店铺因稳定运营长期停留在PHP 7.4。
+
+
+current_solution:
+  description: 1) 紧急向主机商申请临时延长旧PHP版本（通常需额外支付高额Legacy Support附加费或遭拒绝）；2) 聘请专业机构高价紧急排障（$1,000-$3,500）；3) 换用新插件或重构整个店铺（耗时数周）。
+  oem_part_price: null
+  technician_repair_price: 1500.0
+  currency: USD
+  basis: Codeable及资深独立开发者的紧急紧急故障抢修均价通常在$1,000-$2,500区间。
+alternative:
+  description: 专用的“WooCommerce PHP 8.2 静态扫描与自动补丁修复工具包”（自动扫描functions.php与插件，批量注入#[AllowDynamicProperties]属性，重写create_function并过滤AJAX警告）
+  estimated_solution_cost: 79.0
+  currency: USD
+  basis: 单次买断制排查脚本或一键修复修复包定价。
+gap:
+  vendor_support: discontinued
+  availability: low
+  competition: medium
+  basis: 原厂插件作者多已放弃更新；现有通用PHP Compatibility Checker仅能列出成百上千行告警，不提供针对WooCommerce结账断流的即插即用补丁与自动化代码修复。
+signals:
+  recurrence: high
+  urgency: high
+  diy_activity: high
+  basis: 结账卡死直接归零当日营业额，属于极高紧急度故障；Reddit与WordPress官方论坛近期有大量关于PHP 8.2动态属性与结账断流的热帖。
+
+
+assessment:
+  installed_base: {value: high, basis: 全球保有量最大的开源电商生态，存量老代码基数极为庞大}
+  friction_rate: {value: high, basis: 凡未升级老代码的店铺切至PHP 8.2后100%触发动态属性警告或函数弃用}
+  failure_cost: {value: high, basis: 购物车阻断直接导致营收中断，每小时损失数十至数百美元}
+  support_gap: {value: high, basis: 原插件作者失联，官方不再兼容旧语法，托管商强制推行}
+  switching_cost: {value: high, basis: 重新迁移至Shopify或重构现代WooCommerce系统需耗资数千美元且重做SEO}
+  vendor_repair_speed: {value: low, basis: 属于语言层面的破坏性变更演进，官方绝无回退可能}
+
+
+repair_leverage:
+  ratio: 19.0
+  baseline_cost: 1500.0
+  solution_cost: 79.0
+  currency: USD
+  scope: 基准成本为聘请外部开发者排查修复平均支出$1,500；替代方案为自动化修复工具包$79
+  basis: 1500 / 79 = 18.98
+opportunity_durability:
+  value: high
+  basis: 2026至2027年全网托管商全面清退老旧PHP版本，存量老店在未来2年内将持续受到波及。
+
+
+economic_value:
+  level: High
+  payer: 正在经历结账卡死且每日损失订单的中小DTC电商站长、外贸B2B自建站老板
+  economic_anchor: 每日数千美元的订单流失损失、主机商Legacy PHP维护费（通常$20-$50/月）及外部开发者$1,500+抢修费
+  capture_mechanism: 提供开箱即用的PHP 8.2兼容性静态补丁工具（CLI/插件形式），一键自动修正弃用语法并抑制AJAX响应污染，按站点收取买断修复费
+  repeatability: PHP 8.2的废弃语法模式（如create_function、dynamic property、each）高度固定，修复脚本可完全自动化、规模化复用
+  basis: 在全店停摆的极度痛苦下，能够几分钟内恢复结账收款的自动化补丁具备极高支付确定性
+
+
+personal_actionability:
+  fit: Good
+  route: 制作“WooCommerce结账断流自动检测与PHP 8.2语法热补丁脚本”
+  target_customer: 遭遇主机强升PHP 8.2后结账转圈卡死的中小WooCommerce商家
+  deliverable: 一个单文件PHP排查与修复脚本：自动备份受影响文件，扫描并自动将旧语法替换为现代兼容语法，在相关类上方自动注入#[AllowDynamicProperties]，并在后台安全劫持并静默AJAX阶段的非致命Notice/Deprecated报错
+  pricing_hypothesis: $49-$79 单店买断；或 $149 包含人工环境核验交付
+  customer_entry: WordPress.org Support论坛、Reddit r/woocommerce、r/Wordpress上发帖求助“checkout stuck on processing”的店主
+  fit_basis: 纯PHP静态AST解析与文本替换，无硬件依赖、无库存，交付结果直接体现在订单能否成功流转
+  prerequisites: 精通PHP 7.4至8.2底层语法差异、熟悉WooCommerce结账AJAX（wc-ajax）数据交互规范
+  first_test: 搭建一个本地Docker环境（PHP 8.2 + WooCommerce 7.x + 包含create_function和动态属性的故意老化插件），编写正则与AST脚本进行自动打补丁，验证结账请求是否从500/报错转为200成功下发订单
+  time_budget: 90分钟
+  success_signal: 打完补丁后，测试订单顺利生成，无任何PHP Notice污染JSON返回，后台正常扣款
+  kill_signal: 发现主流托管商强制部署只读文件系统（如严格隔离环境），导致外部脚本无法修改插件文件
+  key_unknown: 遇到经过复杂代码混淆（如ionCube/Zend Guard）的老旧商业插件时，自动化脚本无法直接修改AST源码

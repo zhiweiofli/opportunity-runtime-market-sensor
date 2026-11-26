@@ -1,0 +1,45 @@
+Signal ID: Friction-20261122-multi-crm-entry
+Type: Friction
+What Changed: Sales teams paying for HubSpot (and/or Salesforce) continue forced manual dual/triple entry into additional CRMs, Excel, and new MEDDIC files as of Nov 20, 2026 reports.
+Friction: Data entry and maintenance across disconnected CRM/Excel systems for the same deals (Onboarding/Setup/Configuration/Manual operation stage).
+Money: Sales reps and their employers already pay for CRM seats (HubSpot/Salesforce); still manually re-enter deal data into 3-4 systems. Linked to labor/time cost; potential revenue risk from inconsistent data. Specific $ loss unknown.
+Evidence:
+1. Reddit r/sales post "Update: 'Management has us filling out 3 different CRMs.' Now its 4" (Nov 20, 2026): OP lists HubSpot + internal vibe-coded CRM + Excel + new MEDDIC file for larger opportunities. Comments confirm similar multi-system pain, including from Salesforce employees. URL: https://www.reddit.com/r/sales/comments/1y11jh1/update_management_has_us_filling_out_3_different/
+2. Same thread comments (Nov 20): Advice to consolidate into HubSpot custom properties or treat others as exports; indicates ongoing practice.
+3. Supporting pattern in Flowla blog (Nov 19, 2026) of systems that "don't speak to each other" requiring manual work despite paid CRM. URL: https://www.flowla.com/blog/onboarding-tech-stack
+Mechanism: Multiple systems of record for deals force duplicate manual entry by high-cost sales staff. Inconsistent data risks missed forecasts, delayed closes, or poor handoffs (inference from comments and common CRM patterns).
+Current Workaround: Manual dual entry + Excel + separate files; cost is sales rep time (high opportunity cost). Exact hours unknown; OP describes it as ongoing burden. Some use AI to generate import CSVs (comment).
+Payer: Sales ops / RevOps / company leadership at mid-size B2B firms already paying CRM licenses; they would pay for reliable multi-system sync or single source that eliminates re-entry (inferred from willingness to maintain multiple paid/custom systems).
+Economic Effect: labor / time (primary); secondary revenue/conversion risk from data inconsistency.
+Friction Value: Frequency high for affected teams (daily/weekly deal updates); economic loss per event = loaded sales rep hour × entries; recoverable rate moderate if integration possible. Specific numbers unknown; survey-level data not available for this exact case.
+Persistence: Structural (tools exist but teams still maintain parallel systems for industry-specific, Excel "truth", or management preference; not a single bug).
+Next Question: What specific fields or processes force the parallel systems, and what is the measured weekly hours or error rate?
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-22T09:45:00+08:00
+Role Spec Status: reviewed
+
+---
+
+Signal ID: Friction-20261122-onboarding-handoff-status
+Type: Friction
+What Changed: B2B teams with paid CRM + Slack + CS/onboarding tools still rely on manual Slack messages and hand-built status reports for sales-to-onboarding handoff and portfolio visibility, documented Nov 19, 2026.
+Friction: Sales-to-onboarding handoff and ongoing status reporting (Onboarding / Manual operation / Integration stages).
+Money: Companies already pay for CRM (Salesforce/HubSpot), Slack, e-signature, and often CS platforms or onboarding portals; still perform manual copy of notes, Slack posts, and Friday status rebuilds. Linked to labor cost of onboarding/CS teams; potential delayed time-to-value and churn risk. Exact $ unknown.
+Evidence:
+1. Flowla blog "Building Your 2026 Onboarding Tech Stack" (published/updated Nov 19, 2026): "At many companies with a fully configured CRM, the move from closed-won to onboarding still depends on a Slack message someone types by hand." Cites GUIDEcx State of Customer Onboarding 2026 survey of 200 professionals: 28% spend >6 hours/week on manual status updates and internal reporting; only 9% have real-time visibility. Anonymized RevOps quote from Nov 2026 calls about systems that don't speak and lack of data ownership. URL: https://www.flowla.com/blog/onboarding-tech-stack
+2. GUIDEcx State of Customer Onboarding in 2026 (research Apr–Jun 2026, published Aug 2026, still referenced as current): 62% have lost at least one customer due to poor onboarding; 28% >6h/week manual updates. URL: https://www.guidecx.com/the-state-of-customer-onboarding-in-2026/
+3. Blog example: Company B (identical paid tools) has AE post in Slack two days later, CSM builds plan by hand and emails spreadsheet vs. automated Company A.
+Mechanism: Disconnected tools force human copy-paste and status aggregation. Delays handoff, reduces visibility, increases labor, and can delay customer time-to-value (supported by survey lost-customer stat; causal link inferred).
+Current Workaround: Manual Slack posts, note copying, spreadsheet status reports. Cost: 3–6+ hours/week per onboarding professional for reporting alone (survey); additional handoff delay time. Some buy extra portals but still manual if not wired.
+Payer: B2B SaaS / service companies with implementation/onboarding teams (already paying multiple tools); they pay for orchestration layers or better native connectors that eliminate the handoff and reporting labor (inferred from survey priority on AI automation and existence of specialized portals).
+Economic Effect: labor / time (primary); secondary churn / delayed revenue from poor onboarding experience.
+Friction Value: Frequency: weekly for status, per-deal for handoff. Per event: multi-hour labor for professionals (survey 28% >6h/week). Recoverable rate high if automation of triggers works (documented in same sources). Overall medium-high for affected segment.
+Persistence: Structural (tools bought but handoffs remain manual by design or incomplete integration; survey shows persistent despite AI interest).
+Next Question: What is the actual loaded cost per onboarding professional hour, and how many deals per month are affected by delayed handoff in typical teams?
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-22T09:45:00+08:00
+Role Spec Status: reviewed
+
+Observation window used: 2026-11-15 to 2026-11-22 Asia/Taipei (latest verifiable data ~Nov 22). Primary evidence dated Nov 19–20 within window; survey research earlier but still actively cited.
+No historical Signal index provided; no cross-run dedup performed.
+Platforms accessed: Web search, Reddit, X (limited relevant results). No GitHub issues or dedicated support forums yielded stronger recent primary evidence in window.

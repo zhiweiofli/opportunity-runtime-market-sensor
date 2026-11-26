@@ -1,0 +1,47 @@
+﻿Execution Receipt: researcher@0.2.2 (Batch 20261109)
+* Execution Cutoff Timestamp: 2026-11-09T17:18:14+08:00
+* Timezone: Asia/Taipei (UTC+08:00)
+* Role Specification: Opportunity Runtime Researcher (researcher@0.2.2)
+* Queue Status: NO_PENDING_SIGNALS
+* Research Output Directory: Research Output Folder
+1. Input Signals & Underwriting Decisions
+#
+	Signal ID / Title
+	Type
+	Source Signal Link
+	Underwritten Record
+	Recommendation
+	Core Dynamic / Reason
+	1
+	UW-20261109-SmallBusiness-EIDLLienSubordination-BankLoanPacket
+	Uneconomic Work (uneconomic-work@0.1)
+	Source Signal
+	Research-UW-20261109-SmallBusiness-EIDLLienSubordination-BankLoanPacket
+	HYPOTHESIS_READY
+	3.9M COVID EIDL borrowers are blocked from bank credit by SBA blanket UCC-1 liens. Broker fees ($1.5k–$3.5k) are prohibitive for small loans. Automated CESC DSCR packet generation unlocks bank credit for $79–$99.
+	2
+	UW-20261109-UnclaimedProperty-SmallBalance-HeirClaimPacket
+	Uneconomic Work (uneconomic-work@0.1)
+	Source Signal
+	Research-UW-20261109-UnclaimedProperty-SmallBalance-HeirClaimPacket
+	HYPOTHESIS_READY
+	States hold $70B in unclaimed property; state fee caps (10%–15%) force commercial finders to abandon $100–$1,000 heir accounts (70%+ of total accounts). Automated NAUPA cross-check and Small Estate Affidavit generation unlocks claims for $19–$29.
+	3
+	UW-20261109-B2BDistributor-ResaleCertAudit-TaxPenaltyShield
+	Uneconomic Work (uneconomic-work@0.1)
+	Source Signal
+	Research-UW-20261109-B2BDistributor-ResaleCertAudit-TaxPenaltyShield
+	HYPOTHESIS_READY
+	Wholesale distributors risk $25k–$150k audit reclassifications due to expired or missing customer resale certificates. Automated batch OCR, state DOR validation APIs, and automated buyer e-sign renewals shield against penalties.
+	4
+	Friction-2026-11-09-Stripe-Fulfillment-Webhook-Mismatch
+	Friction Sensor (friction-sensor@0.2.1)
+	Source Signal
+	Research-Friction-2026-11-09-Stripe-Fulfillment-Webhook-Mismatch
+	KILL
+	Implementation defect caused by missing idempotency and lack of dead-letter queues. Directly addressed by standard Stripe docs, webhook signing libraries, and infrastructure tools (Hookdeck, Svix). No durable structural wedge.
+	2. Queue & Inventory Audit
+* Signals Processed This Batch: 4
+* Operational Non-Signals Handled: 1 (Business-20261109-no-signal.md logged as normal zero-signal heartbeat)
+* Cumulative Evaluated Signals To Date: 69
+* Current Unprocessed Signals Remaining in Folders: 0

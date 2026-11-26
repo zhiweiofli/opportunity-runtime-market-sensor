@@ -1,0 +1,30 @@
+﻿Opportunity Runtime Researcher Execution Receipt
+* Task Version: researcher@0.2.2
+* Role Spec Status: reviewed
+* Timezone: Asia/Taipei (UTC+08:00)
+* Execution Cutoff Timestamp: 2026-10-31T17:16:31+08:00
+* Scanned Directory Scope:
+   * Signals Root: https://drive.google.com/drive/folders/1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI
+   * Business Input: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+   * Friction Input: https://drive.google.com/drive/folders/19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo
+   * Market Input: https://drive.google.com/drive/folders/12UTQ8sbPG0Ryv3mA0YB7EtWTjH3Ri0G2
+   * Research Output: https://drive.google.com/drive/folders/1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9
+* Total Discovered Observations: 41 items across input folders
+* Historical Observations Skipped: 37 items (all verified as covered in Research directory)
+* Current Batch Qualified Signals Processed: 4 items
+   1. IBF-20261030-WooCommerce-PHP82-LegacyGatewayCheckoutFailure -> HYPOTHESIS_READY
+   2. IBF-20261030-NiagaraAX-JACE6-JavaAppletLockout -> HYPOTHESIS_READY
+   3. Business-20261030-visa-installment-credential-plt-expansion -> HYPOTHESIS_READY
+   4. Friction-2026-10-31-IdentityProofing-OnboardingDropoff -> KILL
+* New Research Artifacts Created & Verified:
+   * Research-IBF-20261030-WooCommerce-PHP82-LegacyGatewayCheckoutFailure.md
+   * Research-IBF-20261030-NiagaraAX-JACE6-JavaAppletLockout.md
+   * Research-Business-20261030-visa-installment-credential-plt-expansion.md
+   * Research-Friction-2026-10-31-IdentityProofing-OnboardingDropoff.md
+* Waiting / Pending Recovery: None
+* History Conflict / Verification Items: None
+* Excluded Items & Reasons:
+   * Anthropic Usage and Cost Analytics API: Tracked in Watch list, pure observability endpoint release without immediate pricing/toll change.
+   * Japan JCT Platform Marketplace tax reform: Tracked in Watch list, regional marketplace tax changes taking effect November 1, 2026.
+   * Dow Chemical & CB Supplies raw materials price adjustments: Excluded (heavy physical commodity materials).
+* Queue Status: NO_PENDING_SIGNALS

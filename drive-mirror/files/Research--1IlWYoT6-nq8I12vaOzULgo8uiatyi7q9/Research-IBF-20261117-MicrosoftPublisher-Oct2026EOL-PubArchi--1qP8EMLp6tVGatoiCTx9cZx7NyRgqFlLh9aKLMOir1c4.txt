@@ -1,0 +1,89 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: IBF-20261117-MicrosoftPublisher-Oct2026EOL-PubArchiveMigration
+* Source Signal References:
+   * Signal ID: IBF-20261117-MicrosoftPublisher-Oct2026EOL-PubArchiveMigration
+   * Generated At: 2026-11-17T17:30:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: IBF-20261117-MicrosoftPublisher-Oct2026EOL-PubArchiveMigration.md
+   * Source File Modified At: 2026-11-17T17:21:51+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+1. Microsoft Publisher 正式断供与 .pub 存量锁死：微软于 2026 年 10 月 1 日正式从 Microsoft 365 订阅中移除 Publisher（订阅用户无法再打开或编辑 .pub 文件），并于 2026 年 10 月 13 日终止 Publisher 2021 永久版支持（Microsoft Support、Microsoft Q&A 2026-10-28）。微软官方提供的 Convert-PubFileToPDF.ps1 批处理脚本强依赖本地仍装有 Publisher COM 组件，对已卸载的 M365 用户完全失效。
+2. 机构级批量盘点与可编辑迁移成本高昂：北美及全球数以十万计的教会堂区、中小学办公室、非营利组织与小型印刷店长期积累了 200–1,500+ 份 .pub 历史模板（周报、菜单、宣传单、Avery 标签）。人工排查 1,000 份文件需 83+ 工时，手工重建 50 份核心模板需约 150 设计工时；商业桌面转换器 Markzware OmniMarkz / MarkzPortal 收费高达 $469/年或 $29/单文件（$79/月订阅），远超教会与学校等预算敏感型机构的承受范围。
+3. 无头本地盘点 + 可编辑 PPTX/SVG 转换技术路径：基于 libmspub / LibreOffice 无头管线与 OLE2 复合文档解析，无需安装 MS Publisher 即可在本地扫描整个目录，生成可检索的 HTML 缩略图盘点目录（10 分钟筛选出真正活跃的核心文件），并将选中文件批量导出为 PDF 归档与按文本框/图片层拆分的 .pptx / .svg 可编辑资产包。
+Unknown
+在拥有 200 份以上 .pub 历史文件的教会、中小学与小型印刷店中，目标用户对 libmspub 开源底层转换复杂多栏排版与 Avery 标签时的版面微调容忍度，以及 $49–$79 一次性买断工具包相较于免费 LibreOffice 手工转换的实际付费转化率。
+Decision-Critical Unknown
+对于失去 M365 Publisher 访问权限的中小机构行政人员，一款"纯本地免联网运行、一键扫描生成可视化缩略图盘点表并批量导出可编辑 .pptx/PDF"的 $49–$79 一次性买断桌面/CLI 工具，在 libmspub 解析真实复杂 .pub 样本时的版面可用率是否能达到 80% 以上。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	真实替代成本锚点明确：Markzware OmniMarkz 年费 $469/年（或单文件 $29 / $79 月费），人工重做 50 份模板耗时 150 工时；$49–$79 一次性买断工具具备 5.94 倍价格杠杆（$469 / $79），教会/学校/小印刷店有明确痛点与预算替代需求。
+	Mechanism
+	通过 (PASS)
+	微软主动卸载 M365 Publisher 且官方脚本依赖本地 COM 组件，造成"无本体即无法批量打开/盘点"的死锁；利用 libmspub + OLE2 资产提取 + python-pptx 重组，可在零云端上传（保障隐私）的前提下完成盘点与可编辑格式迁移。
+	Persistence
+	通过 (PASS)
+	结构性断供（中等持久度）：微软永久退役 Publisher 无回归计划，2026 年 10 月至 2027 年底为集中迁移与冷档案唤醒高峰期，未来 1–2 年长尾需求持续存在（随着机构完成迁移后将逐步衰减，属中周期窗口）。
+	Capture
+	通过 (PASS)
+	极佳的轻资产小团队契合度：纯本地打包桌面/CLI 工具（Gumroad / Lemon Squeezy 替代渠道一次性售卖），零服务器运维成本、零隐私合规负担、1–2 人小团队即可完成开发与分发。
+	3. Evidence & Counter Evidence
+Supporting Evidence
+1. Microsoft 官方退役支持公告：Microsoft Publisher will no longer be supported after October 2026 —— 确认 2026-10-01 M365 停止打开/编辑 .pub，且官方 PowerShell 脚本需要本地已安装 Publisher。
+2. Microsoft Q&A 断供实证（2026-10-28）：Bring back Microsoft Publisher —— 用户确认 M365 升级后 Publisher 消失且无法还原。
+3. Markzware 迁移实务与工时测算（2026-10-23）：Microsoft Publisher End of Life 2026: Better Conversion Options —— 量化盘点 1,000 份 .pub 需 83+ 工时、重做 50 份模板需 150 工时，指出批量盘点与可编辑转换的核心缺口。
+4. Markzware 官方定价：MarkzPortal & OmniMarkz Pricing —— 确认商业替代品定价为 $29/份、$79/月、$469/年。
+Counter Evidence
+1. 免费开源替代方案存在：LibreOffice Draw（内置 libmspub）已可免费打开 .pub 并支持命令行批量转 PDF，部分技术能力较强的管理员可自行编写脚本解决纯归档需求（但缺乏可视化缩略图盘点目录与 .pptx 分层转换）。
+2. 中周期窗口衰减：2027 年底大多数活跃机构完成迁移后，新增需求会明显回落，不适合作为长期高增长 SaaS，更适合作为一次性买断现金流工具包。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过独立官方公告、社区求助与商业竞品定价交叉验证，满足 HYPOTHESIS_READY 终止条件。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 教会、学校与小印刷店最需要的不是再学一个新私有格式编辑器（如 .pubk），而是"先盘点出哪些旧文件还有用，再批量转为通用的 PDF + 可编辑 PPTX"。
+* What became less likely: 微软会在 M365 中恢复 Publisher 或提供不依赖本地 COM 组件的官方无头批量转换工具。
+* What did we rule out: 排除了向非营利组织与小微机构推销 $469/年重型专业出版订阅软件的可行性。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-18T17:56:28+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+Title: Microsoft Publisher 断供 .pub 历史档案本地一键盘点与批量转 PPTX/PDF 套件 (PubArchive Migrator)
+Source Signal References
+* Signal ID: IBF-20261117-MicrosoftPublisher-Oct2026EOL-PubArchiveMigration
+* Generated At: 2026-11-17T17:30:00+08:00
+* Task Version: installed-base-friction@0.2
+* Source File URL: IBF-20261117-MicrosoftPublisher-Oct2026EOL-PubArchiveMigration.md
+* Source File Modified At: 2026-11-17T17:21:51+08:00
+Money
+北美及全球拥有数百至上千份 .pub 历史档案的教会、中小学行政办公室、非营利组织与小型印刷店。商业方案 Markzware 收费 $469/年，手工重建耗时 150 工时；目标客户愿为纯本地、无限文件数的一次性买断盘点与迁移工具包支付 $49–$79。
+Mechanism
+无需安装 MS Publisher，基于 libmspub/LibreOffice 无头管线与 OLE2 解析，递归扫描本地/OneDrive 同步目录中的全部 .pub 文件，输出含页数、修改时间与缩略图的可检索 HTML 盘点清单，并将选定文件批量转换为高保真 PDF 归档与按文本框/图片层拆分的可编辑 .pptx 文件。
+Capture
+1–2 人小团队构建跨平台本地桌面/CLI 打包工具，一次性买断授权（$49–$79），零云端隐私风险、零服务器运维成本、高毛利。
+Durability
+微软已于 2026 年 10 月永久退役 Publisher 且官方脚本对已卸载用户失效，2026–2027 年处于集中迁移窗口，历史冷档案唤醒需求延续至长尾。
+Evidence
+1. Microsoft Publisher 退役官方公告
+2. Microsoft Q&A 用户断供反馈（2026-10-28）
+3. Markzware 迁移实务与工时测算（2026-10-23）
+4. Markzware 官方定价
+Counter Evidence
+1. LibreOffice Draw 可免费单文件或命令行转 PDF，但缺少可视化批量盘点与 PPTX 分层输出。
+2. 迁移高峰窗口集中于 2026–2027 年，长期需求会随存量迁移完成而逐步收窄。
+Critical Unknown
+libmspub 对真实机构常见的复杂 Publisher 文本框链接（Text Flow）与 Avery 标签模板的解析保真度，以及目标用户在版面微调下的接受度。
+Falsification
+若微软免费发布不依赖本地 Publisher 本体的云端/独立 .pub 转 Word/PowerPoint 批量迁移器，或 Canva/Adobe 推出免费一键批量导入 .pub 盘点工具，该一次性付费工具价值将被大幅压缩。
+Next Test
+在 90 分钟内编写 Python 原型脚本，调用 libmspub/LibreOffice 无头模式批量处理 5 个不同复杂度的真实 .pub 样本，输出 1 份 HTML 缩略图盘点报告与至少 1 份文字/图片独立可编辑的 .pptx 转换结果，并在 r/microsoftoffice 测试管理员反馈。
+
+
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-18T17:56:28+08:00
+* Role Spec Status: reviewed

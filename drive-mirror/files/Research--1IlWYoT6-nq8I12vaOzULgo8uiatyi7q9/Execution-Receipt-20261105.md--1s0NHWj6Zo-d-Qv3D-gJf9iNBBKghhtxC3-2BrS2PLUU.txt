@@ -1,0 +1,26 @@
+﻿Opportunity Runtime Researcher Execution Receipt
+* Task Version: researcher@0.2.2
+* Role Spec Status: reviewed
+* Timezone: Asia/Taipei (UTC+08:00)
+* Execution Cutoff Timestamp: 2026-11-05T17:39:45+08:00
+* Scanned Directory Scope:
+   * Signals Root: https://drive.google.com/drive/folders/1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI
+   * Business Input: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+   * Friction Input: https://drive.google.com/drive/folders/19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo
+   * Market Input: https://drive.google.com/drive/folders/12UTQ8sbPG0Ryv3mA0YB7EtWTjH3Ri0G2
+   * Research Output: https://drive.google.com/drive/folders/1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9
+* Total Discovered Observations: 58 items across input folders
+* Historical Observations Skipped: 56 items (all verified as covered in Research directory, including finalized records for duplicate Autotask observations)
+* Current Batch Qualified Signals Processed: 2 items
+   1. Friction-20261105-GoogleFormsPaymentReconciliation -> KILL
+   2. Business-20261104-smartthings-cloud-api-paid-toll -> HYPOTHESIS_READY
+* New Research Artifacts Created & Verified:
+   * Research-Friction-20261105-GoogleFormsPaymentReconciliation.md
+   * Research-Business-20261104-smartthings-cloud-api-paid-toll.md
+* Waiting / Pending Recovery: None
+* History Conflict / Verification Items: None
+* Excluded Items & Reasons:
+   * Apple Taiwan App Store commission rate reduction: Tracked in Watch list, platform fee decrease without new third-party software capture point.
+   * Anthropic Usage and Cost Analytics API: Tracked in Watch list, pure observability endpoint evolution.
+   * IBM Planning Analytics price increase: Excluded (single-vendor routine annual price coordination).
+* Queue Status: NO_PENDING_SIGNALS

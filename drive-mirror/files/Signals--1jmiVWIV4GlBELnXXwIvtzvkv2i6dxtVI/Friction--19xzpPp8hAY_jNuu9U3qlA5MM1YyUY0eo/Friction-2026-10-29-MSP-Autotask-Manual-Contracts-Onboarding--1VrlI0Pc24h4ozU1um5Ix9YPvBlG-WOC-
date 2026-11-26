@@ -1,0 +1,25 @@
+Signal ID: Friction-2026-10-29-MSP-Autotask-Manual-Contracts-Onboarding
+Type: Friction
+What Changed: 已付费使用 PSA（如 Autotask）的小型 MSP 在新客户 onboarding 时，仍需手动复制/编辑 MSA/SOW 合同、生成 PDF、通过电子签名工具发送，并在签署后手动将数据录入 Autotask 进行计费；问题在 2026-10-24/25 Reddit 帖中被报告为持续痛点。
+Friction: Onboarding / Setup / Manual operation / Integration（合同生成、电子签名与 PSA 计费数据录入的手工流程）
+Money: MSP 已为 Autotask（及其他工具如 Adobe Sign）付费，但每位新客户仍需人工处理合同与数据录入；关联 labor cost / time（重复手动工作占用可创收时间）与潜在 error cost。具体损失金额未知。
+Evidence: 
+1. Reddit r/msp 帖（2026-10-24）：“One of my biggest pain points has always been contracts. My process involved making a copy of our MSA/SOW, manually updating it in Word, saving it as a PDF, and then sending it out through Adobe Sign. Once everything was signed, I still had to enter the information into Autotask for billing. It worked, but it was time-consuming, repetitive, and left plenty of room for human error.” 作者随后用 ChatGPT 构建自定义 Docker 应用集成 Autotask API 与 SignWell 以自动化。URL: https://www.reddit.com/r/msp/comments/1xeq8gs/from_manual_contracts_to_automated_onboarding/
+2. 同内容在 r/SmallMSP 重发（2026-10-24/25），确认小团队场景。URL: https://www.reddit.com/r/SmallMSP/comments/1xeok1c/from_manual_contracts_to_automated_onboarding/
+3. 帖文强调：“Every minute I'm not spending copying contracts, updating documents, or manually entering billing information is time I can spend on more productive, revenue-generating activities. For a small business, that makes a real difference.”
+4. 补充：Autotask 相关讨论显示发票发送、合同批量处理等仍常需手动或额外工具（历史帖，但模式持续）。
+Mechanism: 已付费的 PSA 提供核心服务管理与计费，但合同生命周期（生成、定制、签名、回写计费）未原生闭环或需额外配置；导致每个 onboarding 重复手工步骤，阻断人员时间流向更高价值活动，并增加人为错误风险（如数据不一致）。推断：标准合同流程在小规模 MSP 中高频重复。
+Current Workaround: 手动 Word/PDF + Adobe Sign + 手动录入 Autotask；或自建自定义应用（如帖中 Docker + API 集成）；或第三方自动化工具（如 DepositFix、FlexPoint 等用于发票相关）。成本：每次 onboarding 数小时人工（未知精确，但作者描述为 time-consuming）；自建需开发/维护时间；第三方有订阅费。依据：帖文原话。
+Payer: 小型/中型 MSP（已付费使用 Autotask 或其他 PSA）愿意为减少手动 onboarding 时间的集成工具或模板付费，以释放劳动时间。依据：作者投入时间构建自定义解决方案，并公开分享，表明价值；市场已有相关自动化工具存在。
+Economic Effect: labor / time（主要）；次要 potential revenue（因时间被占用而错过创收） / cost（错误导致的返工）
+Friction Value: 频率：每新客户 onboarding 一次（小 MSP 可能每月数次，未知精确）；单次经济影响：数小时人工成本（假设 $50-100/小时，则 $100-500+/次，未知具体）；可回收比例：高（自动化后大部分手动步骤可消除，依据作者自建后“huge time-saver”）。依据：帖文描述；精确频率与金额未知，未编造。
+Persistence: Structural（合同定制、电子签名回写、PSA 数据录入为 MSP onboarding 持续需求；非一次性 bug，平台原生支持有限）
+Next Question: 小型 MSP 中该手动流程的平均每次耗时与频率？是否有低成本、无需自建的 Autotask 集成合同/签名工具被广泛采用，付费意愿如何？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-10-29T09:37:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-10-22 至 2026-10-29（Asia/Taipei），基于本轮实际可核实资料截止时点（搜索与 Drive 列表）。
+已有历史 Signal：Drive 文件夹中已有多条支付失败恢复相关信号（如 Friction-2026-10-25-failed-payment-recovery 等），本条为新主题，未重复。
+无法访问或受限平台：部分 Reddit 完整页面抓取失败（工具返回错误），依赖搜索摘要与公开片段；X 相关具体用户原话较少。
+已写入 Drive 目录：https://drive.google.com/drive/folders/19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo （待确认上传后实际链接）

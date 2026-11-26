@@ -1,0 +1,139 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261102-IndieMusic-MLC-UnmatchedMechanicalRoyaltiesClaimPacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261102-IndieMusic-MLC-UnmatchedMechanicalRoyaltiesClaimPacket
+   * Generated At: 2026-11-02T00:36:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/1w1ggJet9eDH8D_2cNuvk8rMhBQ1Bteq5rsCZpXkjTuw/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-02T00:38:38+08:00
+
+
+* Research Level: R2 — Economic Underwriting
+
+
+* Stage Result: HYPOTHESIS_READY
+
+
+* Unknown Ledger:
+
+
+   * Known: 尽管根据美国《音乐现代化法案》（MMA）由流媒体转交的 4.24 亿美元历史黑盒子版税已完成初始结算，但每月数字流媒体（Spotify, Apple Music, YouTube）产生的新流媒体消费中，仍有大量机械版税因缺乏 ISWC 词曲标识与 ISRC 录音标识的绑定而持续沉淀在“未匹配待认领池”（Unmatched Royalties）；独立自出版音乐人（Indie Songwriters）单人平均每年漏领约 $800 版税，超 60% 在 Spotify 上推广歌曲的独立音乐人从未注册 The MLC；法律硬性规定未领版税法定保留期仅为 3 年，超期即被按市场份额永久稀释分摊给索尼、环球等头部跨国唱片出版商；独立音乐人花 3–5 小时在多个割裂后台（Spotify for Artists, DistroKid, The MLC）手工查验因“繁琐文书不划算”而普遍放弃，传统商业出版代理（如 Songtrust）收取 $100 建档费并抽取 15%–20% 分润，将长尾创作者排除在外。
+   * Unknown: 在使用 DistroKid/TuneCore 发行超 5 首原创且美区累计流媒体播放量在 10 万至 100 万次的长尾音乐人群体中，已在 The MLC 完成完整词曲与 ISRC 绑定的精确占比。
+   * Decision-Critical Unknown: 拥有持续流媒体播放的独立音乐人，对于一款“输入 Spotify 艺人主页，30 秒扫描未匹配漏领版税并生成 The MLC 官方标准批量 Catalog CSV 注册表与认领指引（单次收费 $19–$29 或按追回金额抽取 10% 分成）”的付费转化率。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。单人平均每年漏领约 $800 美元机械版税，每 50 万次流媒体播放对应 $400–$600 版税池；$19 工具对比几百美元合法应得收入具有充足正向收益。
+   * Mechanism: 通过。ISRC（录音）与 ISWC（词曲）编码割裂属于行业结构性痛点；通过 Spotify Web API 与公开音乐数据库自动抓取曲目元数据并比对 The MLC 公开黑盒子库，自动映射并组装批量上传 CSV，将数小时繁复跨库录入压缩至分钟级自动化。
+   * Persistence: 通过。美国 MMA 法定数字机械许可框架长期确定，流媒体平台与集体管理机构（The MLC）按月结算机制长效存续。
+   * Capture: 通过。1-3 人小团队构建轻量 Web 工具，纯元数据 API 抓取与 CSV 表格映射，零实体库存、零硬件资产、高毛利。
+
+
+* Final Status: HYPOTHESIS_READY
+
+
+* Evidence:
+
+
+   1. Chartlex 音乐版权深度指南《How to Claim Your Share of the MLC's $424M Black Box Pool》（2026-05 发布）：证实独立音乐人平均每年漏领约 $800 版税，超 60% 创作者未注册 The MLC，且因文书繁琐而放弃。
+   2. ArtistRack 行业指引《How to Claim Unclaimed MLC Mechanical Royalties》（2026-07）：确认数百万美元未匹配机械版税沉淀在黑盒子账户，独立创作者存在巨大信息差。
+   3. 美国版权局（US Copyright Office）官方报告《Unclaimed Royalties Final Report》：官方确认 ISRC 与 ISWC 编码断层及长尾自出版人缺乏工具是未匹配资金滞留的核心系统性根源。
+
+
+* Counter Evidence:
+
+
+   1. 多作者合作歌曲若存在未书面化的版权纠纷（缺少 Split Sheet）需人工协议协调。
+   2. 终身总播放量极低（<1,000次）的纯业余爱好者累计版税不足 $1。
+
+
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，痛点真实刚性，元数据对齐与批量 CSV 映射机制明确，小团队轻资产切入点极佳。
+
+
+* Resume Condition: 不适用（已完成）。
+
+
+* What became more likely: 独立音乐人将普遍通过自动化元数据映射工具自主直连 The MLC 领取属于自己的 100% 机械版税。
+
+
+* What became less likely: 独立长尾音乐人继续将 15%–20% 的未来版税拱手让渡给收取 $100 前置建档费的传统出版代理机构。
+
+
+* What did we rule out: 排除了仅靠数字发行商（DistroKid/TuneCore）能自动帮音乐人代收并结算全部词曲机械版税的假设。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-02T17:17:16+08:00
+
+
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向独立自出版音乐人的 The MLC 未匹配机械版税审计与批量注册 CSV 数据包生成器
+* Source Signal IDs: UW-20261102-IndieMusic-MLC-UnmatchedMechanicalRoyaltiesClaimPacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261102-IndieMusic-MLC-UnmatchedMechanicalRoyaltiesClaimPacket
+   * Generated At: 2026-11-02T00:36:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/1w1ggJet9eDH8D_2cNuvk8rMhBQ1Bteq5rsCZpXkjTuw/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-02T00:38:38+08:00
+
+
+* Money: 全美数十万在流媒体有持续播放但未签约大出版商的独立音乐人；单人挽回每年约 $800 漏领版税，音乐人愿支付 $19–$29 买断规范 CSV 申报包或按实际到账金额的 10% 提成。
+
+
+* Mechanism: 针对独立创作者因发行商只管录音（ISRC）不管词曲（ISWC）而在多个后台手工比对耗时数小时的痛点，工具提供：音乐人输入 Spotify Artist 主页或上传发歌清单，算法自动提取全部歌曲名称、合作者与 ISRC 编码，自动跨库比对 The MLC 公开数据库标出漏领曲目；自动组装符合 The MLC 官方格式的批量 Catalog CSV 注册文件与认领清单，音乐人只需一键上传至 MLC Member Hub，无需让渡 15% 长期抽成即可打通每月直发管道。
+
+
+* Capture: 1-3 人小团队构建轻量 Web 自动化工具，纯元数据清洗与 CSV 表单映射，零实体库存、零硬件、高毛利。
+
+
+* Durability: 美国流媒体机械版权法规制长期稳定，3 年黑盒子自动充公法则长期存在，属于音乐创作者的高频刚需。
+
+
+* Evidence:
+
+
+   1. Chartlex 报告（2026-05）：https://www.chartlex.com/blog/money/mlc-unclaimed-royalties-claim-guide-2026 证实单人年均漏领 $800 与 60% 未注册率。
+   2. ArtistRack（2026-07）：https://artistrack.com/claiming-unclaimed-mlc-mechanical-royalties/ 确认黑盒子版税沉睡现状。
+   3. US Copyright Office 报告：https://www.copyright.gov/policy/unclaimed-royalties/unclaimed-royalties-final-report.pdf 确认 ISRC/ISWC 编码断层制度原因。
+
+
+* Counter Evidence:
+
+
+   1. 复杂多方纠纷歌曲需线下协议确认。
+   2. 终身播放量低于千次的极低频长尾收益薄弱。
+
+
+* Critical Unknown: 独立音乐人对于在 The MLC 自建免费自出版实体（Self-Published Entity）并填写 W-9 表格的心理阻力与引导流失率。
+
+
+* Falsification: 若 Spotify、Apple Music 等数字流媒体与 DistroKid 联合宣布全自动在底层无缝穿透打通机械版税结算，完全取消创作者独立向 The MLC 报备的流程。
+
+
+* Next Test: 为 5 位拥有 5–15 首原创歌曲且月流媒体播放超 2 万次的独立音乐人抓取元数据并生成 MLC 批量 CSV，协助上传并验证首次版税入账到账情况。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-02T17:17:16+08:00
+
+
+* Role Spec Status: reviewed

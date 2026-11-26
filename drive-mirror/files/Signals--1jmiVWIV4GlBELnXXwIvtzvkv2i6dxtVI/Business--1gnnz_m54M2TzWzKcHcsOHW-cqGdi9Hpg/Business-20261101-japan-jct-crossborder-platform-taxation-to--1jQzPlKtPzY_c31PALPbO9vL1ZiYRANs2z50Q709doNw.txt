@@ -1,0 +1,42 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+* Task Version: business-sensor@0.2.1
+* Role Spec Status: reviewed
+* 观察窗口: 2026-10-26 09:59:07 至 2026-11-02 09:59:07 (Asia/Taipei)
+* 已有 Signal 索引/全文: 已核对历史文件 Business-20261014-autodesk-aps-passthrough-billing.md、Business-20261001-whatsapp-service-message-toll.md、Business-20261015-github-agentic-autofix-metered-toll.md、Business-20261014-hubspot-flexible-seats-credits-toll.md、Business-20261017-deepseek-flash1017-costcurve-searchtoll.md、Business-20261023-vercel-deployment-storage-toll.md、Business-20261021-salesforce-headless-agent-api-toll.md、Business-20261023-visa-b2b-embedded-payment-toll.md、Business-20261020-eu-customs-handling-fee-pid-toll.md、Business-20261022-openai-decisions-api-costcurve.md、Business-20261025-aws-shield-waf-antiddos-migration-toll.md、Business-20261028-github-enterprise-copilot-dollar-entitlement.md、Business-20261029-googleplay-agentic-purchases-billing-toll.md、Business-20261030-visa-installment-credential-plt-expansion.md 与 Business-20261101-cloudflare-ai-search-metered-toll.md，本轮已执行跨历史核对与去重
+* 输出逻辑位置: Opportunity Runtime/Signals/Business/
+* 实际输出文件夹 URL: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+待研究 Signal (Qualified Signals)
+Signal ID: Business-20261101-japan-jct-crossborder-platform-taxation-toll
+* Type: Business
+* What Changed: 2026年11月1日，日本国税厅（NTA）正式对跨境电商实施里程碑式的税制合规改革并开启全面执法。核心结构性变更为：第一，全面终结跨境个人直邮 10,000 日元（约 65 美元）以下免征消费税的法定漏洞；第二，正式确立"平台课税制度"（Platform Taxation / プラットフォーム課税）——海外卖家通过数字平台（包括 Amazon Japan、Rakuten 乐天、Yahoo Shopping、Mercari、以及对接跨境买家的各类独立站平台）向日本境内消费者邮购销售 10,000 日元及以下的低货值实物商品时，法定纳税与申报纳管义务直接由海外卖家转移至数字平台运营者（Platform Operator），平台必须在交易发生时强制按 10%（食品饮料 8%） 计算、代扣并向日本国税局集中汇缴 JCT 消费税；第三，同步自 2026年11月1日 起彻底终结访日外国游客在零售店内的即时免税模式，全面转为"离境机场凭海关电子验核退税"（Airport refund model）。此变更属于典型的 New Toll Booth（日本税法在跨境电商低值直邮的必经清算通路上正式设立不可绕过的 10% 平台代扣法定卡点）与 Budget Migration（跨境电商卖家原本依赖的免税价格套利空间彻底瓦解，卖家成本结构被迫向平台自动扣税与 QIS 合规发票抵扣软件迁移）。
+* Money: 涉及全球对日跨境电商（涵盖中国、美国、韩国、欧洲等地出口商）每年数万亿日元规模的小额直邮交易资金池。过往海外卖家广泛利用 10,000 日元免税额度以极低含税价向日本消费者倾销服装、小家电、动漫周边及美妆商品，规避 10% 消费税；新规实施后，平台（如亚马逊日本、乐天等）直接在后台结算中心对每一笔订单强制截留 10% JCT 扣款。对于年销 5,000 万日元的中型跨境店铺，每年净利润直接被平台强制扣缴 500 万日元（约合 23 万元人民币）；若未注册成为合格发票发行商（Qualified Invoice Issuer, QIS T-Number），其 B2B 采购客户将面临进项抵扣下调（2026年10月起抵扣比例降至 70%），引发退款拒付风波。
+* Evidence:
+   * Stripe 官方全球税务与商业合规专栏《What Is the Japan Consumption Tax (JCT)?》（官方更新维护日期：2026-10-19，生效执行日：2026-11-01）：明确证实三大法条落地："Transition to an airport refund model for tax-free shopping: Effective November 1, 2026, Japan will end point-of-sale tax exemptions for foreign visitors... Consumption tax enforcement on cross-border e-commerce: New regulations require overseas sellers to collect and remit consumption tax on cross-border mail-order sales of goods priced at 10,000 yen or less. When these low-value goods are sold through digital marketplaces, the tax liability shifts directly to the platform operator"。
+   * 日本国际退税与商业机构深度通告《Japan Announces Full Reform of Tax Free Shopping》（Global Blue，2026年公布）：确认自 2026年11月1日 起日本全面向"先征后退"（Consumption Tax-on）模型平移，店内不再直接免税，并在离境港口设立数字化海关通关核验终端。
+   * 日本财务会计与税改大纲权威解析《Explanation of the FY2026 Tax Reform Proposal for Accountants》（Works Applications，权威税务分析）：详细载明"Expansion of platform taxation: PF businesses will be liable for consumption tax payment on behalf of foreign businesses when they sell digital services or goods via a digital platform... Review of Import Tax Exemption: Exemption of small import shipments (10,000 yen or less) used for personal imports is revised"。
+* Mechanism:
+   * 税源流失阻截与平台连带法定征税责任（事实）：类似欧盟移除 €150 免税额并推行 IOSS、美国实施平台代征（Marketplace Facilitator Laws），日本国税局难以跨境向数以万计的海外分散卖家追缴小额直邮税款。因此通过立法将 10,000 日元以下商品的征税连带责任直接套在境内具有资金清算权的平台（Amazon JP、Rakuten、Yahoo）头上，实现 100% 穿透征缴，构筑了不可逃避的法定收费站（New Toll Booth）。
+   * 双重扣税风险与纳税代理人（Tax Agent）高门槛（事实/推断）：非日本本土企业若在多个平台或独立站销售，若未理清"平台代征部分"与"独立报关进口部分"，极易在清关口岸被海关再度征税形成双重征税；且海外卖家独立注册 QIS 发票号必须在日指定"税务代理人（納税管理人）"，财税合规成本骤增。
+   * 小团队轻资产进入节点（推断）：
+      * a. 跨境独立站/Shopify 日本 JCT 智能代扣与清关税费网关（Japan JCT DDP Checkout Plugin）：面向从中国、欧美通过 Shopify/WooCommerce 向日本直邮货物的跨境独立站，开发轻量结算插件。自动识别订单是否小于 10,000 日元，自动拆分并展示 10% JCT，生成符合日本海关电子通关格式的 DDP（完税交货）运单数据，避免消费者在收件时被快递员二次索要税费导致弃件。
+      * b. 跨平台 JCT 扣缴对账与发票号申报中继工具（JCT Multi-Platform Tax Reconciliation SaaS）：针对在亚马逊日本、乐天、Mercari 多渠道开店的中小跨境卖家，提供一键对账与申报中间件。自动抓取各大电商平台每月的 JCT 代扣明细，自动剔除免税退货，比对 QIS 合格发票抵扣额，输出符合日本国税厅标准的年度汇总报表，按月收取软件订阅费。
+      * 极度符合 1–3 人小团队形态：纯软件 API、电商插件与自动化税务数据分析工具，零实体仓储、零线下履约、高毛利 B2B SaaS。
+* Magnitude: Large。依据：日本是全球第四大电子商务与消费品市场，针对 10,000 日元以下跨境小额包裹全面开征消费税并由平台连带代扣，直接改写了全球对日跨境出口供应链的毛利底线与结算游戏规则。
+* Persistence: Persistent。依据：属于日本国会与财务省正式通过并颁布的法定税改法案，11月1日 属于不可逆的法定生效实施节点，且后续还将衔接至 2028 年更严格的 QIS 进项抵扣阶梯。
+* Next Question: 11月1日 平台代征正式生效后，亚马逊日本与乐天等平台对未提交 QIS 税号（T-Number）的海外中小卖家是否会实行搜索降权或强制冻结提现？跨境独立站商户是否会加速采纳具有日本本地 Tax Agent 资质的轻量合规代理通道？
+* Task Version: business-sensor@0.2.1
+* Generated At: 2026-11-02T09:59:07+08:00
+* Role Spec Status: reviewed
+观察与过滤池 (Watch & Ignore List)
+1. 线索: Apple 宣布台湾 App Store 佣金率由 30% 正式下调至 26%（2026-10-29 公布，2026-10-31 生效）
+* 判定: WATCH
+* 原因: 2026-10-29 经 Apple Developer 官方公告 证实，苹果在与台湾公平交易委员会（TFTC）协商后，正式自 2026年10月31日 起将台湾区 App Store（iOS/iPadOS）标准应用内购买（IAP）与付费应用的分成比例由 30% 下调至 26%。虽然属于重大的应用商店分成费率（Take Rate）调整并直接为台湾本土 iOS 开发者带来 400 个基点的净利润释放，但属于反垄断行政协商带来的降费让利，苹果并未在台湾开放第三方支付或引入新的外部抽税节点，缺乏小团队可独立切入的计费软件或中间件 Capture 路径。
+* 等待证据: 观察台湾公平会后续是否进一步施压要求苹果允许第三方支付接入，以及是否在亚太其他国家（如韩国、日本）引发连锁降费诉求。
+2. 线索: Didit 身份验证新定价结构全面生效：终结 500 次免费额度并推行 $10 通用积分（2026-11-01 生效）
+* 判定: WATCH (维持追踪)
+* 原因: 经 Didit 官方博客 确认，Didit 自 2026年11月1日 起正式废除原有的每月 500 次免费基础核验额度，变更为全产品通用的 $10/月 积分额度（约覆盖 30 次完整身份核验），超出部分按列表价扣除（完整 ID 校验 $0.33/次、黑名单筛查 $0.20/次）。属于中小型合规 SaaS 的常规防御性调整，行业波及面局限于其既有客群。
+* 等待证据: 观察中小型初创客户流失率及竞品（如 Sumsub、Veriff）是否针对性推出免费迁移吸客策略。
+3. 线索: TikTok Shop 下调 70–150 磅大件重货 FBT 履约物流单价（2026-10-26 公布，2026-11-01 生效）
+* 判定: IGNORE (快速 Kill)
+* 原因: 属于 TikTok Shop 对美国本土 70–150 磅重型大件商品（Heavy Bulky）单件履约与最后一公里派送费率的线下物流降价（参考 Broadi 行业报道），重度依赖线下实体仓储网络、干线卡车车队与重资产搬运，不符合小团队轻资产数据/软件自动化偏好。

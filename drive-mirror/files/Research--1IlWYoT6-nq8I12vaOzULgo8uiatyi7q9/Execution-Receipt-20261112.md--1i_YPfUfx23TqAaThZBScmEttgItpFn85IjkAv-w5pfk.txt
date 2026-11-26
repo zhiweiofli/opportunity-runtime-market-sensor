@@ -1,0 +1,41 @@
+﻿Execution Receipt: researcher@0.2.2 (Batch 20261112)
+* Execution Cutoff Timestamp: 2026-11-12T17:57:55+08:00
+* Timezone: Asia/Taipei (UTC+08:00)
+* Role Specification: Opportunity Runtime Researcher (researcher@0.2.2)
+* Queue Status: NO_PENDING_SIGNALS
+* Research Output Directory: Research Output Folder
+1. Input Signals & Underwriting Decisions
+#
+	Signal ID / Title
+	Type
+	Source Signal Link
+	Underwritten Record
+	Final Verdict
+	Core Dynamic / Reason
+	1
+	Business-20261022-openai-decisions-api-costcurve
+	Business Sensor (business-sensor@0.2.1)
+	Business-20261112-google-gemini-decisions-api-costcurve.md
+	Research-Business-20261112-google-gemini-decisions-api-costcurve.md
+	HYPOTHESIS_READY
+	Google launched Gemini Decisions API ($0.10/M tokens, $0 output, full multimodal audio/video/PDF, 1000 questions concurrency, 150–250ms latency), solidifying the duopoly with OpenAI and confirming the zero-output-token decision primitive as the global standard for two-tier agent architectures. 5x cost reduction over Flash-Lite unlocks positive margins for cross-cloud decision routers and real-time multimodal triage micro-SaaS.
+	2. Directory Scope & Queue Inventory Audit
+* Scanned Directory Scope:
+   * Signals Root: Signals Folder
+   * Business Input: Business Folder
+   * Friction Input: Friction Folder
+   * Market Input: Market Folder
+   * Research Output: Research Output Folder
+* Total Discovered Observations: 77 items across input directories.
+* Historical Observations Skipped: 76 items (all verified as covered in Research directory with finalized HYPOTHESIS_READY, KILL, or logged heartbeat records).
+* Current Batch Qualified Signals Processed: 1 item (incremental breakthrough observation for Decisions API).
+* New Research Artifacts Created & Verified:
+   * Research-Business-20261112-google-gemini-decisions-api-costcurve.md (Drive ID: 1CiFVsl5i7hWiQz-1Rv9dNw6ZYrG4Szy69_zHc4odvKg)
+   * Execution-Receipt-20261112.md (Drive ID: 1i_YPfUfx23TqAaThZBScmEttgItpFn85IjkAv-w5pfk)
+* Waiting / Pending Recovery: None.
+* History Conflict / Verification Items: None.
+* Excluded Items & Reasons:
+   * PostHog Self-Driving Per-Run billing: Tracked in Watch list, internal pricing adjustment with free buffer, no external toll booth.
+   * Cloudflare Vite ecosystem grant: Excluded (PR / developer grant, no commercial customer budget).
+   * FTC Do Not Call registry fee adjustment: Excluded (federal regulatory administrative license fee).
+* Final Queue Status: NO_PENDING_SIGNALS (0 unprocessed signals remaining).

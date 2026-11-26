@@ -1,0 +1,78 @@
+﻿Execution Receipt: researcher@0.2.2 (Batch 20261113)
+* Execution Cutoff Timestamp: 2026-11-13T17:57:15+08:00
+* Timezone: Asia/Taipei (UTC+08:00)
+* Role Specification: Opportunity Runtime Researcher (researcher@0.2.2)
+* Queue Status: NO_PENDING_SIGNALS
+* Research Output Directory: Research Output Folder
+1. Input Signals & Underwriting Decisions
+#
+	Signal ID / Title
+	Sensor
+	Generated At
+	Source Signal Link
+	Underwritten Record
+	Final Verdict
+	Core Dynamic / Reason
+	1
+	UW-20261113-ASC-ImplantCarveOut-UnderpaymentAudit
+	uneconomic-work@0.1
+	2026-11-13T00:40:00+08:00
+	Source Signal
+	Research-UW-20261113-ASC-ImplantCarveOut-UnderpaymentAudit.md
+	HYPOTHESIS_READY
+	Independent orthopedic/spine ASCs lose $100k–$300k/yr when payers bundle $2k–$19k implants into procedure rates and 835 ERA posts as Paid. Automated 24h OR log + invoice + 835 + contract formula matching unlocks $299–$499/mo SaaS vs $1,300–$1,700/mo human outsourcing.
+	2
+	UW-20261113-RealEstate-ExpiredMechanicsLien-CloudReleaseDemand
+	uneconomic-work@0.1
+	2026-11-13T00:40:00+08:00
+	Source Signal
+	Research-UW-20261113-RealEstate-ExpiredMechanicsLien-CloudReleaseDemand.md
+	HYPOTHESIS_READY
+	Expired $800–$4,500 mechanics liens (>90 days without foreclosure suit) block closings/refis. CA Civil Code § 8480/8488 mandates 10-day release + attorney fees + CSLB risk. Automated title/lien parsing + certified demand packet for $49–$99 beats $1,500–$3,500 legal fees.
+	3
+	UW-20261113-CommercialFleet-ALPRTollMisread-AutoDisputePacket
+	uneconomic-work@0.1
+	2026-11-13T00:40:00+08:00
+	Source Signal
+	Research-UW-20261113-CommercialFleet-ALPRTollMisread-AutoDisputePacket.md
+	HYPOTHESIS_READY
+	Small fleets (10–50 vehicles) lose $6k–$30k/yr to ALPR camera misreads and risk DMV registration holds. OCR toll bill parsing + Samsara/Geotab GPS alibi matching generates dispute packets in 10s for $5–$10/vehicle/mo.
+	4
+	IBF-20261113-QuickBooksDesktop-Sunset-DataLockoutArchive
+	installed-base-friction@0.2
+	2026-11-13T17:45:00+08:00
+	Source Signal
+	Research-IBF-20261113-QuickBooksDesktop-Sunset-DataLockoutArchive.md
+	HYPOTHESIS_READY
+	QBDT 2027 sunset + $1,200/yr renewal + $1,499 FinJinni barrier + QBO migration drops. Local Windows/Mac QBDT export packager builds offline SQLite/HTML 7-year audit archive + Xero/Zoho/QBO Tie-Out report for $79–$99.
+	5
+	IBF-20261113-DynamicsGP-2026StopSell-HistoricalArchiveAndTieOut
+	installed-base-friction@0.2
+	2026-11-13T17:45:00+08:00
+	Source Signal
+	Research-IBF-20261113-DynamicsGP-2026StopSell-HistoricalArchiveAndTieOut.md
+	HYPOTHESIS_READY
+	Dynamics GP 2026-04-01 subscription stop-sell; native BC migration omits GL detail & SmartLists; Popdock costs $1,800–$7,800/yr. Read-only T-SQL + DuckDB/HTML archive + subledger drift audit for $299 one-time.
+	2. Directory Scope & Queue Inventory Audit
+* Scanned Directory Scope:
+   * Signals Root: Signals Folder
+   * Business Input: Business Folder
+   * Friction Input: Friction Folder
+   * Market Input: Market Folder
+   * Research Output: Research Output Folder
+* Total Discovered Observations: 84 items across input directories (77 historical + 5 new qualified signals + 2 new NO_SIGNAL heartbeats).
+* Historical Observations Skipped: 77 items (all verified as covered in Research directory).
+* Current Batch Qualified Signals Processed: 5 items (all 5 reached HYPOTHESIS_READY).
+* New Research Artifacts Created & Verified:
+   * Research-UW-20261113-ASC-ImplantCarveOut-UnderpaymentAudit.md (Drive ID: 19_edcm_hD03dA-L5MkHvjBRDvIeURARAHWwiJQBFhTM)
+   * Research-UW-20261113-RealEstate-ExpiredMechanicsLien-CloudReleaseDemand.md (Drive ID: 1UFCoUntqjsV__k15o1OdJRJloc2pQFmINMrNpn8lMVM)
+   * Research-UW-20261113-CommercialFleet-ALPRTollMisread-AutoDisputePacket.md (Drive ID: 1qVwu92YTSLEQ9sQ_I5ppWFLvTr4777RvTitPT6AhG4E)
+   * Research-IBF-20261113-QuickBooksDesktop-Sunset-DataLockoutArchive.md (Drive ID: 1QA8_JBgfkJmvFsYQ_3ugl4jxWWaowNsMHEexoIxwOFw)
+   * Research-IBF-20261113-DynamicsGP-2026StopSell-HistoricalArchiveAndTieOut.md (Drive ID: 170cimHp4EsjsvprmMZ9yCMU8LUBVTyz37RlHC_UsDtY)
+   * Execution-Receipt-20261113.md (Drive ID: 1AJspjk18N1opvCIB4IaiR7qpM3nenhMqtQE7PtGih88)
+* Waiting / Pending Recovery: None.
+* History Conflict / Verification Items: None.
+* Excluded Items & Reasons:
+   * Business-20261113-no-signal.md: Excluded (sensor operational run report / NO_SIGNAL).
+   * Friction-2026-11-13-NO_SIGNAL.md: Excluded (sensor operational run report / NO_SIGNAL).
+* Final Queue Status: NO_PENDING_SIGNALS (0 unprocessed signals remaining).

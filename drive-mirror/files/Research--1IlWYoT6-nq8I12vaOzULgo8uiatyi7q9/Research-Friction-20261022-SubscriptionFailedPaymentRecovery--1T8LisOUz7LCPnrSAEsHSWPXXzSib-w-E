@@ -1,0 +1,36 @@
+# Opportunity Runtime Research Record
+
+- **Source Signal IDs**: Friction-20261022-SubscriptionFailedPaymentRecovery
+- **Source Signal References**:
+  - Signal ID: Friction-20261022-SubscriptionFailedPaymentRecovery
+  - Generated At: 2026-10-22T09:37:00+08:00
+  - Task Version: friction-sensor@0.2.1
+  - Source File URL: https://drive.google.com/file/d/17NFaE9ddhiqlFrOprky_f7ixuw1_IItV/view?usp=drivesdk
+  - Source File Modified At: 2026-10-22T09:38:14+08:00
+- **Research Level**: R1 — Quick Structure
+- **Stage Result**: KILL
+- **Unknown Ledger**:
+  - Known: 订阅制 SaaS 与电商业务因卡片过期、余额不足、银行风控导致的非自愿流失（Involuntary Churn）普遍占总流失的 20%~40%，每期约有 5%~10% 的 MRR 处于扣款失败风险中；但经过独立市场全景检索，该领域已有极其成熟且深度的标准解决方案（如 Stripe Smart Retries 原生智能重试与 Card Account Updater 自动换卡技术，以及专门的成熟商业系统 Butter Payments、Churnkey、Churn Buster、Paddle/ProfitWell Retain、FlyCode 等）；主流厂商普遍采用纯效果分成（Contingency Revenue Share / 零固定月费，仅对增量恢复金额抽成）的商业模式；Reddit 帖文本质为商家询问已有工具横向评测与选型，而非市场供给真空。
+  - Unknown: 纯人工客服高客单价挽单（如电话催付）在外包团队中的典型提成点数。
+  - Decision-Critical Unknown: 无（已在 R1 确认强反证并终止）。
+- **Gate Checks**:
+  - Money: 通过。订阅商户极具付费意愿，愿意从恢复的 MRR 中支付 10%~20% 效果提成。
+  - Mechanism: 未通过。行业已有公认且高度成熟的“标准答案”（Stripe 原生智能重试 + 纯效果付费的 Butter Payments、Churnkey 等）。支付路由重试与发卡行风控代码（Decline Codes）优化属于高度依赖跨商户海量交易数据训练（数十亿笔交易样本）的技术领域，缺乏结构性技术断层带来的新套利空间。
+  - Persistence: 未评估（R1 阶段终止）。
+  - Capture: 未通过。新进入的 1-3 人小团队在缺乏海量历史银行交易数据、发卡行专线通道与 PCI-DSS 最高级合规认证的情况下，根本无法在算法重试成功率上超越已经深耕数年的成熟平台（Butter / Stripe）；且该领域涉及敏感支付凭据与财务账目核对，客户对新团队信任门槛极高，小团队无法轻量切入并建立防御壁垒。
+- **Final Status**: KILL
+- **Evidence**:
+  1. Reddit r/SaaS 讨论帖（2026-10-20/21）：https://www.reddit.com/r/SaaS/comments/1xb4gj8/why_is_payment_recovery_so_hard_and_what_other/ 记录了 300k MRR 商户对于扣款失败的苦恼，讨论集中于对比 Butter 等现有工具。
+  2. Redux Payments 行业评测《[The 8 Best Failed Payment Recovery Tools (2026 Comparison)](https://www.reduxpayments.com/blog/best-failed-payment-recovery-tools)》（2026-06 发布，2026-10 追踪）：详述市场上已有 Butter Payments、Churnkey、Churn Buster、Stripe Smart Retries、FlyCode 等 8 款高度成熟方案。
+  3. Butter Payments 官方商业模型（2026-10）：https://www.butterpayments.com/pricing 证实其采用纯效果抽成、零预付金的颠覆性获客定价，完全封死了简单封装工具的生存空间。
+- **Counter Evidence**:
+  1. 供给端极端饱和与巨头内卷：市场已有超过 5 款以上采用纯效果分成（零启动成本）的成熟 SaaS，新入局者无法提供更低进入门槛。
+  2. 重数据规模与银行壁垒：核心算法有效性高度依赖数亿级发卡行拒绝码微观行为数据，小团队冷启动无法复制。
+- **Stop Reason**: 存在足够强反证可 KILL。该摩擦属于已有成熟标准答案的红海领域，商业模式已被“纯效果提成”的成熟平台垄断，且核心技术壁垒严重依赖海量金融交易数据积累与高合规资质，违背 1-3 人小团队轻资产进入约束。
+- **Resume Condition**: 不适用（已 KILL）。
+- **What became more likely**: 更多中小 SaaS 会直接启用 Stripe 原生 Smart Retries 或一键接入 Butter Payments 解决非自愿流失。
+- **What became less likely**: 独立小团队能够依靠轻量工具在支付失败挽回领域建立可持续商业壁垒。
+- **What did we rule out**: 彻底排除了将通用订阅扣款失败恢复软件作为小团队产品机会的假设。
+- **Task Version**: researcher@0.2.2
+- **Generated At**: 2026-10-22T17:42:35+08:00
+- **Role Spec Status**: reviewed

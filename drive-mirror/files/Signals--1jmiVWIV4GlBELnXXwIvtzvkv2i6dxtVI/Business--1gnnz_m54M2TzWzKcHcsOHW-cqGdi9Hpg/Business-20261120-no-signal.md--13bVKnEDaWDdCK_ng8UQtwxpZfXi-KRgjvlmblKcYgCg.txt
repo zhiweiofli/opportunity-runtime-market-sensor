@@ -1,0 +1,34 @@
+﻿Business Sensor 观察记录：NO_SIGNAL (2026-11-20)
+* 任务版本：business-sensor@0.2.1
+* 角色规范状态：reviewed
+* 观察窗口 (Asia/Taipei)：2026-11-13 09:38:01 至 2026-11-20 09:38:01 (UTC+08:00)
+* 判定结果：NO_SIGNAL
+* 逻辑存储路径：Opportunity Runtime/Signals/Business/Business-20261120-no-signal.md
+* 实际输出目录：Opportunity Runtime/Signals/Business/
+* 历史去重核对：已核对历史 19 项商业信号及此前归档的 NO_SIGNAL 检查点
+1. 检索与核实范围 (Retrieval Scope)
+本轮感知重点覆盖 2026-11-18 至 2026-11-20（Asia/Taipei）全球最新发布的交互式世界模型与实时语音 API 计量规则变更、云存储原生 AI 上下文提取服务、以及云基础设施与消费平台政策更新。重点核实了 Google Genie 4 上线 Gemini API 并执行每秒 $0.10 持续计费、OpenAI GPT-Live-1.1 推出 $0.02/分钟静默待机计费（Standby Billing）、Google Cloud Storage 发布预览版原生对象富集服务（Object Enrichments，$700/千万张图或 PDF）、以及 AWS ExtendDB / EKS Hybrid Nodes 常规价格调整等候选事件。
+2. 候选动态逐项评估与过滤原因 (Evaluated Events & Filtering)
+* 候选事件 1：OpenAI GPT-Live-1.1 上线 API 并新增 $0.02/分钟静默待机计费（2026-11-19）
+   * 事实摘要：根据 GPT-Live-1.1 API: Standby Billing at $0.02 a Minute，OpenAI 于 2026 年 11 月 19 日在 v1/live/sessions 端点正式开放 gpt-live-1.1，并在维持 $0.05/分钟活跃语音计费的基础上，针对 WebRTC 会话新增 $0.02/分钟 的静默待机计费（需配置 session.wake_policy.type: speech 与 5–60 秒 idle_timeout_s），使静默时段语音线路成本降低 60%（8 小时班次整体语音线路降本约 18%–30%）。但后端推理与工具调用仍通过独立 Token 计量（如 gpt-6-luna / gpt-6-sol），且 WebSockets/SIP 暂不支持待机费率。
+   * 门槛对照与过滤原因：未通过门槛 3（底层商业逻辑结构性变化）与门槛 5（小团队捕获路径）。属于平台方对既有实时语音会话单价的细粒度优化（对静默等待状态给予折扣），未重构外部收费卡点或跨平台预算流向，且后端大模型推理成本仍独立计费，不构成独立小团队可捕获的新型利润池，列入 WATCH。
+* 候选事件 2：Google Genie 4 正式登陆 Gemini API，执行约 $0.10/秒流式计费（2026-11-19）
+   * 事实摘要：根据 Google AI Studio Release Notes 与 Genie 4 API Pricing，Google 于 2026 年 11 月 19 日通过 Interactions API 正式开放 models/genie-4 交互式世界模型。定价为输入 $1.50/M tokens、输出视频 $17.50/M tokens（按 24fps 每秒 5,760 tokens 折合约 $0.10/秒 或 $6.05/分钟，单次会话上限 120 秒约 $12），无免费层、无缓存/批处理折扣；且断开连接不会自动停止计费，必须显式调用 complete() 或 cancel()。Tier 1 并发上限仅 2 路会话/每日 50 次请求。
+   * 门槛对照与过滤原因：未通过门槛 4（持续性与商业成熟度）与 Magnitude 门槛。目前并发配额极低（Tier 1 仅 2 路并发）、有效连贯时长仅 45–90 秒且局限 720p，尚处于早期原型验证阶段，缺乏规模化的企业生产预算迁移与独立小团队可切入的稳定利润池，列入 WATCH。
+* 候选事件 3：Google Cloud Storage 推出原生 Object Enrichments（$700/1,000 万文件，2026-11-20 预览版）
+   * 事实摘要：Google Cloud 官方博客 Introducing object enrichments 宣布推出预览版全托管非结构化数据上下文提取服务，直接在 GCS 对象存储内调用图像标注与 PDF 分类模型并将结果写入 object context，标价为处理 1,000 万张图像或 PDF 仅需 $700（官方称较同类云服务节省 75% 成本），并原生联动 BigQuery 与 MCP Server。
+   * 门槛对照与过滤原因：触发快速 Kill（平台原生吃掉）。该服务直接将以往需要开发者自建队列、GKE/Cloud Run 调度与外部数据库同步的"非结构化数据打标与上下文提取流水线"原生整合进对象存储底层，显著压缩了独立小团队在 GCS 之上搭建基础图像/PDF 预处理中间件的生存空间，执行快速 Kill（IGNORE）。
+* 候选事件 4：AWS 基础设施常规更新及 Airbnb 房东新规生效（2026-11-18 至 11-20）
+   * 事实摘要：AWS 于 11 月 18 日公布 ExtendDB 1.0 与 EKS Hybrid Nodes 大主机降价；Airbnb 针对房东退房任务与房屋守则的新规于 11 月 20 日正式生效。
+   * 门槛对照与过滤原因：AWS 属于常规算力 SKU 调整，Airbnb 属于线下短租运营合规，均不符合软件/数据情报/轻资产自动化的结构性利润池筛选要求，执行快速 Kill（IGNORE）。
+3. 判定依据与准则遵循 (Justification)
+本传感器严格遵循"宁缺毋滥，证据不足不凑数"的核心准则。当选事件若仅为：实时语音 API 的静默时段计费折扣、早期交互式世界模型的低并发高单价原型发布、云厂商原生吞并基础非结构化数据预处理流水线（平台原生吃掉）、或常规算力与线下运营政策调整，均不满足 Business Sensor 必须同时具备的"一手资金凭证、非单点偶发、结构性变化、持续性、3–5人独立小团队可捕获路径"五项核心门槛。因此本轮确认为 NO_SIGNAL。
+4. 持续追踪与忽略清单 (Watch & Ignore List)
+持续追踪 (Watch List)
+* 实时语音与流式状态模型计费细化：观察 GPT-Live-1.1 的 $0.02/分钟待机计费与 Genie 4 的持续流式扣费机制，是否催生跨供应商实时会话生命周期管理与"防挂起漏费"的 FinOps 熔断需求。
+* 12 月 1 日 Google 模型促销期结束影响：密切关注 Gemini 4 Argon / Carbon 价格翻倍前后的实际开发者预算切换。
+* Microsoft Ignite 2026 收官日（11 月 20 日）：继续监测大会最后一日是否公布新的 Copilot Credits 商业化结算细则。
+明确忽略 (Ignore List)
+* 已被云存储厂商原生吸收的基础图像/文档批处理打标流水线。
+* 线下住宿/实体履约平台的房东运营规范调整。
+* 并发配额极低、尚未进入企业规模化采购阶段的早期实验性 API。

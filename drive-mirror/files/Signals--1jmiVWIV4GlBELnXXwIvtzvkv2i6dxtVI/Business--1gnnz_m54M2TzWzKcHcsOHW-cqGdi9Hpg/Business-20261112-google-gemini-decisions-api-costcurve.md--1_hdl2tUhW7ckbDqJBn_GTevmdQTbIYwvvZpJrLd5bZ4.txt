@@ -1,0 +1,51 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+* Task Version: business-sensor@0.2.1
+* Role Spec Status: reviewed
+* 观察窗口 (Asia/Taipei): 2026-11-05 09:59:46 至 2026-11-12 09:59:46 (UTC+08:00)
+* 已有 Signal 索引/全文: 已核对历史文件 Business-20261014-autodesk-aps-passthrough-billing.md、Business-20261001-whatsapp-service-message-toll.md、Business-20261015-github-agentic-autofix-metered-toll.md、Business-20261014-hubspot-flexible-seats-credits-toll.md、Business-20261017-deepseek-flash1017-costcurve-searchtoll.md、Business-20261023-vercel-deployment-storage-toll.md、Business-20261021-salesforce-headless-agent-api-toll.md、Business-20261023-visa-b2b-embedded-payment-toll.md、Business-20261020-eu-customs-handling-fee-pid-toll.md、Business-20261022-openai-decisions-api-costcurve.md、Business-20261025-aws-shield-waf-antiddos-migration-toll.md、Business-20261028-github-enterprise-copilot-dollar-entitlement.md、Business-20261029-googleplay-agentic-purchases-billing-toll.md、Business-20261030-visa-installment-credential-plt-expansion.md、Business-20261101-cloudflare-ai-search-metered-toll.md、Business-20261101-japan-jct-crossborder-platform-taxation-toll.md、Business-20261104-smartthings-cloud-api-paid-toll.md、Business-20261105-microsoft-copilot-ubb-credits-throttling.md 以及归档的 NO_SIGNAL 检查点。本轮执行跨历史核对与去重，对既有决策接口信号（Business-20261022-openai-decisions-api-costcurve）沿用已有 Signal ID 并标注最新突破性商业证据。
+* 输出逻辑位置: Opportunity Runtime/Signals/Business/
+* 实际输出文件夹 URL: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+待研究 Signal (Qualified Signals)
+Signal ID: Business-20261022-openai-decisions-api-costcurve
+(本轮沿用已有 Signal ID 并标注新增证据：Google 于 2026-11-11 正式推出 Gemini Decisions API 与 Gemini Decision 1 模型，与 OpenAI 形成双寡头零输出费决策原语对峙，并将该范式从纯文本拓展至全模态，确立智能体双层架构的行业标准)
+
+
+* Type: Business
+* What Changed: 2026 年 11 月 11 日，Google 官方与 Alphabet CEO Sundar Pichai 正式宣布面向全球开发者上线全新的 Gemini Decisions API 及专属模型 Gemini Decision 1 (gemini-decision-1)，在 Google AI Studio 与全套 SDK 中全面开放。核心结构性变更为：
+   1. 价格重构与免除输出费用：官方标价为 输入 Token 仅 $0.10 / 100 万 tokens，并且完全免除输出 Token 费用（$0 for output tokens, zero output tokens generated）；无变量思考 Token 账单，无单独音频转录与 OCR 费用，提供免费原型测试层。
+   2. 从纯文本拓展至全模态单次前向打分：原生支持文本、高低分辨率图像、音频录音、视频切片及多页 PDF（单次请求最大 256K tokens 上下文与 100MB 内联文件），在一道共享输入的前向传播中直接返回确定性决策结果，无需逐字生成自然语言。
+   3. 超高并发多题裁决与极低延迟：单次 API 请求支持并发评估最多 1,000 个独立问题（包含 yes/no 概率判定、2 至 255 项分类选择 choice、以及 0 阶递增量表评分 score），在 16K 长度下端到端延迟仅 150–250 ms（模型计算耗时仅 50–100 ms），且多题并发时耗时近乎平直。
+   4. 生态全面跟进：官方已联合 OpenRouter、LangChain、Vercel、LiteLLM、Pydantic AI、Pipecat、LiveKit、OpenCode 等主流智能体框架同步上线原生集成。此变更属于典型的 Cost Curve Shift（将智能体意图识别、路由、安全过滤与打分成本从传统对话接口直接压缩 80%–95%，比 Gemini 3.5 Flash-Lite 实测便宜近 5 倍）与 Budget Migration（标志着由 OpenAI 与 Google 共同主导的"双层分离架构/决策原语"正式确立为全行业标准，驱动应用开发预算彻底从昂贵全量生成接口向专用低价决策端点迁移）。
+* Money: 涉及全球数百万采用大语言模型作为调度器、路由层、安全防护守卫及意图识别核心的企业 AI 研发与推理采购预算。传统架构下，开发者调用通用模型（如 Gemini 3.1 Pro、Flash-Lite 或 GPT-6）做一次分类路由，必须按生成字数支付高昂的输出费用（通常输出费率是输入的 3–5 倍），且容易遭遇模型输出多余标点或客套话导致解析失败重试，单次路由成本在 $0.001 至 $0.05 不等。新规下，Gemini Decision 1 彻底将输出 Token 归零，输入按 $0.10/M 计费，单次多题判断成本压至 $0.0001 以下。Google 官方与第三方实测证实：在共享评估基准套件上，Gemini Decisions API 的总成本较 Gemini 3.5 Flash-Lite 降低近 5 倍（总费用从 $4.14 降至 $0.88），且将决策延迟从秒级骤降至 150–250 毫秒，使以往因延迟和计费无法上线的视频/音频实时流水线彻底具备正向商业毛利。
+* Evidence:
+   1. Google 官方开发者博客公告《Gemini Decisions API: Fast multimodal decisions》（2026-11-11 发布）：Min Choi 与 Felix Yu 详细披露技术与计费细节："Gemini Decision 1 is priced at $0.10 per 1M input tokens and $0 for output tokens... evaluate up to 1,000 yes/no, choice, and rubric-scoring questions in a single pass across text, images, audio, video, and PDFs... 150-250 ms end-to-end latency... nearly 5x cheaper than Gemini 3.5 Flash-Lite."
+   2. Alphabet CEO Sundar Pichai 官方声明（2026-11-11 于 X/社交平台发布）："Today we're launching the Gemini Decisions API, powered by our new Gemini Decision 1 model. Instead of generating text token by token, it's built for closed-set choices scoring up to 1,000 questions across text, images, audio, video + PDFs in a single pass. $0.10 / 1M input tokens with $0 billed for output tokens (~5x cheaper than Flash-Lite)."
+   3. CellCog 独立基准与定价评测《Gemini Decision 1: Price, Benchmarks and Limits》（2026-11-11 发布）：证实其标价与 OpenAI Decisions API 持平（$0.10/M tokens，零输出费），是唯一官方支持音频与视频直接作为输入的决策模型；单次评估问题上限达 1,000 道（高于 OpenAI 的 400 道）；在与 Jev 及 GPT-6 Luna 的多项共享测试中综合成本表现极低（总成本 $0.88 对比 Flash-Lite 的 $4.14）。
+   4. eesel AI 架构与商业复盘《Gemini Decisions API (2026): how it works, pricing, vs OpenAI and Jev》（2026-11-11 发布）：强调决策接口最核心的商业杀伤力是消除解析胶水层代码与输出 Token 浪费："generates zero text tokens, so output token usage is always 0... Your code branches on a number instead of parsing a sentence... removes that whole layer."
+* Mechanism:
+   1. 双寡头确立行业标准决策原语（事实）：自 OpenAI 10 月 22 日首发 Decisions API 以来，Google 在不到 3 周内以更激进的规格（全模态音视频支持、1,000 道题并发容量、$0.10/M 零输出费）全面跟进，彻底终结了"是否需要专用决策端点"的行业争议，双层架构（Two-Tier Architecture：低成本单次前向打分负责分支控制，高阶生成模型负责最终产出）成为全球智能体编排事实上的标准设计范式。
+   2. 多模态热路径实时化的经济可行性（事实/推断）：此前音视频流与 PDF 图像核验因为转录/OCR 费用叠加多轮生成计费，无法实现每帧或每分钟持续核验。Gemini Decision 1 允许传入通话音频、监控视频或多页保单 PDF，并在一次前向计算中同时勾选多达 1,000 个核对项，把多模态理解从高客单价专家分析变为廉价流水线初筛。
+   3. 小团队轻资产进入节点与 Capture 路径（推断）：
+      * 跨平台智能体决策路由与降本网关（Cross-Cloud Decision Router）：为使用 LangChain、LiteLLM 或 Pydantic AI 的开发团队提供无感知反向代理。根据输入模态自动将路由意图分流至 Google Gemini Decisions 或 OpenAI Decisions，自动帮客户压减 70%–90% 的编排 Token 账单，按月收取性能加速与成本节省分成（FinOps for Agents）。
+      * 实时音视频会话合规守卫与状态分发中间件（LiveKit/Pipecat Safety Guard）：基于 Gemini Decisions 对音频/视频的零输出费能力，面向在线教育、AI 电话客服平台提供毫秒级合规截断与情感表情切换微服务，单路音频流每分钟监控成本低于 0.05 美分。
+      * 自动化单据/工单极速初筛微 SaaS（Multimodal Triage Micro-SaaS）：面向电商售后退货（照片审核）、保险理赔初审（保单 PDF 与损坏照片），通过单次 API 挂载 50 项条件规则一键返回打分与结论，以极低基础设施成本切入垂直 B2B 自动化运营。
+* Magnitude: Large。依据：Google 与 OpenAI 全球两大模型基础设施巨头同时将决策端点作为核心 API 推出并确立 $0.10/M 零输出费定价，从底层彻底重构全球 AI 软件工程的调用模型与成本曲线。
+* Persistence: Persistent。依据：已正式在 Google AI Studio 及全球各大开源编排框架（Vercel、LiteLLM 等）全面 GA，作为基础商业原语长期存在。
+* Next Question: Anthropic 是否会在近期为其 Claude 平台跟进原生免输出费的决策端点？现有纯软件层面的 Agent 路由开源库（如 Semantic Router）在云端原生决策 API 冲击下，将如何转型为商业化的合规监控产品？
+* Task Version: business-sensor@0.2.1
+* Generated At: 2026-11-12T09:59:46+08:00
+* Role Spec Status: reviewed
+观察与过滤池 (Watch & Ignore List)
+线索名称
+	判定结论
+	判定依据及后续观察要点
+	PostHog Self-Driving 正式脱离 Beta 并转向按次（Per-Run）计费(2026-11-09 发布，11-11 生效过渡)
+	WATCH
+	PostHog 宣布其自动化代码排查与修复功能 Self-Driving 结束 Beta，计费模式从原本的"每合并 PR 收费 $15、报告免费"彻底倒转为"按运行次数计费（Per Run，轻量报告收费数美分，深度数据调查收费更高），自动 PR 默认关闭"。虽然反映了 AI Agent 商业化从纯结果分成退回按量消耗的典型趋势，但属于单一可观测性 SaaS 内部功能定价修正，且设置了首月 $10 减免与 $150 默认支出上限，目前尚无外部小团队可介入的独立收费站或预算转移通道。等待证据：观察其他以结果导向计费（Outcome-based）的 DevTool 是否集体倒退回按次/按步骤计费模式。
+	Cloudflare 启动 Vite 生态基金并设立每月最高 $4,000 维护者津贴(2026-11-09 发布)
+	IGNORE
+	属于云厂商针对底层开源生态（Vite/VoidZero 外部维护者）设立的赞助津贴机制（以每小时 $50 计算，上限 $4,000/月），本质属于公关与开发者生态扶持资金，非真实市场化客户商业采购预算，不具备可持续商业利润池属性。
+	FTC 宣布 2027 财年全美电话营销防打扰（Do Not Call）注册库费用调整(2026-11 发布通知)
+	IGNORE
+	属于美国联邦监管机构针对呼叫中心与电话营销企业的行政合规牌照收费（每区号从 $82 微调至 $85），由政府直接向合规企业征收，无独立软件小团队捕获空间。

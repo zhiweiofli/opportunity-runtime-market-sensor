@@ -1,0 +1,56 @@
+﻿signal_id: UW-20261104-AirlinePassenger-DOTPart260-CashRefundDemandPacket
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年10月核实（美国交通部DOT 14 CFR Part 260最终行政法规全面落地施行、Federal Register及Consumer Affairs 2026年消费者维权实录），DOT于2024年10月28日起全面生效的强制现金退款联邦法案（14 CFR § 260.6）明确规定：凡遭遇航班取消、严重延误（国内延误超3小时、国际超6小时）、重大改期（Involuntary Schedule Change）或付费增值服务未提供的乘客，只要拒绝航司提供的改签替代行程，航空公司及票务代理必须在7个工作日内（信用卡原路返回）自动以现金形式全额退款，严禁默认以旅行代金券（Travel Vouchers / Credits）替代。然而，主流航空公司（American, Delta, United, Frontier, Southwest等）在APP退改签与客服流程中，普遍通过界面设计与交互陷阱（Dark Patterns）诱导乘客点击“接受飞行代金券”，或将退现金申请入口深度掩埋在漫长的网页申诉表单和长达45–60分钟的人工客服电话排队后，导致乘客被动持有大量限期代金券。
+money: 涉及全美每年因航班严重延误或取消而被困的数千万旅客及差旅频繁的中小企业。行业数据显示，全美航司每年发行的旅行代金券与飞行积分中有超过20%最终逾期作废，年沉淀资金池超数十亿美元。单张被延误的经济舱机票退款金额通常在$150–$650美元不等。乘客面对单笔数百美元的机票，在手机APP端点击两下即可拿到的代金券与耗费1小时人工排队争辩现金之间，往往认定“不值得费劲折腾（not worth the hassle）”而妥协接受代金券，最终因航司航线限制或1年过期时间而彻底损失真金白银。
+evidence:
+  - id: E1
+    source: https://www.transportation.gov/briefing-room/what-airline-passengers-need-know-about-dots-automatic-refund-rule
+    source_date: '2024-11-18'
+    accessed_at: '2026-11-04T00:50:00+08:00'
+    fact: 美国交通部DOT官方通告确认核心法定义务：14 CFR Part 260规定承运人必须自动、全额向原始支付方式退款（Prompt Cash Refund），信用卡必须在7个工作日内到账；航司不得在未获得消费者明确知情同意（Explicit Consent）的前提下以代金券或点数代替现金；严重延误定义为国内超3小时、国际超6小时。局限：为官方政策法规解读。
+  - id: E2
+    source: https://www.gstmunshi.com/us/blog/us-dot-automatic-airline-refund-cancelled-delayed-flights-guide
+    source_date: '2026-10-15'
+    accessed_at: '2026-11-04T00:52:00+08:00'
+    fact: 2026年10月中旬航空理赔指南证实实务执行缺口：尽管14 CFR Part 260要求强制退款，航司在实际操作中普遍设置障碍，优先在APP弹窗给代金券；乘客若需原路退还现金，必须依据DOT法条正式发起书面要求并核对购票支付轨迹，否则航司客服会以“特价票不可退（Non-refundable）”为由拒退现金。局限：为第三方权益咨询博文。
+  - id: E3
+    source: https://www.consumeraffairs.com/travel/frontier.html?page=12
+    source_date: null
+    accessed_at: '2026-11-04T00:55:00+08:00'
+    fact: 消费者权益投诉高频记录：大量旅客在航班遭遇暴雨或机械故障取消后，被航司强行发放代金券并拒退数百美元现金（如单案$543.92）；旅客向DOT消费者保护处投诉后航司才被迫启动退款，但普通旅客普遍不知道如何引用DOT具体法条或缺乏精力持续跟进。局限：来自单一廉航消费者投诉列表。
+mechanism: 事实：联邦法案14 CFR § 260.6赋予乘客对3小时以上延误的绝对法定全额现金退款权，并对航司拒付规定了民事罚款；但航司依赖系统UI诱导与长达一小时的电话排队提高乘客索取现金的摩擦阻力，迫使消费者退守到易过期的代金券（E1, E2, E3）。推断：对于个人出行者或无专职商旅行政的小企业员工，为了追回$200–$400现金，在机场现场或行程结束后花1–2小时去翻找购票确认邮件、查找航司隐蔽退款网址并反复解释DOT新规，时间机会成本抵消了申诉动力；而市场上现有的航班索赔中介（如AirHelp）专注于欧盟EU261赔偿（抽成35%–50%），对美国境内无额外法定惩罚性赔偿、纯属票款原额退还的案例缺乏代理动力。利用LLM多模态解析航班预订邮件、航班跟踪状态（FlightAware/FlightStats API验证延误时长超3小时）及航司改签弹窗截图，自动比对14 CFR Part 260法定触发要件，一键生成引用联邦法典14 CFR § 260.6及美国《公平信用结账法》（FCBA）的正式现金退款索赔通知信，并通过航司官方退款API/直发客服邮箱或自动生成信用卡发卡行拒付申诉证据包（Chargeback Dossier），将原本耗时数小时的电话拉锯压缩至2分钟自检提交，使单张$150–$500的机票现金退款首次值得零门槛全量执行。
+persistence: Structural
+next_question: 在遭遇国内航班延误超3小时或取消的商务差旅与家庭旅客中，因被航司APP默认引导接受代金券而导致该代金券最终在12个月内过期作废的实际比例是多少？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-04T01:15:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work: {task: 航空旅客或中小企业商旅协调员在航班遭遇严重延误（国内超3小时/国际超6小时）或取消后，核对实际延误时长是否符合DOT新规要件、拒绝航司默认诱导的旅行代金券，向航司提交正式书面现金退款要求或向信用卡发卡行申请法定拒付争议, structure: 微价值×海量 / 对抗交互 / 规则遵从 / 厌恶工作, abandoned_value: 全美旅客因航司故意推行代金券暗黑设计、电话排队漫长而被迫接受并在1年内过期作废的每年数十亿美元不可逆机票现金（单票$150–$650）（E1, E2, E3）, human_failure_reason: 航司电话排队45–60分钟，客服口头以‘特价票不可退’欺骗非专业旅客；旅客认为花2小时争辩$200现金太麻烦，往往妥协点击接受APP代金券（E2, E3）}
+ai_unlock: {changed_cost: 将原本需旅客与航司反复争辩DOT新规、翻找支付凭证与撰写正式维权信的人工耗时从数小时压缩至输入票号后秒级出具法定引注抗辩函, capability_basis: 机票行程单/航司取消邮件多模态解析 + 实时航班运行历史数据API延误时长核验 + 14 CFR Part 260与FCBA信用卡拒付申诉标准化法律模板库（E1, E2）, limitations: 1）若旅客自愿接受了航司的改签航班并实际登机完成了旅行，法定退款权灭失；2）若机票属于里程积分全额兑换（Award Ticket），退还规则按常旅客计划条款执行而非全额法定美金现金}
+unit_economics:
+  unit: 1张遭遇严重延误或取消的美国机票的DOT法定延误事实核验、拒绝代金券声明及14 CFR Part 260标准现金退款索赔包生成
+  currency: USD
+  region_and_date: 美国市场 / 2026年10月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖机票邮件OCR解析、航班实际到达时间API查询调用、14 CFR 260法条引用函生成及异常人工复核分摊；人工基准为旅客耗费1–2小时打电话与填单工时（$30–$80）或放弃现金直接承担代金券过期损失
+  excluded_or_unknown_costs: 若航司彻底耍赖需代向DOT航空消费者保护局（OACP）提交官方投诉时的通道维护费、信用卡发起Chargeback时发卡行潜在的争议手续费、获客成本（CAC）尚未量化
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1直接确立了14 CFR Part 260法定7个工作日退现金的不可撤销权利，E2与E3揭示了航司用代金券暗黑设计诱导旅客放弃现金的现实摩擦，通过自动化工具将延误事实与DOT法条一键对齐在逻辑与经济上完全成立，判定为Plausible；因缺乏全美旅客使用法条维权函后航司第一阶段现金退款通过率的大盘统计，数值严格置为null
+value_capture: {beneficiary: 全美每年遭遇航班大面积延误、手里积压多张易过期航司代金券的个人高频旅客、自由职业者及无专职差旅部门的中小企业（E1, E2）, payer: 机票购买者本人或中小企业行政出纳, payment_evidence: 欧洲EU261索赔平台（AirHelp等）抽成35%（E2），针对美国国内Part 260纯票款退现工具按件收取小额买断费属于待验证商业假设, capture_node: 提供“转发机票预订邮件或输入6位预订码（PNR） → 10秒核验延误3小时+法定事实 → 一键生成直接提交给航司Refund部门的正式要求函与给信用卡的Chargeback争议材料”, pricing_hypothesis: 假设采用“单次索赔成功后收取10%分成（例如退回$300收$30）”或“单次买断生成标准法律公函$19”；标记为待验证商业假设, customer_net_benefit: 旅客无需在电话线上苦等1小时受气，花数分钟即可将锁死在航司账户里的易过期废纸转变为银行卡里到账的数百美元现金}
+scale: {aggregation_unit: 极端天气、假期出行高峰或航司系统故障导致大面积航班延误后的72小时黄金申诉期, repeatability: DOT 14 CFR Part 260适用于全美境内运营的所有商业航空公司，法条依据与申诉路径全美统一，可无缝标准化批量复用, reachable_volume: null, basis: 全美每年民航旅客达8亿人次，因不可抗力或航司原因造成3小时以上延误的航段达数百万}
+action_loop: {observe: 旅客提供的机票预订确认邮件（包含航司、票号、预订码、航段）及实际起降时间数据, judge: 比对航班实际起飞/到达时间与计划时间，判断延误是否达到法定门槛（国内>=3小时，国际>=6小时）且旅客未实际搭乘, act: 设想自动引用14 CFR § 260.6条款组装正式书面退款信，若航司7天未退款自动附带信用卡发卡行Billing Dispute申诉书，仅描述执行机制, verify: 检查原购票信用卡账单中来自航空公司的7个工作日内全额Refund入账明细}
+required_access: {resources: 旅客机票预订确认单邮件/PDF、公开商业航班运行动态API（如AeroDataBox/FlightAware）、航司退款网页提交入口, availability: Available, authorizer: 机票持有人本人, authorization_status: 未取得, basis: 机票信息由旅客自主提供，航班延误记录属于公开公共数据，无特殊行业许可限制}
+defensibility: {basis: 深入掌握美国DOT航空消费者保护法规细节、各主流航司内部退款代码与信用卡组织针对服务未提供（Service Not Provided）的拒付证据标准库, alternatives_and_counterevidence: 现成替代为旅客妥协接受代金券，或在电话里与客服漫长撕扯；最强反证为若航司声称延误由不可抗力引起且坚决只给代金券，虽违反DOT新规，但若旅客不愿走信用卡争议可能仍面临维权拉锯}
+personal_actionability: {fit: Good, target_customer: 刚经历航班大延误/取消、正为航司只给代金券而恼火的商务旅客与中小企业主, deliverable: 1份《14 CFR Part 260法定退款资格核验证明》 + 1份带法条正式引用的航司现金退款要求函 + 1份信用卡发卡行拒付申诉证据表, customer_entry: 差旅讨论社区（Reddit r/travel, r/CreditCards, FlyerTalk论坛）及差旅报销自动化社群, prerequisites: 精通美国交通部14 CFR Part 260细则及各航司Conditions of Carriage承运条款, basis: 纯文本邮件解析、API核实与文书生成，交付轻量直接，解决明确痛点}
+seven_day_experiment: {critical_unknown: 面对航司默认发放代金券的旅客，是否愿意花$19使用自动化工具为其出具法条维权函以争取现金退款？, test: 在Reddit r/travel等板块寻找3位最近2周遭遇国内航班延误超3小时且被航司拒绝退现金的受影响旅客，免费帮其核查航班数据并出具引用14 CFR Part 260的标准反驳信，测试航司的退款反应与旅客的付费意愿, artifact: 1份《美国DOT新规下航班严重延误现金退款实测维权样本》, time_and_cost_budget: 7天 / 预算$20以内（航班数据查询费用）, success_signal: 至少有1位旅客向航司或信用卡提交该函后成功将代金券逆转为原路信用卡退款，且表示未来愿为此类工具付费, kill_signal: 旅客普遍表示‘有代金券下次反正还要坐飞机，多退少补无所谓’，对争取现金缺乏紧迫动力}

@@ -1,0 +1,42 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+* Task Version: business-sensor@0.2.1
+* Role Spec Status: reviewed
+* 观察窗口: 2026-10-29 09:51:03 至 2026-11-05 09:51:03 (Asia/Taipei)
+* 已有 Signal 索引/全文: 已核对历史文件 Business-20261014-autodesk-aps-passthrough-billing.md、Business-20261001-whatsapp-service-message-toll.md、Business-20261015-github-agentic-autofix-metered-toll.md、Business-20261014-hubspot-flexible-seats-credits-toll.md、Business-20261017-deepseek-flash1017-costcurve-searchtoll.md、Business-20261023-vercel-deployment-storage-toll.md、Business-20261021-salesforce-headless-agent-api-toll.md、Business-20261023-visa-b2b-embedded-payment-toll.md、Business-20261020-eu-customs-handling-fee-pid-toll.md、Business-20261022-openai-decisions-api-costcurve.md、Business-20261025-aws-shield-waf-antiddos-migration-toll.md、Business-20261028-github-enterprise-copilot-dollar-entitlement.md、Business-20261029-googleplay-agentic-purchases-billing-toll.md、Business-20261030-visa-installment-credential-plt-expansion.md、Business-20261101-cloudflare-ai-search-metered-toll.md、Business-20261101-japan-jct-crossborder-platform-taxation-toll.md 以及 Business-20261103-no-signal.md 和 Business-20261104-no-signal.md，本轮已执行跨历史核对与去重
+* 输出逻辑位置: Opportunity Runtime/Signals/Business/
+* 实际输出文件夹 URL: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+待研究 Signal (Qualified Signals)
+Signal ID: Business-20261104-smartthings-cloud-api-paid-toll
+* Type: Business
+* What Changed: 2026年11月4日，全球最大智能家居与消费级 IoT 生态之一的三星 SmartThings 官方正式终结长达十余年的免费开放云端 API 历史，正式上线面向独立开发者与商业合作伙伴的付费 API 计划（Paid API Plans for Developers and Business Partners）。官方确立明确执行时间轴：免费访问仅开放至 2026年11月3日 截止；自 2026年11月4日 起，所有通过 OAuth 直接调用 SmartThings 云端 API（Direct Open Authorization Cloud API Calls）的个体开发者与商业集成均正式转为付费订阅（Paid）；若未在 2026年12月15日 前签约付费方案，所有未付费的云端 API Key 将在云网关层（Gateway Level）被强制注销与冻结，阻断一切自动化调用。具体方案包括：面向独立开发者的 Developer Plan（每月固定底费，包涵每月 100,000 次云 API 调用额度及跨物理位置最多 10 个激活应用安装）；以及面向商业平台（如 Airbnb/VRBO 智能短租管理、商用建筑能源平台、PropTech 自动化运维）按调用量阶梯收费的 Business Plan。本地 Edge Drivers 保持免费，但远程 Rules 与 CLI 云端应用创建被强制锁入付费订阅。此变更属于典型的 New Toll Booth（三星在连接数亿台智能家电、电视与智能门锁的云端控制管道上正式设立强制收费站）与 Budget Migration（商业物业自动化、短租软件与智能家居中继服务商的运维预算，被迫从零成本免费云调用向月度商业 API 订阅或本地化网关改造迁移）。
+* Money: 涉及全球数以万计依托 SmartThings 云端集成管理商业物业（民宿短租门锁密码下发、公寓空调定时控制、商用照明与安防）的 PropTech 企业、B2B 物联网 SaaS 及数十万高阶智能家居开发者的运营预算。过往第三方商业短租平台（如 Guesty、Hospitable 等民宿管理系统）可免费调用 SmartThings 云端接口实现无感自动下发门锁密码与入住水电联动；新规下，商业实体必须与三星签约阶梯式按量付费 Business Plan，或者迫使每个业主/房东单独掏钱购买 Developer Plan（每月限额 10 万次调用与 10 个安装位）。对于管理上百套房源的商业短租运营商，每月将产生数百至数千美元不等的云端 API 固定与弹性开销；若在 12月15日 前未完成付费迁移，全网智能门锁与温控自动联动将在网关层瞬间瘫痪。
+* Evidence:
+   1. SmartThings 官方开发者公告《SmartThings API Additional Details for Developers and Business Partners》（发布日期：2026-10-30，生效执行日：2026-11-04）：官方明确宣布商业化时间表"New API plans for individual developers and business partners available November 4, 2026... Free Access through November 3, 2026... Direct Open Authorization (OAuth) Cloud API Calls (Individual Developer Use): Paid; Business API Usage: Paid"；公布配额限制"The quota is up to 100,000 cloud API calls per month and up to 10 active app installs across locations"；并设定网关级清退死线"December 15, 2026 and after: If an API Access App owner does not select a paid plan by December 15, 2026, access to their API integrations may be limited, paused, or discontinued. Active API keys will be deactivated, and automated calls... will be paused at the gateway level"。
+   2. SmartThings 官方功能免费/付费对照表《Which SmartThings features are free and which are paid?》（2026年10月官方发布）：官方权威核准列表将 SmartThings Mobile App、本地 Edge Drivers、Matter 本地认证列为 Free，但将"Direct OAuth Cloud API Calls"与"Business API Usage"全量标定为 Paid，证实云端远程调用的完全商业化。
+   3. IoT 与智能家居开发者社区深度解析《SmartThings Introduces Paid API Plans》（2026年11月行业分析）：详述了短租管理平台（Short-term rentals）、商业能源管理（Energy Management）等行业客户所面临的 12月15日 网关断连风险，揭示了 Server-Sent Events (SSE) 事件流替代高频轮询的付费专属机制。
+* Mechanism:
+   1. 云端轮询与状态推送成本的商业收割（事实）：作为全球消费级 IoT 龙头，三星云端长期无偿承载着第三方平台数以亿计的高频轮询（Polling）与设备状态推流，服务器带宽与长连接维护开销巨大。三星通过在 11月4日 设立 Developer Plan（10 万次封顶）与 Business Plan，并将实时事件流 Server-Sent Events (SSE) 绑定为付费权益，成功在智能家居与商业设备的云端控制权上设立了必经收费站（New Toll Booth）。
+   2. 倒逼"云端按量付费"与"本地边缘化（Edge Drivers）"的二元分化（事实/推断）：官方将本地 Edge 驱动保持免费，但对跨互联网的远程 OAuth 控制实施按量收费。这直接倒逼商业短租与物业 SaaS 进行架构重构：要么接受三星的月度 API 商业账单，要么转向本地局域网网关调度。
+   3. 小团队轻资产进入节点（推断）：
+      * 智能短租与商业物业本地化 Edge 转换中继器（SmartThings Local Edge PropTech Bridge）：面向依托 SmartThings 管理民宿门锁与温控、面临 12月15日 云端 API 封禁断连危机的房东与中小型代运营团队，开发轻量无缝的本地网关中间件。利用官方免费的 Local Edge Drivers 和 Matter/LAN 协议实现本地自动化密码下发与离线调度，彻底绕过三星每月高昂的云端商业 API 订阅费，按房源每月收取极低软件订阅费。
+      * SmartThings 云 API 配额压缩与 SSE 事件聚合代理（Cloud API Quota Compressor for SmartThings）：针对必须保留云端跨外网控制的企业开发者，开发轻量中继缓存代理。利用付费方案附带的 SSE 机制替代传统高频 Polling，将多租户状态查询合并为统一事件广播，确保调用量严格压制在 100,000 次开发者配额内，防止被强行推升至昂贵的企业 Business Plan。
+      * 极度符合 1–3 人小团队形态：纯软件/API 中间件与开源生态桥接工具，零重资产、零硬件研发、高粘性 B2B 软件订阅。
+* Magnitude: Medium to Large。依据：三星 SmartThings 是全球智能家居与智能家电领域规模最大的生态底座之一，其正式终结延续十余年的免费云端 API 模式，对整个 IoT、智能家居中继平台及商业物业自动化运营产生全行业层面的商业计费冲击。
+* Persistence: Persistent。依据：三星官方已正式排定执行时间表（11月4日 正式上线，12月15日 网关级封停未付费 API），属于底层不可逆的长期商业收费模式确立。
+* Next Question: 12月15日 网关级强制停用未付费应用后，依赖 SmartThings 云端 API 的头部开源集成平台（如 Home Assistant、Hubitat）与商用短租物业平台（如 Guesty、Hospitable）是会普遍要求终端用户自费承担三星 Developer Plan，还是加速全面拥抱 Matter / Thread 本地直接通信协议？
+* Task Version: business-sensor@0.2.1
+* Generated At: 2026-11-05T09:51:03+08:00
+* Role Spec Status: reviewed
+观察与过滤池 (Watch & Ignore List)
+1. 线索: Apple 宣布台湾 App Store 佣金率由 30% 正式下调至 26%（2026-10-29 公布，2026-10-31 生效）
+* 判定: WATCH (维持追踪)
+* 原因: 2026-10-29 经 Apple Developer 官方公告 证实，苹果在与台湾公平交易委员会（TFTC）协商后，正式自 2026年10月31日 起将台湾区 App Store（iOS/iPadOS）标准应用内购买（IAP）与付费应用的分成比例由 30% 下调至 26%。虽然属于重大的应用商店分成费率（Take Rate）调整并直接为台湾本土 iOS 开发者带来 400 个基点的净利润释放，但属于反垄断行政协商带来的降费让利，苹果并未在台湾开放第三方支付或引入新的外部抽税节点，缺乏小团队可独立切入的计费软件或中间件 Capture 路径。
+* 等待证据: 观察台湾公平会后续是否进一步施压要求苹果允许第三方支付接入，以及是否在亚太其他国家（如韩国、日本）引发连锁降费诉求。
+2. 线索: Anthropic 正式推出 Usage and Cost Analytics API 并在 11月2日 公测 Message Threads（2026-10-29 / 2026-11-02）
+* 判定: WATCH (维持追踪)
+* 原因: 经 Anthropic 官方发布说明 与 Claude 平台文档 证实，Anthropic 上线 Usage and Cost Analytics API 测试版（支持服务账号 Service Account 独立维度），并在 11月2日 开启 Message Threads 公测以缩短首字延迟。但官方明确说明 Token 计费规则与底层牌价未变，属于工程与可观测性接口演进，尚未直接引发真实钱流与收费节点的重构。
+* 等待证据: 观察企业在接入该统一分析 API 后，是否催生出标准化的多智能体云端 FinOps 成本优化代理与配额套利工具的稳定采购需求。
+3. 线索: IBM Planning Analytics as a Service 20% 涨价与 SaaS 9% 调价（2026-11-01 生效）
+* 判定: IGNORE (快速 Kill)
+* 原因: 经核查 Lodestar Solutions 分析报告 与 IBM 官方 Passport Advantage 政策，该项属于成熟企业软件针对既有大客户的常规年度价格协调（Price Harmonization），属于单一厂商基于通胀和产品维护成本的被动提价，未改变业务收费节点，未产生跨生态的预算迁移，亦无第三方小团队轻资产进入空间。

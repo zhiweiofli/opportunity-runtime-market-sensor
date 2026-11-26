@@ -1,0 +1,24 @@
+Signal ID: Friction-2026-11-18-LemonSqueezy-ForcedMigration
+Type: Friction
+What Changed: 2026-11-16，Lemon Squeezy（Stripe 旗下 Merchant of Record）宣布关闭新注册，并将于 2027-03-31 停止所有交易处理（含订阅续费）。已有付费商家必须在约 4.5 个月内完成迁移，推荐目标为 Stripe Managed Payments（工具 12-02 上线）。
+Friction: Migration / Payment / Fulfillment / Configuration / Support。核心受阻：PayPal 订阅无法迁移；Managed Payments 不提供 license keys、文件交付、下载链接、storefront、affiliates；需手动重建履约系统、更新所有链接/集成/webhook、通知客户（至少 14 天）、处理部分国家/印度卡重新授权；官方称完整迁移可长达 8 周。
+Money: 已有商家（约 1,206 个 live stores，Storeleads 2026-11-13）已为 LS 支付 MoR 费用（典型 5%+$0.50 等），覆盖税务、支付、履约。仍需手动处理迁移、替代履约设置、客户重新订阅流程。关联 labor cost（创始人/团队周级工时）、revenue/conversion loss（PayPal 用户流失、续费失败）、support cost、潜在 churn。
+Evidence:
+1. 官方博客 “Saying goodbye to Lemon Squeezy”（JR Farr, CEO，2026-11-16）：https://www.lemonsqueezy.com/blog/saying-goodbye-to-lemon-squeezy — 宣布关闭新注册、2027-03-31 停止处理，推荐 Managed Payments。
+2. 官方迁移文档：https://docs.lemonsqueezy.com/migration — 明确 PayPal 不可迁移、digital fulfillment（license keys/file delivery）需独立方案、迁移工具 12-02、建议 1 月中启动、可耗时 8 周。
+3. r/SaaS 帖子（2026-11-16）：https://www.reddit.com/r/SaaS/comments/1xxscwu/lemon_squeezy_is_shutting_down_on_march_31_2027/ — TL;DR 强调需自行解决 license keys/file delivery，PayPal 不能迁移；评论讨论导出 keys、客户可能失去访问。
+4. X 讨论（2026-11-16）：Polar 发布迁移指南；用户回复 “this is nightmare for us, please help us migrate our existing customer from LS”、“Processing about $300k right now on LS”、“likely going to devastate our operations... migration is gonna be a nightmare”。
+Mechanism: 已付费的端到端 MoR 流程（支付+税务+履约）被强制拆解。Managed Payments 仅覆盖支付/税务/订阅，履约与部分支付方式中断，导致商家需额外系统与手动步骤；客户侧重新授权/重新订阅造成转化失败与收入中断。推断：未及时完成者面临 3-31 后交易停止。
+Current Workaround: 商家手动导出数据、设置独立履约（如 Easy Digital Downloads、自定义、Polar/Gumroad 等）、更新所有 checkout 链接与集成、逐一通知客户并处理 PayPal 重新订阅。成本：官方称 4-8 周工时；小团队/独角兽创始人机会成本高（依据 Reddit/X 用户描述“nightmare”“devastating”）。未知具体小时费率。
+Payer: 现有 LS 商家（已付费 MoR 服务者）。依据：他们已为简化履约与税务付费，现被迫重建；X 上有人处理 $300k 量级并寻求帮助，表明有付费意愿换取平滑迁移/履约连续性工具。
+Economic Effect: labor / revenue / conversion / churn / cost（含 failed transaction 与 support）
+Friction Value: 频率 ≈ 1,200 商家一次性事件（窗口内集中爆发）；单次经济影响 = 4-8 周创始人/工程师时间（未知精确 $，但对小团队显著）+ 部分 PayPal 订阅流失风险；可回收比例：高（若提供无缝 key 迁移/履约桥接，可大幅降低工时与流失）。依据 Storeleads 数量与官方时间表，精确损失未量化。
+Persistence: Structural（平台主动关停，非临时 bug；Managed Payments 明确不包含原履约功能，迁移后仍需长期独立方案）。
+Next Question: 实际有多少商家依赖 LS 的 license key/file delivery 功能？PayPal 订阅占比与重新订阅转化率如何？是否有商家已开始付费第三方履约工具？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-18T09:45:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-11-11 00:00 至 2026-11-18 09:38 Asia/Taipei（首次试跑建议 7 天窗口；实际最新证据至 2026-11-17/18）。已有 Signal 索引：无（首次试跑，未跨历史去重）。
+无法访问平台：无特殊披露（使用了 Web、Reddit、X）。
+输出位置：Opportunity Runtime/Signals/Friction/（实际文件夹已确认可读）。

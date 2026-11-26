@@ -1,0 +1,90 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261120-SmallBusiness-IRSReasonableCauseForm843
+* Source Signal References:
+   * Signal ID: UW-20261120-SmallBusiness-IRSReasonableCauseForm843
+   * Generated At: 2026-11-20T00:48:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: UW-20261120-SmallBusiness-IRSReasonableCauseForm843.md
+   * Source File Modified At: 2026-11-20T00:41:36+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+1. IRS 2026 罚金上涨与 AEP 自动豁免后的结构性切分：2026 年 IRS 逾期申报超 60 天最低罚款升至 $525（每月 5% 上限 25%，叠加每月 0.5% 迟缴与年化 7% 按日复利）（Jupid Form 843 指南 2026-07-22）。虽然 IRS 自 2026 年 7 月起推行自动豁免计划（AEP）以替代原有首次减免（FTA），自动免除拥有 3 年/12 季清洁记录纳税人的常规罚金（Wolf Tax 2026-10-27），但以下四大场景仍必须通过 Form 843 提交书面申请：1）不满足 3 年清洁记录的**合理事由（Reasonable Cause）**抗辩；2）已缴罚款申请退税；3）AEP 过渡期误扣申诉；4）收到 Letter 854C 拒批信后的 30 天上诉。
+2. $525–$2,000 小额罚款被专业律师收费排除：税务律所书面申请 IRS 罚款减免的固定收费为 $1,500–$4,000（Brotman Law 报价表），律所明确建议费用超过涉案税款时不值得聘请律师。小企业主自行填报 Form 843 时，极易因"一表混填多年份/多税种（直接退件）"、"错填 Form 2210 预估税罚款"以及使用"会计师失误/资金短缺"等 IRS 必拒理由而白白损失退款。
+3. AI 诊断分流与 IRM 合规拆表引擎：解析 IRS CP 通知与账户 Transcript 后，先校验是否本应触发 AEP/FTA（若符合则指引直接致电免除，避免白寄纸质表）；对 Reasonable Cause 与 Letter 854C 场景，按 IRM"普通商业谨慎标准"拦截无效理由、按税种与税期一对一自动拆分填写 Form 843 PDF，并组装日期化佐证时间线与 30 天上诉信（收费 $49）。
+Unknown
+在收到 $525–$2,500 IRS 罚款且不符合 2026 年 AEP 自动豁免的小企业主中，实际存在有效客观合理事由（医疗/灾害/系统故障/记录不可得）且愿意为"防退件拆表 + 854C 上诉文书包"支付 $39–$49 的比例。
+Decision-Critical Unknown
+在 Jupid 已在 GitHub 开源基础 Form 843 模板且 2026 年 AEP 吸收掉简单首次违约的背景下，聚焦"非 AEP Reasonable Cause + 多期自动拆表 + Letter 854C 30 天上诉"的专精文书包，是否能比通用 ChatGPT 显著降低退件率并支撑 $49 付费转化。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	真实资金流与高倍价差明确：FY2025 IRS 评估 5,430 万笔民事罚款，2026 年最低迟报罚金 $525（常见 $525–$2,000）；律师固定收费 $1,500–$4,000；$49 自助文书包具备 >30 倍成本优势。
+	Mechanism
+	通过 (PASS)
+	联邦规则全美统一且高度结构化：退税时效（申报后 3 年/缴款后 2 年）、按税种税期一表一填规则、Form 2210 排除规则以及 IRM Reasonable Cause 审查标准均可精准编码为规则引擎 + LLM 文书生成，无需 Form 2848 执业授权（由纳税人本人签字寄出）。
+	Persistence
+	通过 (PASS)
+	结构性持久存在（需聚焦非 AEP 存量）：尽管 AEP 自动免除了 3 年清洁记录的首次违约，但非清洁记录的 Reasonable Cause、已缴退税与 Letter 854C 上诉需求每年仍数以百万计，且律师 $1,500+ 的人力底线不会下降。
+	Capture
+	通过 (PASS)
+	极佳的轻资产小团队契合度：纯联邦统一规则 Web 工具（OCR 解析 CP 通知 + 规则校验 + Form 843 PDF 填充），无需分州定制、无需执业牌照（严禁代签或代致电 IRS），1–2 人小团队即可交付。
+	3. Evidence & Counter Evidence
+Supporting Evidence
+1. Brotman Law 税务律师公开收费表（2026-09 更新）：Tax Attorney Cost in California —— 证实书面 IRS 罚款减免收费 $1,500–$4,000，明确指出费用超过罚款时不划算。
+2. Jupid 2026 Form 843 实务指南（2026-07-22）：Form 843 Penalty Abatement 2026 —— 确认 2026 年最低罚金 $525、7% 年化复利、FY2025 5,430 万笔罚款、混填多年份/错填 Form 2210/无效理由等 DIY 致命错误。
+3. Wolf Tax 2026 AEP 新规解析（2026-10-27）：IRS 2026 Update: Is Your Penalty Removal Now Automatic? —— 证实 IRS 于 2026-07 推出 AEP，但过渡期误罚与非清洁记录的 Reasonable Cause 仍需致电或邮寄 Form 843。
+4. SmartAsset Form 843 指引（2026-04-24）：IRS Form 843 Guide —— 确认 2 年/3 年法定窗口与分年份拆表规则。
+Counter Evidence
+1. 2026 AEP 吸收简单需求：IRS 2026 年夏上线 AEP 后，最容易成功的"3 年清洁记录首次违约"无需任何工具即可自动免罚，缩小了整体漏斗基数。
+2. 开源免费模板竞争：Jupid 已在 GitHub 开源基础 Form 843 技能模板，且"资金短缺"或"会计师延误"等常见借口在法律上必败，AI 无法将无客观事由的逾期包装成胜诉。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过律所报价、IRS 2026 新规（AEP）与 Form 843 实务指南交叉验证，满足 HYPOTHESIS_READY。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 在 2026 年 AEP 上线后，Form 843 工具的真实价值不再是"帮清洁记录用户写首次减免信"，而是"AEP 误扣排查 + 非清洁记录的 Reasonable Cause 合规拆表 + Letter 854C 30 天上诉包"。
+* What became less likely: 单纯靠"代填一张基础 Form 843"就能在 AEP 时代获得高转化。
+* What did we rule out: 排除了在缺乏客观不可抗力证据时为"缺钱/怪会计师"场景包装虚假减免申请。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-20T17:30:48+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+Title: IRS 小额罚款诊断、分期 Form 843 拆表与 Letter 854C 上诉文书包 (Penalty843 Guard)
+Source Signal References
+* Signal ID: UW-20261120-SmallBusiness-IRSReasonableCauseForm843
+* Generated At: 2026-11-20T00:48:00+08:00
+* Task Version: uneconomic-work@0.1
+* Source File URL: UW-20261120-SmallBusiness-IRSReasonableCauseForm843.md
+* Source File Modified At: 2026-11-20T00:41:36+08:00
+Money
+收到 $525–$2,500 IRS 迟报/迟缴/预扣税罚款但不符合 3 年清洁记录自动豁免（AEP）的小企业主、LLC 业主与自由职业者（及服务小微客户的独立记账员）。面临 $1,500–$4,000 律师高门槛，客户愿支付 $39–$49 购买防退件分期文书包。
+Mechanism
+1. 免费通知诊断与 AEP/FTA 拦截：OCR 解析 CP14/CP161/Letter 854C 通知，校验 2 年/3 年时效与 Form 2210 排除项；若本应触发 AEP/FTA 则提示直接致电免除，不赚无效表单钱。
+2. IRM 规则校验 + 自动拆表 PDF 生成：针对 Reasonable Cause 与 Letter 854C 上诉，拦截必拒无效借口，按税种与税期一对一自动拆分填写多份 Form 843 PDF，将医疗/灾害/系统故障记录重构为符合"普通商业谨慎标准"的日期化陈述与邮寄清单，交由纳税人本人签字寄出。
+Capture
+1–2 人小团队构建联邦统一规则 Web 工具，无需 Circular 230 执业授权（严守自助文书辅助边界），通过 r/tax、r/smallbusiness 及 CP 通知编号长尾 SEO 获客。
+Durability
+IRS 每年评估数千万笔民事罚款，2026 AEP 仅吸收清洁记录首次违约，非清洁记录的 Reasonable Cause 与 854C 上诉需求及律师 $1,500+ 人力门槛长期存在。
+Evidence
+1. Brotman Law 税务律师收费表（2026-09）
+2. Jupid 2026 Form 843 实务指南（2026-07-22）
+3. Wolf Tax 2026 AEP 新规解析（2026-10-27）
+4. SmartAsset Form 843 指引（2026-04-24）
+Counter Evidence
+1. 2026 AEP 自动豁免大幅减少了简单首次违约的填表需求。
+2. Jupid 已开源基础 Form 843 模板，纯通用填表溢价有限。
+Critical Unknown
+在 AEP 上线与开源模板存在的背景下，面临非 AEP Reasonable Cause 或 Letter 854C 上诉的小企业主对 $39–$49 专精防退件拆表包的实际付费转化率。
+Falsification
+若 IRS 全面上线智能化全流程在线 Form 843 门户（含自动税期拆分与实时材料预审驳回提示），独立第三方文书工具的防退件价值将被大幅压缩。
+Next Test
+从 r/tax 与 r/smallbusiness 近 6 个月公开 IRS 罚款求助帖中抽样 15 个非 AEP Reasonable Cause / 被拒案例，测试规则校验包识别致命填表错误的效果并验证用户对 $39–$49 工具包的反馈。
+
+
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-20T17:30:48+08:00
+* Role Spec Status: reviewed

@@ -1,0 +1,46 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+* Task Version: business-sensor@0.2.1
+* Role Spec Status: reviewed
+* 观察窗口: 2026-10-30 09:22:10 至 2026-11-06 09:22:10 (Asia/Taipei)
+* 已有 Signal 索引/全文: 已核对历史文件 Business-20261014-autodesk-aps-passthrough-billing.md、Business-20261001-whatsapp-service-message-toll.md、Business-20261015-github-agentic-autofix-metered-toll.md、Business-20261014-hubspot-flexible-seats-credits-toll.md、Business-20261017-deepseek-flash1017-costcurve-searchtoll.md、Business-20261023-vercel-deployment-storage-toll.md、Business-20261021-salesforce-headless-agent-api-toll.md、Business-20261023-visa-b2b-embedded-payment-toll.md、Business-20261020-eu-customs-handling-fee-pid-toll.md、Business-20261022-openai-decisions-api-costcurve.md、Business-20261025-aws-shield-waf-antiddos-migration-toll.md、Business-20261028-github-enterprise-copilot-dollar-entitlement.md、Business-20261029-googleplay-agentic-purchases-billing-toll.md、Business-20261030-visa-installment-credential-plt-expansion.md、Business-20261101-cloudflare-ai-search-metered-toll.md、Business-20261101-japan-jct-crossborder-platform-taxation-toll.md、Business-20261104-smartthings-cloud-api-paid-toll.md 以及 Business-20261103-no-signal.md 和 Business-20261104-no-signal.md，本轮已执行跨历史核对与去重
+* 输出逻辑位置: Opportunity Runtime/Signals/Business/
+* 实际输出文件夹 URL: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+待研究 Signal (Qualified Signals)
+Signal ID: Business-20261105-microsoft-copilot-ubb-credits-throttling
+* Type: Business
+* What Changed: 2026年11月4日至5日，微软在官方合作伙伴中心（Microsoft Partner Center Announcements）正式公布针对商业版 Copilot 的重大定价架构与配额收紧规则。第一项关键重构：正式开启面向未付费用户的 Copilot Chat 公平使用限流（Fair Use Limits）分阶段推送（自 2026年11月2日 起覆盖 ≤2,000 席位的中小企业租户，11月9日 扩展至大型企业）。此前商业版 Microsoft 365 租户享用完全免费且无限次的网页级 Copilot Chat；新规下，未购买独立 Copilot 商业许可（$30/用户/月）的用户一旦达到使用上限，功能将直接遭系统限流熔断，界面强制弹出向企业管理员申请或自费购买 $30 授权的升级窗口，且微软直接在合作伙伴后台（ASPX）上线"触达限流用户列表（Users Experiencing Usage Limits）"看板定向赋能渠道推销。第二项关键重构：确立 Microsoft 365 Copilot 默认开启"按量计费"（Usage-Based Billing, UBB）机制与每人每月 4,000 点 Copilot Credits 默认支出上限。官方明确在后台自动为每个企业租户开通绑定的 Azure 订阅，所有新增的 Copilot Business 订阅默认启用后付费（Pay-as-you-go），将 Copilot Cowork（协同智能体）、Work IQ API 以及 GitHub Copilot Harness 等高阶智能体任务作为增量按量消耗，默认按 4,000 Copilot Credits / 用户/月 进行 Azure 账单划扣。此变更属于典型的 New Toll Booth（对高阶智能体协同与复杂 API 设立按点扣费的云端收费卡点）与 Budget Migration（微软彻底将全球数亿商业 Office 席位从纯包月固定许可，强制分化为"免费用户遭限流逼买 $30 席位"与"付费用户叠加 Azure 计量点数"的混合预算收割）。
+* Money: 涉及全球超过 4 亿个商业版 Microsoft 365 席位以及全球数万家云解决方案提供商（CSP）的 IT 采购预算。对于未购买 Copilot 的企业，此前依赖免费 Copilot Chat 提升办公效率，如今被限流后被迫面临人均每年 $360（$30/月）的采购增量压力；而对于已购买 Copilot Business 的企业，默认开启的 UBB（按量计费）使得一个拥有 100 人的中型公司默认直接背负了每月最高 400,000 点 Copilot Credits 的 Azure 潜在消费敞口。企业在支付每人 $30 固定席位费之外，日常运行复杂智能体将直接产生第二张 Azure 计量账单（Double Billing），迫使企业财务主管（CFO）必须紧急建立信用额度监控。
+* Evidence:
+   1. 微软官方 Partner Center 2026年11月 正式公告《November 2026 announcements - Partner Center announcements》（发布日期：2026-11-04 / 2026-11-05）：官方权威确认"Copilot Chat: limits for users without a Microsoft 365 Copilot license... Beginning November 2, 2026 for organizations with 2,000 or fewer seats, and November 9 for larger organizations, Microsoft is introducing fair use limits... Reaching a limit is expected behavior... notification includes an option to upgrade... Users Experiencing Usage Limits view shows which of your customers have users reaching limits"。
+   2. 微软官方 Copilot 按量计费与信用架构通告《Availability update: Updates to usage-based billing for new Microsoft 365 Copilot Business licenses》（发布日期：2026-11-03）：官方载明商业架构演更"Some AI experiences require usage-based billing and might result in charges based on usage, beyond license fees. Microsoft automatically creates the required Azure resources and applies a default spending limit for all eligible services of 4,000 Copilot Credits per user per month... Pay-as-you-go is the default billing configuration to help customers access eligible usage-based experiences, including Copilot Cowork, Work IQ APIs, and GitHub Copilot Harness... evolution of the Copilot commercial model to support both user seat licensing (USL) and usage-based billing (UBB)"。
+   3. 微软合作伙伴商业与技术白皮书《The two very different bills inside your AI spend》与《Understand usage-based billing and cost management for Copilot Credits》（2026年11月更新）：详细阐明了固定席位费（USL）与 Azure 后付按量点数（UBB）的双重计费分离，提示渠道商针对 SMB 客户默认开启 UBB 带来的账单激增进行主动风控。
+* Mechanism:
+   1. 双向挤压收割企业 AI 预算（事实）：微软针对商业客户采取了极具攻击性的"两头堵"商业策略：对底层依赖基础 M365 附赠免费 Chat 的海量白嫖用户实施不透明的"公平使用限流"，在办公热路径上制造卡顿促成 $30 席位升级；对顶层已购买 $30 授权的付费用户，则将其最高频的高阶智能体交互（Copilot Cowork）剥离出固定席位范围，默认挂载 Azure UBB 开启每人每月 4,000 点的弹性计量抽税（New Toll Booth）。
+   2. 自动开通 Azure 资源与默认启用后付费的陷阱（事实/推断）：微软在 CSP 渠道将 UBB 设定为"Default ON"，并在背后静默配置 Azure 订阅容器。中小企业 IT 管理员若未在管理后台手动下调 4,000 Credits 上限，员工随意触发几次批量数据总结或 Work IQ 跨应用调用，就会直接转化为月底的 Azure 真实超额扣款。
+   3. 小团队轻资产进入节点（推断）：
+      * a. M365 Copilot 信用额度防背刺熔断与消耗审计探针（Copilot Credit Budget Shield）：面向使用 M365 Copilot Business 的中小企业（SMB），开发极轻量的 Microsoft Graph API 审计插件。实时抓取全企业员工的 Copilot Credits 消耗速率，在员工接近部门额度时发送 Teams 预警，并在达到设定阈值（如每人 1,000 点）时自动调用管理接口锁死 UBB 超额调用，防止产生意外高额 Azure 账单，按月收取 FinOps 治理工具订阅费。
+      * b. 未授权员工 Copilot Chat 限流旁路增强扩展（Fair-Use Limit Bypass Agent）：针对被 11月2日 限流政策影响、但企业拒绝为人均支付 $360/年 席位费的中小型团队，提供轻量企业浏览器插件或内部 Teams 聚合机器人。底层接入超低价的 OpenAI Decisions API（$0.10/M tokens）或开源模型，在员工触发 M365 限流时无缝接管并返回高质量网络检索答复，以极低边际成本平替 $30/月 微软高价授权。
+      * 极度符合 1–3 人小团队形态：纯 SaaS 软件、浏览器插件与企业微应用，零实体资产、零重售后、高粘性 B2B 订阅。
+* Magnitude: Large。依据：Microsoft 365 拥有全球最大的企业桌面与协同办公软件安装基座（数亿付费商业用户），其对 Copilot Chat 实施强制造型限流逼单并正式确立"席位费 + 4,000 Credits 默认按量后付"的混合商业范式，直接重构了全球企业级 AI 软件的采购开销结构。
+* Persistence: Persistent。依据：已正式作为 Microsoft Partner Center 核心商业政策通告全球 CSP 渠道，并固化为官方许可手册与 Azure 底层资源配置逻辑，属于长期不可逆的平台商业策略。
+* Next Question: 当中小企业在 11 月至 12 月陆续收到员工触发 Copilot Chat 限流弹窗以及首批默认开启的 Azure UBB 扣费账单时，企业 IT 管理员会优先选择屈服采购 $30 席位与增购点数包，还是会大规模关闭默认 UBB 并转向外部独立开源智能体？
+* Task Version: business-sensor@0.2.1
+* Generated At: 2026-11-06T09:22:10+08:00
+* Role Spec Status: reviewed
+观察与过滤池 (Watch & Ignore List)
+1. 线索: Apple 宣布台湾 App Store 佣金率由 30% 正式下调至 26%（2026-10-29 公布，2026-10-31 生效）
+* 判定: WATCH (维持追踪)
+* 原因: 2026-10-29 经 Apple Developer 官方公告 证实，苹果在与台湾公平交易委员会（TFTC）协商后，正式自 2026年10月31日 起将台湾区 App Store（iOS/iPadOS）标准应用内购买（IAP）与付费应用的分成比例由 30% 下调至 26%。虽然属于重大的应用商店分成费率（Take Rate）调整并直接为台湾本土 iOS 开发者带来 400 个基点的净利润释放，但属于反垄断行政协商带来的降费让利，苹果并未在台湾开放第三方支付或引入新的外部抽税节点，缺乏小团队可独立切入的计费软件或中间件 Capture 路径。
+* 等待证据: 观察台湾公平会后续是否进一步施压要求苹果允许第三方支付接入，以及是否在亚太其他国家（如韩国、日本）引发连锁降费诉求。
+2. 线索: Anthropic 正式推出 Usage and Cost Analytics API 并在 11月2日 公测 Message Threads（2026-10-29 / 2026-11-02）
+* 判定: WATCH (维持追踪)
+* 原因: 经 Anthropic 官方发布说明 与 Claude 平台文档 证实，Anthropic 上线 Usage and Cost Analytics API 测试版（支持服务账号 Service Account 独立维度），并在 11月2日 开启 Message Threads 公测以缩短首字延迟。但官方明确说明 Token 计费规则与底层牌价未变，属于工程与可观测性接口演进，尚未直接引发真实钱流与收费节点的重构。
+* 等待证据: 观察企业在接入该统一分析 API 后，是否催生出标准化的多智能体云端 FinOps 成本优化代理与配额套利工具的稳定采购需求。
+3. 线索: Microsoft Marketplace 废弃 .NET 8 并不升级将导致 SaaS 交易延迟中断（2026-11-05 公布，2026-11-10 截止）
+* 判定: WATCH
+* 原因: 微软于 2026-11-05 在 Partner Center 发出紧急运维通告，要求在商业市场发布 SaaS 方案的合作伙伴必须在 11月10日 前将 SaaS 加速器升级至 .NET 10，否则将导致交易延迟甚至失败。属于技术组件支持周期演更，未改变交易费率或计费规则。
+* 等待证据: 观察是否有大量 ISV 因未及时升级而遭遇交易报错或需要第三方代运维服务。
+4. 线索: IBM Planning Analytics as a Service 20% 涨价与 SaaS 9% 调价（2026-11-01 生效）
+* 判定: IGNORE (快速 Kill)
+* 原因: 经核查 Lodestar Solutions 分析报告 与 IBM 官方 Passport Advantage 政策，该项属于成熟企业软件针对既有大客户的常规年度价格协调（Price Harmonization），属于单一厂商基于通胀和产品维护成本的被动提价，未改变业务收费节点，未产生跨生态的预算迁移，亦无第三方小团队轻资产进入空间。

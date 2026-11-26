@@ -1,0 +1,24 @@
+Signal ID: Friction-20261105-GoogleFormsPaymentReconciliation
+Type: Friction
+What Changed: 小型企业、活动组织者及订单收集者持续使用免费 Google Forms 进行注册/下单，但支付集成摩擦在 2026 年 10-11 月仍被多次文档化与讨论；无原生支付字段，提交与付款记录分离。
+Friction: Payment / Manual operation 环节；表单提交与实际付款为独立记录，需人工匹配。
+Money: 用户已为卡处理费（如 Stripe ~2.9%+固定费）或付费 add-on（如 Payable Forms 按交易、Neartail ~$18/月）付费，仍手动在 Google Sheet 中标记/匹配已付款响应；关联 labor/time 成本及潜在 unpaid submission 导致的 revenue/conversion loss。精确损失金额未知。
+Evidence:
+1. Reddit r/FormNX 帖子（2026-10-22）：“Google Forms has no native payment field, so Google Forms payment integration always comes down to a workaround. ... With a payment link the response and the payment are two separate records, so you reconcile by hand to see who actually paid... the manual reconciliation becomes the real cost.” URL: https://www.reddit.com/r/FormNX/comments/1xcx87c/what_we_learned_about_google_forms_payment/
+2. Checkout Page 博客（2026-11-04）：详述确认消息中插入 payment link 或 add-on 后，“Payments arrive separately from the form responses, so you'll need to compare the two... add a column to the response sheet to mark who has paid.” 提交可不付款。URL: https://checkoutpage.com/blog/how-to-accept-payments-on-google-forms
+3. Akaioum 博客（2026-11-01）：分析 add-on 五星评价案例，“The response and the payment are two separate things, and the organiser is the one who joins them.” 举例手动列、打印列表等。URL: https://akaioum.com/blog/google-forms-payment-add-on-reviews-use-cases/
+4. FormNX 指南等确认无原生支付，需链接/add-on，匹配为常见步骤。
+Mechanism: 分离记录阻断自动确认与履约，导致人工核对耗时（随订单量上升）、未付款跟进，可能造成未确认订单或流失；推断为结构性，因 Google 多年未提供原生支付字段。
+Current Workaround: 在确认消息贴 Stripe/PayPal 链接、QR 码，或安装付费 add-on（仍可能需提醒/部分匹配）；成本为人工时间（指南称 volume 时“real cost”）+ add-on 费；精确工时未知。
+Payer: 已使用 Google Forms 做订单/注册的小型商家、PTA、俱乐部、健身房等（已付处理费或 add-on），可能为消除手动匹配与 drop-off 付费于集成表单工具。依据：多篇 2026 指南与社区帖讨论该痛点并推荐替代。
+Economic Effect: labor / time（主要），potential conversion / failed transaction / revenue loss。
+Friction Value: 频率对活跃订单表单高（每周/每日多次提交）；单次经济影响为匹配时间 + 潜在未付款损失（未知具体数值，依据帖子“manual reconciliation becomes the real cost”及 drop-off 描述）；可回收比例高（若集成工具消除匹配），但无定量依据。未知精确值。
+Persistence: Structural（Google Forms 无支付功能为长期缺口，2026 年文档与帖子仍确认需 workaround，非临时 bug 或即将原生解决）。
+Next Question: 典型 Google Forms 订单用户的周订单量、每周匹配工时，及对集成支付表单的付费意愿/当前 add-on 支出？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-05T09:45:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-10-29 至 2026-11-05 Asia/Taipei（首次试跑）。主要证据中 11 月文章在窗口内，10 月 Reddit 为支持性（摩擦持续）。
+已有 Signal：无。
+平台：Web、Reddit 可访问；X 近期相关帖有限。未编造数值。

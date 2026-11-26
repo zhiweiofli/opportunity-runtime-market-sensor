@@ -1,0 +1,65 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: IBF-20261022-QuickBooksDesktop-DiscontinuedBankFeeds-IIF
+* Source Signal References:
+   * Signal ID: IBF-20261022-QuickBooksDesktop-DiscontinuedBankFeeds-IIF
+   * Generated At: 2026-10-22T18:30:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: https://docs.google.com/document/d/1H8PDvsvNCkqsPQK5KujUunEHfGLlMtnubbrYiSpecsE/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-22T18:23:48+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Unknown Ledger:
+   * Known: Intuit 于 2026-05-31 正式终止对 QuickBooks Desktop 2023（Pro Plus/Premier Plus/Enterprise 23.0）的服务支持；不仅彻底掐断在线 Bank Feeds 自动下载，还在云端服务端直接切断了手动导入 .QBO（Web Connect）文件的校验机制（报错 "unable to verify the Financial Institution Information"）；全美有数十万家中小企业与代理记账员因高昂年费（QBO 每年 $720-$2,400，Enterprise $1,922/年）与多账套限制坚决拒绝迁移至云端；目前唯一仍在 Desktop 本地生效的批量流水导入途径是传统的 .IIF（Intuit Interchange Format）文件，但银行导出的 CSV 无法直接转换为合法平衡的 IIF。
+   * Unknown: 存量留守企业使用的主流银行（Chase, Bank of America, Wells Fargo, Citi）导出的 CSV 格式在复杂交易（如多行手续费拆分、跨期预存）上的变异度分布。
+   * Decision-Critical Unknown: 留守 QuickBooks Desktop 的小微企业主与独立簿记员在面临每年上千美元迁移成本时，对于一款售价 $39-$49 的纯本地离线、零数据外发风险的“Bank-CSV 转 IIF 自校验与科目模糊匹配工具”的直接在线购买转化率。
+* Gate Checks:
+   * Money: 通过。中小企业面临明确的刚性支出对比：要么每年支付 $720-$2,400 的 QBO 订阅费，要么每月支付 $100-$500（4-10小时）的代记账人工逐笔手工录单工时费。客户对 $39-$49 买断制本地工具具有高达 24 倍以上的极强支付杠杆（Repair Leverage Ratio 达 24.2）。
+   * Mechanism: 通过。Intuit 商业策略意在消灭桌面端以强推 SaaS，在关闭 .QBO 在线验证通道的同时，在本地核心引擎中完整保留了原生的 .IIF 离线解析能力。通过本地轻量脚本将主流银行 CSV 规范化为符合 TRNS/SPL 双边借贷配平的合法 IIF 格式，直接绕过了 Intuit 的云端收费卡点。
+   * Persistence: 通过。Intuit 早已于 2024 年 9 月停止向新客销售 Desktop，2026 年 5 月底彻底停更 2023 版，官方绝无可能回调恢复老版 Bank Feeds；而存量企业由于历史庞大复杂账套迁移阻力极高，留守桌面端的刚性需求将至少持续 3-5 年以上。
+   * Capture: 通过。极其契合 1-3 人小团队：纯本地离线工具（Python CLI / 打包单文件可执行程序 / 本地 WebUI），零云端服务器成本、零隐私合规与财务数据泄漏风险；通过 Reddit r/QuickBooks、Intuit 社区停更报错帖与会计论坛自然获客，高毛利、低客服。
+* Final Status: HYPOTHESIS_READY
+* Evidence:
+   1. Intuit 官方终止服务政策文件《QuickBooks Desktop 2023 service discontinuation policy》（2026-08 更新）：官方明确 2026年5月31日 终止所有在线服务，包括 Bank Feeds 及交易上传。
+   2. Utilly 深度实操指南《Import Bank Transactions into QuickBooks Desktop After Bank Feeds Discontinued》（2026-10-18）：记录 .QBO 报错阻断事实，证实本地 IIF 格式是唯一仍可正常批量导入流水的路径。
+   3. Reddit r/QuickBooks 真实社区讨论《Bank of America no longer connecting to Quickbooks Desktop Pro》：大量桌面端用户抱怨银行断连与 QBO 导入被拒，积极寻求离线替代方案。
+* Counter Evidence:
+   1. 竞品存在度：市场已有部分老牌工具（如 Transaction Pro、ProperSoft、MoneyThumb），但普遍采用高额 SaaS 订阅（$20-$100/年）或界面繁复，且要求上传账单，缺乏专注轻量离线隐私与科目自动映射的单次买断产品。
+   2. 格式校验风险：若用户科目表未提前配置，IIF 导入容易新增错误科目，需工具内置科目预校验与交互确认机制。
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，痛点真实刚性、机制坚固明确，小团队轻资产切入点极佳。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 留守 QuickBooks Desktop 的存量中小企业将广泛转向本地 CSV 转 IIF 方案以抵制高昂的云端订阅。
+* What became less likely: Intuit 会在未来老版本补丁中恢复免费的 Web Connect .QBO 验证。
+* What did we rule out: 排除了停更版用户会轻易妥协全量重构迁移至 QBO 的假设。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-10-23T17:00:27+08:00
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向停更版 QuickBooks Desktop 的离线安全 Bank-to-IIF 平衡转换器
+* Source Signal IDs: IBF-20261022-QuickBooksDesktop-DiscontinuedBankFeeds-IIF
+* Source Signal References:
+   * Signal ID: IBF-20261022-QuickBooksDesktop-DiscontinuedBankFeeds-IIF
+   * Generated At: 2026-10-22T18:30:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: https://docs.google.com/document/d/1H8PDvsvNCkqsPQK5KujUunEHfGLlMtnubbrYiSpecsE/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-22T18:23:48+08:00
+* Money: 运行老版 QuickBooks Desktop 的 SMB 企业主与兼职簿记员（每月 $100-$500 的手工记账外包成本，或 QBO $1,188+/年 的升级支出）；愿支付 $39-$49 买断本地离线工具。
+* Mechanism: 针对 Intuit 切断在线 Bank Feeds 与 .QBO 导入云端验证的痛点，利用本地引擎原生支持的 .IIF 离线解析通道；工具在本地一键解析银行 CSV，自动检测借贷方向并与用户导出的 Chart of Accounts 进行模糊匹配，输出 100% 语法合规、平账无报错的 IIF 文件。
+* Capture: 1-3 人小团队构建免安装的单文件本地工具（Python/Electron 本地运行），零服务器成本、零云端隐私泄露风险、零财务合规审核阻力。
+* Durability: Intuit 已永久停更老版本且主推云端订阅，存量用户留守意愿强，替代需求具备多年确定性。
+* Evidence:
+   1. Intuit 官方终止政策（2026-08）：https://quickbooks.intuit.com/learn-support/en-us/help-article/feature-preferences/quickbooks-desktop-service-discontinuation-policy/L17cXxlie_US_en_US 明确 2026-05-31 终止支持。
+   2. Utilly 深度指南（2026-10-18）：https://getutilly.com/guides/import-bank-transactions-quickbooks-desktop-without-bank-feeds 证实 IIF 是唯一有效的本地导入方案。
+   3. Reddit 社区讨论：https://www.reddit.com/r/QuickBooks/comments/1pbolmg/bank_of_america_no_longer_connecting_to/ 证实存量用户对离线导入的迫切需求。
+* Counter Evidence:
+   1. 老牌工具存在竞争，但多为昂贵订阅制或上传云端模式。
+   2. 用户科目表名称拼写错误可能在导入时产生脏数据，需在生成 IIF 前进行预校验。
+* Critical Unknown: 留守老版 Desktop 的簿记员对于“本地单文件买断工具（$39）”相较于老牌按年订阅工具的偏好程度与付费转化率。
+* Falsification: 若 Intuit 在后续静默补丁中彻底移除老版 QuickBooks Desktop 的本地 .IIF 导入功能。
+* Next Test: 编写一个极简 Python 脚本并制作免费的 Chase 与 BoA 流水转 IIF 示例，在 Reddit r/QuickBooks 与会计论坛发帖提供脱敏测试，验证 48 小时内的下载试用量与付费意向。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-10-23T17:00:27+08:00
+* Role Spec Status: reviewed

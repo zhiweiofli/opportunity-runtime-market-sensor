@@ -1,0 +1,88 @@
+﻿Execution Receipt: Researcher Batch 20261120
+* Task Name & Version: Opportunity Runtime Researcher (researcher@0.2.2)
+* Execution Cutoff Timestamp: 2026-11-20T17:30:48+08:00 (Asia/Taipei)
+* Timezone: Asia/Taipei (UTC+08:00)
+* Batch Processing Status: COMPLETED
+* Queue Status: NO_PENDING_SIGNALS
+* Output Research Directory: Research Output Folder
+1. Batch Scan & Queue Audit
+Input Directory
+	Directory ID / Link
+	Scanned Files (New in Window)
+	Processed as Signals
+	Operational Exclusions
+	Unprocessed Remaining
+	Business Input
+	1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+	1 (Business-20261120-no-signal.md)
+	0
+	1 (Heartbeat run report NO_SIGNAL)
+	0
+	Friction Input
+	19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo
+	1 (Friction-2026-11-20-AuthFriction-Checkout-AppHandoff-FalseDecline.md)
+	1
+	0
+	0
+	Market Input
+	12UTQ8sbPG0Ryv3mA0YB7EtWTjH3Ri0G2
+	0
+	0
+	0
+	0
+	Signals Root
+	1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI
+	4 (UW-20261120-... × 2, IBF-20261120-... × 2)
+	4
+	0
+	0
+	Total
+	-
+	6
+	5
+	1
+	0
+	2. Underwriting Results in Current Batch (Chronological Order)
+Signal ID
+	Category
+	Generated At
+	Verdict
+	Analysis Summary
+	Generated Research Record
+	UW-20261120-Homeowner-Sub10kPropertyClaimSupplement
+	Uneconomic Work
+	2026-11-20T00:48:00+08:00
+	HYPOTHESIS_READY
+	四 Gate 全数通过：PA 因佣金底线拒接 <$10,000 房屋理赔；AI 严守不代谈、不抽成合规红线，为房主输出 Xactimate 逐行差异表与自用复检信（$49–$79 固定价）。
+	Research-UW-20261120-Homeowner-Sub10kPropertyClaimSupplement.md
+	UW-20261120-SmallBusiness-IRSReasonableCauseForm843
+	Uneconomic Work
+	2026-11-20T00:48:00+08:00
+	HYPOTHESIS_READY
+	四 Gate 全数通过：2026 AEP 吸收清洁记录首次违约后，聚焦非 AEP Reasonable Cause、多期 Form 843 自动拆表与 Letter 854C 30 天上诉包（$49 对比律师 $1,500–$4,000）。
+	Research-UW-20261120-SmallBusiness-IRSReasonableCauseForm843.md
+	Friction-2026-11-20-AuthFriction-Checkout-AppHandoff-FalseDecline
+	Friction
+	2026-11-20T09:37:00+08:00
+	KILL
+	Gate 4 未通过：3DS 银行端审批慢、App Handoff 断裂与发卡行误拒属于持牌发卡行核心风控与卡组织协议域，1–5 人小团队无合法捕获节点与企服准入条件。
+	Research-Friction-2026-11-20-AuthFriction-Checkout-AppHandoff-FalseDecline.md
+	IBF-20261120-SharePoint-SP2010Workflow-InfoPath-July2027Removal
+	Installed Base Friction
+	2026-11-20T17:20:00+08:00
+	HYPOTHESIS_READY
+	四 Gate 全数通过：2027-07-13 CU 永久移除 SP2010 工作流与 InfoPath 且受 PII 限制无法上云；纯离线盘点僵尸项 + .xsn/.xml 解包审计归档套件（$299）对比 ShareGate $5,995/年具 20.05x 杠杆。
+	Research-IBF-20261120-SharePoint-SP2010Workflow-InfoPath-July2027Removal.md
+	IBF-20261120-GoogleShopping-ContentAPISunset-MerchantAPIShadowDiff
+	Installed Base Friction
+	2026-11-20T17:20:00+08:00
+	HYPOTHESIS_READY
+	四 Gate 全数通过：Content API v2.1 渐进 410 并于 2027 年初全停；针对自研电商与代运营提供零改代码兼容垫片 + amountMicros/Ads feedLabel Shadow-Diff 防呆体检包（$99/店）。
+	Research-IBF-20261120-GoogleShopping-ContentAPISunset-MerchantAPIShadowDiff.md
+	3. Cumulative Inventory Metrics
+* Prior Cumulated Underwritten Signals: 93
+* New Signals Underwritten in Current Batch: 5 (HYPOTHESIS_READY: 4, KILL: 1)
+* Total Cumulated Underwritten Signals: 98
+* All-Time Underwriting Coverage: 100% of all discovered valid historical signals have persistent Research records in Research Output Folder.
+4. Integrity Statement
+本轮执行截止时间锁定为 2026-11-20T17:30:48+08:00。经全面扫描 Business、Friction、Market 与 Signals 根目录，所有截止时间前的新增有效 Signal 已按观察时间顺序全部完成深度经济承销并落盘固化，历史 93 条已覆盖 Signal 均已核对跳过，无任何遗留待处理 Signal。本轮队列状态确认：NO_PENDING_SIGNALS。

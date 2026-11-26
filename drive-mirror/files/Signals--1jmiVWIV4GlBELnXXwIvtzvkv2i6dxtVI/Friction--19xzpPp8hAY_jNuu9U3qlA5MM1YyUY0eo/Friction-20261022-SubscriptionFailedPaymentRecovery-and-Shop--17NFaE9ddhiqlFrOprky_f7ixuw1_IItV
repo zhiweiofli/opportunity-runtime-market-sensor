@@ -1,0 +1,47 @@
+Signal ID: Friction-20261022-SubscriptionFailedPaymentRecovery
+Type: Friction
+What Changed: 已付费订阅客户在续费时因卡片过期、余额不足、银行拒绝或可疑欺诈标记导致扣款失败；问题在 2026-10-20 左右 Reddit r/SaaS 帖中被具体量化，持续存在于各类订阅业务。
+Friction: Payment（续费扣款失败 / involuntary churn / dunning 流程）
+Money: 订阅公司已收取初始订阅费且客户未主动取消，但续费因支付失败而中断；关联 revenue loss（MRR 风险）与 failed transaction。例：一 300k MRR SaaS 每月约 8% MRR（约 12k USD）处于风险，基本 dunning 仅回收约一半，其余静默流失。
+Evidence:
+- Reddit r/SaaS 帖（2026-10-20/21）：“About 8 percent of our MRR is at risk every month from failed payments. Dunning emails recover maybe half. The rest just churns silently. On a 300k MRR base that's 12k a month walking out the door because of expired cards and declined charges.” URL: https://www.reddit.com/r/SaaS/comments/1xb4gj8/why_is_payment_recovery_so_hard_and_what_other/ 
+- Payments Dive 访谈（引用 Butter Payments，文章提及持续问题）：订阅公司因未取消但支付失败的 involuntary churn 每年损失高达 $440B；Butter 以恢复收入的百分比或服务费收费，仅对增量恢复收费。URL: https://www.paymentsdive.com/news/how-to-fix-subscription-pay-friction/811571/
+- Butter Payments 定价页：采用 revenue share 模式，仅从通过平台恢复的发票收入中抽取小百分比，无 retainer。URL: https://www.butterpayments.com/pricing
+- 补充近期 X 讨论（2026-10-20）：拆分失败原因码后显示卡片失败与真实取消行为不同，软拒绝可在 3 次重试内恢复约 63%。URL: https://x.com/jordanqsar_/status/2112572123009233068 （及相关上下文）
+Mechanism: 客户已授权并付过费，但存储支付方式失效或被拒绝时，自动续费失败；若 dunning/重试不足或时机不当，客户未更新卡片即流失，导致已承诺的 recurring revenue 无法流入。推断：高价值账户需人工 outreach 进一步增加 labor cost。
+Current Workaround: 基本 billing platform dunning emails（回收约 50%）；对高价值账户人工 outreach 与 in-app banner；使用第三方如 Butter（仅对恢复部分收费）或类似工具。成本：自建需技术资源与数据积累；第三方抽成恢复收入的百分比（具体比例通过健康分析确定，未知精确值）；人工 outreach 时间成本（未知具体）。依据：帖子与 Butter 描述。
+Payer: 依赖 recurring revenue 的 SaaS、订阅媒体、健身、电商等公司（尤其 mid-to-high MRR）。依据：帖子作者自身损失、Butter 客户（如 Fabletics、MasterClass）及市场存在专业恢复工具。
+Economic Effect: revenue / failed transaction / churn（involuntary）；次要 labor（手动处理高价值）
+Friction Value: 频率：每月约 5-10% MRR 处于风险（多帖与行业引用支持，具体因业务而异）；单次经济影响：每失败续费损失该周期收入（例：300k MRR 下每月 12k 风险，回收一半后净损失约 6k）；可回收比例：基础 dunning ~50%，智能重试+工具可更高（Butter 声称可达额外增长）。依据：直接帖子数字与行业引用；精确可回收率未知，标为估计。
+Persistence: Structural（卡片过期、银行政策、余额波动、欺诈规则等是持续结构性原因，非一次性 bug；平台如 Stripe 有基础重试但不足）
+Next Question: 该 8% 风险中临时失败 vs 永久拒绝的具体分布？不同 decline reason 的恢复率与成本？中小 SaaS（非 300k MRR）的实际净损失与对低成本工具的付费意愿？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-10-22T09:37:00+08:00
+Role Spec Status: reviewed
+
+---
+
+Signal ID: Friction-20261022-ShopifySubscriptionPaymentMigration
+Type: Friction
+What Changed: Shopify 订阅商户在切换支付网关、app 或迁移合同时，已有付费订阅者的续费因支付方法未就绪、token 不匹配或需客户重新授权而失败或中断；2026-10-15 至 10-18 多篇指南详述持续摩擦。
+Friction: Migration / Payment（支付方法连续性、token 导入、续费扣款就绪）
+Money: 商户已有活跃付费订阅合同，但迁移后下一周期无法自动扣款；关联 revenue loss（续费失败）与 labor（手动客户 outreach、测试重试）。未知具体损失金额。
+Evidence:
+- StackScale 指南（2026-10-15/18，基于 Shopify 文档）：“Import success is not payment readiness... A valid payment method must be provided before normal paid billing can proceed.” 需 per-cohort 计划，区分 vault、legacy token、PayPal 等；slow drip 可能持续数月。URL: https://stackscalehq.com/shopify-subscription-payment-migration/
+- Shopify Help：PayPal 账户变更可中断续费；需测试更新流程后手动联系受影响客户。URL: https://help.shopify.com/en/manual/products/purchase-options/subscriptions/migrating-payment-methods
+- Lake House Group 指南（2026-09 但相关持续）：迁移后失败支付状态可能未保留，需分离 cohort、手动分类与 controlled retry，避免立即全量重试。URL: https://lakehousegrp.com/en/blog/shopify-subscription-failed-payment-recovery/
+Mechanism: 合同记录可迁移，但支付 token/方法未验证或需客户动作时，自动续费阻断；商户必须手动 outreach、测试重试并监控，否则静默流失已付费客户收入。推断：批量处理错误可放大损失。
+Current Workaround: 手动分类 cohort、发送安全更新链接、协调单次测试重试、再批量联系；使用 Shopify 支持流程或 app 特定导入。成本：人工时间（ outreach、验证、支持）、潜在临时收入延迟或流失；第三方迁移服务可能收费（未知具体）。依据：指南描述的步骤。
+Payer: 有活跃订阅业务的 Shopify 商户（尤其从 Recharge 等迁移或更换网关者）。依据：多篇针对商户的详细指南存在，表明问题常见且需处理。
+Economic Effect: revenue / failed transaction / labor
+Friction Value: 频率：迁移时发生（非日常，但迁移窗口内高）；单次经济影响：受影响订阅者的续费周期收入（未知规模）；可回收比例：通过正确流程可部分恢复，但延迟与流失风险存在（未知精确）。依据：文档描述，无量化数字。
+Persistence: Structural（支付方法所有权、网关限制、PCI 规则、客户更新意愿是持续架构问题；Shopify 提供部分路径但非完全无缝）
+Next Question: 实际迁移案例中，失败续费的百分比与平均恢复时间？商户为此支付外部服务的典型成本？小规模商户是否能自处理或被迫流失？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-10-22T09:37:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-10-15 00:00 至 2026-10-22 09:37 Asia/Taipei（基于可核实公开帖与文档）。
+无法访问的平台：部分 Reddit 详情加载失败，但摘要与二次搜索确认内容；无其他阻塞。
+已有索引为无，未跨历史去重。
+待人工保存（已准备内容；Drive 文件夹可访问，但需确认上传后链接）。

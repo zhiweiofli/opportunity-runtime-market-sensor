@@ -1,0 +1,47 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+* Task Version: business-sensor@0.2.1
+* Role Spec Status: reviewed
+* 观察窗口: 2026-10-21 09:15:01 至 2026-10-28 09:15:01 (Asia/Taipei)
+* 已有 Signal 索引/全文: 已核对历史文件 Business-20261014-autodesk-aps-passthrough-billing.md、Business-20261001-whatsapp-service-message-toll.md、Business-20261015-github-agentic-autofix-metered-toll.md、Business-20261014-hubspot-flexible-seats-credits-toll.md、Business-20261017-deepseek-flash1017-costcurve-searchtoll.md、Business-20261023-vercel-deployment-storage-toll.md、Business-20261021-salesforce-headless-agent-api-toll.md、Business-20261023-visa-b2b-embedded-payment-toll.md、Business-20261020-eu-customs-handling-fee-pid-toll.md 与 Business-20261022-openai-decisions-api-costcurve.md，本轮已执行跨历史核对与去重
+* 输出逻辑位置: Opportunity Runtime/Signals/Business/
+* 实际输出文件夹 URL: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+待研究 Signal (Qualified Signals)
+Signal ID: Business-20261025-aws-shield-waf-antiddos-migration-toll
+* Type: Business
+* What Changed: 2026年10月25日，亚马逊云科技（AWS）官方正式执行 Phase 3 阶段的全球自动升级（Auto-upgrade），全面终结自 2026年7月27日 开启的免费评估期（Evaluation Period 截止于 10月24日），将保护全球数十万核心云资源的 AWS Shield Advanced 应用层（L7）自动防御强制替换为 AWS WAF Anti-DDoS 托管规则集（AWSManagedRulesAntiDDoSRuleSet），并确立旧版 Shield L7 自动防护将于 2027年1月29日 彻底终止支持（Sunset）。核心商业与计费结构变更为：一方面，计费豁免红利正式截止——此前自动注入规则集不消耗 WCU 容量且免收请求费；自 10月25日 起，规则集正式占用 Web ACL 的 50 WCU 容量配额，且若企业将规则维持在 Count 模式，遭遇 DDoS 攻击时的异常流量将不再享受请求费减免（仅在 Block 或 Challenge 主动阻断模式下才免收 WAF/AMR/Shield 请求费），若不及时调整配置将直接引爆天价攻击账单；另一方面，核心 L7 防护与 $3,000/月 绑定的历史彻底打破——AWS 官方明确声明非 Shield Advanced 客户现在均可独立在 AWS WAF 中启用该规则集（按标准规则费 $5/月 + $1/百万次请求计费），无需再被迫签署每年 $36,000 的 Shield Advanced 刚性企业大合同。此变更兼具 Cost Curve Shift（中小企业获取顶级应用层 DDoS 与静默浏览器挑战防御的边际成本从 $3,000/月 暴降至 $5/月）与 Budget Migration（大企业安全防御从黑盒全托管合约，强制迁移至 WAF 规则容量精细化管理与 IaC 代码重构）。
+* Money: 涉及全球使用 AWS 承载关键 Web 业务的企业云安全采购预算与流量计费。此前，要获得秒级流量画像基线与自动化 L7 阻断，企业必须按月支付 $3,000（每年 $36,000 且至少签订 1 年企业协议） 的 AWS Shield Advanced 固定底费；新规下，中小团队只需按 AWS WAF 目录价（$5/月 托管规则费 + 50 WCU 容量 + $1/100万次请求）即可获得完全相同的抗 DDoS 能力，门槛降低超过 99%。而对于存量 Shield Advanced 企业，由于自动升级在云端绕过 Terraform / CloudFormation 代码强行修改了 Web ACL，若未同步代码在下次部署时将直接引发配置回退；且若未将默认的 LOW 灵敏度/Count 模式切换至 Block/Challenge，遭遇千万级 HTTP Flood 攻击时将丧失官方费用豁免，产生数千美元突发 WAF 请求账单。
+* Evidence:
+   1. AWS Security Blog 官方架构与计费通告《AWS Shield Advanced is embracing the AWS WAF Anti-DDoS managed rule group: What changes and how to prepare》（发布日期：2026-07-27，重大修订与执行日期：2026-09-14 及 2026-10-05，自动升级执行日：2026-10-25）：官方明确确认"During the evaluation period (July 27 to October 24, 2026), eligible web ACLs don't incur per-request fees or WCU consumption... Phase 3: Auto-upgrade begins October 25, 2026... rule group becomes part of your web ACL as AWSManagedRulesAntiDDoSRuleSet... Leaving the rule group in Count mode past the evaluation period costs you the protection without the billing relief"；并明确宣布"AWS Shield Advanced isn't required to use any of these features. Shield Advanced subscribers get the rule group included with AWS WAF and any customer can turn it on independently"。
+   2. AWS WAF 与 Shield 官方定价手册《AWS WAF Pricing》与《AWS Shield Advanced Pricing》：证实 Shield Advanced 维持每月 $3,000 的组织级固定底费，而 AWS WAF 托管规则集标准资费为 $5/月，证实两层级之间存在 600 倍的入场门槛价差。
+   3. AWS 官方基础设施代码迁移助手《Migration helpers and CloudWatch comparison dashboard》：官方详细指出此前 L7 自动防护是在 Shield API 层面针对每个资源配置（EnableApplicationLayerAutomaticResponse），而新模式必须在 WAF API 层面按 Web ACL 配置，明确警告如果流水线未将云端自动变更 pull 回 IaC（Terraform refresh / CDK diff），流水线将尝试 revert 该核心安全规则。
+* Mechanism:
+   1. 边缘安全垄断防御向无服务器计量化解构（事实）：Cloudflare 等边缘网络凭借全量请求标配 DDoS 防护持续侵蚀 AWS 存量流量，迫使 AWS 将过去锁定在大客户大合同里的防 DDoS 核心技术解绑，以无服务器 API 规则集方式全面平民化，形成深度的成本曲线下移（Cost Curve Shift）。
+   2. 免计费政策与主动防御状态严格绑定（事实/推断）：AWS 官方规定只有处于活跃缓解状态（Block 或 Challenge 模式）时，被阻断的 DDoS 攻击请求才不计入每月 WAF 和 Shield 请求账单；若企业因担心误杀而长时间停留在 Count 模式，一旦被攻击，AWS 将直接对所有激增请求全额计费。
+   3. 小团队轻资产进入节点（推断）：
+      * AWS WAF 抗 DDoS 动态灵敏度与防暴击账单守护中间件（WAF Anti-DDoS FinOps Guard）：针对无需购买 $3,000/月 Shield 的中小企业，开发极轻量的无服务器巡检探针（Lambda + CloudWatch 报警）。自动监控 DDoSAttackRequests 指标，在未受攻击时保持零感知放行；在攻击发生瞬间自动在 1 秒内将敏感度从 Count 切换为静默浏览器挑战（Silent Browser Challenge）或 Block，同时将攻击请求剔除出计费单，防止中小客户遭遇数千美元的意外账单背刺。
+      * Shield-to-WAF 跨账号 IaC 漂移自动修复与代码补丁机器人（IaC Drift Healing Bot）：针对 10月25日 自动升级引发的大量跨国企业 Terraform / CDK 全局状态漂移，提供自动化扫描与 PR 生成工具，一键更新架构代码，避免 CI/CD 误操作下线防护。
+      * 极度符合 1–3 人小团队偏好：纯代码/脚本与 API 驱动，零实体硬件资产、零库存、面向 DevOps/SecOps 工程师收取高客单价订阅。
+* Magnitude: Large。依据：AWS 是全球云计算市场绝对龙头，Shield Advanced 与 AWS WAF 承载全球顶级 Web 基础设施流量，该项自动升级与独立解绑从根本上重塑了全球公有云抗 DDoS 领域的采买与计费生态。
+* Persistence: Persistent。依据：已全面通过 Phase 3 自动升级全网强制落地，且官方已排定 2027年1月29日 彻底 Sunset 旧版功能，属于不可逆的技术演进与底层定价规则确定。
+* Next Question: 在 L7 抗 DDoS 规则集可以以 $5/月 独立开启后，大中型企业安全主管是否会削减 Shield Advanced 的订阅数量，转而仅在 WAF 侧通过自动化脚本搭建低成本防护架构？
+* Task Version: business-sensor@0.2.1
+* Generated At: 2026-10-28T09:15:01+08:00
+* Role Spec Status: reviewed
+观察与过滤池 (Watch & Ignore List)
+线索内容
+	判定
+	分析原因
+	等待证据 / 过滤逻辑
+	Supabase 发布 Supabase Compute 私有预览版（Private Alpha）(2026-10-27 发布)
+	WATCH
+	2026-10-27 经 Supabase 官方博客 证实，Supabase 推出可在数据库同一网络内直接运行长时间运行任务（Long-running tasks > 400s）、完整 Docker 容器与后台智能体（AI Agents）的托管算力服务（Supabase Compute），使查询 Postgres 延迟由跨区域的 65ms 降至 2.9ms。但当前处于 us-west-2 区域的免费邀请制 Private Alpha 阶段，公开标价与商业计费阶梯尚未发布。
+	观察 Beta 测试及公开定价牌价公布时的计费结构（是按 vCPU/RAM 计量还是按执行时间与席位绑定），以及是否对独立容器托管商（Render、Railway、Fly.io）形成预算替代。
+	HashScraper 重构爬虫数据采集计费模型并取消积分有效期(2026-10-24 调整，2026-10-25 验证)
+	WATCH
+	韩国主流网页数据抓取平台 HashScraper 将此前按 Bot 差异化计费的混乱规则收敛为三档固定点数（评论 5 点、详情 25 点、AI 分析 50 点，约合 5–50 韩元/条），并正式宣布购买积分永久有效（参考 HashScraper 技术博客）。虽然降低了数据采集成本不确定性，但属于区域性中小型数据服务商的定价简化，行业影响力相对局部。
+	观察其海外版拓展进展及类似爬虫基础设施平台（Apify、BrightData）是否跟进无过期积分政策。
+	加拿大农场财务软件 AgExpert 将桌面版年费暴涨 88% 强制逼迁云端(2026-10-26 报告，2026-11-01 生效)
+	IGNORE(Kill)
+	加拿大农业信贷公司（FCC）旗下的 AgExpert Analyst 桌面版将于 11月1日 从 $399/年 暴涨至 $749/年（上涨 88%），以强制驱赶农场客户迁往 $399/年 的 Web 云端版，并宣布 2028 年彻底停更桌面版（参考 Stark & Marsh 财会报告）。
+	属于极为传统的垂直单一行业存量用户收割与逼迁（Harvesting），且重度依赖加拿大本地农场线下财会服务网络，不符合小团队轻资产、高毛利的数据/自动化运营偏好。

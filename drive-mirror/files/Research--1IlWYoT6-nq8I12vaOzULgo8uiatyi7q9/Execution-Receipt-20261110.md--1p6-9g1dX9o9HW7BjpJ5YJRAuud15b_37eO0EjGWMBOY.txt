@@ -1,0 +1,40 @@
+﻿Execution Receipt: researcher@0.2.2 (Batch 20261110)
+* Execution Cutoff Timestamp: 2026-11-10T17:21:40+08:00
+* Timezone: Asia/Taipei (UTC+08:00)
+* Role Specification: Opportunity Runtime Researcher (researcher@0.2.2)
+* Queue Status: NO_PENDING_SIGNALS
+* Research Output Directory: Research Output Folder
+1. Input Signals & Underwriting Decisions
+#
+	Signal ID / Title
+	Type
+	Source Signal Link
+	Underwritten Record
+	Recommendation
+	Core Dynamic / Reason
+	1
+	Friction-2026-11-10-SCIM-Manual-Provisioning-Long-Tail
+	Friction Sensor (friction-sensor@0.2.1)
+	Source Signal
+	Research-Friction-2026-11-10-SCIM-Manual-Provisioning-Long-Tail
+	KILL
+	Existing crowded commercial category (AccessOwl 400+ connectors, Stitchflow 720+ workflows, Serval, Lumos) already well-funded and solving the "SCIM Tax". Source signal is vendor content marketing. Heavy ongoing RPA maintenance and SOC2 enterprise compliance conflict with small-team constraints.
+	2
+	IBF-20261110-Windows11-24H2-SMBSigning-ScanToFolderLockout
+	Installed Base Friction (installed-base-friction@0.2)
+	Source Signal
+	Research-IBF-20261110-Windows11-24H2-SMBSigning-ScanToFolderLockout
+	HYPOTHESIS_READY
+	Windows 11 24H2 mandates SMB signing, breaking scan-to-folder on millions of 2012–2020 MFPs (Ricoh, Konica, Xerox, Canon). Copier dealers demand $4,000–$10,000 replacements. A standalone local background relay agent safely accepts legacy scans and routes PDFs to secure user folders without violating Cyber Insurance compliance for $49–$99.
+	3
+	IBF-20261110-DentalSensors-Win11-CoreIsolation-DriverLockout
+	Installed Base Friction (installed-base-friction@0.2)
+	Source Signal
+	Research-IBF-20261110-DentalSensors-Win11-CoreIsolation-DriverLockout
+	HYPOTHESIS_READY
+	Windows 11 Core Isolation/HVCI blocks USB 2.0 dental X-ray sensors (Schick 33/Elite, Dexis) and WMIC removal crashes imaging software (Sidexis, Eaglesoft). Dealers push $8,500–$12,000 replacements. An automated self-healing script cleans legacy driver remnants, deploys signed drivers, and patches WMIC to restore HIPAA-compliant imaging for $299.
+	2. Queue & Inventory Audit
+* Signals Processed This Batch: 3
+* Operational Non-Signals Handled: 1 (Business-20261110-no-signal.md logged as normal zero-signal sensor heartbeat)
+* Cumulative Evaluated Signals To Date: 72
+* Current Unprocessed Signals Remaining in Folders: 0

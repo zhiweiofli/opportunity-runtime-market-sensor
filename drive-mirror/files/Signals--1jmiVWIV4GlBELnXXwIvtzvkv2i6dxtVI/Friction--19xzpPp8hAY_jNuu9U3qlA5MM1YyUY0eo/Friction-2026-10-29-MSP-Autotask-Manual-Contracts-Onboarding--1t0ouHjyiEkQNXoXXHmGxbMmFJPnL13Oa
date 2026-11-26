@@ -1,0 +1,25 @@
+Signal ID: Friction-2026-10-29-MSP-Autotask-Manual-Contracts-Onboarding（沿用既有 ID；本轮新增证据）
+Type: Friction
+What Changed: 已付费使用 PSA（Autotask 等）的 MSP 在新客户 Onboarding 及账单环节仍需手动处理合同生成/更新/签署后录入，以及规模化后的账单对账；本轮窗口内有持续提及（X 2026-10-29）。
+Friction: Onboarding / Setup / Manual operation / Integration / Payment（合同生命周期与 PSA 账单数据同步、对账）
+Money: MSP 已为 Autotask/ConnectWise 等 PSA、电子签工具付费；仍手动复制合同、录入账单信息、进行对账。关联 labor/time cost、潜在 revenue leakage（延迟或错误账单）。具体金额未知。
+Evidence:
+1. （既有核心证据，2026-10-24）Reddit r/msp 原帖：https://www.reddit.com/r/msp/comments/1xeq8gs/from_manual_contracts_to_automated_onboarding/ 当事人原话描述手动 Word 更新 MSA/SOW → PDF → Adobe Sign → 手动录入 Autotask for billing，time-consuming and error-prone；随后自建 Docker+API 自动化。
+2. 同内容 r/SmallMSP：https://www.reddit.com/r/SmallMSP/comments/1xeok1c/from_manual_contracts_to_automated_onboarding/
+3. **本轮新增（窗口内）**：X 帖 Gradient MSP（2026-10-29）：“Manual billing reconciliation is manageable when you have 10 clients. At 20 it starts to strain. At 40 it breaks. Longer month-ends. More missed discrepancies. More time on a process that was never designed to scale.” URL: https://x.com/meetgradient/status/2115877830349177022
+4. 支持：2026 年多篇 MSP 账单文章与 Autotask 文档持续指出手动对账耗时。
+Mechanism: PSA 已付费但合同→签署→账单实体与对账未完全自动化，规模增大时人工摩擦放大，阻塞及时收入确认并占用创收时间。推断部分基于原帖与行业描述。
+Current Workaround: 手动流程或自建自定义集成（如原帖 Docker app）；或使用现有第三方自动化。成本：持续人工时数或开发维护成本（未知精确，但明确挤占 revenue-generating 时间）。
+Payer: 小型/中型 MSP（已为 PSA 付费）可能为减少手动时间的集成/自动化工具付费。依据：自建行为与公开分享，及市场存在相关产品。
+Economic Effect: labor / time（主要）；potential revenue / cost（错误与延迟）。
+Friction Value: 频率：每新客户 + 规模化后月度对账（X 帖显示 20-40 客户即出现 strain）；单次影响：数小时人工（未知精确时薪）；可回收比例：高（自动化可行）。未知项未编造。
+Persistence: Structural（持续存在的流程缺口，非单点 bug）。
+Next Question: 当前仍有多少 MSP 依赖手动合同→PSA 录入？平均耗时与因错误导致的实际账单损失比例？第三方工具的实际采用与付费转化如何？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-02T09:37:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-10-26 至 2026-11-02（Asia/Taipei）。关键新增证据为窗口内 X 帖；核心 Reddit 证据稍早但模式持续。
+历史 Signal：Drive 文件夹已有 Friction-2026-10-29-MSP-Autotask-Manual-Contracts-Onboarding.md（相同主题），本轮沿用 ID 并注明新增证据，不重复创建独立 Signal。
+无法完整抓取部分 Reddit 页面；X 与 Web 可访问。
+已写入 Drive：https://drive.google.com/drive/folders/19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo （文件已上传确认）。

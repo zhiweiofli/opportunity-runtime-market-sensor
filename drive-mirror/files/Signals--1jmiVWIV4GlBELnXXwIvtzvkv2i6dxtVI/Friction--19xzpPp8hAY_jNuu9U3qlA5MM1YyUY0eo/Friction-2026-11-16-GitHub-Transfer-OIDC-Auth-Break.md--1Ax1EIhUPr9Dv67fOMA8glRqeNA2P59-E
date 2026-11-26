@@ -1,0 +1,24 @@
+Signal ID: Friction-2026-11-16-GitHub-Transfer-OIDC-Auth-Break
+Type: Friction
+What Changed: 自 2026-07-15 起，GitHub.com 对新建/重命名/Transfer 的仓库强制使用 immutable subject claim（sub 包含 owner-id 与 repo-id）。组织间 Transfer 或重命名后，既有基于名称的 OIDC trust policy（Azure/AWS/GCP/Terraform）立即失效，GitHub Actions 云登录失败。近期（2026-11-09）有详细中文实践报告。
+Friction: Migration / Configuration / Authentication 环节。已付费 GitHub Enterprise 用户在仓库 Transfer 后，CI/CD 部署因 OIDC 认证失败而中断，需手动更新云端 trust policy。
+Money: 企业已为 GitHub Enterprise Cloud（及 Actions 用量）付费，仍需工程师手动调整 Terraform / Entra ID / IAM trust policies 以匹配新 sub 格式。关联 labor cost（工程时间）、failed transaction（部署失败导致发布延迟）、潜在 opportunity cost。具体金额未知。
+Evidence:
+1. Zenn 文章 “組織をまたいだリポジトリの引き継ぎをする時に気をつけること” (MatsuzakiSMV, 2026-11-09): “GitHubの権限移譲(Transfer)するとOIDCのSubject Claimの設定が変わる... Terraformなどで、クラウド側のOIDCの信頼ポリシーに sub をリポジトリ名ベースの旧形式で書いている場合、Transfer後は条件が一致しなくなります。その結果、GitHub Actionsからクラウドへの認証が失敗します。Transfer後は、新しい形式に合わせて sub の条件を書き直す必要があります。” https://zenn.dev/sonicmoov/articles/76c1037708b6c4
+2. Hat Boy Software “GitHub immutable OIDC subjects and repo transfers” (2026-10-09, 持续被引用): 详细说明 Transfer 后 subject 格式从 name-based 变为 immutable（repo:OWNER@OWNER-ID/REPO@REPO-ID:...），旧 credential 不再匹配，导致首次 deploy 失败。建议 Transfer 前先添加新 subject trust。 https://hatboysoftware.com/blog/github-oidc-immutable-subject-claims/
+3. GitHub Changelog (2026-04-23, 更新至 2026-06): 正式宣布 immutable subject claims，Transfer/Rename 后自动采用新格式。 https://github.blog/changelog/2026-04-23-immutable-subject-claims-for-github-actions-oidc-tokens/
+4. Terraform Registry / matrixpost 等近期文档（2026-11）持续讨论 OIDC federated credentials 配置与更新步骤，确认实践中需手动维护。
+Mechanism: GitHub Actions OIDC token 的 sub claim 是云端 federated identity 的唯一匹配键。Transfer 同时改变 owner 与格式，旧 policy 立即失效。部署流程阻断，直到手动更新 cloud trust。推断：多仓库/多环境企业需重复操作，放大工程成本。
+Current Workaround: Transfer 前预添加新 immutable subject 的 federated credential（与旧的并存），验证后删除旧的；或 Transfer 后立即重写 Terraform/cloud policy。依据：Zenn 与 Hat Boy 文章明确给出步骤与风险。成本：工程师时间（每仓库数分钟至数小时，取决于环境数量）+ 临时部署中断。
+Payer: 已使用 GitHub Enterprise + OIDC 到云的工程团队（尤其多组织迁移、M&A、重组场景）。依据：他们已支付 GitHub 订阅与云资源，迁移是主动行为，摩擦直接增加其内部 labor。
+Economic Effect: labor（工程时间） / failed transaction（CI/CD 部署失败） / time（发布延迟）
+Friction Value: 频率（Transfer/Rename 发生时必现，企业迁移时高；日常未知） × 单次经济影响（工程师小时 × 时薪 + 部署延迟成本，未知） × 可回收比例（高，可通过预更新 policy 或工具自动化解决，未知精确）。依据：官方 changelog + 实践报告确认每次 Transfer 都会触发。
+Persistence: Structural（由 2026-07-15 后的 GitHub 设计变更引起，适用于所有后续 Transfer/Rename；非一次性 bug）。
+Next Question: 实际有多少企业在 2026-11 后因 Transfer 导致 OIDC 失败？平均修复工时？是否有付费使用专门的 migration tooling 或内部自动化脚本？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-16T09:37:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-11-09 至 2026-11-16 Asia/Taipei（本轮可核实资料截止时点往前 7 天）。
+
+注：Drive 目录中已有 Stripe webhook fulfillment 相关 Signal（如 Friction-2026-11-09 与 2026-11-15），本条为新主题。无法访问部分平台（完整 X 线程、私有 GitHub Issues）。

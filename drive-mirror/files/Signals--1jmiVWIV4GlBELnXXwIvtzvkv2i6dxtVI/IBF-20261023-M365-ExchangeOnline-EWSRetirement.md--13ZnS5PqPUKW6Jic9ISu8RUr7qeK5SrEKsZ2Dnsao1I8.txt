@@ -1,0 +1,116 @@
+﻿signal_id: IBF-20261023-M365-ExchangeOnline-EWSRetirement
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: 微软于2026年10月1日至10日起在全球Exchange Online租户中正式启动Exchange Web Services (EWS) API的默认切断（将未配置白名单的租户置为EWSEnabled=$false）。2026年10月22日微软与行业媒体（BleepingComputer）最新确认，租户管理员虽可临时将EWS重新开启至2027年4月1日，但届时微软将彻底永久关闭EWS，且无任何例外与延期，导致庞大依赖EWS的老旧业务系统与设备面临刚性停摆。
+money: 遗留ERP（如SAP ECC、Sage、老版Dynamics等）的发票与业务凭证自动邮件发送中断将直接导致开票与回款受阻；全面升级ERP或采购厂商定制Graph接口模块通常需耗费$15,000-$50,000+；MSP/IT服务商紧急排障时薪达$150-$250/小时。
+
+
+evidence:
+  - id: E1
+    source: https://www.bleepingcomputer.com/news/microsoft/microsoft-shares-how-to-fix-broken-exchange-online-ews-apps/
+    source_date: '2026-10-22'
+    accessed_at: '2026-10-23'
+    fact: 微软官方与BleepingComputer确认2026年10月已开始第一阶段EWS默认禁用，导致大量老应用断连，并明确2027年4月1日彻底永久关闭。
+  - id: E2
+    source: https://www.reddit.com/r/sysadmin/comments/1wvnk9b/ews_deprecation_delayed_to_10th_october/
+    source_date: '2026-10-02'
+    accessed_at: '2026-10-23'
+    fact: 记录微软官方Message Center公告MC1466860，自2026年10月10日起要求租户必须配置EWSAllowedAppIDs替代白名单，否则第三方应用断连。
+  - id: E3
+    source: https://www.neverblueit.com/ews-retirement-what-broke-how-to-fix/
+    source_date: '2026-10-06'
+    accessed_at: '2026-10-23'
+    fact: 详细列举受冲击的存量资产，包括Apple Mail (macOS)、老版复印机/扫描仪邮箱直连、老版CRM同步、老旧归档/备份脚本及定制业务系统。
+
+
+mechanism: 微软为推进统一的RESTful Microsoft Graph API架构而强制停更老旧XML协议EWS；但运行了10-15年的企业遗留软件、老旧工业及办公外设无法自行添加OAuth 2.0与Graph支持，原厂ISV多已停止维护或索要巨额重构费，导致存量资产与现代云端之间形成结构性断层。
+persistence: Structural
+next_question: 在受影响的Exchange Online中小企业中，老旧ERP与扫描仪使用本地SMTP中继转发至M365的比例有多高？
+task_version: installed-base-friction@0.2
+generated_at: '2026-10-23T17:45:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+
+
+asset:
+  category: 企业邮件与业务系统集成协议
+  brand: Microsoft
+  model: Exchange Online / Microsoft 365 (EWS)
+friction:
+  type: 不兼容与原厂支持强制退出
+  symptom: 遗留ERP邮件发送、扫描仪Scan-to-Email及macOS Apple Mail在Exchange Online中报错“协议不可用”或循环弹密，业务中断
+installed_base:
+  estimate: 全球数百万家部署了Microsoft 365并拥有遗留IT资产的企事业单位
+  basis: Microsoft 365商用订阅用户数达数亿，EWS自2007年起作为核心邮箱协议运行近20年，大量自建脚本、老版扫描仪和遗留系统仍深度依赖。
+
+
+current_solution:
+  description: 1) 管理员执行PowerShell命令临时加急恢复EWS至2027年4月；2) 支付高额费用升级ERP或更换扫描仪机队；3) 采购第三方高价企业中继SaaS。
+  oem_part_price: null
+  technician_repair_price: 3000.0
+  currency: USD
+  basis: 中小企业聘请MSP或独立顾问进行EWS审计与接口改造排障通常需10-20工时（按$150-$250/h计约$1,500-$5,000）。
+alternative:
+  description: 部署轻量级本地/云端Graph Relay容器，透明承接老系统SMTP/EWS请求并自动以Graph API OAuth 2.0安全发信
+  estimated_solution_cost: 99.0
+  currency: USD
+  basis: 单次买断制轻量中继镜像或标准化迁移配置脚本包。
+gap:
+  vendor_support: discontinued
+  availability: low
+  competition: medium
+  basis: 微软彻底退出EWS支持且不延期；现有商业邮件中继服务（如SendGrid/Mailgun等）按月按量订阅且涉及第三方域名SPF/DKIM重新配置，非即插即用M365代发代理。
+signals:
+  recurrence: high
+  urgency: high
+  diy_activity: high
+  basis: 2026年10月禁用已直接触发故障，距离2027年4月硬关停仅剩5个多月；r/sysadmin社区充斥着大量抓取EWS报表与自写PowerShell绕过脚本的讨论。
+
+
+assessment:
+  installed_base: {value: high, basis: 全球M365海量企业用户及庞大遗留业务软件/办公外设存量}
+  friction_rate: {value: high, basis: 租户默认被关停EWS后相关应用100%报错中断}
+  failure_cost: {value: high, basis: 财务发票中断直接威胁现金流，硬件更换成本高昂}
+  support_gap: {value: high, basis: 微软态度坚决且无例外延期，老旧ISV无法提供补丁}
+  switching_cost: {value: high, basis: 重新研发或升级老ERP核心代码需巨额资金与测试周期}
+  vendor_repair_speed: {value: low, basis: 原厂主动淘汰，不会回调修复}
+
+
+repair_leverage:
+  ratio: 30.3
+  baseline_cost: 3000.0
+  solution_cost: 99.0
+  currency: USD
+  scope: 基准成本按MSP排查及初步ERP改造最低平均成本$3,000计；替代方案按买断轻量代理工具$99计
+  basis: 3000 / 99 = 30.3，未计入更换整个扫描机队或完整升级ERP所耗费的数万美元
+opportunity_durability:
+  value: high
+  basis: 2027年4月前为紧急过渡期，4月后EWS彻底死亡，任何未改造的存量硬件与系统将永久依赖协议转换中间件。
+
+
+economic_value:
+  level: High
+  payer: 拥有10-500台终端或运行定制老系统的中小企业IT经理、独立MSP网络维护外包商
+  economic_anchor: MSP排障工时费（$1,500-$5,000）、ERP软件模块升级报价（$15,000+）及业务中断损失
+  capture_mechanism: 提供开箱即用的EWS/SMTP-to-Graph Relay网关工具（Docker/Windows服务），按节点收取一次性软件买断费或提供配置交付包
+  repeatability: 协议转换逻辑完全标准化，可一次编写、针对所有M365租户批量复用
+  basis: 客户在面临数千美元咨询排障与业务停摆风险时，对百元以内的即插即用中继工具有极高支付意愿
+
+
+personal_actionability:
+  fit: Good
+  route: 开发本地运行的轻量级EWS/SMTP转Graph API发信网关镜像及租户EWS白名单诊断脚本
+  target_customer: 运行老旧ERP（发票自动邮件通知）或老旧扫描仪且使用Microsoft 365的SMB网管与代维工程师
+  deliverable: 单个可执行文件/Docker镜像：局域网侦听虚拟SMTP/EWS接口，接收旧设备请求，通过配置好的Azure App Secret自动转换为Graph API调用发送
+  pricing_hypothesis: $79-$149 买断（包含安装指南与一键诊断脚本）
+  customer_entry: Reddit r/sysadmin 报错帖、Microsoft Tech Community、Spiceworks社区
+  fit_basis: 纯协议适配与数据转发，无硬件库存，不存储邮件数据（直接流式转发，零隐私合规包袱），个人开发者1-2天可完成核心转换器
+  prerequisites: 掌握Microsoft Graph API邮件发送规范、熟悉Entra ID应用注册（App Registration）与Client Credential Flow
+  first_test: 编写一个40行的Python脚本，在本地监听587端口接收标准邮件，以应用权限获取Graph Token并调用/v1.0/users/{id}/sendMail成功在M365测试租户中送达
+  time_budget: 90分钟
+  success_signal: 遗留客户端（如老版邮件客户端或curl模拟）发送邮件至本地中继后，M365邮箱零告警收到带附件邮件
+  kill_signal: 微软全面收紧条件访问策略，完全禁止任何未经过交互式MFA认证的应用权限调用sendMail
+  key_unknown: 目标企业内部网络环境是否普遍具备部署本地轻量容器的宿主机权限

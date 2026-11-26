@@ -1,0 +1,139 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261106-OceanShipping-FMC541-DemurrageDetentionDisputePacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261106-OceanShipping-FMC541-DemurrageDetentionDisputePacket
+   * Generated At: 2026-11-06T01:18:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/1UviX6qBTjWk8OCXq7R13ns0IwTcabrjz46rvbv-zIcw/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-06T01:21:43+08:00
+
+
+* Research Level: R2 — Economic Underwriting
+
+
+* Stage Result: HYPOTHESIS_READY
+
+
+* Unknown Ledger:
+
+
+   * Known: 根据美国联邦海事委员会（FMC）出台的 46 CFR Part 541 最终规则（依据《2022年海运改革法案》OSRA 22），海运承运人、码头运营商（MTO）向托运人开具滞期费与滞箱费（D&D）发票时，必须在最后计费日起 30 个自然日内出具，且发票必须完整载明集装箱号、免费期计算基准、起止日、适用费率及正式争议联络人等全部法定字段；第 541.7 条确立了刚性惩罚：只要发票缺失任一法定要素或逾期发出，被计费方的付款义务依法直接消除（Payment Obligation is Eliminated，彻底归零）；全美进口商与车队每年承受数十亿美元滞港滞箱费盘剥，单张错账或争议账单金额在 $250–$1,500 美元之间；中小进口商因雇佣海事律师（时薪 $400+）不划算且缺乏核对时间戳工具，普遍选择妥协全额支付不合规罚单。
+   * Unknown: 中小货主在收到开票超 30 天或缺失法定字段的罚单后，向船司正式送达 541.7 免付声明后船司当期全额撤销的行业实际通过率。
+   * Decision-Critical Unknown: 经常遭遇滞期滞箱费罚款的中小跨境电商与短途拖车行老板，对于一款“上传 D&D 发票 PDF，10 秒扫描判定是否触发‘30 天逾期’或‘缺失法定要素’，并一键生成直接向船司主张 46 CFR § 541.7 付款义务全额消除的法定免付公函（单次收费 $29–$49 或按免除金额抽取 15% 分成）”的工具的直接购买意愿。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。单张集装箱发票可直接免除 $250–$1,500 罚金，全美行业涉及数十亿美元资金池；$29 工具对比直接免除数百美元罚金具有极高财务吸引力。
+   * Mechanism: 通过。46 CFR § 541.7 赋予托运人法定免付武器，发票不合规或超 30 天出票直接法律归零；算法提取发票时间与字段，比对码头闸口与船期时间戳，自动组装符合联邦法规的正式免付通知，将数小时人工海事法务核查压缩至 2 分钟。
+   * Persistence: 通过。美国 FMC 46 CFR Part 541 是联邦正式法规，2025 年哥伦比亚特区巡回法院判决维护了 30 天红线与 541.7 免付条款，长期强制有效。
+   * Capture: 通过。1-3 人小团队构建轻量 Web 工具与海运发票校验算法，纯软件与合规文书生成，零码头重资产、零物流库存、高毛利。
+
+
+* Final Status: HYPOTHESIS_READY
+
+
+* Evidence:
+
+
+   1. Invoice Data Extraction 关务分析指南《Demurrage & Detention Invoice Processing & Part 541》（2026-03）：确认 46 CFR Part 541 规定发票缺失法定要素付款义务即刻归零，30 天出票红线与付款消除条款完全有效。
+   2. 联邦公报 FMC 46 CFR Part 541 法规原文《Demurrage and Detention Billing Requirements》：确立被开票方享有 30 天法定争议期，承运人必须在 30 天内实质回应。
+   3. FMC 官方立法经济影响白皮书《NPRM Demurrage and Detention Billing Requirements》：指出治理船司利用信息差开具不可验证罚单是核心立法目的。
+
+
+* Counter Evidence:
+
+
+   1. 船公司发票所有法定字段完全齐全且确系货主自身延迟提货所致（541.7 无法触发）。
+   2. 极少数船东采取非法扣押后续货物的反制手段（需向 FMC 投诉专员介入）。
+
+
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，法定义务明确，发票要素不合规即免付机制具有刚性法律效力，小团队轻资产切入点极佳。
+
+
+* Resume Condition: 不适用（已完成）。
+
+
+* What became more likely: 中小进口商将普遍采用自动化合规校验工具拒付逾期或缺失字段的集装箱超期账单。
+
+
+* What became less likely: 船公司能继续在超期数月后向小货主补发随意格式的滞港滞箱费发票并强制收回款项。
+
+
+* What did we rule out: 排除了船公司在发票未满足 46 CFR Part 541 全部要素时仍具有合法诉讼追讨权的可能。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-06T17:44:19+08:00
+
+
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向中小海运进口商与拖车行的 FMC 46 CFR Part 541 集装箱滞期费（D&D）法定免付抗辩包生成器
+* Source Signal IDs: UW-20261106-OceanShipping-FMC541-DemurrageDetentionDisputePacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261106-OceanShipping-FMC541-DemurrageDetentionDisputePacket
+   * Generated At: 2026-11-06T01:18:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/1UviX6qBTjWk8OCXq7R13ns0IwTcabrjz46rvbv-zIcw/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-06T01:21:43+08:00
+
+
+* Money: 全美每年进口数至数十个集装箱的中小跨境卖家、工贸制造企业及区域集装箱短途拖车行；单张发票免除 $250–$1,500 不合理海运罚单，货主愿按单支付 $29–$49 或按免除金额的 15% 提成。
+
+
+* Mechanism: 针对海运船公司开票不合规但中小货主缺乏法务武器的痛点，工具提供：货主上传船司或码头 D&D 发票 PDF，算法 10 秒校验是否超过最后计费日 30 天出票，并逐项核对免费期起止日、适用费率及争议接口等法定要素；一旦缺失或逾期，一键生成引用 FMC 46 CFR § 541.7 的《付款义务全额消除法定主张函》（Notice of Elimination of Payment Obligation），直接迫使船东撤销发票，将复杂的法务争议转化为秒级自动化抗辩。
+
+
+* Capture: 1-3 人小团队构建轻量 Web 工具与海事发票校验规则库，纯数据处理与文书生成，零实体物流资产、零库存、高毛利。
+
+
+* Durability: 联邦 46 CFR Part 541 长期强制执行，海运集装箱供应链争议高频发生，具备长期粘性复购价值。
+
+
+* Evidence:
+
+
+   1. Invoice Data Extraction（2026-03）：https://invoicedataextraction.com/blog/demurrage-detention-invoice-processing 确认 541.7 零付款义务条文与 30 天红线。
+   2. 联邦公报：https://www.federalregister.gov/documents/2024/02/26/2024-02926/demurrage-and-detention-billing-requirements 确立 30 天法定争议权利。
+   3. FMC 官方报告：https://www.fmc.gov/wp-content/uploads/2022/10/2022-10-07NPRMDnDBillingRequirements.pdf 确认反垄断治理背景。
+
+
+* Counter Evidence:
+
+
+   1. 船东发票无瑕疵且系货主自身原因滞港。
+   2. 极少数船司违规扣押提单。
+
+
+* Critical Unknown: 货主在收到开票超期或缺项的罚单后，在 30 天法定争议期内发起抗辩的操作习惯与转化率。
+
+
+* Falsification: 若联邦法院全面推翻 46 CFR § 541.7 并恢复船公司任意开具不完整滞期费发票的权利。
+
+
+* Next Test: 获取 5 份美西港口（LA/Long Beach）开具的真实海运 D&D 发票 PDF，运行原型校验算法，验证出票日期与字段缺项检出率，并协助货主向船东 Dispute 邮箱送达免付函。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-06T17:44:19+08:00
+
+
+* Role Spec Status: reviewed

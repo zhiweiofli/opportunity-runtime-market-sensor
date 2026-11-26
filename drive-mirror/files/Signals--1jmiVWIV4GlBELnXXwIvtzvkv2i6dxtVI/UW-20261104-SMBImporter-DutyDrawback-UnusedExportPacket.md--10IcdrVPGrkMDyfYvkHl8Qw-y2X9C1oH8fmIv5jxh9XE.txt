@@ -1,0 +1,56 @@
+﻿signal_id: UW-20261104-SMBImporter-DutyDrawback-UnusedExportPacket
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 2026年核实（Importivity 2026-06关务实务指南、CBP 19 CFR Part 190法规及Reddit r/CustomsBroker关务专员讨论），随着美国对华301关税及全行业关税成本持续高企（常见综合税率达25%–35%），根据美国海关法典19 U.S.C. § 1313(j)(1)（未使用商品出口退税条款），进口货物在入境后5年内若未投入实质使用即重新出口（如将美国海外仓或FBA仓库存发往加拿大、墨西哥、欧洲等国际市场，或未拆封退运出境），进口商依法享有退还已缴关税99%的法定权利。然而，传统持牌报关行与专业退税代理（Drawback Brokers）普遍执行严格的门槛排除政策：要求企业每年可退税额必须达到$50,000–$100,000美元以上才予受理，并加收25%–30%高额佣金及数千美元建档费，将全美年可退税款在$5,000–$35,000的中小品牌与跨境电商卖家彻底排除。
+money: 涉及全美数万家年进口额在$50万至$500万美元之间、兼有美加/美欧跨国发货业务的中小DTC电商独立站、跨境卖家与工贸分销商。单票出口订单可退关税通常在$10–$80美元不等，单个企业年均沉淀的可退税款达$5,000–$35,000美元。由于专业代理设置$5万至$10万美元门槛拒接，而企业内部人工核对跨表格数据耗费数十工时得不偿失，导致这笔相当于纯利润的99%法定退税款在5年法定时效后被永久弃领给美国国库。
+evidence:
+  - id: E1
+    source: https://importivity.com/blog/duty-drawback-tariff-refunds/
+    source_date: '2026-06-01'
+    accessed_at: '2026-11-04T00:30:00+08:00'
+    fact: 拆解2026年关税退税经济性门槛：指出Duty Drawback并非免费午餐，需承担报关行手续费、员工建档工时、关税担保（Bond）及系统前置投资；行业资深从业者普遍建议每年可退关税至少达到$50,000–$100,000美元时才具备清晰正经济效益（minimum of $50,000–$100,000 in annual recoverable duties before economics are positive）。局限：为国际物流关务咨询机构分析报告，主要面向大中型货主。
+  - id: E2
+    source: https://www.reddit.com/r/CustomsBroker/comments/1p3g4fl/is_duty_drawbacks_only_for_businesses_is_there/
+    source_date: '2025-11-22'
+    accessed_at: '2026-11-04T00:32:00+08:00'
+    fact: 报关行专业人员明确证实门槛排除：“退税代理抽成通常为25%–30%，且普遍设有最低收费门槛；对于小额退税，报关行根本不愿看一眼，直接判定‘不值得折腾（you're not worth it / too small potatoes）’；传统退税服务是劳动密集型流程，通常只有数十万至数百万美元关税的大项目才值得做”。局限：来自报关从业者匿名社区交流，代表供给端真实筛选心态。
+  - id: E3
+    source: https://www.reddit.com/r/CustomsBroker/comments/1ozs9sh/how_can_an_individual_buyer_go_about_filing_a/
+    source_date: '2025-11-18'
+    accessed_at: '2026-11-04T00:35:00+08:00'
+    fact: 针对小额关税退税申办实操讨论：当事人咨询小额退税可行性，报关员一致回复“不仅流程极其繁琐，单票手工申报成本高昂，小额尝试完全不值得（Not worth it）”。局限：偏向零散小单场景。
+mechanism: 事实：19 U.S.C. § 1313(j)(1)赋予未使用商品出境退还99%关税的权利，时效长达5年；但CBP要求提交Form 7551并在ACE系统中完成严格的进出口三单匹配（Direct Identification）：必须将出口提单/快递单（FedEx/DHL/UPS国际单号）逐一精准关联到当初入境的CBP 7501进口报关单Entry Number、完税价格与已纳税费（E1, E2）。推断：对于年出口发货数百单、总可退税款在$10,000左右的中小卖家，如果让关务人员人工在Shopify导出订单、海外仓WMS出库单与几百页的7501进口报关单之间逐行手工查找配对，耗费40–60小时人工（成本$1,500–$2,500）且极易发生料号关联错误引发海关查验惩罚；而退税代理公司设置$50,000最低退税门槛将小企业拒之门外，使得中小商户只能全额放弃。利用多模态LLM解析海关CBP Form 7501 PDF报关单与商业发票，结合Shopify/WMS的国际出口快递追踪数据，由算法基于FIFO（先进先出）自动对齐进境与出境商品SKU，自动计算5年内可退税额并生成符合CBP ACE ABI申报规范的CBP Form 7551电子申报附表与证据链证明包，将原本需专业报关机构耗费数周的繁琐配对工时压缩至几分钟自动化自检，使单单仅$20–$50的小额关税退税首次具备低成本兑现路径。
+persistence: Structural
+next_question: 在年进口关税支出在$20,000至$100,000之间、且至少有10%货物转销至加拿大或欧洲的中小跨境DTC电商品牌中，因未达报关行门槛而放弃申报的未使用商品退税款中位数是多少？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-04T01:15:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work: {task: 中小跨境电商与工贸进口商在货物进口后5年内，将海外国际出口订单（发往加拿大、欧洲或退运）与当初的CBP Form 7501进口报关单逐票建立直接识别（Direct Identification）配对，组装CBP Form 7551退税数据包向海关主张99%关税退还, structure: 微价值×海量 / 昂贵信息获取 / 规则遵从 / 门槛排除, abandoned_value: 全美中小进口商每年因未达专业代理$50,000–$100,000门槛而被迫放弃的单店$5,000–$35,000合法关税与附加费退税（E1, E2）, human_failure_reason: 专业退税代理机构因流程劳动密集而拒接年退税低于$5万的小单；企业自身人工逐行配对报关单与出口快递单耗时数十工时，且极易出错招致CBP审计（E1, E2）}
+ai_unlock: {changed_cost: 将原本需资深关务专家耗费数十小时跨系统翻找报关单、商业发票与出境运单的手工三单匹配成本从数千美元压缩至零边际成本的算法自动对齐, capability_basis: 关务CBP 7501多模态结构化抽取 + 跨境电商出库运单自动校验 + 19 CFR 190标准CBP 7551退税数据包组装规则引擎（E1, E2）, limitations: 1）最终向CBP ACE系统提交电子退税申请仍需企业自备ABI申报权限或委托合作口岸报关行代传；2）若货物在美期间曾进行实质性加工改变了原貌，不适用未使用商品条款（需转为更复杂的加工制造退税条款）}
+unit_economics:
+  unit: 1家中小型进口商单年度跨国发运订单（100–500笔）与历史7501报关单的自动SKU配对、99%退税额核算及CBP Form 7551标准申报支持包生成
+  currency: USD
+  region_and_date: 美国市场 / 2026年10月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖7501报关单PDF解析、出口物流Tracking API抓取、进出口SKU先进先出配对算法运行、CBP合规证据链打包及异常人工复核分摊；人工基准为传统代理机构最低服务费（通常$3,000–$5,000前置费+25%分成）或企业40工时内部审计
+  excluded_or_unknown_costs: 海关连续担保（Continuous Customs Bond）中退税附加条款加急费用、报关行代传ACE EDI报文的单票通道费（约$100–$200）、获客成本（CAC）尚未量化
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1与E2证实了报关行普遍执行$50,000–$100,000门槛导致小额退税被制度性排除的铁证，结合19 U.S.C. 1313(j)(1)明确的99%法定退税权利与5年追溯期，通过算法解析7501与运单自动生成配对报表在技术与经济上完全成立，判定为Plausible；因缺乏全美小品牌自办Drawback获批率的大盘统计，数值严格置为null
+value_capture: {beneficiary: 全美每年进口额$50万–$500万、常态化向加拿大/欧洲直邮发货的中小DTC电商独立站（Shopify/Amazon）、服装鞋帽、五金汽配与电子消费品进口商（E1, E2）, payer: 电商品牌创始人、财务总监或跨境供应链主管, payment_evidence: 传统代理对大客户抽取25%–30%分成（E2），针对中小卖家即插即用型自动化退税申报包收费属待验证商业假设, capture_node: 提供“上传过去3年的7501报关单PDF + 授权导出Shopify/ShipStation国际出口运单CSV → 5分钟出具《5年内可退关税总额与批次配对清单》 → 一键生成符合CBP 7551规范的标准申报包与报关行代发文件”, pricing_hypothesis: 假设采用“基础退税核算免费 + 成功导出全套申报包收取实际退税额的12%（远低于行业25%–30%）或单次打包费$499”；标记为待验证商业假设, customer_net_benefit: 中小卖家突破传统报关行$5万门槛，无需增加专职关务编制，每年从美国海关净追回$5,000–$30,000真金白银纯利}
+scale: {aggregation_unit: 中小进口商每年末年度关务结账或季度国际出口核算周期（覆盖过去5年历史进出境流水）, repeatability: CBP Form 7551格式与ACE退税申报规则全美统一，国际快递面单与海关HS编码对齐逻辑标准化，可在全美进口电商中规模化批量复制, reachable_volume: null, basis: 全美中小进口企业超20万家，其中有跨境转口或国际直发业务的商家占比约15%–25%}
+action_loop: {observe: 进口商过去5年内的CBP Form 7501报关单PDF，以及ERP/国际快递（FedEx/DHL/UPS）出库追踪记录, judge: 筛选出口货物与进口申报在HS编码、产品型号及数量上匹配、未在美使用且出境时间在进口后5年内的合格行项，核算99%应退税金, act: 设想自动排版CBP Form 7551与逐单进出口追溯对应表（Traceability Ledger），仅描述执行机制, verify: 检查CBP在ACE系统下发的退税受理回执（Drawback Acceptance Notice）及财政部退税支票/ACH到账记录}
+required_access: {resources: 企业历史CBP Form 7501报关单PDF、国际出口商业发票与快递提单追踪号CSV、ACE Drawback电子报文代发通道, availability: Available, authorizer: 进口企业法定代表人, authorization_status: 未取得, basis: 报关单与出库单均为企业合法私有商业资产，海关退税申请由企业自主发起}
+defensibility: {basis: 深入掌握CBP 19 CFR Part 190退税合规标准、先进先出序列号追溯算法以及与ACE标准字段无缝兼容的工程化技术壁垒, alternatives_and_counterevidence: 现成替代为小卖家完全放弃不管（普遍现状），或花数万美元聘请传统报关咨询机构；最强反证为若海关对小微企业Drawback发起现场合规审查（Desk Audit/CBP Form 28），企业若无法提供完整的原产地与出库打包影像记录可能面临退税受阻}
+personal_actionability: {fit: Good, target_customer: 年进口额在$50万–$300万美元之间、使用美国仓发往加拿大及全球且从未申请过关税退税的中小独立站卖家, deliverable: 1份《未使用商品出口退税潜力审计报告》 + 1套标准化的CBP Form 7551直接申报支持包, customer_entry: 跨境电商与进出口论坛（Reddit r/ecommerce, r/FulfillmentByAmazon）、Shopify开发者社区及货运代理合作伙伴, prerequisites: 熟练掌握美国海关法典19 U.S.C. 1313(j)、CBP Form 7501字段结构及ACE Drawback申报规范, basis: 纯数据抓取、跨报表算法对齐与文档交付，无物理库存、零硬件投入，高ROI客户感知}
+seven_day_experiment: {critical_unknown: 拥有加拿大出口业务的中小Shopify美区卖家，是否愿意提供近1年的报关单与国际运单进行免费退税自查？, test: 定向联络3家年进口额约$100万美元且有跨境发货的美区电商卖家，免费使用Python脚本对其1份7501报关单与当月出海运单进行对齐匹配，计算出实际可退关税总额，测试其申报意愿与代办付费意向, artifact: 1份《中小电商未使用商品关税退税（Drawback）真实对齐匹配与税金计算样本》, time_and_cost_budget: 7天 / 预算$30以内, success_signal: 至少有1家企业被筛查出存在超过$3,000以上在5年有效期内的有效待退税款，且明确表达愿意委托代办申报, kill_signal: 卖家普遍反映其报关单与出库单SKU完全割裂且无任何序列号或规格映射关联，导致算法根本无法建立Direct Identification证据链}

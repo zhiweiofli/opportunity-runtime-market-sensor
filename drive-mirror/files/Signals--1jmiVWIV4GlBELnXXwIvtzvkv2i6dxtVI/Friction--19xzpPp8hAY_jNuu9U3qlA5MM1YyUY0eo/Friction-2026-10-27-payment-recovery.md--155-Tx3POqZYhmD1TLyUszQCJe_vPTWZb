@@ -1,0 +1,25 @@
+Signal ID: Friction-2026-10-27-payment-recovery
+Type: Friction
+What Changed: SaaS 订阅账单平台的基础 dunning / retries 仍无法充分回收失败扣款，导致 involuntary churn。观察窗口内（约 2026-10-20 至 2026-10-27，Asia/Taipei）社区与行业内容持续出现此摩擦。
+Friction: Payment 环节——失败扣款（过期卡、余额不足、银行 decline）未被默认工具完整回收，客户本意续订却静默流失。
+Money: SaaS 运营商已为账单平台（Stripe、Chargebee 等）付费，仍因基础 dunning 回收不足而损失 revenue。原始证据：约 8% MRR 每月处于风险，dunning 邮件回收约一半，其余静默 churn。在 300k MRR 基数上每月约 12k 流失。关联 revenue loss / failed transaction。
+Evidence:
+1. Reddit r/SaaS 帖（2026-10-20/21）：https://www.reddit.com/r/SaaS/comments/1xb4gj8/why_is_payment_recovery_so_hard_and_what_other/ — 当事人原话：“About 8 percent of our MRR is at risk every month from failed payments. Dunning emails recover maybe half. The rest just churns silently. On a 300k MRR base that's 12k a month walking out the door because of expired cards and declined charges.” 评论提及使用 revenue ops consultant 评估 recovery tools。
+2. DEV Community 文章（2026-10-22）：https://dev.to/swipe-again/involuntary-churn-explained-the-customers-who-wanted-to-stay-5d87 — 区分 voluntary vs involuntary churn，详述 decline code 差异需不同处理（smart retries、branded dunning、card-update pages、backfill）。
+3. 行业统计与指南（2026-10-25 等）：https://www.rockingweb.com.au/involuntary-churn-statistics — Recurly Research 数据称 involuntary churn 占全部 SaaS churn 的 32.9%；其他来源称 failed payments 占 recurring charges 的 5-12%，结构化 recovery 可回收 50-70%，基础方式更低。
+Mechanism: 账单平台默认 retries 为通用逻辑，未按 decline code 区分（硬失败如卡过期需新卡，软失败如余额不足可延时重试）。客户未收到清晰通知或更新路径过复杂，导致已签约、有续订意愿的 revenue 无法流入。推断：缺乏 card updater + 个性化 dunning 时回收率受限。
+Current Workaround: 平台基础 dunning + 固定 retries（引用案例回收约一半）；部分团队手动跟进或雇佣 consultant / 使用第三方 recovery 工具。成本：未回收的 MRR（示例 6k+/月）+ 内部 ops/eng 时间；第三方工具存在付费意愿证据。
+Payer: 已有付费账单平台的 SaaS 公司（尤其 100k+ MRR）会为更智能 recovery 付费（flat fee 或回收分成），依据为现有 recovery 产品市场、Reddit 评论中的 consultant 使用，以及行业 ROI 宣称（部分工具声称 month-one 回报）。
+Economic Effect: revenue（involuntary churn / failed transaction recovery）；次要 labor（若自定义处理）。
+Friction Value: 频率 = 每月（所有订阅业务）；单次经济影响 = 约 5-12% recurring charges 失败，基础回收后仍流失显著部分（示例 300k MRR 下 12k 风险、约一半未回收）；可回收比例 = 结构化流程可额外回收 20-40% 失败额（依据行业声称，非精确测量）。未知精确分布与工具 CAC。
+Persistence: Structural（卡过期、银行风控、余额时点问题持续存在，非单点 bug 或平台即将原生解决）。
+Next Question: 中型 SaaS 使用专用 recovery 工具相对内部优化的实际回收率提升、成本与集成摩擦是什么？不同 decline code 的真实分布与可回收上限？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-10-27T09:37:00+08:00
+Role Spec Status: reviewed
+
+---
+观察窗口：2026-10-20 至 2026-10-27（Asia/Taipei），基于本轮可核实资料截止时点。
+已有 Signal 索引：无（首次试跑）。
+未升级为 Opportunity；仅输出 Signal。未编造报价或损失数字，引用均来自原始帖与公开内容。
+待人工保存（若自动写入未确认）。

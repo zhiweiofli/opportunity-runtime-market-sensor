@@ -1,0 +1,56 @@
+﻿signal_id: UW-20261106-Subcontractor-72HourExtraWork-PCOFieldDirectivePacket
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年10月核实（建筑工程财务咨询机构Fox & Santiago 2026-10调研、Archdesk 2026工程变更管理指南及Briq T&M票据合规分析），商业建筑总承包商（GC）在分包合同中普遍强制执行严苛的“现场变更48–72小时通知弃权条款”（Notice of Potential Change Order / COR Clause）：总包现场工长（Superintendent）在工地上经常口头或发短信要求分包商（水暖电、暖通、泥瓦、消防）做局部额外施工（如管线绕道、开孔打洞、点位平移）；而主合同条款硬性规定，分包商若未在接到口头指令后48至72小时内以正式书面形式提交《潜在变更意向通知》（PCO Notice）并附带带GC签字的人工材料（T&M）工单，该项额外工作即被法律推定为“分包商自愿赠送或施工手段误差（Means and Methods）”，永久丧失追加工程款索赔权。
+money: 全美商业建筑与公用工程中，数以万计独立专业分包商（Trade Subcontractors）因口头指令未在72小时内书面固化，单项目月均流失$3,000–$8,000美元未计费额外工作（Unbilled T&M Work），单个分包企业年均沉没坏账高达$30,000–$80,000美元。现场单次改动涉及金额通常在$300–$2,500美元之间。施工队长面对单次几百美元的口头改动，因嫌繁琐、手头缺电脑且怕得罪总包工长而拖延记录，最终在项目竣工结算时被总包法务依据合同72小时通知条款100%全额剔除。
+evidence:
+  - id: E1
+    source: https://foxsantiago.com/guides/extra-work-in-the-field-never-gets-billed
+    source_date: '2026-10-11'
+    accessed_at: '2026-11-06T00:40:00+08:00'
+    fact: 揭示建筑分包商现场额外工作流失核心机制：“现场额外工作之所以无法结算，根源在于一线工人在口头指令下开工；Reddit r/Construction社区承包商普遍痛陈，仅因口头T&M未及时开单，单月即可损失约$4,000美元；工人专注于赶工期，文书工作被无限期推迟到周末，而到周末时工时与用料细节早已模糊”。局限：为建筑财务咨询公司实务指南，侧重承包商财务管理规范。
+  - id: E2
+    source: https://archdesk.com/blog/2026-guide-to-construction-change-orders
+    source_date: '2026-03-06'
+    accessed_at: '2026-11-06T00:42:00+08:00'
+    fact: 拆解2026年建筑变更单黄金时效规则：强调必须在72小时内完成‘变更包（72-hour change pack）’；一旦人工和材料混入基础成本代码，分包商立刻丧失谈判筹码，业主和总包便会以‘施工手段自理’为由拒绝付款；合同规定严格的服务等级——当天发出预通知、72小时内锁定书面指令（CO/CCD或T&M），否则分包商必须用自己的现金填补亏空。局限：为商业工程管理软件技术白皮书。
+  - id: E3
+    source: https://briq.ai/acu/object/time-and-material-ticket
+    source_date: '2026-10-20'
+    accessed_at: '2026-11-06T00:45:00+08:00'
+    fact: 建筑法律合规词条明确指出：事后补签或从未签字的T&M工单在法律上几乎不可能收回款项；总包签字确认工时与材料消耗是日后获得补偿的唯一定价基准，但一线施工人员普遍缺乏实时合规记录的工具。局限：为建筑知识库行业定义。
+mechanism: 事实：总包合同严苛规定48–72小时内未发书面PCO通知即构成法律弃权，事后口头争议100%遭总包反驳剔除；但合法有效的T&M票据必须精确记录派工人工姓名、工种、实作工时、耗费辅料规格与总包口头指令来源（E1, E2, E3）。推断：现场施工带班（Foreman）在工地忙于操作工具与指挥吊装，既没有笔记本电脑，也极度抗拒坐在皮卡车里填写复杂的AIA G701表格或计算人工综合费率（Labor Burden）；加上带班人员普遍存在“现场追着总包签字显得斤斤计较会破坏人际关系”的心理障碍，导致“先干活周五再补单”，而到周五工时已混入总包底薪，数千美元额外工时永久沉没。利用移动端15秒语音备忘录结合手机现场拍照，多模态LLM自动提取：1）总包指令下达人姓名；2）改动物理位置；3）工种与工时；4）材料损耗；自动匹配分包合同中预先约定的T&M计费费率表（Hourly Rate Sheet），一键生成格式极其严谨、语气专业且不具对抗性的标准化《72小时潜在变更与现场工单备忘录》（PCO Notice & T&M Ticket PDF），并自动生成给总包工长确认的简短短信/邮件草稿（“Confirming today's directive for Level 2 pipe relocation”），将单次45分钟烦琐制表与算账工时压缩至1分钟语音交付，使现场单笔$300–$2,500的微额变更单在72小时红线闭合前实现100%全量锁定。与既有防范全款坏账的20天留置权通知（UW-20261030-Subcontractor-20DayPrelimNotice-LienRightsPacket）不同，本机会聚焦日常施工中高频发生的未计费现场额外工作过程管控。
+persistence: Structural
+next_question: 在拥有10–50名现场工人的中型机电与暖通专业分包商中，现场带班因未在72小时内形成书面指令记录而在工程结算时被总包最终核减的增量工时金额占合同总额的百分比是多少？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-06T01:18:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work: {task: 专业分包商现场施工带班/项目工程师在接到总包工长口头额外工作指令后48–72小时内，记录改动范围与工时材料、起草符合主合同格式要求的潜在变更单通知（PCO Notice）并向总包送达书面工单确认, structure: 微价值×海量 / 对抗交互 / 规则遵从 / 厌恶工作, abandoned_value: 全美专业分包商因现场带班厌恶文书与拖延记录而在72小时通知窗口关闭后被总包合法赖账的单队每月$3,000–$8,000美元未计费额外工作（E1, E2）, human_failure_reason: 带班工人手头没电脑且忙于一线施工作业，花1小时手写T&M单并核算费率极度繁琐；害怕现场追着总包签字显得对抗，推迟到周末导致记忆缺失、工时混入底薪（E1, E2）}
+ai_unlock: {changed_cost: 将现场工长随手拍照片与一段口头语音描述，转化为带合同费率折算、法律免责声明与标准格式PCO变更文书的边际成本从1小时办公室工时压缩至几秒钟全自动生成, capability_basis: 语音转文本与施工专有名词实体抽取 + 分包合同T&M单价表自动折算算法 + 建筑变更单（PCO/COR）标准化法律格式渲染引擎（E1, E3）, limitations: 1）若总包现场工长在收到短信/邮件后书面明确回信否认曾下达过该指令，仍需项目经理介入工程范围协商；2）对于涉及百万美元级重大设计变更，仍需专职造价工程师进行详细图纸算量}
+unit_economics:
+  unit: 1次工地现场突发口头额外工作（涉及$300–$2,500增量工料）的语音/照片信息结构化抽取、合同T&M单价计算与合规72小时PCO预通知包生成
+  currency: USD
+  region_and_date: 美国市场 / 2026年10月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖音频多模态识别、施工术语语义解析、合同费率表查询映射、合规PDF工单生成及短信/邮件推送通道费；人工基准为带班或办公室助理制作单份PCO耗费45–60分钟工时（$35–$65/份）或直接被动放弃$1,000+工料款
+  excluded_or_unknown_costs: 与建筑施工ERP（如Procore、Buildertrend）双向API深度集成同步的通道费、总包最终拒付时的法律仲裁成本、获客成本（CAC）尚未量化
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1与E2证实了现场口头额外工作单月流失数千美元且72小时通知窗口具有法律杀伤力的客观事实，将语音/照片转化为合规书面确认在技术上极其轻量敏捷，判定为Plausible；因缺乏全美分包商使用即时语音通知后总包最终结算签认率的大盘统计，数值严格置为null
+value_capture: {beneficiary: 全美数十万雇员在10–100人之间、高频承接商业总包分包工程的机电、管道、暖通、钢结构与装饰装修专业分包企业（E1, E2）, payer: 分包企业老板（Subcontractor Owner）、运营副总或资深项目经理（PM）, payment_evidence: 传统施工协作SaaS（Procore等）收取数万美元高昂年费且未解决工人现场记录摩擦，针对一线带班即时语音工单工具按月或按项目订阅收费属于待验证假设, capture_node: 提供“手机微信/短信/WhatsApp发送15秒语音+现场照片 → 30秒生成标准PCO/T&M工单PDF与给总包工长确认的温和提示文本 → 一键抄送总包与企业财务系统”, pricing_hypothesis: 假设采用“按工地现场带班人数收取小额订阅$29–$49/人/月”或“按成功计费变更金额收取3%–5%服务费”；标记为待验证商业假设, customer_net_benefit: 分包商无需改变工人操作习惯，让原本白白送给总包的数万美元现场小修小改在72小时内合规锁定，年化净增纯利润率3%–5%}
+scale: {aggregation_unit: 每个商业施工项目每天下午收工前的现场指令确认与工时归集节点, repeatability: 商业建筑施工总包合同通用条款（AIA A401 / AGC ConsensusDocs）高度标准化，72小时变更时限全美通用，各工种底层计费逻辑一致，可规模化复用, reachable_volume: null, basis: 全美活跃商业专业分包企业超50万家，每天产生的口头改动指令达到数百万次}
+action_loop: {observe: 现场施工带班在手机端发送的简短语音描述（包含谁让改的、改了什么、几个人干了几小时）及现场改动前后照片, judge: 提取总包工长姓名、施工部位、实际消耗工时与材料，比对分包合同中预置的T&M计费费率与48–72小时通知时效要求, act: 设想自动排版生成带单价明细的正式PCO Notice与Daily T&M Ticket，并生成发给总包工长的礼貌确认文本，仅描述执行机制, verify: 检查总包工长对确认文本的短信/邮件回复（如‘Approved’或‘Logged’）或在月度进度款申报（Pay App）中的对应款项批准}
+required_access: {resources: 施工现场带班手机短信/微信接入、分包合同约定的T&M工时材料费率表单、总包工长联络方式, availability: Available, authorizer: 分包企业项目经理或业主, authorization_status: 未取得, basis: 涉及施工记录与合同单价均属于分包商自身私有运营数据，授权仅需客户自愿配置}
+defensibility: {basis: 深入沉淀各专业工程定额消耗、施工变更免责标准法律措辞库，以及针对工地工人极低文书容忍度的极简语音交互体验壁垒, alternatives_and_counterevidence: 现成替代为带班自制纸质三联单（通常因脏乱丢失或总包拒签而失效），或事后拉扯放弃；最强反证为若总包工长作风极其霸道，凡收到书面确认一律翻脸威胁停工，则工具需要提供更隐蔽的‘仅内部存证’模式}
+personal_actionability: {fit: Good, target_customer: 经常抱怨‘现场给总包干了一堆杂活最后算账全被扣掉’的中小建筑分包企业主, deliverable: 1套微信/短信轻量语音转PCO工单机器人 + 1份标准72小时潜在变更单与T&M工单模板包, customer_entry: 建筑承包商社区（Reddit r/Construction, ContractorTalk）、各州建筑行业分包协会（ASA - American Subcontractors Association）, prerequisites: 熟悉商业建筑分包合同条款（Change Order, Directive, T&M, Delay Notice）及施工现场实际运转潜规则, basis: 纯语音/图像多模态解析与模板交付，轻资产运作，切中分包商最切肤的现金流流失之痛}
+seven_day_experiment: {critical_unknown: 工地现场带班师傅是否愿意在收到口头指令后，随手发一条15秒语音和照片来进行自动工单归档？, test: 联络2家本地或熟识的水暖/电气分包商，让其2位现场工长在3个工作日内尝试用微信/短信发送现场遇到的口头杂活语音，测试系统自动生成的PCO工单准确度与带班工人的使用阻力, artifact: 1份《现场口头额外工作语音转72小时合规变更单实测案例》, time_and_cost_budget: 7天 / 预算$30以内, success_signal: 工长认为‘动动嘴就能生成正规单子太省事了’，且成功帮其在72小时内向总包发出了至少1份并获得总包文字确认的有效变更单, kill_signal: 工人坚决拒绝在手机上发任何信息，认为‘哪怕亏几千块也是老板的事，自己多发一条信息都嫌累’}

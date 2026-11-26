@@ -1,0 +1,139 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261104-IndependentPharmacy-PBM-MACAppealPacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261104-IndependentPharmacy-PBM-MACAppealPacket
+   * Generated At: 2026-11-04T01:15:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/1jXJn8lTPB6uJY-VCb8HisYaNy38ivKp9O5L4lbJrrNI/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-04T01:18:13+08:00
+
+
+* Research Level: R2 — Economic Underwriting
+
+
+* Stage Result: HYPOTHESIS_READY
+
+
+* Unknown Ledger:
+
+
+   * Known: 全美近 20,000 家独立社区零售药房（Independent Community Pharmacies）在向三大药品福利管理机构（PBMs：CVS Caremark, Express Scripts, OptumRx）提报仿制药处方时，频繁遭遇滞后的“最高允许成本”（MAC）定价表导致的倒贴报销（Negative Margin / Underwater Claims，单剂亏损 $8–$25 美元）；单店日均处方中通常有 3–10 张处于亏损状态，单店每月累计倒贴损失达 $1,000–$3,500（每年 $12,000–$40,000 净利润流失）；尽管各州 PBM 监管法案（如阿肯色州 Act 900 判例、德州与佛州法案）强制要求 PBM 设立 10–14 天法定申诉通道，若无法指出当地医药批发商有同价现货货源必须补足差价，但单笔申诉需持牌药师耗费 15–30 分钟手动核对批发商发票与处方代码，人工成本反超追偿金额，导致绝大多数药房只能被迫冲销亏损。
+   * Unknown: 全美典型独立社区药房中，在 14 天法定窗口内且具有正规一级批发商进货发票凭证、但因人工不足而未提交申诉的负毛利处方月均实际金额。
+   * Decision-Critical Unknown: 独立药房业主或主管药剂师，对于一款“自动抓取药房管理系统（PMS）每日调剂流水与批发商（McKesson, Cencora, Cardinal）进货发票，3 分钟自动筛出负毛利处方并一键生成三大 PBM 格式批量 MAC Appeal 申诉包（按追回金额抽取 15% 分成或月费 $99–$199）”的工具的付费意愿。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。单店年均损失 $12,000–$40,000 净利润现金，涉及全美近 20,000 家独立药房；15% 提成对比直接核销具有极高投入产出比。
+   * Mechanism: 通过。州法律强制要求 PBM 在 10–14 天内处理合规申诉；通过脚本将药房管理系统（PMS）的 X12 835/NCPDP 处方明细与医药一级批发商进货发票 EDI 自动交叉比对，秒级定位进货价高于报销价的异常处方，提取发票号与 NDC 批次，自动映射为三大 PBM 的标准申诉数据包，将数十工时压缩至几分钟。
+   * Persistence: 通过。PBM 压低仿制药报销属于其商业核心利益，各州 MAC 申诉立法长期有效，矛盾不可调和。
+   * Capture: 通过。1-3 人小团队构建轻量 Web 工具与数据映射管道，纯软件与发票数据清洗，零实体资产、零药品库存、高毛利。
+
+
+* Final Status: HYPOTHESIS_READY
+
+
+* Evidence:
+
+
+   1. 全国社区药房协会（NCPA）独立调查报告《PBM Audit Survey Stories》：药房药师证实“耗费整整一个小时人工填写表格，只为向 PBM 要回被少付的 10 美元”，导致大量小额差额被被迫放弃。
+   2. Datascan 药房管理报告《Pharmacy Management Trends & Reimbursement》（2026-06）：强调在 CMS 新规下每周审计低额处方是药房生死线，但缺少自动化进销差价匹配是核心死穴。
+   3. NCPA 行业新闻《NCPA Newsroom on PBM Practices》（2026-02）：证实独立药房面临极度严峻的倒贴生存危机。
+
+
+* Counter Evidence:
+
+
+   1. 药房通过非一级批发商渠道采购的无合规纸质发票处方（PBM 会直接驳回）。
+   2. 纯患者自费或第三方商业折扣卡（如 GoodRx）不在法定 MAC 保护范围内。
+
+
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，法定义务与申诉规则明确，进销数据交叉比对机制清晰，小团队轻资产切入点极佳。
+
+
+* Resume Condition: 不适用（已完成）。
+
+
+* What became more likely: 独立药房将普遍采用自动化进销发票对齐与批量 MAC 申诉软件追回倒贴差额。
+
+
+* What became less likely: 药剂师会继续在柜台百忙之中花几十分钟翻找纸质发票去各大 PBM 网页挨个录入 10 美元申诉。
+
+
+* What did we rule out: 排除了在没有一级药品批发商正规采购发票号和 NDC 单价支持下 PBM 会主动调高单笔处方报销额的可能。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-04T17:01:33+08:00
+
+
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向独立社区药房的 PBM 仿制药最高允许成本（MAC Appeal）负毛利处方自动对账与批量申诉引擎
+* Source Signal IDs: UW-20261104-IndependentPharmacy-PBM-MACAppealPacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261104-IndependentPharmacy-PBM-MACAppealPacket
+   * Generated At: 2026-11-04T01:15:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/1jXJn8lTPB6uJY-VCb8HisYaNy38ivKp9O5L4lbJrrNI/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-04T01:18:13+08:00
+
+
+* Money: 全美近 20,000 家深受三大 PBM 滞后定价压迫的独立社区药房；单店每年流失 $12,000–$40,000 倒贴差额，药房愿按追回金额的 15% 提成或按月支付 $99–$199 工具订阅费。
+
+
+* Mechanism: 针对药房在处方结算后 10–14 天法定窗口内因人工不足无法逐笔排查负毛利处方的痛点，工具提供：药房定期导出 PMS 处方理赔表并上传当周药品批发商进货发票；算法秒级比对处方 NDC 报销额与批发商实际单价，精准筛出所有亏损处方，自动提取批发商发票号、进货单价及供货凭证；一键生成符合 CVS Caremark、Express Scripts、OptumRx 专属格式的批量 MAC Appeal 申诉申报包，将单次申诉边际成本降至零。
+
+
+* Capture: 1-3 人小团队构建轻量 Web 工具与医药进销存比对脚本，纯数据清洗，零药品库存、零实体资产、高毛利。
+
+
+* Durability: PBM 垄断格局短期不可逆，各州 MAC 申诉法规强力护航，具有高频月度循环复购属性。
+
+
+* Evidence:
+
+
+   1. NCPA 调查：https://www.ncpa.co/pdf/leg/jul11/2011_pbm_audit_survey_stories.pdf 证实药师花 1 小时为 10 美元导致的普遍放弃。
+   2. Datascan 报告（2026-06）：https://datascanpharmacy.com/tag/pharmacy-management/ 证实进销价差审查刚需。
+   3. NCPA 通告（2026-02）：https://ncpa.org/newsroom/qam/2026/02/24/your-pharmacy-may-be-eligible-class-action-settlement-payment-over-discover 证实生存危机。
+
+
+* Counter Evidence:
+
+
+   1. 违规进货渠道缺乏正规发票。
+   2. 少数完全依赖 PSAO 集中协议申报的药房。
+
+
+* Critical Unknown: 各主流药房管理系统（如 PioneerRx、Computer-Rx、Liberty）结算数据导出格式的标准化程度与接口兼容性。
+
+
+* Falsification: 若联邦出台新法强制 PBM 在全国范围内实行实时随行就市的动态 MAC 定价，彻底消除报销价低于批发采购价的倒贴现象。
+
+
+* Next Test: 为 1 家日均 150 张处方的独立社区药房审计其过去两周的 PMS 理赔单与 McKesson 发票，测试负毛利处方自动检出率与批量 MAC 申诉包生成格式正确率。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-04T17:01:33+08:00
+
+
+* Role Spec Status: reviewed

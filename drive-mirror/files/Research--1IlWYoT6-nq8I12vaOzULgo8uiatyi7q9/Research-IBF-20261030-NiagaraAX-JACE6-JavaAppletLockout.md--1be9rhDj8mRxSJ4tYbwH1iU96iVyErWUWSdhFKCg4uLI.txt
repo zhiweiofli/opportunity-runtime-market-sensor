@@ -1,0 +1,139 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: IBF-20261030-NiagaraAX-JACE6-JavaAppletLockout
+
+
+* Source Signal References:
+
+
+   * Signal ID: IBF-20261030-NiagaraAX-JACE6-JavaAppletLockout
+   * Generated At: 2026-10-30T17:40:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: https://docs.google.com/document/d/1MTwEycepCCgRKVd4hMzau2HnHSpz6nqpsFkUI2yWXTQ/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-30T17:36:20+08:00
+
+
+* Research Level: R2 — Economic Underwriting
+
+
+* Stage Result: HYPOTHESIS_READY
+
+
+* Unknown Ledger:
+
+
+   * Known: 全球数以万计安装在商业建筑、医院、学校中的 Tridium Niagara AX 3.8 楼宇自控控制器（Honeywell JACE-600 等）现场硬件与暖通机械运行完好（预期机械寿命 15–20 年）；但随着现代浏览器彻底移除 NPAPI、Oracle 终止 Java Web Start 以及 Windows 10/11 更新破坏 Edge IE 模式，物业与暖通运维人员在现代办公机上完全无法打开 Java Applet 与 Pxg 监控视图，造成“现场运转正常但无法远程操控”的数字锁死；原厂（Honeywell/Johnson Controls）官方方案要求整机升级为 Niagara 4/5（JACE-8000/9000），单台报价高达 $8,000–$25,000（中型设施全套需 $50k–$200k）；现场人员被迫保留未联网的 Win 7 废旧电脑苟延残喘。
+   * Unknown: 全球仍在使用 JACE-6 系列且未向原厂提交换代预算的公立机构（学区、市政、中小型医院）与商业楼宇存量总数。
+   * Decision-Critical Unknown: 商业楼宇工程主管与暖通设施技师，对于一套“内置受控沙箱浏览器、针对性补丁 JRE 8 环境并自动导入 JACE 自签名证书的免安装绿色 Windows 访问客户端（售价 $99–$149 单授权买断）”的部门小额预算直接采购意愿。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。原厂换代单台 $8,000–$25,000，多台改造超十万美元；免安装软件客户端 $149 具备 107 倍杠杆比，物业工程主管可通过日常小额运维费直接报销。
+   * Mechanism: 通过。现场控制器坚固耐用（20年），而浏览器前端技术 3–5 年迭代，造成结构性断崖；原厂推销新硬件拒绝维护老系统；绿色便携沙箱客户端在现代 Win 10/11 系统上完全隔离运行且免受系统补丁破坏，技术路径确定可行。
+   * Persistence: 通过。公共机构与学校预算审批极度漫长，老旧 JACE 6 仍将服役 5–10 年，对低成本访问维持工具需求长效刚性。
+   * Capture: 通过。1-3 人小团队打包免安装绿色运行包与证书自动化导入向导，纯数字软件交付，零实体硬件库存、零现场重安装、高毛利。
+
+
+* Final Status: HYPOTHESIS_READY
+
+
+* Evidence:
+
+
+   1. Reddit r/BuildingAutomation 楼宇自控实务讨论《Niagara 3.8 AX Help!》（2024-02 发布，2026 持续讨论）：详述现代 Edge/Chrome 无法运行 Java 及 IE 模式在系统更新后频繁崩溃的运维困境。
+   2. Reddit r/BuildingAutomation 迁移成本核实《AX to N4 migration, is this normal?》（2025-04）：证实暖通集成商整机迁移报价单通常高达数万至数十万美元。
+   3. Industrial Monitor Direct 行业报告《Building Automation Systems Compared: Niagara vs Proprietary BAS》（2026-06）：详述 Niagara AX 固件 EOL 与机械控制逻辑长期存续的脱节现象。
+
+
+* Counter Evidence:
+
+
+   1. 少数拥有充沛财政预算的顶级医院已全盘换装 JACE-9000。
+   2. 部分严苛涉密金融机房禁止运行任何未经企业 IT 签名的便携第三方软件。
+
+
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，痛点真实刚性，软硬件寿命错配机制明确，小团队轻资产切入点极佳。
+
+
+* Resume Condition: 不适用（已完成）。
+
+
+* What became more likely: 物业设施与暖通工程人员将广泛采用便携式隔离运行沙箱维持对老款 JACE 6 的日常图形监控。
+
+
+* What became less likely: 资金受限的公立机构会因浏览器不兼容就斥资数十万美元将机械完好的 JACE 6 全部拆换。
+
+
+* What did we rule out: 排除了在 Windows 11 环境下仅靠微软官方 Edge 原生更新能长期稳定访问 Niagara AX 的可能。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-10-31T17:16:31+08:00
+
+
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向商业楼宇与公共机构的 Niagara AX (JACE-6) 免配置便携 Web 控制台访问工具包
+* Source Signal IDs: IBF-20261030-NiagaraAX-JACE6-JavaAppletLockout
+
+
+* Source Signal References:
+
+
+   * Signal ID: IBF-20261030-NiagaraAX-JACE6-JavaAppletLockout
+   * Generated At: 2026-10-30T17:40:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: https://docs.google.com/document/d/1MTwEycepCCgRKVd4hMzau2HnHSpz6nqpsFkUI2yWXTQ/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-30T17:36:20+08:00
+
+
+* Money: 全球仍在运行 JACE 6 系列控制器的商业建筑、学区学校与医院物业部门；面对原厂单台 $8,000–$25,000 的强制换代报价，物业主管愿使用部门数百美元报销预算支付 $99–$149 购买即插即用的客户端软件。
+
+
+* Mechanism: 针对现代浏览器全面淘汰 Java Applet 与 Windows 更新导致 Edge IE 模式失效的痛点，工具打包为一个完全自包含、免安装的 Windows 便携运行包：内置受控沙箱浏览器、针对性打补丁的嵌入式 JRE 8 环境及 JACE 自签名证书一键导入向导，操作工输入控制器 IP 即可直接秒开 Pxg 图形视图与温控日程表，彻底免去配置古董电脑或调试虚拟机的痛苦。
+
+
+* Capture: 1-3 人小团队打包绿色分发包，纯软件交付，零实体硬件库存、零现场重安装、高毛利。
+
+
+* Durability: 商业楼宇控制柜使用寿命达 15–20 年，学校与医院预算周期长，低成本维护访问具备长效韧性。
+
+
+* Evidence:
+
+
+   1. Reddit r/BuildingAutomation（2024-02）：https://www.reddit.com/r/BuildingAutomation/comments/1avrvgr/niagara_38_ax_help/ 确认 Java 阻断与 IE 模式频繁崩溃痛点。
+   2. Reddit r/BuildingAutomation（2025-04）：https://www.reddit.com/r/BuildingAutomation/comments/1k7t5es/sysadmin_question_ax_to_n4_migration_is_this/ 确认官方换代高昂报价。
+   3. Industrial Monitor Direct（2026-06）：https://industrialmonitordirect.com/blogs/knowledgebase/building-automation-systems-compared-niagara-vs-proprietary-bas 确认存量控制柜生命周期。
+
+
+* Counter Evidence:
+
+
+   1. 部分超大型企业已全量完成 Niagara 4 升级。
+   2. 少数涉密网络禁止外来可执行文件。
+
+
+* Critical Unknown: 楼宇暖通物业工程师在社交论坛（Reddit/HVAC Talk）中搜索“Niagara AX Java Applet not working”的主动流量与购买转化率。
+
+
+* Falsification: 若 Tridium 官方突然面向全球存量 Niagara AX 免费公开发布全量 HTML5 自动转换固件补丁。
+
+
+* Next Test: 打包一个包含便携 Chromium 与精简 JRE 8 的测试运行 demo，在真实 JACE-600 控制台环境下测试 Pxg 视图秒开速度，并在 HVAC 论坛发布免费测试版吸引种子用户。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-10-31T17:16:31+08:00
+
+
+* Role Spec Status: reviewed

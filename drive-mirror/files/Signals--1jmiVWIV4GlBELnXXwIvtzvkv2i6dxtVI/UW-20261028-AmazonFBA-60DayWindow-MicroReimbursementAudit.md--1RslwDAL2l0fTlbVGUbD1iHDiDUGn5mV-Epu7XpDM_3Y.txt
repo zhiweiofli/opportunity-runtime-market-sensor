@@ -1,0 +1,61 @@
+﻿signal_id: UW-20261028-AmazonFBA-60DayWindow-MicroReimbursementAudit
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 2024年10月起亚马逊将FBA人工索赔窗口从18个月断崖式压缩至事件发生后60天内，且2025年3月31日起全面强制执行“采购成本（Manufacturing / Sourcing Cost）估值规则”（未售出丢失商品仅按卖家采购发票成本而非零售价赔偿，未主动申报成本则系统自动按极低默认值估算）；2026年Q2以来，虽然亚马逊推行了部分自动赔偿，但系统自动赔付普遍按最低估值计算且漏报率高达1%–3%，且要求卖家必须按月在60天内主动比对多张报表并发起手动申诉。
+money: 涉及全球数十万中小FBA卖家（尤其年销售额在$100k–$1M之间、拥有10–100个SKU的腰部卖家）。行业基准数据显示，每年有1%–3%的FBA库存遭遇丢失、损坏或退货未入库未报偿问题，平均单店每年未申领赔偿金达$1,500–$3,000。单件丢失货品价值通常在$12–$40之间。在60天极短窗口下，卖家面对单件微额赔偿因人工核对4张报表（库存对账、退货、移除、结算）耗时过长，产生“$12不值得我花时间（$12 isn't worth my time）”的心理阈值，导致每年上千美元利润白白沉没。
+evidence:
+  - id: E1
+    source: https://novadata.io/resources/blog/amazon-reimbursement-guide
+    source_date: '2026-10-08'
+    accessed_at: '2026-10-28T01:20:00+08:00'
+    fact: 详述2026年亚马逊FBA赔偿政策关键变更与小额放弃现状：1）人工索赔窗口被硬性压缩至60天，季度或年度大补漏已失效，月度巡检成为底线；2）2025年3月31日起按制造/采购成本赔偿，未填成本默认按超低估值结算；3）单店每年平均可索赔沉睡资金$1,500–$3,000，1%–3%库存存在异常；4）明确揭示卖家心态“$12不值得我花时间”，但全年累积达$800–$1,500；第一线客服拒绝40%的有效索赔，需精准提供SKU、FNSKU、交易ID与时间戳才能提升至90%+成功率。局限：为电商分析SaaS博客，案例样本偏向活跃监控客户。
+  - id: E2
+    source: https://sellercentral.amazon.com/seller-forums/discussions/t/81c3235d-4c44-47ba-96c5-883cecab3244
+    source_date: '2024-07-24'
+    accessed_at: '2026-10-28T01:21:00+08:00'
+    fact: 亚马逊卖家论坛官方通告确认：自2024年下半年起重构FBA库存赔偿自动化引擎，并将人工提交丢失与残损库存赔偿请求的合规窗口严格限定为60天。局限：为早期政策调整官方公告。
+  - id: E3
+    source: https://www.spscommerce.com/community/articles/amazon-reimbursement-policy
+    source_date: '2026-06-15'
+    accessed_at: '2026-10-28T01:22:00+08:00'
+    fact: 供应链权威SPS Commerce拆解2026年最新FBA赔偿时效矩阵：美英大部分手动索赔窗口严格收紧至60天内，客户退货索赔窗口为45–105天，要求卖家在时钟归零前提供逐行发票与承运证明。局限：侧重全渠道EDI供应链视角。
+  - id: E4
+    source: https://www.leviathansellers.com/blog/amazon-fba-reimbursement-policy-2026
+    source_date: '2026-07-11'
+    accessed_at: '2026-10-28T01:23:00+08:00'
+    fact: 深度分析2026年亚马逊转为采购成本（Sourcing Cost）后的财务断代：过去$40售价商品可获赔近$40，新规下仅获赔$9采购成本；卖家若未在系统内精细化维护采购成本，亚马逊将按更低的算法估值强制打折，且拖延超60天将完全丧失申诉权。局限：仅读取到长摘要与核心章节。
+mechanism: 事实：亚马逊将索赔窗口从18个月压缩至60天，且未预设采购成本的SKU默认按超低估值结算；第一线客服对模糊索赔拒赔率达40%，只有包含SKU、FNSKU、Transaction ID、时间戳及采购发票的工单才能达到90%+通过率（E1, E4）。推断：对于拥有数十个SKU的中小卖家，每月人工从Seller Central下载并比对4张不同格式的报表需耗费4–6小时，面对单笔仅$12–$30的丢失货品，卖家在“时间机会成本”权衡下选择放弃；第三方代索赔机构（如GETIDA/Seller Investigators）抽取20%–25%高额佣金且专注于几十万美元大卖家，对长尾微型索赔动力不足。利用Amazon SP-API每日拉取库存分类账（Inventory Ledger）、退货报表与移除明细，由算法自动比对发货件数与入库件数差额，自动关联预存的供应商采购单价，在60天窗口闭合前生成格式完美的标准化Case申诉包，可将单单索赔的人工核对成本压至几乎为零，让单件$12的小额丢失首次值得追回。
+persistence: Structural
+next_question: 在年销售额$100k–$500k的腰部FBA独立品牌卖家群体中，未签约大型代索赔SaaS且因60天时效过期而直接放弃的月均小额库存赔偿损失中位数是多少？
+task_version: uneconomic-work@0.1
+generated_at: '2026-10-28T01:30:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work: {task: 亚马逊FBA中小卖家在60天法定窗口内，交叉核对库存对账报告、客户退货报告、移除订单与结算单，比对真实采购成本发票，向Seller Central提交丢失/残损库存赔偿Case, structure: 微价值×海量 / 等待 / 昂贵信息获取 / 对抗交互, abandoned_value: 单店每年$1,500–$3,000的库存丢失与退货未入库未赔偿金（平均单件$12–$40），因60天时效紧迫且人工核对繁琐被卖家主动放弃（E1, E4）, human_failure_reason: 单笔仅$12–$30，人工每月跨4张报表排查需4–6小时，卖家直言“不值得为$12费劲”；第三方中介抽成20%–25%且对长尾小件缺乏精细维护（E1）}
+ai_unlock: {changed_cost: 将跨4份Seller Central报表的数千行事务比对、采购单价对齐及合规Case工单起草成本从数小时人工时间压缩至全自动秒级生成, capability_basis: Amazon SP-API事件监听 + 跨报表Transaction ID关系对齐算法 + 多模态供应商采购发票单价抽取与Case文书排版（E1, E2）, limitations: 1）若卖家无法提供供应商真实采购发票/合同（如二手翻新货或无票采购），无法满足2025年3月采购成本赔偿新规；2）亚马逊对短时间内高频提交同一类型Case有防滥用频控机制，需按批次合规提交}
+unit_economics:
+  unit: 1个FBA中小卖家单月全部存量SKU在60天窗口内的库存丢失、残损及退货异常自动化交叉核对与标准Case申诉包生成
+  currency: USD
+  region_and_date: 美国市场 / 2026年10月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖SP-API数据同步与计算、采购发票OCR/单价提取、60天倒计时告警排查、Case模板生成及异常人工复核分摊；人工基准为店主每月耗费4–6小时手工比对表格工时成本（$150–$300/月）
+  excluded_or_unknown_costs: 亚马逊SP-API开发者账号年费与应用审核合规成本、针对复杂退货（Switcheroo买家掉包）的人工申诉沟通成本、获客成本（CAC）尚未量化
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1直接提供了单件$12被放弃的心理依据与每年$1,500–$3,000沉睡资金实测基准，E1与E3证实了60天窗口与采购成本新规倒逼精细化工具，机制充分支持Plausible；因缺乏针对腰部小卖家全自动化申诉挽回率的同口径独立统计，严格将数值置为null，不虚构测算
+value_capture: {beneficiary: 全球数十万使用亚马逊FBA仓储履约的独立品牌方、腰部跨境电商卖家（年销$100k–$1M）（E1, E3）, payer: 亚马逊电商店主、运营主管或电商财务专员, payment_evidence: 市场上传统代索赔软件（GETIDA, Seller Investigators等）按追回资金的15%–25%抽成（E1），针对极轻量一次性自检工具的付费模式属待验证商业假设, capture_node: 提供“授权SP-API或上传4份报表CSV + 供应商采购单 → 5分钟出具《60天即将过期可追回明细表》 → 一键生成包含完整Transaction ID的直接复制Case文书”, pricing_hypothesis: 假设采用“按成功赔偿额的10%（远低于行业20%–25%）”或“月度自动监控订阅$29–$49/月”；标记为待验证商业假设, customer_net_benefit: 卖家在不增加运营工时且避免被第三方抽走1/4利润的前提下，每年净拿回$1,200–$2,500纯利现金}
+scale: {aggregation_unit: 亚马逊卖家每月15日或月底结算对账周期（紧扣60天倒计时）, repeatability: 亚马逊FBA数据接口与报表结构全球统一（北美、欧洲、日本站均适用），规则与模板完全一致，可无缝标准化批量复用, reachable_volume: null, basis: 全球活跃FBA卖家超200万，但处于$100k–$1M年销且未被传统大代理锁定的腰部卖家渗透难度待验证}
+action_loop: {observe: 过去60天内的FBA库存分类账调整记录、买家退货未入库记录、移除损坏单, judge: 筛选发生时间在15–55天之间、亚马逊系统未自动赔付或按最低估值折算、且卖家持有真实采购成本证据的行项, act: 设想由脚本自动填充SKU、FNSKU、缺失数量、事务ID与采购发票证明，生成合规Case模板，仅描述执行机制, verify: 检查Seller Central Case回复状态及结算报表（Settlement Report）中的Other-Reimbursement贷记入账}
+required_access: {resources: 亚马逊SP-API（Selling Partner API）读取权限或Seller Central报表手动导出CSV、供应商采购发票PDF, availability: Available, authorizer: 亚马逊卖家店主, authorization_status: 未取得, basis: SP-API支持标准的OAuth应用授权，具备明确公开的技术规范}
+defensibility: {basis: 深入亚马逊底层报表字段映射规则库、60天时效动态追踪算法以及反关联防风控的Case提交合规策略, alternatives_and_counterevidence: 现成替代为GETIDA等成熟抽成SaaS（抽20%–25%）或卖家完全不管；最强反证为亚马逊若进一步完善其原生Auto-reimbursement并全额赔付采购成本，将进一步压缩手动申诉空间}
+personal_actionability: {fit: Good, target_customer: 拥有10–100个SKU、月出单数百至数千件但无专职物流财务的FBA品牌卖家, deliverable: 1套60天异常库存自检诊断工具 + 针对未赔付项的逐案结构化Case申报包, customer_entry: 亚马逊卖家社群（Reddit r/FulfillmentByAmazon, 知无不言, 卖家之家论坛）及电商ERP合作伙伴, prerequisites: 熟练掌握Amazon SP-API、FBA Inventory Reconciliation报表逻辑与财务对账准则, basis: 纯API与数据比对工具，无实体交付，交付即可通过实际赔偿立竿见影见效}
+seven_day_experiment: {critical_unknown: 中小卖家是否愿意授权读取或手动上传过去60天库存报表以进行免费差异诊断？, test: 在FBA卖家社群发帖或定向邀请5位腰部卖家，使用Python脚本对其导出的过去60天报表进行离线比对，统计平均能帮其找出多少笔遗漏未申领赔偿, artifact: 1份《FBA 60天遗漏赔偿与采购成本折损真实诊断样例》, time_and_cost_budget: 7天 / 预算$0–$30（纯脚本计算与文档准备）, success_signal: 5位卖家中有至少3位被诊断出存在超过$200的未申领且在60天有效期内的有效坏账, kill_signal: 样本中亚马逊Auto-reimbursement已覆盖99%以上，或卖家根本没有留存采购发票导致无法主张采购成本}

@@ -1,0 +1,30 @@
+﻿Opportunity Runtime Researcher Execution Receipt
+* Task Version: researcher@0.2.2
+* Role Spec Status: reviewed
+* Timezone: Asia/Taipei (UTC+08:00)
+* Execution Cutoff Timestamp: 2026-10-30T17:20:52+08:00
+* Scanned Directory Scope:
+   * Signals Root: https://drive.google.com/drive/folders/1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI
+   * Business Input: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+   * Friction Input: https://drive.google.com/drive/folders/19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo
+   * Market Input: https://drive.google.com/drive/folders/12UTQ8sbPG0Ryv3mA0YB7EtWTjH3Ri0G2
+   * Research Output: https://drive.google.com/drive/folders/1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9
+* Total Discovered Observations: 37 items across input folders
+* Historical Observations Skipped: 33 items (all verified as covered in Research directory)
+* Current Batch Qualified Signals Processed: 4 items
+   1. UW-20261030-AutoTotalLoss-CCCONE-ValuationRebuttalPacket -> HYPOTHESIS_READY
+   2. UW-20261030-Subcontractor-20DayPrelimNotice-LienRightsPacket -> HYPOTHESIS_READY
+   3. UW-20261030-PropertyTax-SmallCommercial-AssessmentAppealPacket -> HYPOTHESIS_READY
+   4. Business-20261029-googleplay-agentic-purchases-billing-toll -> HYPOTHESIS_READY
+* New Research Artifacts Created & Verified:
+   * Research-UW-20261030-AutoTotalLoss-CCCONE-ValuationRebuttalPacket.md
+   * Research-UW-20261030-Subcontractor-20DayPrelimNotice-LienRightsPacket.md
+   * Research-UW-20261030-PropertyTax-SmallCommercial-AssessmentAppealPacket.md
+   * Research-Business-20261029-googleplay-agentic-purchases-billing-toll.md
+* Waiting / Pending Recovery: None
+* History Conflict / Verification Items: None
+* Excluded Items & Reasons:
+   * Amazon DevOps Guru deprecation: Tracked in Watch list, internal cloud consolidation without immediate third-party SaaS entry window.
+   * Cloudflare unified observability: Tracked in Watch list, public pricing takes effect December 1, 2026.
+   * Realgy Energy Services commercial utility rate adjustments: Excluded (heavy physical energy asset, utility tariff).
+* Queue Status: NO_PENDING_SIGNALS

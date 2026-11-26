@@ -1,0 +1,87 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261116-AutoFinance-EarlyPayoff-GAPUnearnedPremiumClawback
+* Source Signal References:
+   * Signal ID: UW-20261116-AutoFinance-EarlyPayoff-GAPUnearnedPremiumClawback
+   * Generated At: 2026-11-16T00:56:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: UW-20261116-AutoFinance-EarlyPayoff-GAPUnearnedPremiumClawback.md
+   * Source File Modified At: 2026-11-16T00:59:10+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+1. 未到期保费信托原则与多州刚性立法：全美超过 80% 贷款购车人在经销商处被捆绑购买单价 $500–$1,000 的 GAP 差额保单。当车主因提前还清、置换（Trade-in）或转贷结清车贷时，承保风险终止。全美保险法公认的"未到期保费信托原则"（Unearned Premium Doctrine）以及加州民法典 § 2982.12（强制 60 个工作日内退款、禁止扣取消手续费）、科罗拉多州 C.R.S. § 5-9.3-106（强制 30 天内退款）均赋予车主按日历比例全额追索退款的法定权利。
+2. 非自动退费黑洞与巨额沉睡资金：放贷银行结清后不主动通知第三方 GAP 承保公司，车商与保司利用信息差故意不主动退还，单笔退款通常在 $300–$750 之间。全美每年沉睡未认领退费达数十亿美元。车主致电银行被推给车商，致电车商被拖延数月，面对繁琐的纸质证明与冷脸，大量车主被迫放弃。
+3. AI 自动化多模态解析破局点：车主只需手机拍照上传购车分期合同（RISC）与银行 $0 结清证明（Payoff Letter），多模态模型即可在 15 秒内提取合同日、结清日、原 GAP 费、保单号与保司合规邮箱，按州法公式精确测算应退金额，自动组装引用州保险法典的正式取消催告函与标准退费申请包。
+Unknown
+在提前结清或置换车贷的工薪车主中，通过社交媒体或汽车售后垂直渠道投放时，对于"预付 $19–$29 买断退费公函包"与"支票到账后抽取 10% 分成"两种变现模式的转化率对比。
+Decision-Critical Unknown
+对于拥有车贷提前结清证明的车主，一款"微信/网页端拍照上传两张单据，0 人际摩擦、全自动生成向保司/车商追讨 $300–$750 支票的合规公函包"的小程序/Web 工具，其单客获客成本（CAC）是否能控制在 $5–$8 以内。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	真实资金流明确：单笔沉睡退费 $300–$750 真金白银，属于保司与车商依法无权占有的未到期保费；消费者付费意愿明确（花 $19–$29 或 10% 分成换取几百美元支票净回流）。
+	Mechanism
+	通过 (PASS)
+	法律要件与精算逻辑 100% 确定：未到期保费信托原则 + 州保险法刚性时限（加州 60 天、科州 30 天）。传统痛点在于信息不对称与人工写信交涉成本；AI 将合同 OCR、退款公式测算与法定公文生成边际成本降至美分级，逆转不经济劳动。
+	Persistence
+	通过 (PASS)
+	结构性持久存在：全美汽车分期贷款规模庞大，借款人提前结清与置换新车是常态化金融行为；银行与第三方保司之间的系统孤岛与利益动机（拖延退费形成无息浮存金）是制度性现实，不会短期自动消失。
+	Capture
+	通过 (PASS)
+	极佳的轻资产契合度：纯前端/无服务器架构（OCR 识别 + PDF 生成 + 邮件直发），不承担资金托管责任，零线下门店、零实体库存，1–2 人团队即可运营。
+	3. Evidence & Counter Evidence
+Supporting Evidence
+1. GAP Refund 2026 行业实务指南（2026-01-24）：GAP Refund: Complete Early Payoff Guide —— 确认未到期保费原则、非自动退款机制，详述 72 个月贷款第 30 个月结清时 $800 保费对应 $466.67 退款的精算法则。
+2. 各州 GAP 退费刚性时效法律汇总（2026-11-08）：GAP Insurance Refunds: State Timelines —— 确认加州民法典 § 2982.12（60 天工作日）、科州 C.R.S. § 5-9.3-106（30 天）等州法强制时限与行政投诉救济路径。
+3. Coverage Classroom 投保与退保实务报告（2026-07-14）：Coverage Classroom: GAP Insurance Car Loan Guide —— 证实提前还贷后保司绝不主动退款，必须由消费者出具结清证明与书面注销函方可激活退款。
+Counter Evidence
+1. 若车主在贷款期间曾发生过整车全损理赔，保单价值已全额耗尽，不可退费。
+2. 部分保守州允许在首月后扣除 $25–$50 行政注销费（需算法依州法精准扣除）。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 全部通过，法律依据、精算公式、证据链与商业捕获路径完全闭环。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 随着车贷提前结清率维持高位，基于多模态 OCR 的小微消费者金融权益自动化追讨工具具备极强的民生传播力与高毛利变现空间。
+* What became less likely: 汽车金融放贷机构会自愿建立跨机构自动化退费联网系统。
+* What did we rule out: 排除了车商有权扣除高额罚金吞没未到期保费的合法性（各州立法已明确禁止）。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-16T17:09:14+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+Title: 车贷提前还清 GAP 未到期保费自动化测算与法定退款申索套件 (GAP Unearned Premium Clawback Agent)
+Source Signal References
+* Signal ID: UW-20261116-AutoFinance-EarlyPayoff-GAPUnearnedPremiumClawback
+* Generated At: 2026-11-16T00:56:00+08:00
+* Task Version: uneconomic-work@0.1
+* Source File URL: UW-20261116-AutoFinance-EarlyPayoff-GAPUnearnedPremiumClawback.md
+* Source File Modified At: 2026-11-16T00:59:10+08:00
+Money
+全美每年因提前还清、置换新车或转贷结清的数百万车主，单案对应 $300–$750 沉睡未到期 GAP 保费。车主愿支付 $19–$29 买断退费公函包或承诺到账后支付 10% 分成。
+Mechanism
+多模态 LLM 自动解析购车分期合同与银行 $0 结清证明，提取关键参数，依州法 Pro-Rata 规则测算退费金额，一键生成符合州保险法典的正式取消催告函与保司标准退款表格，直发保司合规邮箱或生成挂号信面单。
+Capture
+1–2 人团队构建轻量 Web/H5 工具，接入 OCR 与邮件接口，纯软交付、零垫资风险、高毛利。
+Durability
+车贷分期与提前结清是长期经济常态，信息孤岛与非自动退款机制属于制度性滞后，工具生命周期可持续 5–10 年以上。
+Evidence
+1. GAP Refund 深度指南（2026-01-24）
+2. 各州刚性退费时效法规（2026-11-08）
+3. Coverage Classroom 实务报告（2026-07-14）
+Counter Evidence
+1. 发生过全损理赔的保单无法退费。
+2. 部分州允许扣除 $25–$50 小额手续费。
+Critical Unknown
+买断制收费（$19–$29）与结果分成制（10%）在车主群体中的实际转化率与裂变系数。
+Falsification
+若联邦或全美主要州立法强制放贷银行必须在结清后 7 天内通过 API 自动向保司发起退款并直退借款人账户，该机会将被消解。
+Next Test
+制作极简 Landing Page 并发布 TikTok/Reddit 视频演示"拍照 15 秒测算出我能从车商那里拿回 $480"，引导用户上传测试单据并收集邮箱意向。
+
+
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-16T17:09:14+08:00
+* Role Spec Status: reviewed

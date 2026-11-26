@@ -1,0 +1,41 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+* Task Version: business-sensor@0.2.1
+* Role Spec Status: reviewed
+* 观察窗口: 2026-10-16 09:01:17 至 2026-10-23 09:01:17 (Asia/Taipei)
+* 已有 Signal 索引/全文: 已核对历史文件 Business-20261014-autodesk-aps-passthrough-billing.md、Business-20261001-whatsapp-service-message-toll.md、Business-20261015-github-agentic-autofix-metered-toll.md、Business-20261014-hubspot-flexible-seats-credits-toll.md 与 Business-20261017-deepseek-flash1017-costcurve-searchtoll.md，本轮已执行跨历史核对与去重
+* 输出逻辑位置: Opportunity Runtime/Signals/Business/
+* 实际输出文件夹 URL: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+待研究 Signal (Qualified Signals)
+Signal ID: Business-20261023-vercel-deployment-storage-toll
+* Type: Business
+* What Changed: 2026年10月23日，Vercel 官方正式全面执行存量 Pro 团队的部署生命周期清理策略并落地工件存储计量计费。核心结构性变更为：此前 Vercel Pro 订阅默认无限期或长期免费保留构建版本（预发布环境 Pre-Production 默认保留 180 天，生产环境 Production 默认保留 1 年）；新规下，系统强制将默认保留窗口压缩至 30 天，自 2026年10月23日 起，所有超过 30 天的历史部署工件若未主动配置豁免将自动执行物理清除（访问返回 410 状态码，且彻底丧失一键回滚能力）。同时，Vercel 正式向所有存量 Pro 团队启动"部署存储"（Deployment Storage）与"函数存储"（Functions Storage）单独计量收费，公开费率为 $0.10 / GB-月（超出部分按日均用量计入月度账单）。此变更属于 New Toll Booth（对过往免费附带在 $20/月 席位内的构建产物与无服务器函数包设置必经计量收费站）与 Budget Migration（前端与全栈开发运维预算从固定席位费，强制迁移为构建体积、工件保留时长与存储架构优化预算）。
+* Money: 涉及全球使用 Vercel Pro 进行现代 Web（Next.js / SvelteKit / Nuxt）全栈研发的数百万开发团队直接云托管预算。此前团队无论每日推流构建多少次，均无构建存储边际成本；新模式下，构建产物按 $0.10/GB-月 线性计费。以一个采用 AI 编程智能体（如 Claude Code / Cursor / v0）日均产生 40 次提交部署的高频团队为例，单次构建产物约 120MB，若维持过往 180 天保留期，累计沉淀存储将达 864 GB，仅构建存储单项每月即新增 $86.40 支出，超过团队单个 Pro 席位费（$20/月）的 4 倍；促使企业与团队必须主动清理历史工件或加购存储配额。
+* Evidence:
+   1. Vercel 官方更新日志《Deployment Storage billing begins for existing Pro teams》（发布日期：2026-10-09，清理生效截止日：2026-10-23）：官方明确宣布面向全体存量 Pro 团队启动计费，"Deployment Storage and Functions Storage billing will begin for all Pro teams at $0.10 per GB-month"；并强制设定清除动作，"Deployments older than 30 days will be deleted starting October 23, unless you opt out in your retention settings before then"。
+   2. Vercel 官方架构与定价文档《Deployment Storage》与《Deployment Retention》：官方规定了 $0.10/GB-month 的标价标准，详述了 Pro 团队历史默认规则（Canceled 30天、Errored 90天、Pre-Production 180天、Production 1年）被压缩为 30 天的规则，以及失效后 410 Gone 与仅限 30 天恢复窗口的技术细节。
+   3. 工程实践与财务测算独立报告《Vercel storage billing and 30-day retention: what Pro teams should check before Oct 23》（作者：Dave Kurian，发布日期：2026-10-10）与《Vercel Deployment Retention Policy: What Oct 23 Deletes》（作者：Umesh Malik，发布日期：2026-10-10）：系统测算了高频 CI/CD 和智能体并发提交对 Vercel 存储账单的冲击，指出在保留旧策略下存储费将达每团队每月数十至上百美元，分析了生产回滚链断裂风险与针对大体积 Function bundle 的剥离迫切性。
+* Mechanism:
+   1. 从"免费无限打包"到"沉没工件计量收费"（事实）：现代前端编译产物（包含 node_modules 缓存、静态资源副本、Serverless 函数镜像）体积急剧膨胀。伴随 AI 编程助手催生的爆炸性构建频率，Vercel 无法再由平台利润补贴存储开销，顺势建立 $0.10/GB-月的收费卡点（New Toll Booth）。
+   2. 即时回滚便利性与存储持有成本的强绑定（事实/推断）：Vercel 核心竞争力之一是即时秒级回滚（Instant Rollback）。新规下，一旦部署被清除即丧失回滚能力，迫使重视高可用生产安全的企业不能直接选择 30 天清除，必须在持续支付高价存储费或自建归档之间做出抉择。
+   3. 小团队轻资产进入节点（推断）：
+      * 构建产物瘦身与冷备归档中继器（Vercel Bundle Shrinker & Cold Archiver）：在 GitHub Actions 或部署流水线中自动剥离冗余 source map、未引用依赖与大体积静态资源，将部署体积压减 50%–70%；并将超过 30 天的构建快照自动化备份至超低成本或零出网费的对象存储（如 Cloudflare R2 或 AWS S3 Glacier $0.004/GB），在遭遇紧急故障时支持通过 API 一键重填至 Vercel，既规避 Vercel $0.10/GB-月 高价存储税，又保留长周期回滚安全网。
+      * AI Agent 僵尸分支与预览清理机器人（Ghost Preview Sweeper）：针对 AI 智能体提交 PR 产生大量分支预览部署（未合并分支默认永久受保护）导致存储常年居高不下的问题，提供自动化探测死分支并一键批量剔除关联部署的轻量管理插件。
+      * 符合 1–3 人小团队形态：纯 API / Webhook 驱动的轻量 SaaS 或开发者中间件工具，零重资产，零实体交付。
+* Magnitude: Large。依据：Vercel 是全球数百万全栈前端与 Next.js 开发者默认托管基座，部署保留期缩短与存储收费直接重构了全球 Web 开发团队的 CI/CD 习惯与月度基础设施预算结构。
+* Persistence: Persistent。依据：Vercel 已将其固化为官方定价与产品安全基线条款，10月23日开始的系统自动清理属于不可逆的技术执行动作。
+* Next Question: 研发团队在面对存储超额计费时，会普遍选择忍受 30 天后自动清除放弃长周期回滚，还是会加速将静态资源与大体积 Serverless 依赖外移至 Cloudflare 等竞品架构？企业是否急需自动化的跨版本冷备恢复方案？
+* Task Version: business-sensor@0.2.1
+* Generated At: 2026-10-23T09:01:17+08:00
+* Role Spec Status: reviewed
+观察与过滤池 (Watch & Ignore List)
+1. 线索: Atlassian Jira 价格上调生效，并公布 Rovo AI Credits 与自动化步骤超量收费规则（2026-10-16 核实，2026-12-03 生效）
+* 判定: WATCH
+* 原因: 2026-10-16 经官方文档与定价追踪确认（参考 AppStack Insider SaaS Price Tracker），Atlassian 确定将于 2026年12月3日 对 Jira 与 Confluence 超出额度的 Rovo AI Credits（$0.01/点，即 $10/1,000点）及自动化步骤（$0.50/1,000步）强制按量扣费。虽然属于典型的 New Toll Booth，但距离正式计费仍有一个多月缓冲期，目前企业仍处于免费配额内测试与规则评估阶段。
+* 等待证据: 观察 12 月初正式扣费后，企业 IT 管理员是否普遍发生配额用尽与意外账单争议，以及是否催生工作流压缩与告警去噪外挂工具的采购预算。
+2. 线索: Mercari 调整预付费运费标准价目表（2026-10-19 生效）
+* 判定: IGNORE (快速 Kill)
+* 原因: Mercari 仅对其预付物流快递标签价格进行合作快递商费率调整（参考 Value Added Resource 报告），其平台交易抽成（10% 卖家费及 3.6% 买家保护费）未发生变化。属于重资产实体物流运费波动，不符合小团队轻资产、高毛利的数据/自动化偏好。
+3. 线索: 欧洲航司 Ryanair 预警 2027 年航线票价将上调最高 20%（2026-10-20 公布）
+* 判定: IGNORE (快速 Kill)
+* 原因: 属于重资产实体航空交通受航油价格驱动的远期宏观票价预期传导，依赖极重的实体飞机机队和线下航空运营，小团队无法轻资产切入。

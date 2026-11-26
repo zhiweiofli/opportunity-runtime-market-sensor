@@ -1,0 +1,56 @@
+﻿signal_id: UW-20261030-Subcontractor-20DayPrelimNotice-LienRightsPacket
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年10月核实（Construction CFO 2026-08指南、Levelset及Reddit r/Contractor 2026-10讨论），全美各州（以加州Civil Code §8200/§8216、德州Property Code 53章、佛罗里达州713章为代表）持续强制执行严苛的“开工20–30天初步通知”（20-Day Preliminary Notice）法定义务。法律硬性规定：分包商或材料供应商若未在首次提供劳务或材料后20天内通过挂号信（Certified Mail with Return Receipt）向业主、直接总包（GC）及贷款银行送达符合法定字体与免责格式的预先通知，即永久丧失工程款机械留置权（Mechanics Lien Rights）；在加州，合同金额超$400未发通知甚至属于违规行为。
+money: 涉及全美建筑装饰、机电安装、暖通制冷、管道消防、油漆防水等数十万家专业分包商（Trade Subcontractors）每年数千亿美元的腰尾部小额工程款流水（单笔发票通常在$1,500–$10,000）。行业数据显示，分包商在$10,000以下的小项目中，跳过/放弃发送初步通知的比例超过70%–80%。当总包（GC）在60–90天后发生拖欠、挪用资金或破产时，分包商因欠缺前置通知而丧失留置权核武器，被迫全额计提坏账冲销（单次直接损失$2,000–$8,000）。
+evidence:
+  - id: E1
+    source: https://constructioncfo.net/construction-protect-lien-rights
+    source_date: '2026-08-06'
+    accessed_at: '2026-10-30T01:25:00+08:00'
+    fact: 详述分包商留置权丢失的制度性根源：1）大多数分包商未在每个项目上发送初步通知，通常在60天GC拖欠付款时才想起，但此时20–30天法定窗口早已关闭，留置权永久灭失；2）各州法律割裂且极其挑剔；3）分包商错误依赖与总包的熟人关系，误以为发通知显得敌对，但实质上无通知等同于在裸奔。局限：为建筑财务咨询公司科普，侧重管理规范。
+  - id: E2
+    source: https://www.levelset.com/blog/california-20-day-preliminary-notice/
+    source_date: '2019-04-30'
+    accessed_at: '2026-10-30T01:26:00+08:00'
+    fact: 证实加州初步通知的法定刚性与成本门槛：根据加州民法典§8216，工程金额超过$400未发预通知属于执照纪律处分范畴；但分包商普遍选择性发送，核心原因在于“小额项目发送通知的成本与复杂性不划算（costs and complications may not be worth it if the job value is too low）”；法律要求必须用10磅加粗字体、准确列明业主/总包/贷款行，并保留送达回执宣誓书。局限：基础法规解释偏早期，但核心法条与行为逻辑在2026年依然有效。
+  - id: E3
+    source: https://www.reddit.com/r/Contractor/comments/1xcsgau/customer_disputing_fixedprice_contract_what_would/
+    source_date: '2026-10-22'
+    accessed_at: '2026-10-30T01:28:00+08:00'
+    fact: 2026年10月下旬承包商社区高频争议印证：分包商因遭遇$2,000–$12,000工程款恶意拒付而发帖求助，同行资深承包商普遍告诫“必须严格按当地法条、准确拉取地契登记处产权描述、并在法定严格窗口内送达每位利益相关方，慢一天就彻底丧失强制执行力”。局限：来自具体承包商纠纷个案。
+mechanism: 事实：法律要求必须在开工20天内完成向三方（业主、总包、贷款银行）发送严格格式的挂号信并归档回执，第三方外包平台（如Levelset、SunRay）单份通知收费$30–$50，加上三方挂号信邮资（每封$8–$12）合计单案硬性成本达$60–$85，且需人工在县档案局/GIS系统花费30–45分钟核实地块法定业主（APN/Deed Owner）与借贷机构（E1, E2）。推断：面对单笔仅$2,000–$5,000的小型翻新、修缮或快工订单，分包商若对每张单子都花$75和近1小时精力去背调发函，在“算不过账”与“担心得罪总包”的双重顾虑下选择放弃；利用多模态LLM解析分包合同/派工单与报价单，结合县级GIS/税务公开数据库自动反查地块法定业主、出票总包与在记抵押贷款行，自动生成带10磅加粗法定声明的标准Notice，并通过云端邮政API（如Lob/Postalytics）批量完成USPS Certified Mail挂号寄送与电子送达证明归档，将单案综合合规与邮寄成本从$75压缩至$10–$15，使分包商首次有能力对每一笔数千美元的小单实现100%全覆盖法定留置权锁定。
+persistence: Structural
+next_question: 在月承接5–20个单笔合同金额在$1,500–$10,000之间的小型独立分包商（如水电、暖通、泥瓦）中，愿意按每单$15–$20的外包全托管价格为所有项目自动生成并代发法警挂号预通知的意愿比例有多高？
+task_version: uneconomic-work@0.1
+generated_at: '2026-10-30T01:30:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work: {task: 小型建筑专业分包商在每个工程开工20天内，核查施工地块真实产权人与贷款银行、起草符合州法格式的初步留置通知书（20-Day Preliminary Notice），并通过USPS挂号信向业主和总包送达并归档证明, structure: 微价值×海量 / 昂贵信息获取 / 对抗交互 / 规则遵从, abandoned_value: 全美分包商因未发预通知而在总包拖欠时永久丧失留置权并直接冲销为坏账的每年数十亿美元小额工程款（单案$1,500–$8,000）（E1, E2）, human_failure_reason: 传统人工去县不动产网站查产权耗时45分钟，商业代发服务单次收费高达$60–$85，对于$2,000–$5,000的小订单单次固定成本占比过高，分包商认定“不值得做”而普遍裸奔（E1, E2）}
+ai_unlock: {changed_cost: 将单案工程地址的法定产权人查验、贷款行匹配、符合各州严苛格式的法律文书组装以及挂号邮寄证明归档的综合人工与外包成本从$75降至$10以内, capability_basis: 施工合同/发票PDF多模态字段抽取 + 县级GIS/地籍房产公开API反查引擎 + 各州留置权法定义务模板库 + 云端挂号信API（Lob等）直连（E2, E3）, limitations: 1）若施工地址为大型综合商业体或未分割地块，自动匹配APN产权人可能出现歧义，需人工核验；2）部分州对公立市政工程要求特定的付款保函（Payment Bond）索要通知格式，与私人物业留置权通知有所区别}
+unit_economics:
+  unit: 1个小型建筑工程项目（合同额$1,500–$10,000）的法定义务业主查验、20天初步通知自动排版、挂号信电子寄送与送达证明归档
+  currency: USD
+  region_and_date: 美国市场（加州、德州、佛州等主流留置权严格州） / 2026年10月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖项目地址地籍API查询、多模态发票解析、法定格式PDF生成、USPS Certified Mail挂号信物理打印与寄送通道费（API批发价约$6–$8/封）及电子回执跟踪；人工基准为传统代办机构收费（$50服务费+$25邮费=$75）或分包商自办1小时工时
+  excluded_or_unknown_costs: 若发生总包拒收退信时的二次地址确认成本、分包商后续真正需要执行留置权登记（Record Lien）时的县登记处法定规费（通常$40–$100）、获客成本（CAC）尚未量化
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1与E2直接证实了加州等州$400门槛的法定义务及小项目因$75成本和麻烦被系统性放弃（“may not be worth it”），通过API与自动化将重资产人工查地籍与发信边际成本压缩至十几美元的机制完全成立，判定为Plausible；因缺乏全美小分包商因补发预通知而成功全额回款的同口径坏账挽回率，数值严格置为null
+value_capture: {beneficiary: 全美数十万雇员在1–15人之间、高频承接分散小额商业与民用工程的独立专业分包商（水暖电工、瓦工、木工、油漆工）（E1, E2）, payer: 分包商老板（Subcontractor Owner）或专职记账/办公室文秘, payment_evidence: 市场上大型平台Levelset对单次发函标价$50（E2），企业级Procore需数万美元年费，针对小分包商按单平价自动化发函模式属待验证假设, capture_node: 提供“输入项目地址+上传GC报价单照片/发票 → 30秒自动匹配法定业主与地块号 → 一键通过USPS寄出带防伪跟踪的Certified Mail并把送达证明存入云端备忘录”, pricing_hypothesis: 假设采用“单次全包发函$19（包含邮资与产权核查）”或“月包$49包含3–5个工程全套通知”；标记为待验证商业假设, customer_net_benefit: 分包商以每单不足$20的微小成本，彻底消除$2,000–$8,000坏账永久灭失的致命风险，让总包付款顺畅度大幅前置}
+scale: {aggregation_unit: 分包商每次新开工进场后的第1–15天黄金合规准备期, repeatability: 留置权法与预通知格式按州高度标准化（全美50州均有明确法条模板），一旦建立州级规则库可在各工种间无限次批量复用, reachable_volume: null, basis: 全美有超过100万家小型专业施工队伍，但小工匠信息化工具接受度与获客渠道分散}
+action_loop: {observe: 分包商签单的简易施工合同、派工单（Work Order）或材料采购发票中的施工物理地址与总包信息, judge: 提取施工地址并在县地籍库中检验是否为已登记APN地块，比对州留置权法定义务时限（如进场20天内），判断需送达的具体三方主体清单, act: 设想调用自动化系统排版标准Notice并驱动云端邮政API执行挂号信邮寄，仅描述执行机制, verify: 检查USPS追踪号签收记录及县不动产系统留存的Proof of Service电子宣誓书}
+required_access: {resources: 施工合同或发票照片、县级Property Assessor地籍查询公开接口、云端邮政打印与寄送API通道（如Lob）, availability: Available, authorizer: 分包商负责人, authorization_status: 未取得, basis: 地籍数据为公开政府记录，合同由客户自愿提供，邮政为标准商业API，无排他门槛}
+defensibility: {basis: 深入掌握全美各州对于预通知细致到字体磅数、措辞、送达时限与豁免条件的结构化规则库，以及与低成本挂号信交付履约链路的闭环打通, alternatives_and_counterevidence: 现成替代为Levelset等大平台（收费高昂）或完全不发预通知；最强反证为如果总包因收到业主质询而对发通知的分包商产生主观反感并在后续项目中减少派活，可能对分包商心理构成阻碍}
+personal_actionability: {fit: Good, target_customer: 经常遇到总包拖延结款、但嫌发通知太贵太麻烦的独立水暖电、空调暖通与家装分包队, deliverable: 1份全套合规的20-Day Preliminary Notice PDF + USPS Certified Mail寄送跟踪单与电子送达证明, customer_entry: 承包商交流社区（Reddit r/Contractor, ContractorTalk论坛）及建筑五金/建材批发零售店（Home Depot/Ferguson柜台合作宣传）, prerequisites: 掌握加州、德州等核心州Mechanics Lien Laws法定文本格式与送达要求, basis: 纯数据抓取、文档排版与第三方API邮政寄送，无重资产，交付即清算}
+seven_day_experiment: {critical_unknown: 小型分包商是否愿意在开工时花$15–$20为一个小工程委托自动发送挂号预先通知？, test: 访谈5位本地或论坛上的独立分包商，索取其正在进行的2个小项目地址，免费帮其拉取真实地契业主并生成全套正式通知书及模拟邮政单，观察其对自动代发的付费意愿, artifact: 1份《小型分包商20天留置权预通知合规与自动邮寄测试样本》, time_and_cost_budget: 7天 / 预算$50以内（用于测试寄送2–3封真实USPS Certified Mail）, success_signal: 至少有2位分包商在看到几秒钟内精准查出房东名字和正规加粗函件后，明确表示愿意为后续工程按单付费代发, kill_signal: 分包商普遍坚决表示“哪怕亏钱也绝不敢给房东发任何带有法律字眼的信件，否则总包立刻拉黑我”}

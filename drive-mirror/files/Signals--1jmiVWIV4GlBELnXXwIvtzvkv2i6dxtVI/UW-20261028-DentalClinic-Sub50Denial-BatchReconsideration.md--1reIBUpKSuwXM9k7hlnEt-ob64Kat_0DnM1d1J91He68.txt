@@ -1,0 +1,61 @@
+﻿signal_id: UW-20261028-DentalClinic-Sub50Denial-BatchReconsideration
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年10月核实（Salyx Healthcare 2026-10-16行业报告、KeyMed Partners与Zeldent 2026-05实务分析），全美独立门诊诊所与牙科诊所（Dental Practices & Outpatient Clinics）普遍在应收账款（AR）管理中执行明确的“小额呆账核销政策”（Small Balance Write-off Policy）：绝大多数诊所将$50以下（甚至90天以上$100以下）的保险拒付（Denials）或欠付（Underpayments，如少付$6–$22合同价差、因漏填Modifier 25/59或缺附X光片被拒）直接标记为呆账核销。
+money: Salyx RCM披露，一家普通门诊平均每周产生约80笔小额异常账单（平均每笔$28），因无人跟进被直接冲销，单店每年因此蒸发的合法收入超$116,000；而全美拥有超过20万家独立牙科与专科诊所，行业估算因小额拒付流失的规模达数十亿美元。在传统人工账单员每小时$20–$30成本下，单案申诉期望得不偿失，在保司60–90天申诉期过后永久沉没。
+evidence:
+  - id: E1
+    source: https://salyxrcm.com/blog/small-balance-claims-write-offs/
+    source_date: '2026-10-16'
+    accessed_at: '2026-10-28T01:10:00+08:00'
+    fact: 详述医疗门诊小额账单被放弃的核心机制：门诊平均每周产生约80笔小额异常账单（平均$28），年流失达$116,000；账单员面对$30账单打电话排队25分钟感觉是“赔本买卖”，AR团队按金额从高到低排序导致$50以下账单永远排在最后并最终过期核销；多数诊所书面规定核销$50以下小额。局限：为RCM机构行业经验总结与测算模型，未给出各专科细分胜诉率矩阵。
+  - id: E2
+    source: https://www.teero.com/blog/dental-copay-collection
+    source_date: '2025-09-23'
+    accessed_at: '2026-10-28T01:12:00+08:00'
+    fact: 披露牙科诊所小额呆账核销阈值与管理成本：一笔$40的欠款若进入人工催收和跟踪流程，综合成本极易超过$80；到90天账期后，催收工时与系统管理成本过高，绝大多数牙科诊所直接将$100以下的未收余额全额核销。局限：侧重患者自付部分与保险混合账单，未单列商业纯保险拒付分项。
+  - id: E3
+    source: https://www.zeldent.com/blog/real-cost-of-dental-claim-denials-2026
+    source_date: '2026-05-30'
+    accessed_at: '2026-10-28T01:15:00+08:00'
+    fact: 2026年牙科理赔拒付实务指南指出：超过90天且金额较小的拒付，因消耗同等人力导致投入产出失衡，通常被直接分流核销；绝大多数可追回拒付需在60–90天内完成申诉，超过120天的拒付每收回1美元所耗费的员工时间已得不偿失。局限：仅读取到长摘要与核心原则。
+  - id: E4
+    source: https://keymedpartners.com/services/insurance-ar-follow-up
+    source_date: null
+    accessed_at: '2026-10-28T01:18:00+08:00'
+    fact: 证实低金额高频次（Low-Dollar, High-Volume）AR现状：大多数团队将小额账单视作“不值得追回（not worth chasing）”而直接写销，保司电话排队45分钟常被拖延至明日并最终超时失效；但这些被放弃的小额在聚合后具备巨大真实价值。局限：为专业AR追讨机构宣传资料。
+mechanism: 事实：传统人工账单员面对单笔$20–$38的小额拒付，若要打电话给商业保司（Delta Dental, Cigna, BCBS等）排队等待通常需25–45分钟，或逐单在保司门户填写Reconsideration表单，人工成本（每小时$20–$30+管理分摊）直接超过单笔可收回价值（"sitting on hold for 25 minutes on a $30 claim feels like a losing trade"）；因此AR团队只能按账单金额自上而下排序，小额账单被无限期推迟，直至超过商业保司严苛的60–90天申诉时限或CMS 12个月时效而彻底失效（E1, E3, E4）。推断：绝大多数小额拒付并非孤立个案，而是集中于少数几类重复性规则（如特定CARC代码：漏附支持文档、修饰符错漏、特定代码欠付）。通过EDI 835 ERA电子汇款单确定性解析，将小额拒付按“保司+CARC原因代码+CPT/CDT代码”自动聚类（把20笔$35的孤立小问题聚合成一个$700的批次问题），由LLM自动检索EHR病历提取对应修饰符/影像依据，一键生成批量申诉数据包并对接票据交换所（Clearinghouse）批量提交或保司门户批量批处理，将单笔申诉的人工工时从25–45分钟压缩至美分级自动化处理。与既有NSA IDR网络外大额争议（UW-20261026-NSA-IDROutOfNetworkSmallClaimBatching）不同，本机会聚焦常规网络内门诊与牙科日常高频小额拒付与欠付。
+persistence: Structural
+next_question: 在使用Dentrix/Eaglesoft等主流牙科管理系统的独立诊所中，单店每月因CARC代码明确（如缺X光片、修饰符漏填）且在60天法定申诉期内的小额拒付总金额与平均笔数是多少？
+task_version: uneconomic-work@0.1
+generated_at: '2026-10-28T01:30:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work: {task: 独立门诊与牙科诊所账单人员在60–90天申诉窗口内，核查单笔$50以下被拒付或欠付的保险账单，调取EHR病历/影像凭证，向商业保司提交再核议（Reconsideration）申诉, structure: 微价值×海量 / 厌恶工作 / 昂贵信息获取 / 对抗交互, abandoned_value: 单店每年超过$116,000的合法应收账款（平均每周80笔×$28），因单笔金额小、电话等待时间长被诊所书面政策直接核销（E1, E2）, human_failure_reason: 人工账单员面对单笔$30账单打电话排队25–45分钟得不偿失，AR团队自上而下处理大单，小额账单被无限期推迟至时效过期（E1, E4）}
+ai_unlock: {changed_cost: 将原本每笔需耗费25–45分钟人工电话/网页填单的申诉工时，通过EDI 835自动聚合与LLM病历凭证匹配压缩至零边际成本的批量生成, capability_basis: 835 ERA标准化CARC/RARC代码解析引擎 + 多模态EHR/病历放射影像文档抽取 + 批量申诉函与清算所重申（Resubmission）接口, limitations: 1）若患者在就诊当日确实断保（Eligibility失效），申诉无法收回；2）部分保司要求严格的网页图形验证码或专有人工IVR电话，需配合自动化网关或小额半自动转接}
+unit_economics:
+  unit: 1个独立门诊/牙科诊所单月批次的小额拒付（< $50）同类项自动聚类、凭证抽取与批量申诉数据包生成
+  currency: USD
+  region_and_date: 美国市场 / 2026年10月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖835 EDI账单文件解析、CARC代码聚类、EHR文档多模态提取匹配、批量申诉文本生成及清算所批量提交分摊；人工基准为账单员处理单笔小额25–45分钟工时成本（$15–$25/笔）
+  excluded_or_unknown_costs: 诊所PMS系统（如Dentrix/Epic）API对接授权费、保司拒绝批量处理时的二次人工介入成本、获客成本（CAC）尚未量化
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1与E2给出了确凿的$50以下核销政策与每周80笔×$28=$2,240的被放弃价值基准，E1指明了“将20笔$35聚合成1个$700批次问题”的机制翻转路径，机制充分支持Plausible；因缺乏全美同口径下小额批量申诉的实际回款率统计，严格将数值置为null，不虚构测算
+value_capture: {beneficiary: 全美20万+独立牙科诊所、专科门诊、初级保健诊所及中小型第三方医疗账单RCM公司（E1, E2）, payer: 诊所主管合伙人、诊所财务经理或按回款比例计费的RCM代记账公司, payment_evidence: 传统RCM公司对全套服务抽取回款的5%–9%，针对已核销死账追讨机构抽取30%–40%（E1），针对小额批次挽回服务收费属待验证商业假设, capture_node: 提供“上传每月835 ERA文件或连接PMS → 10分钟自动聚类全部< $50死账并匹配病历凭证 → 导出符合保司规范的批量申诉包/一键重投清算所”, pricing_hypothesis: 假设采用“基础工具订阅$99/月 + 实际挽回小额金额的15%”或纯分成模式20%；标记为待验证商业假设, customer_net_benefit: 诊所无需增加账单员编制，每年从原计划核销的垃圾桶中净捡回数万至十万美元现金流}
+scale: {aggregation_unit: 诊所每月初结算与AR月度结账对账周期, repeatability: 医疗CARC/RARC代码全美标准化（X12 835/837），不同保司拒付逻辑高度收敛，可在全美各专科批量复制, reachable_volume: null, basis: 全美有数十万家小型诊所与牙科诊所，但各诊所PMS系统数据导出开放度各异}
+action_loop: {observe: 诊所月度835 ERA电子汇款单或PMS应收账款流水中的未结清拒付行项, judge: 筛选金额< $50、账龄< 60天、拒付原因为CARC技术性代码（如漏修饰符、缺文档、欠付）的合格行项, act: 设想由算法自动按保司和原因聚合批次，调取EHR对应病历片段，生成批量再核议申诉包并排版，仅描述执行机制, verify: 检查清算所批处理确认回执及下月835 ERA中对应行项的冲正付款（Adjustment Paid）}
+required_access: {resources: 诊所PMS导出权限（835 ERA文件或账单CSV）、EHR病历只读查看权限、清算所重申或保司门户提交渠道, availability: Unknown, authorizer: 诊所合伙人/合规官, authorization_status: 未取得, basis: 涉及HIPAA合规与PHI数据，必须由诊所签署BAA（商业伙伴协议）后授权}
+defensibility: {basis: CARC/RARC拒付代码与临床病历证据的自动化映射规则库沉淀，以及跨清算所批量重申通道壁垒, alternatives_and_counterevidence: 现成替代为人工全包RCM服务（但小额仍被其员工忽视）或单纯让其沉睡核销；最强反证为保司可能出台限制批量Reconsideration的频次规则}
+personal_actionability: {fit: Good, target_customer: 拥有1–5名全职医生/牙医、每月有大量小额拒付但无多余人手追讨的独立诊所主, deliverable: 一个单月小额拒付自动筛查诊断报告 + 针对排名前三类CARC拒付的批量申诉文书包, customer_entry: 牙科与医疗管理论坛（DentalTown, Reddit r/Dentistry, r/medicalbilling）及本地独立诊所协会, prerequisites: 熟练掌握X12 835 EDI规范、CARC/RARC代码表与HIPAA安全脱敏流程, basis: 纯数据处理与文档生成，零实体库存，极低计算边际成本}
+seven_day_experiment: {critical_unknown: 独立牙科诊所是否愿意提供一份脱敏的835 ERA文件以测试其潜在可追回小额规模？, test: 联络3家熟悉的独立牙科诊所或小型RCM专员，获取一份上个月已核销的835小额拒付样本，测试自动聚类算法能找出多少比例的技术性可申诉项, artifact: 1份《小额拒付聚类诊断与可挽回价值分析报告》示例, time_and_cost_budget: 7天 / 预算$50以内（主要为计算与脱敏工具费用）, success_signal: 样本中至少30%的小额拒付属于技术性可批量申诉代码，且诊所管理者表达强烈的代申诉意愿, kill_signal: 诊所小额拒付90%以上为真实的患者断保或不可抗拒自付，或诊所严禁任何第三方处理该数据}

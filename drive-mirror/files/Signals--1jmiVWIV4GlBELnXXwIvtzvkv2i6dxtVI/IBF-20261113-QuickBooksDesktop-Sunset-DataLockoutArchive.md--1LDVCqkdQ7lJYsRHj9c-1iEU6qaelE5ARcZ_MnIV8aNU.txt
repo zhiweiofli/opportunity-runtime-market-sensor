@@ -1,0 +1,121 @@
+﻿signal_id: IBF-20261113-QuickBooksDesktop-Sunset-DataLockoutArchive
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: Intuit于2024年停售QuickBooks Desktop (QBDT) Pro/Premier新订阅，并将在2027年按用户订阅到期日彻底关停QBDT Pro与Premier；同时QBDT 2021永久版激活服务器已关闭。2026年最新用户报告显示，Intuit正在提前切断此前承诺的“停续费后1年只读访问权限”，要求已到期用户支付$999–$1,200/年续费（或升级至$2,000+/席位/年的Enterprise）才能重新打开自己的历史账套；此外，官方QBO迁移工具在高交易量账户中存在静默丢数问题，且QuickBooks Desktop for Mac账套文件普遍不被Windows系第三方转换器支持。
+money: 涉及北美仍在运行QuickBooks Desktop Pro/Premier/Mac的大量中小企业与独立记账师。QBDT年度续费已涨至$999–$1,200/年，Enterprise每并发席位$2,000+/年；外部迁移至QBO或新ERP报价可达$40,000+；现有第三方桌面归档工具FinJinni Professional单用户买断价高达$1,499（另加每增加1家公司$200、每增加1用户$200），且仍需Windows下运行活跃QuickBooks客户端。
+
+
+evidence:
+  - id: E1
+    source: https://www.reddit.com/r/Accounting/comments/1uk2pos/qb_desktoppremier_dead_2027/
+    source_date: '2026-07-01'
+    accessed_at: '2026-11-13'
+    fact: 会计师确认Intuit销售口径：QB Desktop与Premier将在2027年按各客户订阅周年日彻底终止；Enterprise涨至$2,000+/席位/年；停续费后不再像旧永久版那样可无限期离线读写，数据将被锁死，用户正寻求SaasAnt降级或FinJinni归档。
+  - id: E2
+    source: https://www.reddit.com/r/QuickBooks/comments/1suqxlr/the_most_unethical_business_practices/
+    source_date: '2026-04-24'
+    accessed_at: '2026-11-13'
+    fact: 24年老用户反馈退订QBDT后原本应享有的1年期只读访问被提前切断，客服要求续费$1,200/年才能恢复读取历史账套（注：来自搜索结果长摘要，完整原帖页面访问受限）。
+  - id: E3
+    source: https://www.reddit.com/r/QuickBooks/comments/1vm8ynz/qbo_to_qbdt_migration_issue/
+    source_date: '2026-08-12'
+    accessed_at: '2026-11-13'
+    fact: 社区实操复盘证实Intuit官方迁移工具在高交易量账套下存在硬性交易条数上限并静默跳过数据，迁移后必须按期间、科目与借贷总额逐笔核对试算平衡表（Trial Balance）以防历史账目失真。
+  - id: E4
+    source: https://gypsybi.com/store/
+    source_date: null
+    accessed_at: '2026-11-13'
+    fact: 商业归档软件FinJinni Professional官方商店定价为$1,499.00，每增加1家公司或1名用户各加收$200，技术支持另计$999–$1,499。
+
+
+mechanism: 事实：Intuit通过订阅制转型、关闭老版本激活服务器及收紧只读访问期限，将历史账套锁定在专有`.qbw`/`.qb`格式中；而税务合规通常要求保留6–7年可查验账簿（E1, E2, E3）。推断：大批转向Xero、Zoho Books、FreshBooks或Puzzle的小企业主与兼职记账师，既不愿每年为不使用的软件继续交$1,200“赎金”，也负担不起$1,499的FinJinni或数万美元迁移服务；在退订或系统升级前，急需一个轻量级工具将7年明细总账、试算平衡与往来明细抽离为脱机可检索档案，并自动校验新旧系统期初/期末试算平衡。
+persistence: Structural
+next_question: 在计划于2026–2027年迁出QuickBooks Desktop（含Mac版）的小微企业与独立Bookkeeper中，有多少比例尚未完成7年历史总账独立归档与新系统期初Tie-Out校验？
+task_version: installed-base-friction@0.2
+generated_at: '2026-11-13T17:45:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+
+
+asset:
+  category: 中小企业财务软件与历史账套数据格式
+  brand: Intuit
+  model: QuickBooks Desktop Pro / Premier / Mac (2020–2024+)
+friction:
+  type: 原厂支持退出与只读锁死/迁移丢数不兼容
+  symptom: 订阅到期或macOS/Windows升级后无法打开历史账套（提示只读过期或激活服务器关闭），或迁移至Xero/Zoho/QBO时静默丢数导致试算不平
+installed_base:
+  estimate: 北美数以十万计仍在运行QBDT Pro/Premier/Mac的中小微企业及服务多账套的独立记账师
+  basis: 2026年7月及10月r/Accounting与r/QuickBooks持续存在大量正在制定2027停服前迁出计划的存量用户讨论。
+
+
+current_solution:
+  description: 1) 被迫每年续费$999–$1,200保留QBDT或升级$2,000+/席位Enterprise；2) 购买FinJinni Professional（$1,499）；3) 手工导出零散Excel/PDF报表，缺乏统一检索与自动化Tie-Out核对。
+  oem_part_price: 1200.0
+  technician_repair_price: 1499.0
+  currency: USD
+  basis: QBDT续费引用E2用户报价$1,200/年；第三方桌面归档工具FinJinni Professional官网标价$1,499（E4）。
+alternative:
+  description: 轻量化“QBDT 7年审计归档与跨系统Tie-Out核对包”（通过IIF/报表导出或只读SDK抽取7年GL/TB/AR/AP明细，生成免授权本地SQLite+离线HTML检索档案，并自动比对Xero/Zoho/QBO导出结果生成逐期Tie-Out差异报告）
+  estimated_solution_cost: 99.0
+  currency: USD
+  basis: 单账套一次性买断工具定价假设（待验证）。
+gap:
+  vendor_support: discontinued
+  availability: low
+  competition: medium
+  basis: Intuit明确终止QBDT Pro/Premier；FinJinni（$1,499）与QQube（$450–$1,595）定位于重度Windows企业BI，价格高且未覆盖Mac端导出归档与跨平台迁移Tie-Out自动化核对。
+signals:
+  recurrence: high
+  urgency: high
+  diy_activity: high
+  basis: 2026年4月至10月社区密集出现自建VM沙箱、手动导CSV清单、以及用Python做交易ID确定性对账的DIY方案。
+
+
+assessment:
+  installed_base: {value: high, basis: 北美存量庞大的QBDT Pro/Premier/Mac中小微企业及多客户记账师}
+  friction_rate: {value: high, basis: 2027年按订阅周年日硬切断，且只读期已出现提前锁死案例}
+  failure_cost: {value: high, basis: 续费赎金$1,200+/年，或丧失6–7年税务审计可查验账簿}
+  support_gap: {value: high, basis: 官方强制淘汰桌面版且迁移工具高交易量静默丢数}
+  switching_cost: {value: high, basis: 切换至Xero/Zoho/Puzzle需确保历史余额与多年明细可审计追溯}
+  vendor_repair_speed: {value: low, basis: Intuit战略全面转向高价QBO与Enterprise订阅，无回退激励}
+
+
+repair_leverage:
+  ratio: 15.14
+  baseline_cost: 1499.0
+  solution_cost: 99.0
+  currency: USD
+  scope: 基准成本为FinJinni Professional单用户基础归档买断价$1,499（不含额外公司与$999支持费）；替代方案为轻量归档与Tie-Out工具包$99（未含人工代操作）
+  basis: 1499 / 99 = 15.1414（使用明确来源定价做同功能范围比较）
+opportunity_durability:
+  value: high
+  basis: 2026–2027年为QBDT退市集中窗口期，且税务档案需保留6–7年，离网可查归档与对账需求持续存在。
+
+
+economic_value:
+  level: High
+  payer: 正在撤离QBDT的中小企业主、以及为多名QBDT客户办理迁出的独立记账师/CPA（推测）
+  economic_anchor: QBDT被动续费$999–$1,200/年（E2）、Enterprise $2,000+/席位/年（E1）、FinJinni Professional $1,499买断价（E4）
+  capture_mechanism: 提供免安装本地运行的归档与迁移核对数据包（将即将失活的QBDT账套固化为永久可检索的离线审计数据库+新旧账套逐期核对表），按账套或记账师多账套包收费（推断）
+  repeatability: QBDT（Windows/Mac）导出报表结构与Xero/Zoho/QBO字段高度标准化，解析与对账脚本可在所有迁出客户中批量复用
+  basis: 相较于$1,200/年续费或$1,499重型BI工具，百美元级一次性脱困方案具备极高性价比；限制在于必须在QBDT彻底锁死前完成数据导出
+
+
+personal_actionability:
+  fit: Good
+  route: 开发“QBDT离线7年审计归档与迁移Tie-Out核对工具”
+  target_customer: 2026–2027年准备停订QuickBooks Desktop（Pro/Premier/Mac）并迁往Xero/Zoho/FreshBooks/Puzzle的小企业主与独立Bookkeeper
+  deliverable: 一个本地运行的Python/桌面工具包：读取QBDT导出的Trial Balance、General Ledger、A/R与A/P及IIF/CSV数据，自动打包为带全文搜索与科目钻取的离线SQLite+静态HTML审计档案包，并可导入目标新系统导出文件自动生成《逐期借贷与交易ID Tie-Out核对报告》
+  pricing_hypothesis: $79–$99 单公司买断包；或向独立记账师提供 $299 多公司（10账套）迁移核对包（假设，无已有支付证据）
+  customer_entry: Reddit r/QuickBooks、r/Accounting中讨论2027 QBDT停服、read-only提前锁死及迁移Xero/Zoho的帖主与Bookkeeper社区
+  fit_basis: 纯本地文件解析、SQLite构建与对账计算，零库存、零云端敏感财务数据托管责任、个人开发者可快速构建核心引擎
+  prerequisites: 熟悉QuickBooks Desktop报表导出结构（GL/TB/IIF）及常见目标平台（Xero/Zoho/QBO）对账键匹配逻辑
+  first_test: 编写一个Python原型脚本，读取一组脱敏的QBDT General Ledger与Trial Balance导出CSV及一份目标系统模拟导出，生成带科目钻取的本地HTML+SQLite归档包及逐月借贷差异Tie-Out报告
+  time_budget: 90分钟
+  success_signal: 能在2分钟内生成完整的离线可检索HTML账簿档案，并100%精准标出刻意注入的跨期或丢数差异行
+  kill_signal: 发现目标客户绝大多数已直接接受Intuit自动迁移至QBO且完全不在意历史明细丢失或$1,200续费
+  key_unknown: 已经遭遇QBDT只读锁死但尚未导出CSV/IIF的用户比例有多高（若已完全锁死则纯导出解析脚本无法直接读取加密`.qbw`）

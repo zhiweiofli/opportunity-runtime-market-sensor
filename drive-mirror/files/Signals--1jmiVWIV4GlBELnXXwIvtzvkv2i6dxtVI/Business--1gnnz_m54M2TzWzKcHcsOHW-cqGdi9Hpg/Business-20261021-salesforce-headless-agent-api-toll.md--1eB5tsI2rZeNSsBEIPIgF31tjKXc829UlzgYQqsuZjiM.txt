@@ -1,0 +1,60 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+属性项
+	内容详细说明
+	Task Version
+	business-sensor@0.2.1
+	Role Spec Status
+	reviewed
+	观察窗口
+	2026-10-17 09:10:16 至 2026-10-24 09:10:16 (Asia/Taipei)
+	已有 Signal 索引/全文
+	已核对历史文件 Business-20261014-autodesk-aps-passthrough-billing.md、Business-20261001-whatsapp-service-message-toll.md、Business-20261015-github-agentic-autofix-metered-toll.md、Business-20261014-hubspot-flexible-seats-credits-toll.md、Business-20261017-deepseek-flash1017-costcurve-searchtoll.md 与 Business-20261023-vercel-deployment-storage-toll.md，本轮已执行跨历史核对与去重
+	输出逻辑位置
+	Opportunity Runtime/Signals/Business/
+	实际输出文件夹 URL
+	Google Drive 目录
+	
+
+________________
+
+
+待研究 Signal (Qualified Signals)
+Signal ID: Business-20261021-salesforce-headless-agent-api-toll
+* Type: Business
+* What Changed: 2026年10月21日，针对外部 AI 智能体（如 Claude、ChatGPT 及自研 Agent）调用 Salesforce 接口按次收取 Flex Credits 引发的生态强烈反弹，Salesforce 业务高层正式介入并与核心 ISV 及架构师代表开启定向磋商，推进定于 2026年11月 上线的"Agentic Identity"与"无头平台交互"（Headless Platform Interaction, HPI）计费新规。根据 Salesforce 官方帮助文档（Article 005360285），所有访问生产环境（Active Production Orgs）的外部 AI 智能体必须注册独立的 Agentic Identity 并换用专属 OAuth 凭证（任何使用 Salesforce MCP 服务器的客户及新购 API 客户须在功能上线通知后 3 个月内完成强制注册，存量 API 客户在续约时强制迁移）；注册智能体向 Salesforce 发起的每一次成功调用——无论通过托管 MCP（Model Context Protocol）服务器还是直接调用标准 REST/SOQL API——均被定义为一次 HPI，通过 Digital Wallet 扣减企业的 Flex Credits 额度（传统非智能体的系统间同步集成则维持原有免费配额规则不变）。此变更属于典型的 New Toll Booth（首次按调用方是否为 AI Agent 对底层标准 API 实行按次抽税，在原本已缴纳高额席位费的 CRM 数据接口上设立必经收费卡点）与 Budget Migration（企业 CRM 集成与 AI 预算被迫在"向 Salesforce 缴纳接口过路费"与"采购外部调用压缩/缓存中间件"之间迁移）。
+* Money: 涉及全球超过 15 万家 Salesforce 企业客户的生产环境 AI 集成与 CRM 预算。Salesforce 官方公开价目表中 Flex Credits 基准售价为 $500 / 100,000 Credits（折合 $0.005 / Credit，未用完积分不支持跨期顺延，超额部分按月后付结算）；目前官方费率卡（Customer 360 Platform Rate Card）中单次 HPI 对应的具体消耗乘数（Multiplier）仍标为"TBA"（金额乘数尚未公布，官方承诺在正式启动扣费前至少提前 30 天公布具体乘数）。由于沙盒（Sandbox）、Scratch Orgs 与开发者环境免收 HPI 费用，企业在试点阶段感知不到成本，但一旦进入生产环境，智能体完成单次业务结果（如会议准备、工单总结）通常需执行 Schema 探测、多表查询、关联验证等 5–20 次高频 API/MCP 往返调用，导致企业在已向 Anthropic / OpenAI 支付模型 Token 账单之外，面临第二重平台接口过路账单（Double Billing）。
+* Evidence:
+   1. Salesforce 官方帮助文档（Knowledge Article 005360285）《Understand AIforce Impact》（发布日期：2026-09-17，目标执行期：2026年11月）：官方正式定义"Every successful call a registered agent makes to Salesforce—whether it arrives over Model Context Protocol (MCP) or direct API—is metered as a Headless Platform Interaction (HPI) and tracked through Digital Wallet"；明确规定仅生产环境计费、沙盒免计费、传统非智能体集成维持现行定价不变、MCP 客户须在通知后 3 个月内完成强制注册、单次乘数目前为 TBA 且扣费前提供 30 天通知期。
+   2. Salesforce Ben 生态追踪报道《Salesforce Opens Talks With Partners Over AI Agent Billing Concerns》（作者：Sasha Semjonova，发布日期：2026-10-21）及《Is Salesforce AI Pricing Encouraging Bad Architecture?》（作者：Thomas Morgan & Tim Combridge，发布日期：2026-10-07）：证实截至 2026-10-21，因按次向 MCP 与直连 API 收取 Flex Credits 引发 ISV 与企业客户对 CFO 预算不可控及双重计费（Double Billing）的强烈担忧，Salesforce 高层已介入磋商；同时揭示了该计费机制正直接倒逼企业架构师通过"将多次动作合并为单次调用（combining multiple actions into one）"或建立外部旁路副本以规避按次计费。
+   3. Vantage Point 金融监管行业架构指南《Salesforce Will Meter Agentic MCP and API Calls: What to Do Now》（作者：David Cockrum，更新日期：2026-10-10）：核实了 Flex Credits 公开基准定价（$500 / 100,000 Credits，过期作废、超额月结），指出银行、保险与财富管理机构因沙盒免费而在生产上线时面临成本突袭（Cost shows up at go-live, not in the pilot），必须优先完成"智能体与传统集成账号剥离"及"每业务结果调用次数（Calls per outcome）基线测算"。
+* Mechanism:
+   1. API 鉴权身份与商业计费的强行绑定（事实）：Salesforce 利用企业对"AI 权限最小化与安全审计"的合规刚需，推出 Agentic Identity 独立数字身份；一旦企业将智能体从普通共享集成账号拆出并换用 Agent OAuth 凭证，该通道下的所有 MCP 与直连 API 流量即自动落入 Digital Wallet 计费表，安全治理由此转化为必经收费站（New Toll Booth）。
+   2. "沙盒免费、生产按次收费"与"传统同步免收 HPI"引发的架构套利（事实/推断）：官方明确规定单次 HPI 费用恒定（不随单次返回数据量变化，仅取决于智能体调用的往返频次），且传统非智能体同步集成（Scheduled Middleware Sync）不收 HPI 费。这在底层规则上制造了巨大的成本剪刀差：高频细碎的原生多轮 Agent 工具调用将迅速烧光预算，而经过请求合并与外部只读缓存处理的架构则能合法省下绝大部分积分。
+   3. 小团队轻资产进入节点（推断）：
+      * 智能体调用压缩与复合请求网关（Salesforce HPI Call Compactor）：针对外部 Agent（如 Claude / ChatGPT）原生高频细碎的"查表结构 -> 搜记录 -> 读关联子表 -> 写备注"多轮 MCP/API 交互，开发轻量中间件将其自动编译合并为单次 Salesforce Composite API / GraphQL 批量请求，在不违反 EULA 的前提下将生产环境 HPI 扣费频次直接压缩 70%–90%。
+      * 生产上线前 HPI 流量基线探针与账单模拟器（Sandbox-to-Prod HPI Profiler）：趁沙盒环境免计费但企业急需向 CFO 提交上线预算测算的窗口，提供一键挂载在 Sandbox 的调用审计工具，自动统计每个 Agent 工作流的"Calls-per-Outcome"分布、识别死循环冗余查询并输出 Flex Credits 压力测试报表。
+      * 符合 1–3 人小团队形态：纯 API 网关与数据审计软件，零重资产、零库存、高毛利 B2B 订阅。
+* Magnitude: Large。依据：Salesforce 是全球企业级 CRM 的核心基础设施，其将标准 API 与 MCP 按"调用者是否为 Agent"切分并收取过路费的做法，直接改写了整个企业软件生态与外部 AI 智能体的连接成本结构。
+* Persistence: Persistent。依据：已正式写入官方 Help 知识库（005360285）与 Customer 360 费率卡框架，并与全栈 Agentforce / SIforce 商业化战略深度绑定；即便高层磋商调整具体乘数或提供缓冲包，按 Agent 身份独立计量收费的底层管道已成定局。
+* Next Question: Salesforce 提前 30 天公布的 HPI 单次 Flex Credit 乘数最终定在多少？对于通过传统定时 ETL 将数据同步至外部只读库再供 AI 查询的架构，Salesforce 在续约审计中如何界定"传统集成"与"智能体流量"的合规边界？
+* Task Version: business-sensor@0.2.1
+* Generated At: 2026-10-24T09:10:16+08:00
+* Role Spec Status: reviewed
+
+
+________________
+
+
+观察与过滤池 (Watch & Ignore List)
+1. 线索: Nebius（Nasdaq: NBIS）上线公开实时 GPU Spot 算力定价 API 与闲置算力返利计划（Capacity-Rebate Program）（2026-10-21 发布）
+* 判定: WATCH
+* 原因: Nebius 于 2026-10-21 在柏林 NVIDIA GTC 大会上正式推出实时 GPU Spot 抢占式实例公开价格与 API（nebius.com/spot-prices，并同步接入 Shadeform、Silicon Data、GPU Finder），同时上线短期容量拍卖（Reserve Auctions）及允许企业将闲置预留 GPU 释放回 Spot 池换取返利的 Capacity-Rebate 试点（参考 Nebius 官方新闻稿）。虽然真实推动了欧洲 AI 推理成本曲线下移（如数字银行 bunq 采用开源模型实现闭源模型 60% 的单次回答成本），但底层算力比价与交易已被 Shadeform 等成熟聚合平台原生覆盖，且 Capacity-Rebate 仍处于早期试点阶段，小团队独立切入算力套利工具的差异化空间尚待验证。
+* 等待证据: 观察 Capacity-Rebate 返利机制的公开结算费率与 API 自动化挂单规则是否向第三方开放，以及欧洲中型企业跨区 Spot 算力自动调度是否存在未被聚合商满足的独立付费痛点。
+2. 线索: 欧盟海关对 150 欧元以下跨境小包加收每申报品项 2 欧元处理费并强制要求商品标识符（SKU/条码）（2026-10-20 确认，2026-11-01 生效）
+* 判定: WATCH
+* 原因: 自 2026-11-01 起，欧盟对入境低于 €150 的非欧盟电商包裹，在既有 €3 关税基础上叠加征收 €2 / 每申报品项类型（Per item type / declaration line） 的海关处理费（合计每品项 €5，多品项包裹按报关行数成倍叠加），且强制要求电子报关单逐项填写商品唯一标识符（SKU、目录号或条形码）及 IOSS 税号（参考 Bandcamp 官方公告 与 HereWeShip 指南）。虽然针对实物电商，但其"按报关行数收费 + 强制电子化 SKU 映射"规则可能催生跨境独立站（Shopify / Bandcamp / WooCommerce）的报关行数智能合并与 DDP 税费实时预估插件需求。
+* 等待证据: 观察 11 月 1 日正式执行后，主流国际物流打单系统（如 ShipStation、Easyship）是否原生免费内置该 SKU 自动补全与多品项合单计费逻辑，或是否留下垂直长尾电商合规插件空间。
+3. 线索: Salesforce 宣布以 56.6 亿美元全现金收购 AI 营销自动化巨头 Braze（2026-10-20 宣布）
+* 判定: IGNORE (快速 Kill)
+* 原因: 属于巨头间二级市场战略并购（每股 $47.50 现金，预计于 Salesforce FY2028 完成交割，参考 Salesforce Ben 报道）。交割周期长达一年以上，短期内 Braze 与 Salesforce Marketing Cloud 的产品定价、合同结算及渠道政策均未发生即期变动，不构成小团队当下可切入的真实钱流变化。

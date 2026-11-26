@@ -1,0 +1,76 @@
+﻿Execution Receipt: Researcher Batch 20261123
+* Task Name & Version: Opportunity Runtime Researcher (researcher@0.2.2)
+* Execution Cutoff Timestamp: 2026-11-23T17:37:22+08:00 (Asia/Taipei)
+* Timezone: Asia/Taipei (UTC+08:00)
+* Batch Processing Status: COMPLETED
+* Queue Status: NO_PENDING_SIGNALS
+* Output Research Directory: Research Output Folder
+1. Batch Scan & Queue Audit
+Input Directory
+	Directory ID / Link
+	Scanned Files (New in Window)
+	Processed as Signals
+	Operational Exclusions
+	Unprocessed Remaining
+	Business Input
+	1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+	1 (Business-20261123-no-signal.md)
+	0
+	1 (Heartbeat run report NO_SIGNAL)
+	0
+	Friction Input
+	19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo
+	1 (Friction-20261123-github-billing-ui-failure.md)
+	1
+	0
+	0
+	Market Input
+	12UTQ8sbPG0Ryv3mA0YB7EtWTjH3Ri0G2
+	0
+	0
+	0
+	0
+	Signals Root
+	1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI
+	2 (UW-20261123-... × 2)
+	2
+	0
+	0
+	Total
+	-
+	4
+	3
+	1
+	0
+	2. Underwriting Results in Current Batch (Chronological Order)
+Signal ID
+	Category
+	Generated At
+	Verdict
+	Disqualification / Analysis Summary
+	Generated Research Record
+	UW-20261123-SmallContractor-WorkersCompAuditDispute
+	Uneconomic Work
+	2026-11-23T01:02:00+08:00
+	HYPOTHESIS_READY
+	四 Gate 全数通过：专业追回机构设 $100k 年保费门槛，静态 $299 Excel 包不核对真实数字；AI 交叉核对保单、941、2026 OBBBA 加班溢价拆分与 1099 分包商 COI 效期（$99–$149/次）可避免 $7k–$90k 审计暴雷。
+	Research-UW-20261123-SmallContractor-WorkersCompAuditDispute.md
+	UW-20261123-SmallTenant-CAMReconciliationAudit
+	Uneconomic Work
+	2026-11-23T01:02:00+08:00
+	HYPOTHESIS_READY
+	四 Gate 全数通过：25%–35% CAM 账单含错，加州 SB 1103 赋予 30 天强制索证权但翻阅 50–300 页发票需 2–5 天且租约常禁抽成审计师；AI 先免费生成索证函，再以 $79–$129 固定价重建 8 列台账并核验租约 Cap/Gross-up 陷阱。
+	Research-UW-20261123-SmallTenant-CAMReconciliationAudit.md
+	Friction-20261123-github-billing-ui-failure
+	Friction
+	2026-11-23T09:45:00+08:00
+	KILL
+	Gate 2、Gate 4 未通过：GitHub 网页结账按钮无响应属第一方封闭 UI Bug，外部无法注入修复；印度 RBI e-mandate 跨境美元支付已被 Xflowpay 等持牌金融科技公司（及 GitHub 自身 2026-08 更新）覆盖，重牌照发卡业务违背轻资产约束。
+	Research-Friction-20261123-github-billing-ui-failure.md
+	3. Cumulative Inventory Metrics
+* Prior Cumulated Underwritten Signals: 100
+* New Signals Underwritten in Current Batch: 3 (HYPOTHESIS_READY: 2, KILL: 1)
+* Total Cumulated Underwritten Signals: 103
+* All-Time Underwriting Coverage: 100% of all discovered valid historical signals have persistent Research records in Research Output Folder.
+4. Integrity Statement
+本轮执行截止时间锁定为 2026-11-23T17:37:22+08:00。经全面扫描 Business、Friction、Market 与 Signals 根目录，所有截止时间前的新增有效 Signal 已按观察时间顺序全部完成深度经济承销并落盘固化，历史 100 条已覆盖 Signal 均已核对跳过，无任何遗留待处理 Signal。本轮队列状态确认：NO_PENDING_SIGNALS。

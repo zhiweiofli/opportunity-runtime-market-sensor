@@ -1,0 +1,34 @@
+﻿Business Sensor 观察记录：NO_SIGNAL (2026-11-24)
+* 任务版本：business-sensor@0.2.1
+* 角色规范状态：reviewed
+* 观察窗口 (Asia/Taipei)：2026-11-17 09:37:55 至 2026-11-24 09:37:55 (UTC+08:00)
+* 判定结果：NO_SIGNAL
+* 逻辑存储路径：Opportunity Runtime/Signals/Business/Business-20261124-no-signal.md
+* 实际输出目录：Opportunity Runtime/Signals/Business/
+* 历史去重核对：已核对历史 19 项商业信号及此前归档的 NO_SIGNAL 检查点
+1. 检索与核实范围 (Retrieval Scope)
+本轮感知重点覆盖 2026-11-22 至 2026-11-24（Asia/Taipei）全球最新发布的创意设计基础设施 MCP 与 API 商业化开放、企业级零数据保留（ZDR）安全监控测试、非官方多模型聚合转售通道、以及云端网关与开发工具定价拆解。重点核实了 Canva 宣布 Canva MCP 全面开放（GA）并推出 Service Accounts 与 REST API 计费体系、Anthropic 公测 Enterprise Frontier Safeguards（EFS）零数据保留监控、Zhuan 推出声称低至官方价 25% 的 Claude/GPT 聚合接口、以及 Kong Konnect 2026 年费率梳理等候选事件。
+2. 候选动态逐项评估与过滤原因 (Evaluated Events & Filtering)
+候选事件 1：Canva 全面开放 Canva MCP（GA）并上线 Service Accounts 与 REST API 计费（2026-11-23）
+* 事实摘要：根据 Canva 官方新闻稿 Building the design layer of the internet: opening Canva to every agent and developer，Canva 于 2026 年 11 月 23 日取消候补名单全面开放 Canva MCP，并推出新版 REST API（支持设计生成、Magic Layers、Canva Craft 图像模型）、扩展 Canva CLI 以及支持高并发自动化的 Service Accounts 与 API 计费机制（允许外部产品终端用户无需登录 Canva 账号即可调用设计能力）。Canva 披露自 10 月以来已有近 50 万人通过 MCP 注册，预期年经常性收入（ARR）9 至 10 月环比增长逾 300%。
+* 门槛对照与过滤原因：未通过门槛 1（明确的一手单价/费率凭证）与门槛 5（小团队可捕获路径待验证）。新闻稿虽披露了增长指标与 API 计费功能上线，但未公开 REST API 与 Canva Craft 模型的具体调用单价、阶梯扣费表或分成比例；且在此结构中 Canva 自身作为底层创意收费站直接向集成方收费，尚需进一步核实其公开费率表及 Magic Layers 自动化批量生成能否在垂直电商/营销物料领域形成显著的毛利位移，列入重点 WATCH。
+候选事件 2：Anthropic 公测 Enterprise Frontier Safeguards（EFS）兼容零数据保留（2026-11-23）
+* 事实摘要：Anthropic 官方博客发布 Zero data retention with Enterprise Frontier Safeguards is now in beta，向金融、医疗与法律等强监管企业开放 EFS 公测，允许客户将日志保留在自有 AWS S3 或 Google Cloud Storage（使用自有密钥加密），由 Anthropic 执行自动化跨请求安全监测并生成 Safety Case。
+* 门槛对照与过滤原因：未通过门槛 1（一手独立定价凭证）与门槛 5（小团队捕获路径）。属于面向财富 100 强企业的安全合规能力补齐，部署渠道主要依托埃森哲、德勤、毕马威与普华永道等大型咨询伙伴，无独立收费账单披露，亦不符合 3–5 人轻资产小团队的切入约束，列入 IGNORE。
+候选事件 3：Zhuan 上线声称节省 75% 的 Claude 与 GPT 统一聚合 API（2026-11-23）
+* 事实摘要：据 Emergent 报道，聚合服务 Zhuan 于 11 月 23 日发布统一 API，宣称以低于官方定价约 75% 的价格提供 Claude 与 GPT 访问密钥。
+* 门槛对照与过滤原因：触发快速 Kill（不可持续/高封禁合规风险）。远低于上游云厂商成本底线的非授权转售/灰产聚合接口通常依赖账号池套利或违反上游服务条款，随时面临上游封号与断流风险，不具备可持续商业利润池属性，列入 IGNORE。
+候选事件 4：Kong Konnect 与 SendGrid / CDE 既有定价横向梳理（2026-11-23）
+* 事实摘要：TrueFoundry 梳理 Kong Konnect 2026 年定价（Plus $25/$200/$500 起叠加 $200/百万请求与 $20/百万分析计量）；Simular 汇总 GitHub Codespaces 与 Google Cloud Workstations 既有定价。
+* 门槛对照与过滤原因：均属于第三方博客对既有公开价格表的常规盘点，近 48 小时内无官方突发调价或费率结构重塑，执行快速 Kill（IGNORE）。
+3. 判定依据与准则遵循 (Justification)
+本传感器严格遵循"宁缺毋滥，证据不足不凑数"的核心准则。本轮最接近门槛的线索为 Canva MCP 全面开放与 Service Accounts API 计费上线，但因其官方尚未同步披露清晰的 API 调用费率表且小团队切入后的单位经济性尚待验证，暂列入重点 WATCH；其余候选项分别为大厂合规部署功能、高封禁风险的非授权低价聚合站以及既有 SaaS 价格盘点，均不满足五项核心门槛。因此本轮确认为 NO_SIGNAL。
+4. 持续追踪与忽略清单 (Watch & Ignore List)
+持续追踪 (Watch List)
+* Canva Developer Portal API 定价页上线动态：密切追踪 Canva REST API 与 Canva Craft 图像/视频生成接口的具体单价表，评估其是否足以支撑电商物料自动化微 SaaS 的成本曲线位移。
+* 11 月 30 日 / 12 月 1 日多模型定价切换窗口：关注 Google Gemini 4 Carbon / Argon 价格翻倍与 OpenAI GPT-5.6 Sol 促销结束后的真实企业路由分流。
+* Azure AI Gateway 2027 年 1 月计费生效前的企业迁移：持续追踪企业级 MCP 治理预算的真实落地。
+明确忽略 (Ignore List)
+* 违背上游服务条款、价格明显低于上游算力成本的非授权模型转售聚合站。
+* 依赖四大咨询公司实施的大客户安全合规托管测试项目。
+* 仅汇总既有 SaaS 公开价格表的第三方对比博客。

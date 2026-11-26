@@ -1,0 +1,41 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+* Task Version: business-sensor@0.2.1
+* Role Spec Status: reviewed
+* 观察窗口: 2026-10-28 09:25:38 至 2026-11-04 09:25:38 (Asia/Taipei)
+* 已有 Signal 索引/全文: 已核对历史文件 Business-20261014-autodesk-aps-passthrough-billing.md、Business-20261001-whatsapp-service-message-toll.md、Business-20261015-github-agentic-autofix-metered-toll.md、Business-20261014-hubspot-flexible-seats-credits-toll.md、Business-20261017-deepseek-flash1017-costcurve-searchtoll.md、Business-20261023-vercel-deployment-storage-toll.md、Business-20261021-salesforce-headless-agent-api-toll.md、Business-20261023-visa-b2b-embedded-payment-toll.md、Business-20261020-eu-customs-handling-fee-pid-toll.md、Business-20261022-openai-decisions-api-costcurve.md、Business-20261025-aws-shield-waf-antiddos-migration-toll.md、Business-20261028-github-enterprise-copilot-dollar-entitlement.md、Business-20261029-googleplay-agentic-purchases-billing-toll.md、Business-20261030-visa-installment-credential-plt-expansion.md、Business-20261101-cloudflare-ai-search-metered-toll.md、Business-20261101-japan-jct-crossborder-platform-taxation-toll.md 与 Business-20261103-no-signal.md，本轮已执行跨历史核对与去重
+* 输出逻辑位置: Opportunity Runtime/Signals/Business/
+* 实际输出文件夹 URL: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+本轮运行结果: NO_SIGNAL
+检索窗口与判定说明
+* 检索窗口: 2026-10-28 09:25:38 至 2026-11-04 09:25:38 (Asia/Taipei)
+* 原因与事实依据:
+本轮全面感知复核了全球云计算、AI API、开发者基础设施、卡组织与电商平台动态。在 7 天观察窗口内，除此前已录入归档的重大信号（GitHub Enterprise 算力池重构、Google Play 智能体结算收税、Visa 分期凭证与超大额采购卡清算、Cloudflare 边缘 AI 检索按量计费以及日本跨境电商平台代征）外，本轮对近 48 小时新出现及持续发酵的 4 项线索进行了严格的准入五门槛核验：
+   1. IBM Planning Analytics as a Service 20% 涨价与 SaaS 9% 调价（2026-11-01 生效）：
+经核查 Lodestar Solutions 分析报告 与 IBM 官方 Passport Advantage 政策，该项属于成熟企业软件针对既有大客户的常规年度价格协调（Price Harmonization），属于单一厂商基于通胀和产品维护成本的被动提价，未改变业务收费节点，未产生跨生态的预算迁移，亦无第三方小团队轻资产进入空间，执行 快速 Kill（IGNORE）。
+   2. Anthropic Message Threads 公测（2026-11-02 发布）：
+经核查 Anthropic 官方发布说明 与 Message Threads 文档，官方明确强调"Threads do not change pricing or rate limits. Token usage stays the same"，仅为长对话请求传输体积与首字延迟的纯技术工程优化，未对 Token 消耗模式或结算账单产生任何结构性变动，列入 WATCH。
+   3. Interac 借记卡处理费微调与加拿大卡组织规费更新（2026-11-01 生效）：
+经核查 TD Canada Trust 官方规费通告，加国境内借记卡基础评估费微调 $0.0005（由 $0.0158 增至 $0.0163），幅度极小且属于收单清算层面的微调，未达到形成新利润池的 Magnitude 标准，列入 WATCH。
+   4. Apple 台湾 App Store 佣金率下调至 26%（2026-10-31 生效）：
+台湾区标准分成下调为单边行政协商让利（参考 Apple Developer 公告），未开放第三方支付或外部计费跳转，缺乏小团队可独立切入的计费软件或中间件 Capture 路径，维持 WATCH。
+
+
+综合评估，本轮无同时满足"Money Evidence、非单一新闻、结构性变化、持续性、潜在小团队 Capture 路径"五个 Gat
+e 的新增合规商业 Signal。按照规则第 8 条"证据不足不凑数，输出 NO_SIGNAL 及检索窗口/原因"，如实报告 NO_SIGNAL。
+观察与过滤池 (Watch & Ignore List)
+1. 线索: Apple 宣布台湾 App Store 佣金率由 30% 正式下调至 26%（2026-10-29 公布，2026-10-31 生效）
+      * 判定: WATCH (维持追踪)
+      * 原因: 2026-10-29 经 Apple Developer 官方公告 证实，苹果在与台湾公平交易委员会（TFTC）协商后，正式自 2026年10月31日 起将台湾区 App Store（iOS/iPadOS）标准应用内购买（IAP）与付费应用的分成比例由 30% 下调至 26%。虽然属于重大的应用商店分成费率（Take Rate）调整并直接为台湾本土 iOS 开发者带来 400 个基点的净利润释放，但属于反垄断行政协商带来的降费让利，苹果并未在台湾开放第三方支付或引入新的外部抽税节点，缺乏小团队可独立切入的计费软件或中间件 Capture 路径。
+      * 等待证据: 观察台湾公平会后续是否进一步施压要求苹果允许第三方支付接入，以及是否在亚太其他国家（如韩国、日本）引发连锁降费诉求。
+2. 线索: Anthropic 正式推出 Usage and Cost Analytics API 并在 11月2日 公测 Message Threads（2026-10-29 / 2026-11-02）
+      * 判定: WATCH (维持追踪)
+      * 原因: 经 Anthropic 官方发布说明 与 Claude 平台文档 证实，Anthropic 上线 Usage and Cost Analytics API 测试版（支持服务账号 Service Account 独立维度），并在 11月2日 开启 Message Threads 公测以缩短首字延迟。但官方明确说明 Token 计费规则与底层牌价未变，属于工程与可观测性接口演进，尚未直接引发真实钱流与收费节点的重构。
+      * 等待证据: 观察企业在接入该统一分析 API 后，是否催生出标准化的多智能体云端 FinOps 成本优化代理与配额套利工具的稳定采购需求。
+3. 线索: Interac 借记卡处理费微调与加拿大卡组织规费更新（2026-11-01 生效）
+      * 判定: WATCH (维持追踪)
+      * 原因: 经 TD Canada Trust 官方规费通告 确认，加国境内借记卡基础评估费微调 $0.0005（由 $0.0158 增至 $0.0163）。幅度极小且属于收单清算层面的微调，未达到形成新利润池的 Magnitude 标准，属于收单行的常规微调。
+      * 等待证据: 观察是否有针对中小商户的收单加价溢出及收单行合规披露争议。
+4. 线索: IBM Planning Analytics as a Service 20% 涨价与 SaaS 9% 调价（2026-11-01 生效）
+      * 判定: IGNORE (快速 Kill)
+      * 原因: 经核查 Lodestar Solutions 分析报告 与 IBM 官方 Passport Advantage 政策，该项属于成熟企业软件针对既有大客户的常规年度价格协调（Price Harmonization），属于单一厂商基于通胀和产品维护成本的被动提价，未改变业务收费节点，未产生跨生态的预算迁移，亦无第三方小团队轻资产进入空间。

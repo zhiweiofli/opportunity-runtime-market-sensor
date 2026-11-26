@@ -1,0 +1,47 @@
+Signal ID: Friction-2026-11-01-Autotask-M365-License-Reconciliation
+Type: Friction
+What Changed: 已付费使用 Autotask PSA 的 MSP 在处理 Microsoft 365 许可证计费时，座位数量波动（新增、重新激活、SKU/NCE 变更、删除）未自动同步至合同，导致成本与收入不匹配；2026-10-27 专文详细描述该持续缺口。
+Friction: Billing / Integration / Manual operation / Configuration（Microsoft Partner Center 或分销商的座位变化与 Autotask 合同记录之间的手动或第三方对账）
+Money: MSP 已为 Autotask（及 Microsoft 许可证）付费，但座位增加未及时进入合同导致承担未计费成本/流失 margin；删除座位仍计费或需人工纠正。关联 revenue loss（未计费座位）与 cost（持有未回收成本）。具体金额未知，需自测。
+Evidence: 
+1. Proxuma 博客（2026-10-27）：“Autotask does not track or reconcile fluctuating Microsoft 365 subscriptions on its own.” 列出失败模式：licence adds never reached the contract（“You carry the cost until somebody spots it”）、reactivated users、SKU/NCE changes、proration、removed licences still billing。URL: https://proxuma.io/autotask-microsoft-365-license-billing/
+2. 同文确认原生集成仅覆盖邮件/日历，不覆盖许可；Kaseya Integrated Customer Billing 不同步 M365 座位。
+3. 第三方工具（Sync 365、Work 365、Zomentum Connect、Gradient MSP 等）作为对账层存在，表明市场已有付费 workaround。
+4. 补充事实：Microsoft 按当前 provision 计费，Autotask 按合同记录计费，gap 需人工或额外层填补。
+Mechanism: 已付费的 PSA 作为计费系统 of record，但缺乏对动态 SaaS 许可证的原生实时对账；座位变化在 Microsoft 端立即影响成本，在 Autotask 端需人工或第三方同步，导致未计费收入流失或延迟纠正，阻断完整钱流。推断：高频于有多客户、座位频繁变动的 MSP。
+Current Workaround: 手动检查与合同调整；或使用第三方对账工具（如 Sync 365 带 review step 推送调整）；分销商门户同步。成本：第三方订阅费 + 设置时间；手动则月度对账劳动（未知精确小时）。依据：博客描述的工具选项与建议自测 gap。
+Payer: MSP（已使用 Autotask 并管理 M365 许可证）为对账/同步工具或更好原生集成付费，以回收未计费 margin 并减少劳动。依据：多个商业工具已存在并针对此缺口定价。
+Economic Effect: revenue / cost / labor（未计费座位流失 margin；对账 labor；潜在客户争议成本）
+Friction Value: 频率：每月或随座位变动（多客户 MSP 高频，未知精确）；单次经济影响：每未计费座位的 margin（未知具体 $，取决于许可价与加价）；可回收比例：通过自动化对账可回收大部分 gap（依据工具存在与描述）。精确值未知，未编造。
+Persistence: Structural（动态许可证、NCE、多客户管理为 MSP 持续需求；非一次性 bug，平台原生支持有限）
+Next Question: 典型小型 MSP 中，因未同步 M365 座位每月实际流失的 margin 金额与对账耗时是多少？第三方工具的实际采用率与 ROI 数据？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-01T09:45:00+08:00
+Role Spec Status: reviewed
+
+---
+
+Signal ID: Friction-2026-11-01-Web3-Checkout-Gas-Dropoff
+Type: Friction
+What Changed: Web3 应用/checkout 中，已持有稳定币（如 USDC）的用户在最终签名时因缺少原生 gas token（ETH）而 drop-off；2026-10-31 X 帖报告约 30% 的 drop-off 发生于此环节，浪费已支付的 CAC。
+Friction: Payment / Authentication / Cross-chain / Manual operation（最终交易签名时需 gas，强制 bridge 或 CEX 兑换引入额外步骤）
+Money: 产品已支付 CAC 获客（用户已到达 checkout 并持有资金），但因 gas 摩擦导致交易失败/放弃，关联 conversion loss 与 failed transaction（CAC 焚毁）。示例用户有 $500 USDC 但 0 ETH。
+Evidence: 
+1. X 帖（2026-10-31，@shimerex）：“30% of Web3 checkout drop-offs happen at the final signature. A user has $500 in USDC on Base or Arbitrum, but 0 ETH for gas. Forcing them to bridge or CEX-swap introduces two extra context switches and incinerates your paid CAC.” URL: https://x.com/shimerex/status/2116674830279823528 （或对应 post ID）
+2. 同帖提及 ERC-4337 账户解决但引入部署摩擦与延迟；EIP-7702 作为潜在缓解（临时委托无需钱包迁移）。
+3. 行业背景：gas 赞助或 paymaster 为已知需求，但许多 checkout 仍强制用户自备 gas。
+Mechanism: 用户意图完成付费交易（已持有支付资产），但链上执行需原生 gas；缺乏无缝赞助或原子扣款导致额外步骤与放弃，使已获客的转化失败。推断：在多链、稳定币优先的 Web3 产品中重复发生。
+Current Workaround: 用户手动 bridge/兑换获取 gas；或产品实现 paymaster/gas 赞助（复杂）；或使用账户抽象。成本：用户时间与额外费用；产品侧 CAC 浪费 + 开发成本。依据：帖文描述。
+Payer: Web3 产品/应用开发者（已投入 CAC 与流量）为 gasless checkout、paymaster 集成或账户抽象工具付费，以提升最终转化并回收 CAC。依据：帖文直接指出 incinerates paid CAC，并演示解决方案。
+Economic Effect: conversion / failed transaction / CAC（已获客用户流失）
+Friction Value: 频率：checkout 最终步骤的 30% drop-off（依据帖文，单来源）；单次经济影响：已支付 CAC 的部分或全部（未知具体 $，取决于渠道）；可回收比例：通过 gasless 机制可回收大部分（依据 EIP-7702/paymaster 存在）。精确普遍值未知，未编造。
+Persistence: Structural（多链 gas 模型与稳定币支付为 Web3 持续特征；账户抽象推进中但未全面普及）
+Next Question: 在具体 Web3 产品中，因 gas 不足导致的实际转化率损失与可回收 CAC 金额是多少？paymaster 或 EIP-7702 集成的实际成本与提升数据？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-01T09:45:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-10-25 00:00 至 2026-11-01 09:37（Asia/Taipei），基于本轮实际可核实资料截止时点（搜索、X 与 Drive 列表）。
+已有历史 Signal：Drive 文件夹中已有 MSP 手动合同、失败支付恢复、SaaS 规模化手动计费等（已核对，本轮避免重复主题，仅新增 M365 对账与 Web3 gas 摩擦）。
+无法访问或受限平台：部分 Reddit 完整页面抓取失败（工具返回 500/错误），依赖搜索摘要与公开片段；X 完整线程有限。
+已写入 Drive 目录：https://drive.google.com/drive/folders/19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo （上传后确认链接）

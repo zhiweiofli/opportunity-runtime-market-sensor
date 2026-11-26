@@ -1,0 +1,42 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+* Task Version: business-sensor@0.2.1
+* Role Spec Status: reviewed
+* 观察窗口: 2026-10-25 09:11:05 至 2026-11-01 09:11:05 (Asia/Taipei)
+* 已有 Signal 索引/全文: 已核对历史文件 Business-20261014-autodesk-aps-passthrough-billing.md、Business-20261001-whatsapp-service-message-toll.md、Business-20261015-github-agentic-autofix-metered-toll.md、Business-20261014-hubspot-flexible-seats-credits-toll.md、Business-20261017-deepseek-flash1017-costcurve-searchtoll.md、Business-20261023-vercel-deployment-storage-toll.md、Business-20261021-salesforce-headless-agent-api-toll.md、Business-20261023-visa-b2b-embedded-payment-toll.md、Business-20261020-eu-customs-handling-fee-pid-toll.md、Business-20261022-openai-decisions-api-costcurve.md、Business-20261025-aws-shield-waf-antiddos-migration-toll.md、Business-20261028-github-enterprise-copilot-dollar-entitlement.md、Business-20261029-googleplay-agentic-purchases-billing-toll.md 与 Business-20261030-visa-installment-credential-plt-expansion.md，本轮已执行跨历史核对与去重
+* 输出逻辑位置: Opportunity Runtime/Signals/Business/
+* 实际输出文件夹 URL: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+待研究 Signal (Qualified Signals)
+Signal ID: Business-20261101-cloudflare-ai-search-metered-toll
+* Type: Business
+* What Changed: 2026年11月1日，全球最大边缘网络服务商 Cloudflare 官方正式对旗下 AI Search（将 Workers AI 嵌入模型、Vectorize 向量库、R2 存储及 Browser Run 爬虫整合为一体的无服务器搜索管道）全面开启正式计量扣费（Usage-based billing）。根据 Cloudflare 官方于 2026年10月30日 最新更新的配额与价目表（Limits & Pricing），平台在每月附赠基础额度（500万摄入 Token、10 GB 存储、1,000 次语义查询及 1,000 次全文检索）之外，正式执行严格的五重按量阶梯费率：基础数据摄入 $0.75 / 100万 tokens、图片与 PDF OCR 额外加收 $0.50 / 100万 tokens（合计 $1.25/M）、索引内置存储高达 $2.00 / GB-月、语义/向量/混合检索查询 $0.75 / 1,000 次、全文检索 $0.10 / 1,000 次，并在 Workers Paid 上对超出 5,000 个实例的租户按 $0.10 / 实例/月 收取架构隔离费。此变更属于典型的 New Toll Booth（Cloudflare 在全球边缘节点上正式焊死知识检索与智能体 RAG 调用的过路收费站）与 Budget Migration（企业检索增强生成 RAG 与企业知识库预算，从传统独立向量数据库与复杂云端抓取管线，全面迁移至边缘一体化托管计费服务）。
+* Money: 涉及全球使用 Cloudflare Workers 架构部署企业知识库、客服检索与自主智能体（AI Agents）的数十万开发者与企业应用预算。此前 AI Search 处于免费公测期，开发者可零边际成本索引数百万网页并高频执行多智能体并发检索；新规下，检索与存储费用发生剧烈分化。尤为关键的是，$2.00 / GB-月的存储单价是 Cloudflare 标准 R2 对象存储（$0.015 / GB-月）的 133 倍，且系统规定按分块分词（cl100k_base）后的所有重叠文本（Chunk Overlap）重复计算摄入与存储。这意味着一个日均处理 50 万次智能体检索、保留 50GB 动态知识库的中型应用，每月仅检索调用费即达 $375，存储费达 $100，瞬间形成数倍于 Workers Paid 基础席位（$5/月）的高额按量流水账单。
+* Evidence:
+   * Cloudflare 官方开发者文档与最新定价标准《Limits & pricing - Cloudflare AI Search docs》（文档最后更新日期：2026-10-30，计费执行生效日：2026-11-01）：官方明确公布计费细则"AI Search billing begins on November 1, 2026... Base ingestion: $0.75 per million tokens; Image processing: An additional $0.50 per million tokens; Storage: $2.00 per GB-month; Semantic, vector, and hybrid queries: $0.75 per 1,000 queries; Full-text queries: $0.10 per 1,000 queries; Instances above 5,000: $0.10 per additional instance per month"。
+   * Cloudflare 官方博客通用可用性公告《AI Search is now generally available》（发布日期：2026-10-01，计费提醒更新：2026-10-30）：官方披露技术整合架构"combines Workers AI, Vectorize, R2, and Browser Run into a fully managed index and retrieval pipeline... support multimodal formats beyond text, adding native image embeddings, OCR for PDFs... start billing for AI Search on November 1, 2026"。
+   * Cloudflare Changelog 官方发布《AI Search is generally available》（2026年10月发布）：确认自 2026年11月1日 起，AI Search 从 Beta 测试全面转为正式商业计费，并将原专用于爬虫的独立 R2 bucket 整合归入 $2.00/GB 的内置托管存储。
+* Mechanism:
+   * 边缘网络从"管道传输"到"智能体检索收税"的战略跃迁（事实）：Cloudflare 占据全球超 20% 网站的 DNS 与 CDN 流量入口。过去其主要变现方式为带宽、安全规则与基础 Workers 算力；通过推出 AI Search，Cloudflare 将非结构化文档直接转化为智能体可用向量，并在查询端（$0.75/1k）和存储端（$2.00/GB）设立高毛利计量卡点（New Toll Booth），成功收割了原本流向 Pinecone、Weaviate、Qdrant 的外部基础设施预算。
+   * 内置存储 133 倍剪刀差与文本重叠分块膨胀（事实/推断）：RAG 系统为确保语义连续性，必须在相邻分块间保留 10%–20% 的重叠文本（Chunk Overlap）。官方确认"重叠文本在每个分块中均被独立计费"，导致企业实际摄入与存储账单呈倍数级虚增，且 $2.00/GB 的存储税直接逼迫开发者进行存储精细化治理。
+   * 小团队轻资产进入节点（推断）：
+      * a. Cloudflare AI Search 分块压缩与双层存储去重中间件（RAG Storage Compressor）：针对 AI Search 高达 $2.00/GB-月的存储暴利，开发轻量前置处理库/中间件。在文档提交索引前，自动通过轻量算法消除冗余样板代码、压缩语义重复段落、并根据查询频次将冷文档降级至廉价 R2（$0.015/GB）只提供关键词索引，仅将高频热向量推入 AI Search 内置存储，直接帮出海开发团队削减 60%–80% 的 AI Search 存储与摄入账单。
+      * b. 查询意图智能分流网关（Semantic-to-Fulltext Query Router）：由于语义/混合检索（$0.75/1k）价格是全文检索（$0.10/1k）的 7.5 倍，构建一个运行在边缘轻量 Workers 上的微型分类器。当用户查询属于精确关键词（如型号、ID、专有名词）时，自动路由至 $0.10/1k 的全文检索通道；仅当包含复杂自然语言推理时才放行至 $0.75/1k 语义通道，直接大幅降低查询端过路费。
+      * 极度符合 1–3 人小团队形态：纯边缘代码（TypeScript/Workers）、无服务器架构、零实体资产、高毛利开发者工具订阅。
+* Magnitude: Large。依据：Cloudflare 拥有全球数百万开发者与覆盖全球的边缘网络底座，AI Search 正式启动商业计费标志着边缘 RAG 成为公有云基础设施核心变现模块，深远改变了企业智能体检索的数据管线采购结构。
+* Persistence: Persistent。依据：已正式作为 Cloudflare 平台 GA 产品完成计费上线，建立了完整的费率卡与计费扣款引擎，属于不可逆的长期商业定价基线。
+* Next Question: 面对高达 $2.00/GB-月的存储账单与 $0.75/1,000 次查询费，中大型企业开发者是会选择忍受溢价换取免运维便利，还是会加速倒流回"自建 Vectorize + 自定义 Workers AI"低成本分离架构？
+* Task Version: business-sensor@0.2.1
+* Generated At: 2026-11-01T09:11:05+08:00
+* Role Spec Status: reviewed
+观察与过滤池 (Watch & Ignore List)
+1. 线索: Salesforce 官方正式执行 Message Credits 乘数更新，将 WhatsApp 客服会话与通用模板全面纳入扣费（2026-11-01 生效）
+* 判定: WATCH
+* 原因: 2026-11-01 经 Salesforce 官方价目表与乘数更新 证实，Salesforce 正式执行针对 2022年9月 之后签约客户的 WhatsApp、SMS 与 RCS Message Credits 扣费乘数调整，明确规定在 24 小时客服窗口内的 Utility 模板消息与自由格式 Service 消息正式全面扣除 Message Credits（参考 Salesforce 官方 Rate Card）。此举落地了 Meta 10月1日 终结免费客服会话的商业闭环，但由于我们在 10月14日 已前瞻录入了 Meta/WhatsApp 侧的底层卡点（Business-20261001-whatsapp-service-message-toll），本轮属于 ISV 渠道侧的传导与乘数落实，故列入持续观察池。
+* 等待证据: 观察企业客户在 11 月面对营销与客服双向扣费后，是否加速削减 WhatsApp 模板推送或转向自有 App Push 旁路。
+2. 线索: Didit 身份验证新定价结构全面生效：终结 500 次免费额度并推行 $10 通用积分（2026-11-01 生效）
+* 判定: WATCH
+* 原因: 经 Didit 官方博客 确认，Didit 自 2026年11月1日 起正式废除原有的每月 500 次免费基础核验额度，变更为全产品通用的 $10/月 积分额度（约覆盖 30 次完整身份核验），超出部分按列表价扣除（完整 ID 校验 $0.33/次、黑名单筛查 $0.20/次）。虽然大幅收紧了免费羊毛空间，但属于中小型合规 SaaS 的常规防御性调整，行业波及面局限于其既有客群。
+* 等待证据: 观察中小型初创客户流失率及竞品（如 Sumsub、Veriff）是否针对性推出免费迁移吸客策略。
+3. 线索: NYSE American 交易所调高人工场内非 Penny 期权做市商交易规费（2026-11-01 生效）
+* 判定: IGNORE (快速 Kill)
+* 原因: 纽交所美洲分所（NYSE American LLC）将非 Penny 期权人工场内做市商费率由 $0.90 提升至 $1.00/张合约（参考 Federal Register 官方通告），属于重牌照、重资本的传统二级市场金融场内交易手续费调整，缺乏小团队轻资产介入空间。

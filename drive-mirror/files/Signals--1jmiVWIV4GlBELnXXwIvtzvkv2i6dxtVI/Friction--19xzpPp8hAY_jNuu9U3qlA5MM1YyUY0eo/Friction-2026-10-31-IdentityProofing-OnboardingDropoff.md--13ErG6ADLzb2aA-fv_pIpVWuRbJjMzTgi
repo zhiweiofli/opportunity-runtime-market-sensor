@@ -1,0 +1,24 @@
+Signal ID: Friction-2026-10-31-IdentityProofing-OnboardingDropoff
+Type: Friction
+What Changed: 在 2026 年 10 月下旬，数字产品/金融服务的客户 onboarding 中，已投入时间并接近完成的申请人因 identity check（文件上传 + selfie）摩擦而 drop-off，影响后续账户创建或支付转化。
+Friction: Onboarding / Authentication / Compliance（identity proofing）环节。Document photos、selfie retries、光照问题导致高意图用户在 proofing 步骤放弃。
+Money: 商家已为获客（广告/销售）付费，申请人已投入时间，但因 friction 未完成 signup/payment。关联 conversion loss 与潜在 revenue loss。具体损失金额未知。
+Evidence:
+1. NHIMG 分析文章（2026-10-27/28）：“Customer onboarding drop-off at the identity check”，引述 OneID 经验：bank/wallet routes 完成率 80-90%，passport-chip flows 仅 50-60%；document uploads 与 selfie scans 增加 effort、retries 与 trust friction，发生在申请人已投入时间之后。URL: https://nhimg.org/articles/identity-check-friction-is-driving-onboarding-drop-off/
+2. 同文指出：friction at proofing time changes who reaches account creation, payment or regulated onboarding；应自动化主要路径，保留手动仅用于例外。
+3. OneID 原文章（2026-07-05）为来源，近期分析确认该模式仍影响 conversion。
+4. 支持事实：完成率数据（50-90%）与方法匹配建议来自供应商经验描述。
+Mechanism: Identity proofing 将证明负担转给用户（找文件、拍照、liveness），失败/retry 在高意图时刻累积摩擦，导致放弃；这直接减少完成 signup 并到达 payment 的用户（推断基于完成率差异与 drop-off 描述）。
+Current Workaround: 手动审查例外、提供多种方法（bank、wallet、eID）、reusable credentials；或接受较低完成率。成本为更高 CAC（因 drop-off 需更多获客）或支持时间。依据：文章建议与完成率数据。
+Payer: 依赖数字 onboarding 的金融/钱包/SaaS 商家可能为更低摩擦的 proofing 路由、reusable credentials 或完成率优化的 identity 服务付费；依据：转化直接关联 revenue，文章强调 growth 与 compliance 团队协作。
+Economic Effect: conversion / revenue（主要）、潜在 CAC 增加。
+Friction Value: 频率：高意图 onboarding 流量中的 identity 步骤（中高，尤其国际/护照路径）；单次经济影响：丢失一个已投资的潜在客户（获客成本未知，但完成率差距 20-40 点暗示显著）；可回收比例：中高（方法匹配与 reusable 可提升至 80-90%）。依据：OneID 经验完成率，未知具体行业 CAC。
+Persistence: Structural（依据：方法不匹配与用户 effort 是持续的设计问题，非一次性 bug；跨方法完成率差异长期存在；文档强调 reusable 与 routing 作为长期解决方案）。
+Next Question: 在具体行业（如 fintech onboarding）中，identity 步骤的平均 drop-off 率与每丢失客户的 CAC/LTV 是多少？平台是否计划原生支持更低摩擦路径？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-10-31T09:45:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-10-24 至 2026-10-31（Asia/Taipei），基于本轮可核实资料（NHIMG 2026-10-27/28 分析及引用）。
+无法访问平台：无重大阻塞；主要使用 Web 搜索与页面打开。Reddit/X 本轮相关讨论较少。
+已有 Signal：文件夹中存在相关 billing/recon 主题，本条聚焦 onboarding identity proofing 不同环节，未重复。

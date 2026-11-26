@@ -1,0 +1,121 @@
+﻿signal_id: IBF-20261117-MicrosoftPublisher-Oct2026EOL-PubArchiveMigration
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: 微软已于2026年10月1日正式从Microsoft 365订阅中移除Microsoft Publisher（订阅用户自该日起已无法再使用Publisher打开或编辑`.pub`文件），并于2026年10月13日全面终止Publisher 2021及Office LTSC 2021永久版的官方支持。截至2026年10月下旬至11月中旬，Microsoft Q&A与Reddit社区持续出现大量微软365用户反馈Publisher突然从电脑消失、历史积累的数百至上千份`.pub`文件被锁死的问题。
+money: 涉及北美及全球大量教会堂区、中小学办公室、非营利组织、小型印刷店与本地商户（常年使用Publisher制作周报、菜单、宣传单与Avery标签）。商业桌面出版迁移软件Markzware针对无Publisher环境下的`.pub`清点与批量转换收费较高：MarkzPortal按单文件转换起步$29/份（或Pro订阅$79/月限1,000页），本地桌面版OmniMarkz/OmniMarkz SE按年订阅$469/年；Markzware行业测算指出，人工逐个检查1,000份`.pub`文件需83+工时，手工在InDesign/Canva重做50份重要模板需约150设计工时。
+
+
+evidence:
+  - id: E1
+    source: https://support.microsoft.com/en-us/publisher/microsoft-publisher-will-no-longer-be-supported-after-october-2026
+    source_date: null
+    accessed_at: '2026-11-17'
+    fact: 微软官方支持公告确认：Microsoft 365订阅者自2026年10月1日起无法再打开或编辑`.pub`文件，永久版支持于10月13日终止；官方提供的`Convert-PubFileToPDF.ps1`批量脚本前提是“电脑上仍装有可用且已授权的Publisher”，且仅能转为静态PDF（转为Word会破坏多图文排版）。
+  - id: E2
+    source: https://learn.microsoft.com/en-us/answers/questions/6053905/bring-back-microsoft-publisher
+    source_date: '2026-10-28'
+    accessed_at: '2026-11-17'
+    fact: 2026年10月28日Microsoft Q&A用户反馈在M365中无法恢复Publisher访问权限，官方版主确认产品已永久移除且无法通过M365设置还原。
+  - id: E3
+    source: https://markzware.com/workflow-tips/microsoft-publisher-end-of-life-2026-better-conversion-options/
+    source_date: '2026-10-23'
+    accessed_at: '2026-11-17'
+    fact: 2026年10月23日更新实务分析指出：PowerShell脚本依赖即将失效的Publisher本体且不支持无人值守自动化；单纯导出PDF等于“将可编辑资产冻结”；组织拥有数百上千份`.pub`文件时，首要缺口是跨本地与OneDrive/SharePoint的自动化盘点分级与可编辑格式（IDML/PPTX/Canva）批量迁移。
+  - id: E4
+    source: https://markzportal.markzware.com/pricing/
+    source_date: null
+    accessed_at: '2026-11-17'
+    fact: MarkzPortal与OmniMarkz官方公开定价：$29/单文件转换、$79/月订阅、$469/年本地桌面版（用于批量盘点、预览与转换`.pub`等文档）。
+
+
+mechanism: 事实：`.pub`属于微软私有复合文档格式，M365于2026-10-01直接卸载程序且官方转换脚本依赖Publisher本地COM组件；同时LibreOffice（`libmspub`）虽免费但批量盘点能力弱且复杂版式易跑版，Affinity需先手动转PDF/IDML或存在版本限制，新兴独立替代工具（如PubKeep等）多聚焦单机重新编辑并引入新私有格式（`.pubk`）（E1, E3, Reddit社区实测）。推断：拥有200–1,500份`.pub`历史档案的教会、学校行政、俱乐部或小型印刷服务商，面临的是“无法逐一人工翻看上千个分散在SharePoint/硬盘里的文件、既不想每年付$469买Markzware、也不想把所有活模板变成不可编辑的死PDF”的批量盘点与跨格式迁移缺口。
+persistence: Structural
+next_question: 在拥有200份以上`.pub`历史档案的中小机构（教会/学校/小型印刷店）中，愿意为一次性“档案盘点清单 + 高保真批量转PPTX/PDF/SVG”支付$49–$99的比例有多高？
+task_version: installed-base-friction@0.2
+generated_at: '2026-11-17T17:30:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+
+
+asset:
+  category: 桌面出版文档格式与机构历史设计档案
+  brand: Microsoft
+  model: Microsoft Publisher (.pub files / Microsoft 365 & Office 2021)
+friction:
+  type: 原厂支持退出与私有文档格式锁死
+  symptom: M365升级后Publisher程序被移除，原有`.pub`模板、周报、菜单无法打开编辑，官方PowerShell批量脚本因缺少Publisher本体而失效
+installed_base:
+  estimate: 北美及全球数以十万计长期使用Publisher制作宣传单、教会周报、学校手册与标签的小型机构与印刷店
+  basis: 2026年9–10月Church of England、UW IT、Microsoft Q&A与Reddit社区集中发布应急迁移指引及用户求助。
+
+
+current_solution:
+  description: 1) 购买Markzware OmniMarkz（$469/年）或MarkzPortal（$29/份）进行盘点与转换；2) 手工用LibreOffice Draw逐个打开另存（易排版错乱、无批量盘点）；3) 购买独立替代编辑器如PubKeep（$99一次性）重新编辑；4) 保留离线老旧Office 2016/2021电脑。
+  oem_part_price: null
+  technician_repair_price: 469.0
+  currency: USD
+  basis: Markzware OmniMarkz桌面版（具备本地文件夹扫描盘点与批量转换`.pub`功能）官方年费标价$469/年（E4）。
+alternative:
+  description: 交付“`.pub`档案自动化盘点与批量可编辑迁移套件”（基于`libmspub`/OLE2解析+无头转换与版面结构抽取，无需安装Publisher即可批量扫描本地/OneDrive同步目录，生成可视化HTML缩略图目录与分级清单，并将指定文件批量转为PDF档案+可编辑PPTX/SVG素材包）
+  estimated_solution_cost: 79.0
+  currency: USD
+  basis: 一次性买断本地批量盘点与转换工具包定价假设（待验证）。
+gap:
+  vendor_support: discontinued
+  availability: medium
+  competition: medium
+  basis: 微软彻底移除M365中的Publisher；市场上已出现若干单机替代编辑器（PubKeep、PubStudio、Affinity）及高价专业转换器（Markzware $469/年），但针对“无需Publisher本体的数百/上千文件自动盘点分级 + 批量输出标准通用可编辑PPTX/SVG/PDF”的低价一次性工具仍存在明显空白。
+signals:
+  recurrence: medium
+  urgency: high
+  diy_activity: high
+  basis: 2026年10月1日断供已正式落地；GitHub与Reddit已出现多款开源批处理`.bat`/PowerShell脚本及独立转换小工具，但大多仍依赖本地未卸载的Publisher或仅输出PDF。
+
+
+assessment:
+  installed_base: {value: high, basis: 35年历史积累的庞大非专业设计机构与小微商户`.pub`存量档案}
+  friction_rate: {value: high, basis: 微软365订阅端已全面移除入口，存量`.pub`无法直接打开}
+  failure_cost: {value: medium, basis: 单纯文件无法打开虽不直接停产，但重做数十个多年模板耗时达上百工时，商用转换工具年费$469}
+  support_gap: {value: high, basis: 微软官方脚本要求必须已有Publisher安装，对已卸载的M365用户失效}
+  switching_cost: {value: medium, basis: 将复杂`.pub`重新在Canva或Word中手工排版学习与重做成本高}
+  vendor_repair_speed: {value: low, basis: 微软明确永久退役Publisher，无回归计划}
+
+
+repair_leverage:
+  ratio: 5.94
+  baseline_cost: 469.0
+  solution_cost: 79.0
+  currency: USD
+  scope: 基准成本为Markzware OmniMarkz本地盘点与批量转换桌面版1年订阅费$469；替代方案为一次性买断本地盘点与批量迁移套件$79（未含人工逐页精修）
+  basis: 469 / 79 = 5.9367
+opportunity_durability:
+  value: medium
+  basis: 2026年10月–2027年为M365断供后集中翻找历史档案的高峰窗口，之后随着机构逐步完成迁移将趋于长尾，但历史冷档案唤醒需求仍持续。
+
+
+economic_value:
+  level: Medium
+  payer: 拥有数百至上千份`.pub`文件的小型印刷店、教会行政办公室、中小学行政人员、俱乐部/协会运营专员（推测）
+  economic_anchor: Markzware OmniMarkz官方定价$469/年或$29/单文件（E4），以及手工重建50份核心模板约150工时成本（E3）
+  capture_mechanism: 提供本地免联网运行的“`.pub`全盘体检+缩略图目录生成+批量转PDF/可编辑PPTX”工具包，替代高年费商业工具或手工逐个重做（推断）
+  repeatability: `.pub`底层基于OLE2与`libmspub`可解析结构，盘点与批量转换管道可100%标准化复用
+  basis: 商业需求已被Markzware和新兴独立工具验证，但教会/学校等主要客群预算敏感且存在LibreOffice免费替代品，客单价天花板受限，故评为Medium
+
+
+personal_actionability:
+  fit: Good
+  route: 开发无需Publisher本体的“`.pub`档案一键盘点与批量转PPTX/PDF工具包”
+  target_customer: 在2026年10月失去M365 Publisher访问权限、且硬盘或SharePoint中存有数百份以上`.pub`历史文件的机构行政人员与小型印刷店
+  deliverable: 一个本地桌面/CLI打包工具：1）递归扫描指定文件夹中的全部`.pub`文件，无需安装MS Publisher即可提取页数、修改日期、预览缩略图与内嵌图片资产，输出一份可检索HTML档案清单（帮助用户10分钟筛选出真正需要保留的活跃文件）；2）将选中文件批量转换为高保真PDF档案及按文本框/图片层拆分的可编辑`.pptx`幻灯片文件
+  pricing_hypothesis: $49–$79 一次性买断工具包（无年费订阅，覆盖无限文件数）（假设，无已有支付证据）
+  customer_entry: Reddit r/microsoftoffice、r/sysadmin、r/Principals及Microsoft Q&A中求助“Publisher gone after October 2026”的用户
+  fit_basis: 纯本地文件解析与文档格式转换管道，零硬件与库存，不上传用户私有文档至云端（零隐私顾虑）
+  prerequisites: 熟悉`libmspub`/LibreOffice无头转换管线、Python `python-pptx`及OLE2复合文档图像资产提取
+  first_test: 编写一个Python原型脚本，调用`libmspub`/LibreOffice无头模式批量处理5个不同复杂度的`.pub`样本，提取其中文本块坐标与原始图片并重组输出为1个可编辑`.pptx`与1份HTML缩略图盘点报告
+  time_budget: 90分钟
+  success_signal: 无需安装MS Publisher，90分钟内跑通批量扫描并输出含预览缩略图的盘点表，以及至少1份文字与图片均独立可编辑的`.pptx`转换结果
+  kill_signal: 发现`libmspub`对真实用户常见的复杂Publisher文本框链接（Text Flow）与Avery标签模板解析严重错乱，导致转出的`.pptx`完全不可用
+  key_unknown: 目标用户对`libmspub`开源底层转换出的版面微调容忍度有多高，以及是否已被免费工具（LibreOffice/PubStudio）满足

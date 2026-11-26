@@ -1,0 +1,101 @@
+﻿signal_id: UW-20261120-Homeowner-Sub10kPropertyClaimSupplement
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年核实（ClaimsMate 2025-03、Barclays Public Adjusters 2026-10及2026年佛州法典§ 626.854），美国家庭房屋水灾、屋顶风雹及火灾保险理赔中，持证公共理赔师（Public Adjuster）普遍按最终赔付金额收取5%–20%风险代理费，且行业通行受理底线为争议金额超过$10,000（$10,000–$25,000为边缘区间）。对于争议缺口在$1,500–$9,500之间的中小额房屋损毁理赔，房主既无法请动公共理赔师或财产险律师，也看不懂保险公司理赔员出具的数十页Xactimate逐项维修估价单（含折旧扣减、管理费与利润O&P遗漏、建筑规范升级缺失），最终被迫接受明显低于实际修复成本的初始赔付。
+money: 涉及全美每年数百万起中小额房屋财产险理赔房主及独立小型修缮承包商。根据ClaimsMate与Barclays实务披露，争议金额低于$10,000的案件在10%–15%代理费下仅能产生$500–$1,500佣金，无法覆盖公共理赔师现场勘查、保单拆解与多轮谈判工时，因而被普遍拒接（E1, E2）。房主在面对$2,000–$8,000维修报价缺口时，因缺乏逐项核对工程量与规范条款的能力而放弃复检申诉，自掏腰包补齐修缮差额或被迫缩减维修范围。
+evidence:
+- id: E1
+  source: https://claimsmate.com/public-adjuster-myths-10-debunked-myths-about-public-adjusters/
+  source_date: '2025-03-08'
+  accessed_at: '2026-11-20T00:45:00+08:00'
+  fact: 全文核实：公共理赔师通常收取最终和解金额的5%–20%风险代理费，行业通行准则仅受理争议金额超过$10,000的案件，明确将“争议金额低于$10,000的理赔”列为公共理赔师不适用的排除范围；同时指出各州严格禁止无证人士充当公共理赔师代为谈判。局限：为公共理赔师撮合平台文章。
+- id: E2
+  source: https://barclayspublicadjusters.com/2026/10/hiring-public-adjuster-water-damage/
+  source_date: '2026-10-11'
+  accessed_at: '2026-11-20T00:43:00+08:00'
+  fact: 仅读取搜索摘要（Search Snippet）：2026年10月水损理赔实务指出，$10,000–$25,000理赔属于公共理赔师受理的边缘区间，而低于$10,000的小额理赔因佣金过低通常不划算。局限：未读取全文，具体各州收费上限待核对。
+- id: E3
+  source: https://www.flsenate.gov/Laws/Statutes/2026/626.854
+  source_date: null
+  accessed_at: '2026-11-20T00:43:00+08:00'
+  fact: 仅读取搜索摘要（Search Snippet）：2026年佛罗里达州法典§ 626.854明确规定，未持有公共理赔师执照而代被保险人评估或谈判保险理赔属于无证执业（三级重罪），每次违规最高可处$10,000行政罚款（紧急状态期间最高$20,000）。局限：为佛州法典，各州具体条文有差异，但确立了工具绝不能越界“代为谈判”的合规红线。
+- id: E4
+  source: https://www.insuranceopedia.com/homeowners-insurance/insurance-claim-adjuster-secret-tactics
+  source_date: '2026-11-03'
+  accessed_at: '2026-11-20T00:43:00+08:00'
+  fact: 仅读取搜索摘要（Search Snippet）：2026年11月指南梳理房主面对保司低估报价的标准升级阶梯依次为：申请复检（Reinspection）、向州保险局申诉、启动保单评估（Appraisal）或调解，随后才是公共理赔师或律师。局限：未读取全文。
+mechanism: 事实：争议额<$10,000的房屋理赔被公共理赔师按佣金底线排除（E1, E2），且法律严禁无证第三方代房主与保险公司谈判（E1, E3）；但房主本人依法有权向保险公司提交自有或承包商整理的“范围缺口清单与复检申请”（E4）。推断：房主看不懂保险公司估价单（Xactimate/Symbility PDF）中遗漏的施工步骤（如拆装保护、垃圾清运、水损烘干机天数、O&P管理费与当地建筑规范升级），也无力对照30–60页房屋保单核查“规范升级附加险（Ordinance or Law）”或“可追回折旧（Recoverable Depreciation）”。AI多模态模型可将保司估价单PDF、承包商维修报价单与现场损毁照片交叉比对，在绝对不代为联系或谈判保司的前提下，仅作为房主自助文书工具输出“逐行工程量差异对照表 + 保单条款自查清单 + 房主本人签发的复检请求信草稿”，把原本需要专业人士数小时拆单对比的工作压缩至分钟级，使<$10,000中小额理赔首次具备自助纠偏的经济性。
+persistence: Structural
+next_question: 在收到保司初始估价单但争议金额<$10,000的美国房主或小型水损/屋顶修缮承包商中，使用“估价单逐行对比+复检信模板”自助提交复检后，保险公司追加核增赔付的比例及平均核增金额是多少？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-20T00:48:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work:
+  task: 房屋保险理赔争议金额<$10,000的房主，逐行比对保险公司理赔估价单与修缮承包商报价、核查房屋保单承保明细与折旧扣减规则，并起草带照片证据与工程量差异说明的正式复检申请（Reinspection Request）
+  structure: 昂贵信息获取 / 规则遵从 / 对抗交互
+  abandoned_value: 全美争议额在$1,500–$9,500区间的房屋水损、屋顶风雹及室内修缮理赔中被低估或漏项的合法保险赔付差额（E1, E2）
+  human_failure_reason: 公共理赔师按5%–20%抽成且普遍拒接<$10,000争议案件；房主缺乏建筑估价（Xactimate）与保单条款知识，面对数十页专业编码估价单无从下手而放弃申诉（E1, E2）
+ai_unlock:
+  changed_cost: 将保司数十页理赔估价单（PDF）与承包商维修报价逐行语义对齐、识别遗漏工序/折旧计算错误并生成房主自用复检信的专家阅读工时从数小时降至几分钟
+  capability_basis: 多模态PDF表格与工程编码抽取 + 房屋保单常见批单（O&P/Ordinance or Law/Recoverable Depreciation）核对规则 + 现场照片与漏项映射
+  limitations: 1）严禁越界提供“理赔谈判代理”或收费按赔付抽成，否则在佛州等州构成无证公共理赔重罪（E1, E3）；2）AI无法替代持证工程师对隐蔽结构损伤做物理检测
+unit_economics:
+  unit: 1起争议额<$10,000房屋保险理赔的估价单与报价单逐行比对及房主自用复检证据包生成
+  currency: USD
+  region_and_date: 美国市场 / 2026年11月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖保司PDF与承包商报价OCR解析、逐行差异报告生成、照片标注与复检信排版，及异常人工模板维护；不含现场物理勘验费与获客成本（CAC）
+  excluded_or_unknown_costs: 房主自助提交复检信后的真实保司核增成功率、平均核增金额、及合规免责审查成本尚未量化，严格置为null
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1与E2证实了<$10,000房屋理赔存在明确的公共理赔师供给阈值排除，AI比对两份工程估价单在技术上成熟且单次算力成本极低，判定为Plausible；因缺乏自助复检成功率大盘数据，数值严格置为null
+value_capture:
+  beneficiary: 争议缺口在$1,500–$9,500之间的美国个人房主，以及希望房主拿到足额赔付以便顺利开工的小型水损/屋顶/装修承包商（E1, E4）
+  payer: 房主本人（为一次性自用比对报告付费），或小型修缮承包商作为签单转化辅助工具按月/按单采购
+  payment_evidence: 房主在传统路径下愿为公共理赔师支付5%–20%（即$1,000–$2,000+）费用，但对<$10,000案件的$49–$99纯工具包付费意愿及承包商采购意愿属待验证商业假设
+  capture_node: 房主收到保险公司初始赔付清单（Adjuster Estimate）但发现比装修队报价低数千美元时，上传两份PDF立即生成差异清单与自用复检信
+  pricing_hypothesis: 假设采用“免费初筛漏项数量 + $49–$79固定工具包费（严禁按赔付比例抽成以规避无证理赔合规风险）”；标记为待验证商业假设
+  customer_net_benefit: 在不被公共理赔师拒之门外、也不支付高额代理抽成的前提下，10分钟内看清被漏算的维修项目并规范提出复检，多追回$1,500–$5,000修缮款
+scale:
+  aggregation_unit: 每次强风暴/冰雹/家庭水管爆裂后房主收到保司初始估价单
+  repeatability: 美国每年数百万起住宅财产险理赔高频发生，Xactimate/Symbility估价单结构高度标准化，工具可跨屋顶/水损/火灾复用
+  reachable_volume: null
+  basis: 缺乏<$10,000争议理赔年发生总量的公开精确统计，reachable_volume置为null
+action_loop:
+  observe: 房主或承包商上传保司初始理赔估价单PDF、承包商维修报价PDF及房屋保单Declarations页
+  judge: 规则引擎与LLM交叉比对工序单价、工程量、O&P管理费、折旧扣减及常见漏项，同时校验案件是否超过$10,000（若超过则提示可转介持证公共理赔师）
+  act: 仅生成供房主本人核对并自行寄送的《逐项工程量差异表》与《复检请求信草稿》（明确不代发、不代谈、不触碰理赔资金）
+  verify: 房主确认差异表与实物照片一致后自行提交给理赔员，并追踪保司是否安排复检及出具补充赔付单（Supplement）
+required_access:
+  resources: 用户自行上传的保司估价单PDF、承包商报价PDF、现场照片及保单摘要（无需接入保险公司内部系统）
+  availability: Available
+  authorizer: 房主本人或获房主授权的修缮承包商直接上传文件
+  authorization_status: 用户自助上传场景下无需第三方API授权；已具备公开信息支撑
+  basis: 完全基于用户侧已有PDF文件工作，无外部私有系统准入壁垒，但受限于各州“无证公共理赔”法律边界（E1, E3）
+defensibility:
+  basis: 短期易被通用大模型提示词模仿，长期壁垒在于积累真实Xactimate编码漏项库、各州保单规范升级条款库及与区域中小型修缮承包商的嵌入式签单工作流
+  alternatives_and_counterevidence: 1）现有替代：房主自行用ChatGPT对比两份PDF，或由承包商口头向理赔员解释；2）最强反证：各州保险监管对“AI辅助生成补充理赔文件”可能存在灰色界定，若产品表述稍越界即面临高额合规罚款（E3）
+personal_actionability:
+  fit: Conditional
+  target_customer: 遭遇水损、冰雹或局部火灾且保司初始赔付比承包商报价低$1,500–$9,500的美国房主，以及中小型独立屋顶/水损修缮承包商
+  deliverable: 一份《理赔估价单逐项漏项对照表 + 房主自用复检请求信PDF》
+  customer_entry: 1）美国屋顶/水损修缮承包商社群与B2B合作；2）r/homeowners、r/Insurance等房主维权论坛及“insurance adjuster estimate too low”长尾SEO
+  prerequisites: 必须严格限定为“纯信息比对与自用文书排版工具”，固定低价收费而非按赔付抽成，并内置清晰法律免责声明与大额案件持证PA转介出口
+  basis: 个人/小团队完全可基于多模态LLM快速搭建PDF比对原型，但因涉及各州公共理赔师持证红线，适配度评为Conditional
+seven_day_experiment:
+  critical_unknown: 争议<$10,000的房主与小型修缮承包商是否愿意为“纯自用、不代谈判”的估价单漏项比对包支付$49–$79，以及该包在实际复检中能否显著提升补充赔付率
+  test: 收集5–10份公开或合作承包商脱敏的保司Xactimate估价单与实际修复报价对比样本，用多模态提示词人工+AI半自动输出差异清单与复检信，观察承包商/房主反馈与复检结果
+  artifact: 5份《估价单逐项差异与漏项诊断样本报告》及1页严格合规边界说明（明确不构成Public Adjusting）
+  time_and_cost_budget: 7天内完成，预算<$50（仅LLM API测试费与公开社区调研时间，不投放广告、不代客发函）
+  success_signal: 至少3家小型修缮承包商或受访房主确认差异清单找出了其原本遗漏的高价值工序，并明确表示愿为每单$49–$79购买该自用诊断包
+  kill_signal: 承包商表示自己已用免费通用工具/内部经验完成全部比对，或房主普遍认为“不代为和保司打电话谈判就没有付费价值”

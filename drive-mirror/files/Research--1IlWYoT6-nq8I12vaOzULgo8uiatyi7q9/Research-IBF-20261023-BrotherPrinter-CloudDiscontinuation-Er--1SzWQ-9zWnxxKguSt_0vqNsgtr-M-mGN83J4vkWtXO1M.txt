@@ -1,0 +1,35 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: IBF-20261023-BrotherPrinter-CloudDiscontinuation-Error03
+* Source Signal References:
+   * Signal ID: IBF-20261023-BrotherPrinter-CloudDiscontinuation-Error03
+   * Generated At: 2026-10-23T17:45:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: https://docs.google.com/document/d/1cap3r3doKc6EUBnpGj4KEy8rcdQuYREZx9-Pe1cO8j4/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-23T17:43:42+08:00
+* Research Level: R1 — Quick Structure
+* Stage Result: KILL
+* Unknown Ledger:
+   * Known: Brother 官方服务器因 TLS 1.2+ 加密升级切断老款激光一体机（MFC-9330CDW 等）云端中继导致面板一键扫描报“Connection Error 03”确实存在；但经过深入检索，该问题在硬件与网络配置层面存在完全免费且原生的“标准答案”：Brother 该系列打印机内置嵌入式 Web 服务器（EWS）完全原生支持“Scan to E-mail Server（直接直连 SMTP 发信）”功能，用户或网管只需登录打印机局域网 IP，在 Network > POP3/SMTP 页面填入 smtp.gmail.com 或 Outlook 发信服务器及应用专用密码（App Password），无需安装任何额外第三方软件或局域网中继硬件即可一劳永逸永久恢复一键扫描发信功能；社区（Reddit r/printers、YouTube、iFixit）已形成详尽公开图文与视频指南。
+   * Unknown: 存量用户中因完全缺乏基础电脑操作能力而直接放弃打印机整机换新的比例。
+   * Decision-Critical Unknown: 无（已在 R1 确认强反证并终止）。
+* Gate Checks:
+   * Money: 未通过。由于打印机原生内置免费的直连 SMTP 发信通道，且网络公开教程完备，企业与用户只需 5 分钟单次手工配置，不具备向第三方付费购买一次性桌面小工具或持续按年订阅的真实付费预算池。
+   * Mechanism: 未通过。该摩擦属于原厂硬件已具备原生能力（Native capability）、仅因旧云端捷径停运引发的单次配置重置问题。不存在必须由第三方软件长期介入以提供持续价值的商业套利空间。
+   * Persistence: 未评估（R1 阶段终止）。
+   * Capture: 未通过。单机一次性配置完成后即永久生效，且目标用户多为不具备技术背景的律所、诊所前台，要求其下载运行第三方非官方可执行程序（甚至可能被杀毒软件误报拦截）的信任门槛极高，违背小团队“轻资产、低客服、高转化”约束。
+* Final Status: KILL
+* Evidence:
+   1. Reddit r/printers 详尽解决方案公开帖《FIXED: Brother Printer "Connection Error 03" / Scan to Email Not Working (April 2026)》（2026-04-02）：详述打印机硬件并未损坏，通过内置 EWS 后台配置“Scan to E-mail Server”填入 Gmail SMTP 即可完美免费修复，步骤完全公开。
+   2. Brother 官方错误知识库《Error Messages When Using the Brother Web Connect Feature》：官方说明 Connection Error 03 为服务器连接失败。
+   3. Reddit 社区求助与跟帖《Brother MFC cannot scan or connect to Web Connect Services》（2026-04-03）：证实用户普遍在跟帖指导下通过直连 SMTP-AUTH 成功自行恢复。
+* Counter Evidence:
+   1. 存在完全免费且原生的标准化解决方案：打印机自带直连 SMTP 发信功能，无需第三方中介软件介入。
+   2. 单次设置永久生效：一次配置无需后续维护，无持续付费与软件订阅基础。
+* Stop Reason: 存在足够强反证可 KILL。该摩擦已有成熟、免费且设备原厂原生支持的标准配置方案（直连 SMTP），不具备可作为独立软件产品的商业化成立基础。
+* Resume Condition: 不适用（已 KILL）。
+* What became more likely: 遭遇 Error 03 的用户将通过社区公开教程自行配置 SMTP-AUTH 或由兼职 IT 顺带完成单次调试。
+* What became less likely: 市场上能跑通一款专门针对 Brother 老打印机配置 SMTP 的收费独立软件工具。
+* What did we rule out: 彻底排除了将可通过设备原生后台 5 分钟免费配置解决的问题作为软件产品机会的可能。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-10-24T17:22:32+08:00
+* Role Spec Status: reviewed

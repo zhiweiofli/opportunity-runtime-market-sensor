@@ -1,0 +1,84 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: Friction-2026-11-09-Stripe-Fulfillment-Webhook-Mismatch
+
+
+* Source Signal References:
+
+
+   * Signal ID: Friction-2026-11-09-Stripe-Fulfillment-Webhook-Mismatch
+   * Generated At: 2026-11-09T09:37:00+08:00
+   * Task Version: friction-sensor@0.2.1
+   * Source File URL: https://drive.google.com/file/d/1F3j1xihzwX499bjWruHkLTcy76rq4rlK/view?usp=drivesdk
+   * Source File Modified At: 2026-11-09T09:38:18+08:00
+
+
+* Research Level: R1 — Quick Structure
+
+
+* Stage Result: KILL
+
+
+* Unknown Ledger:
+
+
+   * Known: 在中小 SaaS 与出海应用中，确实存在“用户在 Stripe 完成付款，但应用后台未自动升级权限（Customer Paid But Still on Free Plan）”的偶发工单摩擦；但深入调研证实：
+      1. 该问题本质属于开发者应用程序自身架构设计与 Webhook 处理逻辑不规范引发的经典工程实施问题（如未做幂等性校验、未配置死信队列 DLQ、未在重定向成功页通过 Session ID 同步核对等），并非市场上缺乏解决方案的结构性市场真空。
+      2. 市场上针对 Webhook 丢失与异步对账，早已存在极其成熟且被广泛采用的标准技术方案与第三方基础设施：例如专用于 Webhook 监控与重试的中继网关平台（如 Hookdeck、Svix），Stripe 官方长期内置的指数退避重试机制（默认自动重试长达 3 天），以及各类开源对账定时作业脚本（Nightly Reconciliation Job）。
+      3. 商业可行性与小团队约束冲突：中小型 SaaS 开发者在遭遇此问题时，普遍按照技术社区开源 Checklist（如 Indie Hackers、Stripe 官方最佳实践文档）在代码中补充标准重试与对账逻辑即可彻底解决；针对该狭窄技术场景单独构建商业付费工具缺乏持续付费意愿与差异化壁垒。
+
+
+* Unknown: 无。
+
+
+* Decision-Critical Unknown: 无（已在 R1 确认强反证并终止）。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。SaaS 团队愿为避免付费用户投诉流失投入精力和工时。
+   * Mechanism: 未通过。该摩擦属于已有成熟公认行业标准开发规范（幂等性、双向校验、死信队列）与现成基础设施（Hookdeck, Svix, Stripe 原生重试）完全覆盖的领域，不存在未被满足的结构性机制断层。
+   * Persistence: 未评估（R1 阶段终止）。
+   * Capture: 未通过。面对已有成熟的开源代码范式与成熟专业 Webhook 平台，小团队重造单一的 Stripe 履约对账微工具难以建立商业护城河。
+
+
+* Final Status: KILL
+
+
+* Evidence:
+
+
+   1. Continuum 博客《Customer Paid But Still on Free Plan》（2026-11-05）：拆解支付成功但权限未放开的 9 大工程诱因，明确指出属于代码层面的环境变量、幂等性与事件监听遗漏问题。
+   2. Indie Hackers 讨论《Paid in Stripe, still free in your app? The 9 causes I check first》（2026-11-03）：社区技术创始人分享排查清单，普遍指出增加简单的夜间对账脚本（Nightly Job）即可自愈。
+   3. Hookdeck 官方技术白皮书《Building Reliable Stripe Webhook Integrations》：成熟展示专业 Webhook 基础设施如何原生解决重试、排队与故障恢复。
+
+
+* Counter Evidence:
+
+
+   1. 现成标准方案完备：Hookdeck、Svix 及自建重试机制已彻底解决。
+   2. 工程实现问题非商业真空：本质为初级开发者代码规范问题，非市场工具缺失。
+
+
+* Stop Reason: 存在足够强反证可 KILL。该场景属于已有公认成熟标准开发范式（Session 校验、幂等重试）与成熟基础设施（Hookdeck）完全覆盖的技术范畴，源信号仅为技术博客分享的避坑指南，缺乏小团队可持续捕获的独立商业机会。
+
+
+* Resume Condition: 不适用（已 KILL）。
+
+
+* What became more likely: 开发者将根据技术社区指南规范自身的 Webhook 处理代码并加入常规对账作业。
+
+
+* What became less likely: 独立第三方小团队通过单独封装一个针对 Stripe 权限同步的微型工具能建立规模化付费 SaaS。
+
+
+* What did we rule out: 彻底排除了将常规工程代码错误（Bad Webhook Implementation）当作全新独立商业机会的可能。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-09T17:18:14+08:00
+
+
+* Role Spec Status: reviewed

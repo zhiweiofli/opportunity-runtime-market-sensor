@@ -1,0 +1,24 @@
+Signal ID: Friction-20261020-StripeQuickBooks-ManualRecon
+Type: Friction
+What Changed: 使用 Stripe 收款并在 QuickBooks Online 记账的商家，在 2026 年 10 月中旬仍需手动将 Stripe payout 与底层交易（含部分退款、chargeback、手续费、递延收入）进行对账，因为官方同步与 CSV 导入无法干净处理净额批次与复杂事件。
+Friction: Payment / Cash Application / Reconciliation 环节。Stripe payout 为净额批次（扣费后），QuickBooks 银行 feed 只看到净额存款，无法自动匹配 gross 发票、跨期退款、chargeback clawback 或手续费；内置同步或 CSV 导入常出错。
+Money: 商家已为 Stripe（交易手续费）与 QuickBooks Online（订阅）付费，仍需会计/簿记人员手工对账复杂 payout。关联 labor/time 成本，以及潜在错误导致的 revenue 确认错误或 failed transaction 追溯成本。具体小时数与金额未知。
+Evidence:
+1. Reddit r/quickbooksonline 帖文（约 2026-10-16）：“We've been manually reconciling Stripe payouts into QuickBooks. The problem isn't the straightforward deposits, it's everything underneath with partial refunds hitting in a different period, chargeback clawbacks, Stripe fees netting out in weird ways, deferred revenue on annual plans.” https://www.reddit.com/r/quickbooksonline/comments/1x7stmc/best_stripe_reconciliation_tool_for_quickbooks/
+2. 同帖及回复建议使用 Stripe clearing account 或第三方工具（如 SyncMyCart、ClearDeposits），确认官方路径不足以处理复杂情形。
+3. 较早但持续的社区讨论（如 r/stripe 2026-01 等）反复出现“payout $2,247 对应 60 笔交易 + 退款 + chargeback，QuickBooks 只看到净额；manual matching takes forever；built-in QBO sync still wrong；CSVs useless”。
+4. X 近期帖（2026-10-19）：用户使用 AI 工具将发票、卡收费与 Stripe deposits 对账从“整个下午”缩短至数秒，证实该手工劳动仍普遍存在。
+Mechanism: Stripe 的 payout 模型（净额、批次、UTC 时区、手续费单独、复杂事件）与会计系统期望的 gross 逐笔匹配存在结构性不匹配，导致已完成的交易资金流入后，账务确认与对账仍需人工介入，增加 labor 并延迟准确财务视图（推断基于多帖描述的 net vs gross 与 timing 问题）。
+Current Workaround: 手工匹配或使用 clearing account 结构；或购买第三方同步/对账工具（A2X、SyncMyCart、ClearDeposits 等）。成本为会计时间（多帖称“takes forever”或“whole afternoon”）及工具订阅。依据原帖与回复。
+Payer: 使用 Stripe + QuickBooks 的中小商家或其外包簿记/会计可能为减少该摩擦的专用对账工具或更好集成付费；依据：用户主动寻求工具、第三方工具以解决此痛点存在并被推荐，且 AI 代理演示可大幅缩短时间。
+Economic Effect: labor / time（主要）、潜在 cost（错误调整与审计）与 revenue 确认延迟。
+Friction Value: 频率：每个 Stripe payout 周期（通常每日或每周）均可能发生（中高，尤其有退款/订阅时）；单次经济影响：会计小时成本（未知精确值，帖文暗示数小时级）；可回收比例：中高（clearing account 或专用工具可显著降低，但复杂事件仍需例外处理）。依据：多源社区描述，未知行业平均小时数。
+Persistence: Structural（依据：问题源于支付处理商 payout 模型与会计系统匹配逻辑的持续差异，非一次性 bug；官方集成长期存在但仍被用户抱怨不足；跨年多帖持续出现）。
+Next Question: 在中小 Stripe 商家中，每月因 payout 对账平均花费的会计小时数是多少？第三方工具的典型价格与采用率如何？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-10-20T09:37:52+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-10-13 至 2026-10-20（Asia/Taipei），基于本轮可核实资料（Reddit 2026-10-16 帖及同期 X 讨论）。
+无法访问平台：Reddit 页面直接抓取部分失败，依赖搜索摘要与历史一致描述；主要使用 Web 搜索与 X。
+已有 Signal 索引：本文件夹已有 Friction-20261014-B2B-QuoteToCash-ManualCollections（SaaStr 催收），本条为不同环节（现金应用/对账 vs 催收），未重复。

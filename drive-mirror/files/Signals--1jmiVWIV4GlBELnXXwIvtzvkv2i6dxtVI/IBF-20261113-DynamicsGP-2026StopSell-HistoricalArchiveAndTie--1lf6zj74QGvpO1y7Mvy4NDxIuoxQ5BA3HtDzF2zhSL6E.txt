@@ -1,0 +1,121 @@
+﻿signal_id: IBF-20261113-DynamicsGP-2026StopSell-HistoricalArchiveAndTieOut
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: 微软已于2025年4月1日停售Dynamics GP永久许可，并于2026年4月1日正式停售所有新的Dynamics GP订阅许可；官方产品与税务补丁支持将于2029年12月31日终止，安全补丁与SPLA计费于2031年4月30日硬关停（同时底层SQL Server 2016已于2026年7月失去支持）。在2026年迁往Dynamics 365 Business Central (BC) 的浪潮中，官方Microsoft Cloud Migration Tool暴露出严重结构性缺口：原生工具不会将历史总账明细迁移至BC实时账簿（仅导入汇总余额，明细被推入无法在BC标准界面直接查询的扩展表），且完全不迁移企业长期依赖的SmartLists自定义报表；同时外部实施商警告把15–25年历史数据强行塞入BC会导致子账污染与巨额存储/许可膨胀。
+money: 涉及北美数以万计仍运行本地SQL Server Dynamics GP的中型企业（制造业、分销、医疗与非营利组织）。Business Central标准迁移实施报价高达$25,000–$80,000（企业级$150,000–$500,000+）；目前主流商业历史数据归档与SmartList替代方案Popdock（eOne Solutions）按月订阅收费$150–$650/月（即$1,800–$7,800/年，另加Scheduling/Matrix Reports等扩展模块各$100/月，PopdockAI更达$450–$1,950/月）。若保留旧SQL Server虚拟机仅用于审计查账，则持续承担老旧系统安全合规与运维风险。
+
+
+evidence:
+  - id: E1
+    source: https://clonepartner.com/blog/dynamics-gp-to-business-central-migrating-20-years-of-history
+    source_date: '2026-05-04'
+    accessed_at: '2026-11-13'
+    fact: 详述2026年GP停售时间线（2026-04-01停售新订阅、2029-12-31停支、2031-04-30硬停）及原生Cloud Migration Tool核心局限：不迁移历史GL明细至实时账簿、不迁移SmartLists、多公司需逐库迁移、未清理的子账漂移（AR/AP控制科目与明细不平）会导致BC拒绝加载。
+  - id: E2
+    source: https://stoneridgesoftware.com/maintain-and-access-your-historical-dynamics-gp-data-with-popdock/
+    source_date: '2026-01-13'
+    accessed_at: '2026-11-13'
+    fact: 微软合作伙伴实务确认：将全部GP历史数据迁入BC效率极低且昂贵（触发BC容量限制与性能下降），行业标准做法是仅迁近期数据，将历史GL/SmartList归档至低成本存储（如Azure Data Lake约$10–$20/月）并通过Popdock查询，避免继续运行高风险旧SQL Server。
+  - id: E3
+    source: https://www.eonesolutions.com/shop/popdock
+    source_date: null
+    accessed_at: '2026-11-13'
+    fact: 商业替代方案Popdock公开订阅定价：Startup $150/月、Business $350/月、Premium $650/月（另Scheduling/Matrix Reports各$100/月，支持工时$250/小时）。
+  - id: E4
+    source: https://www.reddit.com/r/Beyondkeysystems/comments/1vsm9ci/how_much_does_dynamics_365_really_cost_a_2026/
+    source_date: '2026-08-20'
+    accessed_at: '2026-11-13'
+    fact: 2026年Dynamics 365实施成本指南披露Business Central典型实施项目报价范围为$25,000–$80,000，数据迁移与集成是核心变量成本。
+
+
+mechanism: 事实：Dynamics GP采用分段科目与本地SQL Server（`GL20000`/`GL30000`等表），而Business Central采用云端维度模型与按容量/命名用户计费；原生迁移工具不带走历史GL明细与SmartLists（E1, E2）。推断：对于年营业额数百万至数千万美元、但并不需要每天在BC界面里看10年前流水的中小企业，为了满足IRS 3–7年税务审计“可随时调阅”要求而每年向Popdock支付$1,800–$7,800订阅费，或承担$25k+大项目重构SmartList，均属于高溢价负担；利用标准化只读SQL脚本从GP本地库一次性抽取7–20年GL/AP/AR/PO历史及SmartList定义，打包为轻量便携的DuckDB/SQLite+静态Web查询档案，并前置生成《迁移前子账漂移与试算平衡审计包》，可让企业在关停老旧Windows/SQL服务器后以极低成本永久保留审计级检索能力。
+persistence: Structural
+next_question: 在拥有10年以上Dynamics GP历史且准备在2026–2029年迁往Business Central/Sage Intacct/NetSuite的中小企业中，有多少比例愿意用一次性买断的离线/自托管SQLite/DuckDB归档包替代按年付费的Popdock订阅？
+task_version: installed-base-friction@0.2
+generated_at: '2026-11-13T17:45:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+
+
+asset:
+  category: 企业本地部署ERP与历史财务数据库
+  brand: Microsoft
+  model: Microsoft Dynamics GP (Great Plains v18.x / Legacy SQL Server)
+friction:
+  type: 原厂支持退出与迁移历史明细/报表断层
+  symptom: 停售新许可且底层SQL Server老化，官方迁移工具不带走GL明细与SmartLists，强行全量迁入云端触发高额存储费与子账不平报错
+installed_base:
+  estimate: 北美数以万计仍在运行本地Dynamics GP的中型制造、分销、医疗与非营利机构
+  basis: 2026年4月1日刚进入订阅停售阶段，大量GP合作伙伴与独立迁移指南在2026年5–11月密集发布应对方案。
+
+
+current_solution:
+  description: 1) 购买eOne Popdock订阅（$150–$650/月）对接Azure Data Lake查询历史；2) 支付$25,000–$80,000由ERP实施商定制迁移与重建报表；3) 在内网保留一台淘汰的老旧Windows/SQL Server VM仅供财务偶尔查旧账。
+  oem_part_price: null
+  technician_repair_price: 1800.0
+  currency: USD
+  basis: Popdock Startup最低档订阅$150/月折合首年$1,800（Business档$4,200/年）；BC整体实施报价$25,000–$80,000（E3, E4）。
+alternative:
+  description: 交付“Dynamics GP 历史审计归档与迁移前子账体检套件”（只读T-SQL+Python抽取脚本，一键将GL20000/GL30000/PM/RM/POP历史及SmartList视图转为可离线/静态部署的DuckDB+Web检索包，并输出迁前子账漂移核对单）
+  estimated_solution_cost: 299.0
+  currency: USD
+  basis: 单组织一次性买断工具包定价假设（待验证）。
+gap:
+  vendor_support: discontinued
+  availability: low
+  competition: medium
+  basis: 微软官方Cloud Migration Tool明确不迁移历史GL明细与SmartLists；现有方案Popdock按高额SaaS月费订阅，缺乏面向中小财务团队的“零月费、自托管便携归档+迁前子账自检”工具。
+signals:
+  recurrence: high
+  urgency: medium
+  diy_activity: high
+  basis: 2026年4月停售与7月SQL 2016停更引发大量迁移准备；多家技术团队发布自写T-SQL抽取GL30000与试算平衡核对指南。
+
+
+assessment:
+  installed_base: {value: high, basis: 北美沉淀20余年的庞大Dynamics GP企业存量}
+  friction_rate: {value: high, basis: 凡从GP迁往BC的企业100%遭遇SmartList失效与历史GL明细无法原生查询}
+  failure_cost: {value: high, basis: Popdock年费$1,800–$7,800，迁移错漏导致审计合规风险与数万美元返工}
+  support_gap: {value: high, basis: 微软已停售GP并引导迁BC，不打算把全量历史明细塞入BC实时账簿}
+  switching_cost: {value: high, basis: 15–25年分段科目、ISV插件与多公司互记逻辑使迁移极为复杂}
+  vendor_repair_speed: {value: low, basis: 微软明确淘汰GP，仅维持至2029/2031过渡}
+
+
+repair_leverage:
+  ratio: 6.02
+  baseline_cost: 1800.0
+  solution_cost: 299.0
+  currency: USD
+  scope: 基准成本为Popdock Startup首年最低订阅费$1,800（$150/月×12，不含扩展模块与Azure存储）；替代方案为一次性便携归档套件$299（未含人工实施）
+  basis: 1800 / 299 = 6.0201（仅比较1年归档访问成本；若按3–7年税务保存周期计算差距更大）
+opportunity_durability:
+  value: high
+  basis: GP停支窗口延续至2029–2031年，未来3–5年处于存量企业集中迁移高峰，且归档需维持7年可查。
+
+
+economic_value:
+  level: High
+  payer: 正在撤离Dynamics GP的中型企业财务总监（Controller/CFO）或独立ERP迁移顾问（推测）
+  economic_anchor: Popdock订阅费$150–$650/月（$1,800–$7,800/年，E3）、Business Central实施费$25,000–$80,000（E4）
+  capture_mechanism: 提供标准化的只读SQL抽取与本地Web归档生成工具包（按企业/公司库收取一次性授权费，消除持续SaaS年费与老SQL Server维护负担）（推断）
+  repeatability: Dynamics GP核心表结构（`GL20000`, `GL30000`, `PM30200`, `RM30101`, `POP30100`等）全行业高度统一，抽取脚本与子账核对SQL可100%标准化复用
+  basis: 财务团队在7年审计保留期下对“一次性低成本替代持续高额SaaS月费”有明确算账动力；限制在于中小ERP客户往往习惯通过原有VAR合作伙伴打包采购
+
+
+personal_actionability:
+  fit: Good
+  route: 开发“Dynamics GP只读SQL便携归档与迁前子账漂移体检包”
+  target_customer: 拥有10–25年GP历史、准备迁往Business Central或Sage Intacct但不愿续费Popdock的中小企业财务团队与独立ERP顾问
+  deliverable: 一套只读T-SQL与Python打包器：连接GP SQL Server提取全量GL/AP/AR/PO历史及SmartList SQL定义，生成单个加密DuckDB文件+本地零依赖Web查询界面（支持按科目、供应商、发票号、日期毫秒级检索并导出Excel），同时输出《迁前子账漂移与未存现金收据检查报告》
+  pricing_hypothesis: $299 单公司库买断包；$699 多公司（最多10个GP公司库）或顾问授权包（假设，无已有支付证据）
+  customer_entry: Reddit r/DynamicsGP、r/Accounting、Microsoft Dynamics Community及Dynamics GP用户组（GPUG）中讨论BC迁移历史数据归档的财务/IT负责人
+  fit_basis: 纯只读SQL查询与静态文件/DuckDB打包，不写入生产ERP，零硬件库存，个人开发者可独立完成标准表映射
+  prerequisites: 熟悉Dynamics GP核心SQL表结构（`GL20000`/`GL30000`/`PM`/`RM`/`IV`）及常见子账与总账核对SQL逻辑
+  first_test: 编写一段只读T-SQL + Python脚本，在GP标准测试库（`TWO`公司架构）上抽取GL与AP/AR历史表，生成可离线检索的DuckDB+HTML归档文件并输出1份控制账户与子账余额比对清单
+  time_budget: 90分钟
+  success_signal: 10万行级GL历史在2分钟内完成抽取打包，离线HTML界面可秒级按供应商/单号检索，且精准捕获刻意制造的AP控制科目差额
+  kill_signal: 发现绝大多数GP目标企业高度依赖第三方ISV（如Mekorma支票影像或自定义Dexterity表），纯标准GP核心表归档无法满足审计查验需求
+  key_unknown: 中型GP客户在迁移决策中，有多少比例是由现有VAR合作伙伴强制捆绑销售Popdock而根本不考虑第三方独立小工具

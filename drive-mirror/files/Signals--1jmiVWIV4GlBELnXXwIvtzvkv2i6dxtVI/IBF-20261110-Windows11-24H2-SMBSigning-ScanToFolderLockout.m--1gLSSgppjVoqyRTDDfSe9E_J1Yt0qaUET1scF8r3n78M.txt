@@ -1,0 +1,116 @@
+﻿signal_id: IBF-20261110-Windows11-24H2-SMBSigning-ScanToFolderLockout
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: 随着Windows 11 24H2在全网企业工作站的大规模铺开以及2026年10月下旬强制安全补丁（KB5066470等）的推送，微软在系统底层全面锁死了两项网络共享安全基线：1）强制对所有入站及出站SMB客户端连接启用SMB签名（SMB Signing Required）；2）彻底移除并阻断NTLMv1协议回退。这一激进安全策略直接引发全球数以千万计在2012-2020年间生产的商业多功能复合机与扫描仪（MFP，如柯尼卡美能达Bizhub、理光Ricoh MP/IM系列、施乐Xerox AltaLink/WorkCentre、佳能imageRUNNER等）的“网络文件夹扫描（Scan to Folder / Scan to SMB）”功能大面积瞬间瘫痪。复合机在按下面板扫描后普遍报错“认证失败（Authentication Error）”或“SMB协议错误（0x00000000）”。
+money: 商业复印机与数码复合机的机械打印与高精度CCD/CIS扫描硬件寿命极长（普遍可稳定服役10-15年），但在售的经典存量机身嵌入式Linux/VxWorks固件早在数年前停更，芯片算力亦无法支持现代SMB签名计算。原厂代理商（Dealer）普遍将固件不兼容作为倒逼客户淘汰旧机的商业抓手，拒绝提供向下兼容补丁，并向中小企业开出$4,000-$10,000美元的整机换购报价（或每月$150-$300的新租约）；中小型律所、会计所、诊所与物流报关行每日严重依赖扫描纸质合同与单据，扫描停摆直接瘫痪行政流转。若在Windows端全局暴力关闭SMB签名，将直接导致企业在网络安全保险（Cyber Insurance）合规审查中被一票否决。
+
+
+evidence:
+  - id: E1
+    source: https://www.farbtoner.shop/en/Setting-up-Scan-to-Folder-Scan-to-SMB-Windows-NAS-Brother-HP-Epson:_:328.html
+    source_date: null
+    accessed_at: '2026-11-10'
+    fact: 办公外设工程技术指南明确指出：自Windows 11 24H2起，SMB签名已成为强制默认策略，老款扫描仪作为SMB客户端无法配合签名导致Scan to Folder连接100%失败；官方明确警告不建议在Windows上全局禁用签名。
+  - id: E2
+    source: https://www.meridian-micro.com/blog/windows-11-october-2026-update-enforces-ntlmv1-block-single-sign-on-kent-smes-authentication-failures/
+    source_date: '2026-10-25'
+    accessed_at: '2026-11-10'
+    fact: 行业技术公告披露2026年10月Windows 11安全更新正式执行NTLMv1硬阻断，直接导致大量未配置Kerberos的中小企业网络复印机与NAS发生大面积认证中断。
+  - id: E3
+    source: https://whizz-tech.com/support/printers/scan-to-folder-fails-smb3/
+    source_date: '2025-10-17'
+    accessed_at: '2026-11-10'
+    fact: 现场运维案例记录：Windows 11 PC作为目标共享文件夹时，Brother、Ricoh等复合机频繁抛出“Authentication error”与“SMB protocol error”，用户在账号密码完全正确的情况下仍无法投递文件。
+
+
+mechanism: 操作系统巨头为了抵御横向移动内网渗透与中继攻击，单方面在桌面操作系统强制推行最高等级安全协议；但办公外设嵌入式芯片开发周期滞后且生命周期长达十余年，复印机原厂缺乏动力为停产机型重构网络协议栈（反而有强烈的促换新诉求）；而中微小企业无法承受仅因扫描报错就耗费数千美元更换整台机械完好的巨型复合机，形成“底层安全策略强制收紧与硬件设备机械长寿”之间的结构性断层。
+persistence: Structural
+next_question: 在遭遇Windows 11 24H2扫描断流的中小办公室中，愿意为一款在局域网内部署的无感轻量扫描转发桥接工具支付多少费用？
+task_version: installed-base-friction@0.2
+generated_at: '2026-11-10T17:15:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+
+
+asset:
+  category: 办公外设与商用数码复合机（MFP）
+  brand: Konica Minolta / Ricoh / Xerox / Canon / Kyocera
+  model: 2012-2020年款商用激光多功能一体机与高速扫描仪
+friction:
+  type: 网络通信安全协议强制升级与固件不兼容
+  symptom: 电脑升级至Win11 24H2后，复印机一键扫描到文件夹（Scan to Folder）报认证错误或协议错误，无法投递扫描PDF
+installed_base:
+  estimate: 全球数以千万台仍在企业办公室内正常服役的存量数码复合机
+  basis: 商业复印机租赁周期普遍为3-5年，大量中小企业买断后持续使用10年以上，保有量极大。
+
+
+current_solution:
+  description: 1) 被迫接受代理商推销，花费$4,000-$10,000换购全新复合机；2) 在Windows端违规降低系统安全等级（修改组策略强制关闭SMB签名，面临网络安全合规风险）；3) 操作工插U盘物理对拷（极度繁琐）。
+  oem_part_price: 5000.0
+  technician_repair_price: 600.0
+  currency: USD
+  basis: 换购同等功能商用立式数码复合机最低采购价约$4,000-$6,000；聘请MSP工程师现场排障尝试降级配置通常耗费3-5工时（约$450-$750）。
+alternative:
+  description: 交付一套轻量级“Scan-to-Folder安全旁路转发中继包”（以单文件Windows服务或轻量NAS容器形式运行，在局域网独立监听隔离端口接收旧版SMB/FTP扫描流，自动校验并将PDF无感投递至合规的Win11用户目录）
+  estimated_solution_cost: 99.0
+  currency: USD
+  basis: 单套办公室网络买断授权或一小时远程实施配置包定价。
+gap:
+  vendor_support: discontinued
+  availability: low
+  competition: low
+  basis: 硬件厂商已停止固件维护并只推销新硬件；市面上缺乏兼顾“不破坏Win11安全基线”与“老机免改硬件即插即用”的标准化低门槛中间件。
+signals:
+  recurrence: high
+  urgency: high
+  diy_activity: high
+  basis: 办公室日常行政高频刚需，每天必须扫描纸质凭据；Reddit r/sysadmin与各大外设论坛中关于24H2 SMB Scan断流的求助帖铺天盖地。
+
+
+assessment:
+  installed_base: {value: high, basis: 全球海量商用楼宇与中小企业办公室内服役的经典数码复合机}
+  friction_rate: {value: high, basis: 凡目标接收机升级至Win11 24H2的未打补丁老复合机100%发生阻断}
+  failure_cost: {value: high, basis: 官方整机换代需数千至上万美元，纸质业务流转全面停摆}
+  support_gap: {value: high, basis: 原厂明确停更固件，微软官方严令禁止回退全局安全配置}
+  switching_cost: {value: high, basis: 重新购置复合机需要重新签订昂贵的耗材抄表维保合同}
+  vendor_repair_speed: {value: low, basis: 原厂主动淘汰，利用协议升级促进硬件换代循环}
+
+
+repair_leverage:
+  ratio: 40.4
+  baseline_cost: 4000.0
+  solution_cost: 99.0
+  currency: USD
+  scope: 基准成本为采购一台入门级替代商用复合机最低成本（$4,000）；替代方案为单套软件中继交付包（$99）
+  basis: 4000 / 99 = 40.40
+opportunity_durability:
+  value: high
+  basis: Windows 11安全基线将长期维持强约束，老复合机机械寿命仍有5-8年，旁路中继具有长期刚性窗口。
+
+
+economic_value:
+  level: High
+  payer: 小型法律/会计事务所主管、基层医疗诊所所长、中小制造厂办公室行政网管、外包MSP运维团队
+  economic_anchor: 复合机换代开销$4,000-$10,000；MSP上门排查工时费（$150/h）；纸质凭据积压导致的业务流转停滞
+  capture_mechanism: 提供“Scan to SMB中继转发小助手”（单文件免安装程序，安装在局域网任意常开PC或文件服务器上，一键生成复合机可直接填写的免签名专用路径），收取单机买断授权费
+  repeatability: 柯尼卡、理光、施乐老机型的网络扫描协议完全标准化，软件逻辑在全行业通用
+  basis: 相较于向老板申请数千美元采购新复合机，行政人员使用几十美元的备用金即可当天恢复扫描流转
+
+
+personal_actionability:
+  fit: Good
+  route: 制作“Windows 11扫描安全中继服务（Scan-to-Folder Relay Agent）”
+  target_customer: 遭遇电脑升级后复合机突然无法扫描入网的中小微企业行政与IT兼职人员
+  deliverable: 一个单文件Go/Python编写的后台微服务程序：本地建立轻量级隔离中转点，支持老复合机以旧协议免签名投递扫描件，并在后台通过安全系统API无缝搬运至用户个人文档库；配套图文配置向导
+  pricing_hypothesis: $49 单PC个人版；$99 办公室多用户共享版
+  customer_entry: Reddit r/printers、r/sysadmin、Spiceworks论坛中搜索“Windows 11 24H2 scan to folder broken”的发帖者
+  fit_basis: 纯网络服务与文件自动化搬运，不触碰硬件维修，无库存风险，开发周期短
+  prerequisites: 掌握SMBv2/v3协议细节、Windows用户访问控制列表（ACL）及轻量级网络监听服务开发
+  first_test: 找一台开启了严格SMB签名的Windows 11 24H2电脑，编写简易脚本模拟老旧客户端发送未签名SMB写入请求，验证自制中继服务能否成功接收并安全转存至目标目录
+  time_budget: 90分钟
+  success_signal: 模拟老扫描机顺利完成数据包传输，目标文件夹实时出现完整无损坏的PDF文件
+  kill_signal: 发现Windows 11底层防火墙规则全面禁止任何本地进程监听自定义非特权网络端口
+  key_unknown: 普通办公室非技术人员在复合机Web控制台修改扫描目标IP与端口的实际操作门槛

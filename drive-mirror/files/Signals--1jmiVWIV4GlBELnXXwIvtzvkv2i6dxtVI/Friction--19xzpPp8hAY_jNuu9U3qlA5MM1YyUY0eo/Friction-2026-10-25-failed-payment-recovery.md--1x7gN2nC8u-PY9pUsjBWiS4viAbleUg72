@@ -1,0 +1,24 @@
+Signal ID: Friction-2026-10-25-failed-payment-recovery
+Type: Friction
+What Changed: 已付费的SaaS订阅续费流程中，因信用卡过期、余额不足、银行拒绝等原因导致的失败支付持续发生；近期（2026-10-21前后）有创始人公开报告即使使用基础dunning，仍有显著MRR风险。
+Friction: Payment / Authentication / Manual operation（失败支付恢复环节；基础重试与邮件无法充分覆盖不同失败原因）
+Money: SaaS公司已从订阅客户收取费用（或应收），但仍需手动/半自动处理失败支付；关联revenue loss与churn（involuntary）。示例：300k MRR中约8%（~12k/月）处于风险，基础dunning仅回收一半。
+Evidence: 
+1. Reddit r/SaaS 帖文（2026-10-20/21）：“About 8 percent of our MRR is at risk every month from failed payments. Dunning emails recover maybe half. The rest just churns silently. On a 300k MRR base that's 12k a month walking out the door because of expired cards and declined charges. We are using basic dunning through our billing platform but it feels like there should be a more sophisticated approach.” URL: https://www.reddit.com/r/SaaS/comments/1xb4gj8/why_is_payment_recovery_so_hard_and_what_other/
+2. 同帖评论：失败率类似，基础dunning不足；通过智能重试将恢复率从50%提升至75%；建议按失败原因（过期卡 vs 余额不足）与发卡国区分处理，使用account updater、本地支付方式等。
+3. 行业观察（近窗口文章）：失败支付常占订阅churn的20-40%或MRR的~9%；Butter Payments等工具存在并声称可提升恢复。URL示例：https://www.paymentsdive.com/news/how-to-fix-subscription-pay-friction/811571/ （注：文章本身2026-02，但引用持续相关）
+4. 其他近窗Reddit讨论确认失败支付重试与dunning需从第一天开启，否则收入悄悄泄漏。
+Mechanism: 订阅客户意图继续付费，但支付方法失效或被拒；平台默认重试/邮件覆盖不全，导致静默流失（未主动取消但钱未到账）。推断：不同decline code需差异化策略，否则恢复率低。
+Current Workaround: 基础billing平台dunning邮件+重试（回收~50%）；或人工检查、雇顾问优化、接入专门recovery工具（如Butter等）。成本：未回收的部分直接成为收入损失；工具通常按恢复增量收费。依据：帖文与评论。
+Payer: SaaS订阅公司（尤其MRR较高者）为更好的恢复工具/咨询付钱，以挽回流失收入；已有商业工具存在证明意愿。依据：评论中有人实施后提升恢复率，Butter等定价模式（按增量恢复收费）。
+Economic Effect: revenue / churn / failed transaction（部分可视为CAC浪费，因获客后因支付失败流失）
+Friction Value: 频率：每月一定比例续费失败（示例8% MRR风险）；单次经济影响：订阅金额（示例累积12k/月）；可回收比例：基础~50%，优化后可达75%或更高（依据帖文与评论）。具体数值因公司而异，未编造精确普遍值。
+Persistence: Structural（信用卡自然过期、银行风控、余额波动为持续现象；非单点临时bug）
+Next Question: 在小规模/早期SaaS（<50k MRR）中，失败支付的实际频率、基础dunning回收率，以及是否愿意为轻量恢复工具付费（而非仅依赖Stripe默认）？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-10-25T09:37:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-10-18 至 2026-10-25（Asia/Taipei），基于本轮可访问资料截止。
+无法访问或受限平台：部分Reddit完整评论抓取受阻（503等），依赖搜索摘要与公开片段；X上相关讨论较少具体数字。
+待人工保存（若Drive写入未确认）。

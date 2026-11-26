@@ -1,0 +1,42 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+* Task Version: business-sensor@0.2.1
+* Role Spec Status: reviewed
+* 观察窗口: 2026-10-23 09:54:18 至 2026-10-30 09:54:18 (Asia/Taipei)
+* 已有 Signal 索引/全文: 已核对历史文件 Business-20261014-autodesk-aps-passthrough-billing.md、Business-20261001-whatsapp-service-message-toll.md、Business-20261015-github-agentic-autofix-metered-toll.md、Business-20261014-hubspot-flexible-seats-credits-toll.md、Business-20261017-deepseek-flash1017-costcurve-searchtoll.md、Business-20261023-vercel-deployment-storage-toll.md、Business-20261021-salesforce-headless-agent-api-toll.md、Business-20261023-visa-b2b-embedded-payment-toll.md、Business-20261020-eu-customs-handling-fee-pid-toll.md、Business-20261022-openai-decisions-api-costcurve.md、Business-20261025-aws-shield-waf-antiddos-migration-toll.md 与 Business-20261028-github-enterprise-copilot-dollar-entitlement.md，本轮已执行跨历史核对与去重
+* 输出逻辑位置: Opportunity Runtime/Signals/Business/
+* 实际输出文件夹 URL: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+待研究 Signal (Qualified Signals)
+Signal ID: Business-20261029-googleplay-agentic-purchases-billing-toll
+* Type: Business
+* What Changed: 2026年10月29日，Google 官方正式发布全球 Google Play 开发者政策重大更新公告（Policy Announcement: October 29, 2026），正式确立了两项针对移动端 AI 商业化的核心规则。第一项关键规则：支付政策（Payments Policy）正式显式延伸并强制覆盖至所有 AI 与智能体购买体验（AI or Agentic Experiences）。官方发布强制指南明确规定：任何通过 AI 智能体、自主工作流或对话交互促成的数字商品与订阅购买，必须严格接入并强制使用 Google Play 结算系统（Google Play Billing，即 15%–30% 平台抽成），杜绝开发者通过无头接口、第三方支付外链或智能体自主代付绕过平台。第二项关键规则：AppFunctions API 全面纳管与防操纵红线确立。配合 Android Dev Summit 上线、基于 MCP 架构将移动应用能力无缝暴露给 Gemini 及第三方外部 Agent 的 AppFunctions API，Google 正式在政策中将其纳入严格审核，明令禁止 AppFunctions 欺骗/操纵智能体、绕过安全控制或在系统背后静默诱导交易。开发者自 2026年10月29日 起享有至少 30 天合规缓冲期。此变更属于典型的 New Toll Booth（Google 官方在移动端"智能体商业 / Agentic Commerce"核心资金流上正式立卡设岗，将应用商店法定 15%–30% 抽税权不可逆地延伸至自主 AI 交互场景）。
+* Money: 涉及全球除少数受限地区外数十亿台 Android 激活设备每年上千亿美元规模的移动应用内购买（In-App Purchases, IAP）与订阅交易流水。Google Play 对符合条件的开发者首个 100 万美元收入收取 15% 服务费，超额部分标准费率为 30%（订阅按年留存降至 15%）。此前，部分开发者尝试借助大语言模型（LLM）对话式界面或无头智能体，将用户直接引导至外部网页结账通道（如 Stripe Web Checkout、外部网银或 API 充值）以规避高达 30% 的应用商店税（Google Play Tax）；新规实施后，所有在 Android 系统上由 AI 协助、代理或触发的数字交易均被封死在外链之外，开发者必须严格调用底层 Play In-App Billing，否则将面临全网下架及开发者账号封禁。
+* Evidence:
+   1. Google Play Console 开发者政策官方公告《Policy announcement: October 29, 2026》（发布日期：2026-10-29）：官方明确载明"Payments: We're providing additional guidance on how our Payments policy applies to Google Play apps that facilitate digital purchases through AI or agentic experiences"；并明令"AppFunctions API: Developers building AppFunctions must comply with all existing Google Play policies. AppFunctions are strictly prohibited from deceiving or manipulating AI agents, bypassing security controls, or interfering with other applications... You'll have at least 30 days from October 29, 2026 to update your app to comply with the new and updated policy changes"。
+   2. Google Play Console Help 官方公告汇总《Announcements - Play Console Help》（发布日期：2026-10-29）：确认了包含支付、权限与 AppFunctions 在内的多项核心政策合规时间表与审核申报入口。
+   3. 移动与 AI 开发者深度报道《Google opens Android development to third-party AI agents and unveils new Gemini APIs》（作者：Maximilian Schreiner，发布日期：2026-10-28）：详述了 Android Dev Summit 上 Google 正式发布 AppFunctions API、Connected Apps Platform 与跨端 MCP 协议，将手机应用全面转化为可供 Gemini 与外部 Agent 调用的无头工具；并揭示了当工具具备交易与购买能力时，平台对其接入支付管道与防操纵安全的严格合规要求。
+* Mechanism:
+   1. 从"人机点击结账"向"智能体自主交互"的收费站平移（事实）：传统移动商业建立在人类手指点击按钮触发 Play Billing 底层弹窗的基础之上。随着 Android 引入 AppFunctions 与 Agent-to-UI（A2UI），交互形态演变为智能体替用户比价、预订、扣费或调用应用专属高级功能。若不对 Agentic 链路设防，移动应用可轻松通过外部无感 API 结算架空 Google。Google 在 10月29日 政策中堵死该漏洞，将所有具备购买促进属性的智能体功能强制绑定 Play 结算管道（New Toll Booth）。
+   2. "防智能体操纵"政策衍生的架构合规成本（事实/推断）：新规明确要求 AppFunctions 不得欺骗或操控 AI 智能体，意味着开发者必须在函数描述中极度精准地界定交易后果，并在执行任何付费动作前必须向用户展示符合规范的确认卡片。缺乏规范状态机防护的应用将极易因 Prompt 注入或误唤醒而违规。
+   3. 小团队轻资产进入节点（推断）：
+      * a. 智能体结算合规与 Google Play Billing 桥接 SDK（Agentic In-App Billing Bridge）：面向希望将应用能力通过 AppFunctions 暴露给 Gemini / 外部智能体变现的中小型 Android 开发者，开发轻量级合规中间件 SDK。自动将智能体意图（Intent）安全编译为符合 Play Console 政策规范的 A2UI 购买确认弹窗与 Play Billing 回调，100% 杜绝因外链结算或无感扣款导致的封店，按月收取开发者工具订阅费。
+      * b. AppFunctions 政策合规与智能体操纵漏洞静态扫描器（AppFunctions Play Policy Linter）：在 GitHub Actions / CI 流水线中自动检查开发者暴露给智能体的 MCP 函数元数据、Prompt 上下文与权限声明，探测是否存在违反 Google Play 10月29日 新规的"操纵智能体、越权调用、缺少合规支付钩子"等高危漏洞，输出一键修复代码。
+      * 极度符合 1–3 人小团队形态：纯移动端软件 SDK、代码分析插件与 API 治理工具，零实体资产、零重售后、高毛利 SaaS 订阅。
+* Magnitude: Large。依据：Google Play 是全球数十亿台移动终端唯一的官方软件分发与支付底座，每年产生数百亿美元平台分成；此次明确将 AI 智能体促成的购买全盘纳入强制分成，直接奠定了全球移动端"智能体商业（Agentic Commerce）"的法定利益分配框架。
+* Persistence: Persistent。依据：已正式作为 Google Play 开发者政策发布，并进入 30 天倒计时的法定强制执行期，属于平台不可逆的根本性商业治理条例。
+* Next Question: 开发者在通过 AppFunctions 提供基于 Token 或算力计费的生成式服务时，如何界定"纯数字商品（必须走 Google Play 15%–30%）"与"云端算力/B2B 运营工具（可走第三方外部结算）"的边界？欧洲及印度等反垄断重地是否会再度对 Google 该项针对 AI 智能体支付的排他性规则发起诉讼？
+* Task Version: business-sensor@0.2.1
+* Generated At: 2026-10-30T09:54:18+08:00
+* Role Spec Status: reviewed
+观察与过滤池 (Watch & Ignore List)
+1. 线索: AWS 宣布 Amazon DevOps Guru 停止接纳新客户并启动迁移至 CloudWatch / Amazon DevOps Agent（2026-10-29 执行）
+* 判定: WATCH
+* 原因: 2026-10-29 经 AWS 官方服务公告 证实，AWS 正式停止面向新客户开通 Amazon DevOps Guru，并将于 2027年9月30日 彻底下线，引导企业全面迁移至 Amazon CloudWatch 异常检测与 AI 驱动的 Amazon DevOps Agent。属于平台内部产品生命周期更替与预算迁移（Budget Migration），但主要属于 AWS 内部单项工具的整合收敛，独立第三方小团队切入自动化迁移工具的市场规模尚需观察企业实际存量预算流向。
+* 等待证据: 观察企业在迁移过程中是否产生对跨云 AIOps 告警聚合平台的替代采购需求。
+2. 线索: Cloudflare 发布统一可观测性平台定价并将于 12月1日 统一生效（2026-10-02 预告，2026-10 持续更新）
+* 判定: WATCH
+* 原因: Cloudflare 官方更新确认将于 2026年12月1日 将 Workers、Containers、AI Gateway 日志与分布式追踪全面合并为按摄入与存储数据量计费的统一 Observability 订阅（参考 Cloudflare 官方博客）。属于典型的由事件计数向纯体积计量的模式转型，但距离正式计费仍有 1 个月过渡期。
+* 等待证据: 观察 12 月 1 日正式生效后，高吞吐 Workers 团队在面对海量调试日志存储时的真实账单涨幅与日志预过滤工具采购诉求。
+3. 线索: Realgy Energy Services 调整秋季商业天然气与电力合约费率（2026-10-28 公布）
+* 判定: IGNORE (快速 Kill)
+* 原因: 属于线下实体商业公用事业电力与天然气供应合同的月度常规季节性费率微调（参考 Realgy 官方公告），高度依赖重资产能源管网与线下供电设施，不符合小团队轻资产数据/软件自动化偏好。

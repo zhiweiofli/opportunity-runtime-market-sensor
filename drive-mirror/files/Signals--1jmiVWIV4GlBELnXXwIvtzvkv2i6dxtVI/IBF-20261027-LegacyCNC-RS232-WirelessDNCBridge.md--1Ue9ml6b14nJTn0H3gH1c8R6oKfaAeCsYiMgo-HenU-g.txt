@@ -1,0 +1,116 @@
+﻿signal_id: IBF-20261027-LegacyCNC-RS232-WirelessDNCBridge
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: 随着现代3D CAM编程软件（Fusion 360, Mastercam, SolidCAM等）在机械加工小微作坊中的普及，数控加工程序（G-code）动辄达到15MB-100MB+的高速曲面代码量；然而全球数以百万计服役中的经典数控机床与车床（如1995-2015年生产的Fanuc 0i/16i/18i/21i系统、Haas Classic控制台及Mazak、Brother老款机床）其板载内存仅有128KB-2MB，且高度依赖3.5英寸软盘或RS-232串口通信。进入2026年，现代办公与车间PC（Windows 11）彻底淘汰了主板原生DB9串口，而市售便宜的USB-to-RS232转接头由于USB数据包机制在DNC在线滴注加工（Drip Feeding）时频繁发生缓冲区欠载（Buffer Underrun）导致加工中途急停、撞刀报废工件，迫使操作工在2026年仍不得不使用老化易损的软盘或奔波于车间与办公室之间插拔U盘（Sneakernet）。
+money: 全球机械加工车间中仍运转着数十万台经典立式加工中心（VMC）与数控车床。机械铸件、主轴与导轨精度完好（仍可保持0.0001英寸公差且机械寿命达20-30年），购置一台同级别全新立式加工中心需$80,000-$250,000美元。原厂（如Fanuc/Haas）系统控制台升级报价达$15,000-$35,000；商业无线DNC系统集成商（如Shop Floor Automations, Predator, Memex）单台机床改造成本通常需$1,500-$3,500（硬件加授权），另加每台每年$300-$500软件维护费。若在精加工中途因串口丢包急停撞刀，单件航空/医疗合金毛坯报废与刀具损失达$500-$5,000。
+
+
+evidence:
+  - id: E1
+    source: https://www.reddit.com/r/Machinists/comments/1rhjuzi/rant_legacy_cnc_file_transfers_sucks/
+    source_date: '2026-03-01'
+    accessed_at: '2026-10-27'
+    fact: 资深机加工人吐槽在2026年仍被迫使用软盘或廉价RS-232滴注器，痛陈“机床机械性能极佳且切削完美，但程序传输像在乐高积木上赤脚走路”，设备常在周五下午关键时刻断连。
+  - id: E2
+    source: https://industrialmonitordirect.com/blogs/knowledgebase/cnc-floppy-replacement-usb-sneakernet-solutions-for-fanuc-shops
+    source_date: '2026-09-10'
+    accessed_at: '2026-10-27'
+    fact: 行业技术指南指出Fanuc机加工厂淘汰软盘方案中，传统商业无线DNC方案单机改造成本高达$300-$500规费另加高昂工业套件，且配置波特率（Baud rate）、奇偶校验与硬件握手引脚复杂。
+  - id: E3
+    source: https://industrialmonitordirect.com/ru/blogs/knowledgebase/troubleshooting-matsuura-cnc-dnc-rs-232-transfer-failures
+    source_date: '2026-09-16'
+    accessed_at: '2026-10-27'
+    fact: 深度分析RS-232在现代PC上的底层失效原因：廉价USB转接线无法应对Fanuc小缓冲区下的即时硬件流控，必须使用高稳定性芯片与专用协议桥接器。
+
+
+mechanism: 数控机床机械结构寿命极长（20-30年），但嵌入式数控系统的计算与通信架构受制于发布年代的硬件规格；原厂没有动力为已售出十余年的机床提供低成本现代以太网/Wi-Fi升级模块（倾向于推销数十万美元新机或数万美元控制柜重构），而商业DNC大厂主要针对百台以上的大型军工/汽车主机厂收费，导致数万家拥有1-10台老机床的中小机加作坊陷入“手动跑腿拷盘或忍受串口不稳定”的结构性断层。
+persistence: Structural
+next_question: 在使用Fanuc与Haas老机床的独立小微机加工车间中，操作工愿意为免除软盘/U盘跑腿的即插即用无线Web传输盒子支付多少费用？
+task_version: installed-base-friction@0.2
+generated_at: '2026-10-27T17:15:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+
+
+asset:
+  category: 工业母机与数控加工中心（CNC）
+  brand: Fanuc / Haas / Mazak / Brother
+  model: Fanuc 0M/0i/16i/18i/21i, Haas Classic Controller 等老款CNC控制器
+friction:
+  type: 硬件接口断代与大程序传输瓶颈
+  symptom: 内存仅百KB级，无法装入现代3D复杂曲面G-code；软盘老化淘汰，USB转接线在线加工（Drip Feed）频繁断流撞刀
+installed_base:
+  estimate: 全球超过50万台仍在服役的1995-2015年款数控铣床与车床
+  basis: 机械加工行业公认机床机械寿命极长，二手市场活跃，中小型Job Shop绝大多数机队为旧款经典机型。
+
+
+current_solution:
+  description: 1) 人工用U盘/软盘物理跑腿拷贝小段程序；2) 采购商业工业级DNC网络（每台$1,500-$3,500+年费）；3) 换购全新数控机床（$80,000+）。
+  oem_part_price: 20000.0
+  technician_repair_price: 2500.0
+  currency: USD
+  basis: 原厂完整数控系统升级报价通常超$20,000；商业DNC专业集成商单机部署与布线软硬件打包均价约$2,500。
+alternative:
+  description: 基于ESP32/树莓派Zero W的光耦隔离无线RS-232/DB25微型DNC中继器，自带局域网Web页面与SMB共享，支持浏览器直传G-code并硬件级稳定滴注加工
+  estimated_solution_cost: 179.0
+  currency: USD
+  basis: 预刷好固件的即插即用模块套件（含光耦隔离DB25头、磁吸供电与外壳）零售价。
+gap:
+  vendor_support: discontinued
+  availability: low
+  competition: low
+  basis: 机床大厂对停产系统不提供廉价Wi-Fi升级；工业DNC巨头专注于大厂整厂改造，忽略只有几台老机床的家庭作坊与SOHO机加工位。
+signals:
+  recurrence: high
+  urgency: high
+  diy_activity: high
+  basis: 每次加工新零件必经历导程序环节；Reddit r/Machinists与r/CNC社区长期存在大量关于RS-232线序、波特率设置与Drip Feed掉线的讨论。
+
+
+assessment:
+  installed_base: {value: high, basis: 全球庞大的存量机械加工机床基础，机械完好但数控接口严重过时}
+  friction_rate: {value: high, basis: 传输大于1MB复杂刀路时100%遇到内存不足与串口卡顿瓶颈}
+  failure_cost: {value: high, basis: 传输卡死导致工件报废、撞刀换刀柄刀片成本达数百至数千美元，换机更达数十万美元}
+  support_gap: {value: high, basis: 原厂只推新机，第三方工业DNC价格过高}
+  switching_cost: {value: high, basis: 更换机床需要吊装、重新打地基、重配工装夹具与后处理，迁移成本极巨}
+  vendor_repair_speed: {value: low, basis: 原厂主动淘汰旧控制系统以促进设备更新}
+
+
+repair_leverage:
+  ratio: 14.0
+  baseline_cost: 2500.0
+  solution_cost: 179.0
+  currency: USD
+  scope: 基准成本为商业DNC单台改造集成费（$2,500）；替代方案为微型无线DNC适配器套件（$179）
+  basis: 2500 / 179 = 13.96
+opportunity_durability:
+  value: high
+  basis: 数控机床机械精度可维持数十年，老机床将长期留在中小车间中继续服役，接口桥接需求高度刚性。
+
+
+economic_value:
+  level: High
+  payer: 拥有1-10台老款CNC数控机床的小型机加工厂老板（Job Shop Owner）、独立机械加工师
+  economic_anchor: 商业DNC系统$2,500/台部署费、停机跑腿工时（机加车间计费通常$100-$150/小时）及撞刀废品损失
+  capture_mechanism: 提供预制好的“免驱动即插即用无线CNC中继盒”硬件套件（直插机床DB25串口，磁吸吸附在控制柜侧面，手机或车间PC浏览器直接拖放G代码）
+  repeatability: Fanuc与Haas的RS-232引脚协议与常用波特率（4800/9600/19200）高度标准化，固件预设参数后可开箱即用
+  basis: 相比于购买几千美元商业DNC或每天折腾软盘U盘，两百美元内彻底解决网络直传与DNC滴注具备极强支付意愿
+
+
+personal_actionability:
+  fit: Good
+  route: 制作标准化的无线RS-232 DNC桥接固件与开箱即用硬件套装
+  target_customer: 运行Fanuc/Haas老系统的中小机加作坊主
+  deliverable: 一个集成光耦隔离（防工业地回路干扰）的DB25/DB9串口无线盒，预装轻量Web DNC固件；用户通电连上Wi-Fi即可在浏览器中上传NC代码并按机床READ键接收
+  pricing_hypothesis: $149-$199/台（单机硬件套件）；或提供纯固件镜像+$39电子手册供用户自备ESP32组装
+  customer_entry: Reddit r/Machinists、r/CNC、Practical Machinist论坛中搜索“RS232 transfer failure”或“Floppy emulator drip feed”的求助者
+  fit_basis: 核心工作为开源硬件方案优化、固件配置与外壳3D打印/注塑组装，无高危责任，硬件成本低（BOM约$20），轻资产运转
+  prerequisites: 掌握RS-232硬件流控（RTS/CTS、XON/XOFF）协议规范、ESP32异步串口编程及机加工基础后处理知识
+  first_test: 采购一块带RS-232电平转换的ESP32开发板，烧录自制Web串口服务器固件，与一台配置了虚拟串口终端的PC连接，测试以9600波特率持续流式传输50MB大文件，验证是否发生缓冲区溢出或丢字
+  time_budget: 90分钟
+  success_signal: 浏览器连续传输50MB代码，终端校验MD5与原始文件100%一致且无溢出报错
+  kill_signal: 发现不同品牌老机床对串口引脚跳线有数十种互不兼容的私有握手逻辑，导致无法标准化通用硬件接口
+  key_unknown: 车间复杂的电机电磁干扰（EMI）是否会导致非工业屏蔽级别的无线芯片通信丢包

@@ -1,0 +1,56 @@
+﻿# Opportunity Runtime Business Signal
+
+
+## 任务执行元数据
+- Task Version: business-sensor@0.2.1
+- Role Spec Status: reviewed
+- 观察窗口: 2026-10-13 00:00 至 2026-10-19 23:59 (Asia/Shanghai)
+- 历史索引状态: 首次试跑，历史索引为“无”，本轮不执行跨历史去重
+- 输出逻辑位置: Opportunity Runtime/Signals/Business/
+
+
+---
+
+
+## 待研究 Signal (Qualified Signals)
+
+
+### Signal ID: Business-20261014-autodesk-aps-passthrough-billing
+- **Type**: Business
+- **What Changed**: 2026年10月14日，Autodesk 官方正式面向独立软件供应商（ISV）推出并开放适配“穿透计费”（Passthrough Billing）机制。此前模式为“终端客户使用第三方软件 -> 产生 APS API 调用 -> 全部由 ISV 开发者承付并消耗自身 Token/云信用”；新机制允许第三方应用通过 3-legged OAuth (3LO) 鉴权，将产生的 API 调用与模型衍生算力成本直接归属并穿透至终端客户自身的 Autodesk 官方订阅与 Flex 预付额度直接扣费。此变更属于 **New Toll Booth**（鉴权与收费卡点重构）与 **Budget Migration**（基础设施算力成本由 ISV 垫资转向最终企业客户现有预算池）。
+- **Money**: 涉及 Autodesk Platform Services (APS) 工业模型解析（Model Derivative API）、设计自动化（Design Automation API）等高频调用的底层算力账单。ISV 从过去需为客户的不确定调用垫资数千至数万美元/月、承担负毛利风险的困境中解绑；企业客户每年数万至数十万美元的 Autodesk 主合同预付费额度（Enterprise Agreement / Flex Tokens）成为直接结算池。
+- **Evidence**:
+  1. *Autodesk Platform Services 官方开发者指南*《Passthrough billing: A guide for ISVs》（作者：Dwanill Mehta，发布/生效日期：2026-10-14 / 2026-10-05）明确指出：“Beginning October 14, 2026, independent software vendors (ISV) can start preparing their applications to implement Passthrough billing allowing API calls initiated by third-party applications to be attributed to the customer and billed directly to them”；并规定存量 Client ID 向穿透计费的切换为单向不可逆（Forward-only）。可访问 URL: https://aps.autodesk.com/blog/passthrough-billing-guide-isvs
+  2. *Autodesk 官方公告*《Introducing passthrough billing: a more flexible way to manage API usage costs with APS》（作者：Dwanill Mehta，发布日期：2026-10-05，执行日期：2026-10-14）：对比了前后资金流模型——“Today: Customer -> application -> APS -> app owner (ISV) billed for any API usage. With passthrough billing: Customer -> application -> APS -> customer billed for any API usage or uses available included API usage.”，规定必须通过 3-legged OAuth 确认客户上下文。可访问 URL: https://aps.autodesk.com/blog/introducing-passthrough-billing-more-flexible-way-manage-api-usage-costs-aps
+- **Mechanism**:
+  1. *算力成本与服务解耦（事实）*：AEC（建筑、工程与施工）模型文件通常极为庞大（动辄数 GB 的 Revit/IFC 文件），API 抽取与转换成本极高。小团队做专业工具此前面临“客户用得越多，开发者亏得越多”的单位经济学困境；穿透计费使 ISV 服务边际成本降为纯软件/调度服务成本。
+  2. *采购阻力最小化与预算直通（推断）*：大型建筑工程企业与总包商通常有已采购、未消耗完毕的 Autodesk Flex 预付积分。第三方工具接入穿透计费后，企业无需走繁琐的“第三方算力报销/采购”流程，直接消耗企业现有 Autodesk 预算，大幅降低小团队获客壁垒。
+  3. *小团队轻资产进入节点（推断）*：利好专注在“垂直 BIM/CAD 数据抽取与合规清洗、工程报表自动化、协同脚本与质量审计”等数据/自动化产品形态的 1–3 人小团队。无需承担重资产服务器与 API 垫资风险，毛利率可回归纯 SaaS/情报软件水平（90%+）。
+- **Magnitude**: Medium。依据：Autodesk 垄断了全球建筑与工程工业软件核心格式与底层数据流，其官方开发者生态的计费规则变更直接决定了垂直 ISV 的商业模式上限；但因局限于工业与建筑垂直领域，非跨行业通用基础设施变动，故评为 Medium。
+- **Persistence**: Persistent。依据：Autodesk 将其设计为核心商业鉴权基础设施（3LO）的单向不可逆演进，属于底层长期计费架构重塑，非短期促销或实验性政策。
+- **Next Question**: 建筑工程企业的 IT/BIM 主管对于第三方外部应用消耗其内部企业级 Flex 额度的审批授权与安全管控机制接受度如何？企业是否存在“防 API 额度意外耗尽/超支监控审计”的治理工具需求？
+- **Task Version**: business-sensor@0.2.1
+- **Generated At**: 2026-10-20T08:15:00+08:00
+- **Role Spec Status**: reviewed
+
+
+---
+
+
+## 观察与过滤池 (Watch & Ignore List)
+
+
+### 1. 线索: 字节跳动 BytePlus ModelArk / Seedance 2.5 视频生成 API 发布 1080p 计费及分销平台调价（2026-10-14 核验）
+- **判定**: WATCH
+- **原因**: 价格变化真实存在（BytePlus ModelArk 1080p 约 $0.569/s，各分销商定价从 $0.58 到 $1.16/s 不等），但目前视频大模型 API 处于极度不稳定的白热化内卷期，分销商补贴多变（如 10%-30% 折扣），价格下降快于实际推理成本下降，小团队套利或封装易受模型厂商直接降价冲击，商业模式持续性尚待观察。
+- **等待证据**: 观察是否有企业在营销视频自动化或电商短视频批量生成中形成稳定、持续续费的采购预算，而非试探性 token 消耗。
+
+
+### 2. 线索: 亚马逊 2026 假日旺季 FBA 配送费与物流附加费生效（2026-10-15 至 2027-01-14）
+- **判定**: IGNORE (快速 Kill)
+- **原因**: 属于每年固定周期的季节性费率调整（件均上涨约 $0.32，叠加 3.5% 燃油与物流附加费），持续仅 3 个月（Temporary）。且该变化属于重资产、重库存的实体电商物流成本上涨，不符合小团队轻资产、高毛利的数据/自动化/交易偏好。
+
+
+### 3. 线索: 微软 Office 2021 及 Office LTSC 2021 官方终止技术支持（2026-10-13 截止且无 ESU）
+- **判定**: IGNORE (快速 Kill)
+- **原因**: 属于生命周期终止（EOL）常规事件。释放的迁移预算绝大多数直接流向微软官方 Microsoft 365 订阅或本地 IT 外包/重人力的 MSP 迁移运维服务，缺乏小团队可承接的自动化或数据情报可持续利润池。

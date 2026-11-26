@@ -1,0 +1,34 @@
+﻿Business Sensor 观察记录：NO_SIGNAL (2026-11-19)
+* 任务版本：business-sensor@0.2.1
+* 角色规范状态：reviewed
+* 观察窗口 (Asia/Taipei)：2026-11-12 09:30:42 至 2026-11-19 09:30:42 (UTC+08:00)
+* 判定结果：NO_SIGNAL
+* 逻辑存储路径：Opportunity Runtime/Signals/Business/Business-20261119-no-signal.md
+* 实际输出目录：Opportunity Runtime/Signals/Business/
+* 历史去重核对：已核对历史 19 项商业信号及此前归档的 NO_SIGNAL 检查点
+1. 检索与核实范围 (Retrieval Scope)
+本轮感知重点覆盖 2026-11-17 至 2026-11-19（Asia/Taipei）全球最新发布的边缘存储与仓库服务计费启动、AI 推理模型定价梯队补齐、模型内置工具免费化捆绑、以及 AI 原生应用构建平台竞争动态。重点核实了 Cloudflare Artifacts 正式启动操作与存储计费（11 月 19 日生效）、Google Gemini 4 Neon 正式全面开放（GA）并公布 $3/$15 计费、Qwen 取消模型触发的服务器端搜索与网页抓取服务费、Replit Missions 与 Lovable 订阅方案对比、以及 AWS Lambda Managed Instances 支持 GPU 实例等候选事件。
+2. 候选动态逐项评估与过滤原因 (Evaluated Events & Filtering)
+候选事件 1：Cloudflare Artifacts 于 11 月 19 日正式启动按操作次数与存储容量计费
+* 事实摘要：根据 Cloudflare 官方文档 Artifacts Pricing，仅面向 Workers Paid 付费方案开放的 Artifacts 仓库服务自 2026 年 11 月 19 日起开始计费。计费维度为：操作次数（前 10,000 次/月免费，超出部分 $0.15 / 1,000 次）与存储容量（前 1 GB-月免费，超出部分 $0.50 / GB-月）；后续还将上线仓库数量计费（超过 10 万个仓库部分按 $0.01/个收费，暂未生效）。
+* 门槛对照与过滤原因：未通过门槛 3（底层商业逻辑结构性变化）与门槛 5（小团队捕获路径）。属于云基础设施平台针对新托管存储服务从公测免费期步入常规按量计费的标准流程（与 R2 / Durable Objects 存储逻辑一致），未重构跨行业预算流向，亦未为 3–5 人独立小团队创造新的外部收费站或套利空间，列入 WATCH。
+候选事件 2：Google 发布 Gemini 4 Neon 并执行 $3/$15 商用定价（2026-11-18）
+* 事实摘要：根据 Google AI Studio Release Notes 与定价分析 CellCog Gemini 4 Neon，Google 于 2026 年 11 月 18 日上线 gemini-4-neon 模型，付费层标价为每百万输入 Tokens 3 美元、输出 Tokens 15 美元（1M 上下文，4 档思考深度，无免费层），Batch/Flex 享半价。
+* 门槛对照与过滤原因：未通过门槛 3（底层商业逻辑结构性变化）与门槛 5（小团队捕获路径）。Neon 定位介于 Gemini 4 Hydrogen（$1.50/$7.50）与 Gemini 4 Carbon 常规价（12 月 1 日起 $4/$20）之间，属于大模型产品线的常规梯队填充，未带来成本曲线断崖式位移或新的商业捕获节点，列入 WATCH。
+候选事件 3：Qwen 免除模型触发的服务器端搜索与网页抓取服务费（2026-11-18 04:00 UTC 起）
+* 事实摘要：根据 Qwen vs DeepSeek API Pricing 2026，自 2026 年 11 月 18 日 04:00 UTC 起，由 Qwen 模型触发的服务器端文本搜索、图片搜索与网页抓取不再单独收取服务费（仅按模型消耗 Token 计费），直接调用的独立 Search/Fetch API 仍保持收费。
+* 门槛对照与过滤原因：属于云模型厂商为提升工具调用竞争力而进行的标准免费捆绑（与 11 月 17 日 AWS Bedrock AgentCore 提供免费月度搜索额度逻辑一致），本质为平台原生吃掉基础检索工具费，执行快速 Kill（IGNORE）。
+候选事件 4：Replit Missions 与 Lovable 商业模式对比及 AWS Lambda GPU 支持（2026-11-17 至 11-18）
+* 事实摘要：Replit 于 11 月 17 日推出支持预算上限的 Agent 集群功能 Missions（Core $20/月 vs Lovable Pro $25/月）；AWS Lambda 于 11 月 18 日宣布在 Lambda Managed Instances 上支持 GPU 实例。
+* 门槛对照与过滤原因：均属于既有产品线的功能迭代与算力 SKU 常规扩容，无底层收费卡点或跨平台预算迁移重构，执行快速 Kill（IGNORE）。
+3. 判定依据与准则遵循 (Justification)
+本传感器严格遵循"宁缺毋滥，证据不足不凑数"的核心准则。当选事件若仅为：云平台新存储组件的常规转正计费、大模型产品矩阵的中档梯队填充、厂商取消内置检索附加费的工具捆绑、或常规 IDE/算力 SKU 更新，均不满足 Business Sensor 必须同时具备的"一手资金凭证、非单点偶发、结构性变化、持续性、小团队可捕获"五项核心门槛。因此本轮确认为 NO_SIGNAL。
+4. 持续追踪与忽略清单 (Watch & Ignore List)
+持续追踪 (Watch List)
+* AI 编码/构建平台的按结果或预算封顶计费演化：关注 Replit Missions 等基于用户设定预算上限运行的 Agent 集群功能是否引发更广泛的按任务预算分配模式。
+* Azure AI Gateway 2027 年 1 月计费生效前的企业迁移：持续追踪昨日记录的 Azure AI Gateway（$500/月）在企业级 MCP 治理中的实际预算承接情况。
+* 12 月 1 日 Google 模型促销期结束影响：临近 11 月底，密切观察 Gemini 4 Argon / Carbon 价格翻倍前后的实际开发预算切换。
+明确忽略 (Ignore List)
+* 云厂商针对内置网页搜索、基础抓取工具的免费捆绑优惠。
+* 未改变基础计费结构的单个新计算 SKU 或 GPU 实例类型上线。
+* 缺乏独立外部捕获空间的大模型同梯队常规补位发布。

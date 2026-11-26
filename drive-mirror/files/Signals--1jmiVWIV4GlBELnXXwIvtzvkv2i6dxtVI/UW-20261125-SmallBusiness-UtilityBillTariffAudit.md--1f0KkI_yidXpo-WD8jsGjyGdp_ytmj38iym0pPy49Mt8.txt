@@ -1,0 +1,96 @@
+﻿signal_id: UW-20261125-SmallBusiness-UtilityBillTariffAudit
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年9月核实（Inertia Resources 2026-09-02商业水电审计指南），商业电力、燃气及水务账单并非客观事实，而是基于历史人工录入的电表倍率（Meter Multiplier）、费率等级（Rate Classification）、需量棘轮（Demand Ratchet）、附加费条款（Riders）及免税状态按月机械计算的结果。然而传统商业水电审计机构普遍采用35%–50%追回退款分成（常叠加12–36个月未来节省抽成），并明确设定约$50,000/年的最低水电总支出门槛——低于该门槛的小微企业（年水电费$10,000–$45,000）因单户分成额过低而被专业审计机构排除在外。与此同时，各州公用事业费率普遍设有12、24或48个月的回溯追讨期限，每拖延一个月就永久丧失最早一个月的退款权。
+money: 涉及全美数百万家年水电燃气总支出低于$50,000的小型制造作坊、餐饮店、干洗店、诊所、农产品加工及非营利机构。Inertia Resources实务指出，电表倍率录入错误、企业增减班次/安装LED后仍停留在过时高价费率表、以及未申报制造业/非营利公用事业销售税豁免（Sales-Tax Exemption）是最常见且按月复利的三大错误（E1）。虽然行业专家明确建议<$50,000/年的小企业应至少对这三项做一次自查，但因小企业主看不懂动辄数十页的公用事业费率表（Tariff Schedule）且无人代查，大量合法退款在12–48个月回溯窗口期满后白白作废。
+evidence:
+- id: E1
+  source: https://www.inertiaresourcesinc.com/blog/utility-bill-audit
+  source_date: '2026-09-02'
+  accessed_at: '2026-11-25T01:12:00+08:00'
+  fact: 全文核实：商业能源顾问Inertia Resources明确划定供给阈值——“全账户年水电支出低于约$50,000时，正式的风险代理审计（通常抽取退款及12–36个月未来节省的35%–50%）通常不划算（not worth a contingency engagement）”；同时指出电表倍率、费率误分类、未申报销售税豁免及附加费错误占比极高，建议小企业自查这三项，并披露各州回溯退费上限常为12、24或48个月。局限：为能源经纪与审计机构文章。
+- id: E2
+  source: https://diversegy.com/why-hire-an-energy-broker-for-your-business/
+  source_date: '2025-01-05'
+  accessed_at: '2026-11-25T01:10:00+08:00'
+  fact: 仅读取搜索摘要（Search Snippet）：确认商业水电审计机构通过比对公开费率表与账单记录识别错误并按节省分成收费；同时指出小企业在放松管制能源市场中极易遭遇隐性转嫁费用、未授权切网与自动续约高价陷阱。局限：未读取全文。
+- id: E3
+  source: https://aiforproptech.com/
+  source_date: null
+  accessed_at: '2026-11-25T01:13:00+08:00'
+  fact: 仅读取搜索摘要（Search Snippet）：AI PropTech目录收录的Zentility与Billee等工具已验证AI Agent可自动提取商业账单并按置信度标出异常与费率优化建议，但当前主要服务大型商业地产组合（Commercial Portfolios）与多户住宅运营商，尚未针对<$50,000/年单店小微企业提供轻量自助核查入口。局限：为行业工具目录摘要。
+mechanism: 事实：年水电费<$50,000的小微企业被35%–50%分成审计商明确排除（E1），AI账单解析与异常检测工具目前聚焦大中型地产组合（E3），而小企业主自己根本无法将过去12–24个月的PDF账单逐行比对公用事业公司几十页的公开Tariff费率表、需求棘轮规则及州税豁免资格（E1）。推断：不同于一次性水管漏水减免申请（UW-20261106-MunicipalWater-LeakAdjustment），本机会锁定常规运营中的“电表倍率/费率等级/免税资格/合同价差”系统性错算。通过多模态AI读取小企业上传的12个月水电账单PDF与电表铭牌照片，自动对照所属公用事业公司的公开费率表（Tariff PDF）及所在州制造业/农业/非营利公用事业免税法条，10分钟输出《费率与免税错配诊断报告 + 致公用事业客服账单调整/重分类申请函》，可把原本被$50,000门槛挡在门外的专家级核查变为<$99的轻量标准化服务。
+persistence: Structural
+next_question: 在年水电燃气支出$12,000–$48,000的小型餐饮、干洗、冷链/小型加工厂及非营利机构中，存在费率错配、未申报销售税豁免或倍率异常的比例有多高？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-25T01:18:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work:
+  task: 年水电支出<$50,000的小微企业收集过去12–24个月水电燃气账单、比对公用事业公开费率表（Tariff）与州免税资格、核对电表倍率与需量棘轮，并向公用事业公司提交费率重分类或回溯退费申请
+  structure: 昂贵信息获取 / 规则遵从 / 长尾维护
+  abandoned_value: 小微企业因费率表过时、未申报公用事业销售税豁免或合同价差而在12–48个月回溯期内永久流失的年度超额水电税费（E1）
+  human_failure_reason: 传统水电审计商抽取35%–50%分成并设约$50,000/年支出门槛，明确拒绝或认为不值得服务<$50,000小客户；小企业主无力阅读复杂公开Tariff与计算需量棘轮（E1）
+ai_unlock:
+  changed_cost: 将12–24个月账单OCR提取、所属公用事业公开Tariff费率表比对、需量棘轮校验及免税申请文书起草的人工分析师工时降至分钟级自动化预检
+  capability_basis: 账单PDF多模态结构化抽取 + 公开Utility Tariff规则匹配 + 州销售税豁免与账单更正申请函生成（E1, E3）
+  limitations: 1）若发现错误属物理电表倍率录入有误，仍需企业主核对现场电表铭牌照片或约公用事业人员复核；2）部分受管制市场小微商业费率选项极少，费率优化空间低于工业大户（E1）
+unit_economics:
+  unit: 1家年水电支出<$50,000小微企业的12–24个月账单合规体检、免税筛查与调整申请包生成
+  currency: USD
+  region_and_date: 美国市场 / 2026年11月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖12–24张账单PDF解析、所属公用事业Tariff检索匹配、诊断报告与调整/免税申请函生成，及异常规则维护；不含现场电表工程勘验与获客成本（CAC）
+  excluded_or_unknown_costs: <$50,000/年小微企业的真实异常检出率、平均单户回溯退款与年化节省额、及获客成本（CAC）尚未取得公开基准，严格置为null
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1明确证实<$50,000/年支出被35%–50%分成审计商排除，且点明倍率/费率/免税三大高频可自查点，AI比对账单与公开Tariff在技术上成熟，判定为Plausible；因缺乏小微企业实测检出率大盘数据，数值严格置为null
+value_capture:
+  beneficiary: 年水电支出在$12,000–$48,000之间的美国小型制造/食品加工厂、干洗店、餐饮店、健身房及非营利机构（E1）
+  payer: 小企业主本人，或服务小微客户的独立记账会计师/小型商业地产物业管理方
+  payment_evidence: 大中型企业已广泛接受35%–50%退款分成模式（E1），但面向<$50,000小微企业的$49–$99固定价AI体检包付费意愿属待验证商业假设
+  capture_node: 小企业主在夏季/冬季收到异常高额电费单，或非营利/小型加工厂发现账单仍被征收州销售税时切入
+  pricing_hypothesis: 假设采用“免费上传最近1个月账单测算销售税豁免与费率风险 + $79全年度12个月账单深度核查与更正申请包”；标记为待验证商业假设
+  customer_net_benefit: 在不被$50,000门槛拒之门外、也不被锁进36个月35%–50%未来节省分成合同的前提下，低成本完成三项核心自查并锁定12–48个月回溯退费
+scale:
+  aggregation_unit: 小微企业每年一次或换季收到高额水电燃气账单
+  repeatability: 同一家公用事业公司（如PG&E、ConEd、Duke Energy、ERCOT主流零售商）的Tariff规则可在辖区内成千上万家小微企业间100%复用
+  reachable_volume: null
+  basis: 尚未统计全美年水电支出$12,000–$48,000区间且符合免税/费率错配条件的精准企业数量，reachable_volume置为null
+action_loop:
+  observe: 企业主上传最近12个月电力/燃气PDF账单、电表铭牌照片（可选）及企业行业/非营利资质信息
+  judge: 抽取每期kWh、kW峰值需量、倍率（Multiplier）、当前Tariff代码与已缴销售税，对照该公用事业公司现行Tariff手册与州免税条款识别异常
+  act: 输出《三项核心自查诊断报告》（倍率/费率错配/免税资格）及可直接提交给公用事业客服的《费率重分类或免税退费申请信》
+  verify: 企业主提交申请后，核对下一期账单的Tariff代码、税额栏及回溯贷项抵扣（Bill Credit）是否生效
+required_access:
+  resources: 企业主自行上传的PDF水电账单与公开的公用事业公司Tariff费率表（无需Green Button或公用事业账号授权）
+  availability: Available
+  authorizer: 小企业主本人直接上传账单
+  authorization_status: 账单属于用户自有文件，Tariff属于公用事业委员会公开备案文件，无需第三方私有接口授权
+  basis: 规避了复杂能源LOA授权与经纪牌照门槛，仅做用户侧账单与公开费率比对即可运行
+defensibility:
+  basis: 通用LLM无法直接准确掌握各州数百家公用事业公司随时更新的Tariff小字与需量棘轮算式；壁垒在于结构化维护全美主流公用事业Tariff规则库与州免税申报模板
+  alternatives_and_counterevidence: 1）现有替代：小企业主按Inertia Resources建议花30分钟自己查（E1），或由能源经纪免费看单以换取切换供应商佣金；2）最强反证：<$50,000/年的小微商户多处于单一固定小商业费率（Small General Service），除销售税豁免外，费率重分类的绝对节省金额可能偏低
+personal_actionability:
+  fit: Good
+  target_customer: 年水电支出$12,000–$48,000的小型加工厂、非营利机构、餐饮与零售门店
+  deliverable: 一份《12个月水电账单Tariff与免税合规体检报告 + 调整申请函PDF》
+  customer_entry: r/smallbusiness、小型制造业/餐饮业协会社群及“commercial electric bill sales tax exemption / wrong rate class”长尾SEO
+  prerequisites: 先聚焦加州、德州、纽约等高电价或免税规则明确的3–5个州冷启动，不盲目覆盖全美所有小城合作社电厂
+  basis: 基于用户上传PDF与公开Tariff即可验证，无需能源经纪执照，适合个人/小团队7天内测试
+seven_day_experiment:
+  critical_unknown: 在年水电<$50,000的小微企业中，除“非营利/制造业销售税豁免”外，常规小商业电表存在可追回费率/附加费错误的真实发生率有多高
+  test: 收集5–8家小微店铺或小型加工厂的脱敏水电账单PDF，人工+AI对照当地公用事业公开Tariff与州免税规定逐项试算，统计真实可追回金额分布
+  artifact: 5–8份《小微水电账单Tariff与免税体检实测报告》
+  time_and_cost_budget: 7天内完成，预算<$20（纯公开Tariff检索与LLM解析测试）
+  success_signal: 至少2–3份样本发现明确可追回的销售税豁免或费率/附加费错误（年化节省>$400），且店主愿为该报告付费$49–$79
+  kill_signal: 全部小商业样本均处于不可调的单一标准小微费率且无免税资格，可追回金额普遍接近$0

@@ -1,0 +1,50 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+元数据项
+	详细信息
+	Task Version
+	business-sensor@0.2.1
+	Role Spec Status
+	reviewed
+	观察窗口
+	2026-10-20 09:23:56 至 2026-10-27 09:23:56 (Asia/Taipei)
+	已有 Signal 索引/全文
+	已核对历史文件 Business-20261014-autodesk-aps-passthrough-billing.md、Business-20261001-whatsapp-service-message-toll.md、Business-20261015-github-agentic-autofix-metered-toll.md、Business-20261014-hubspot-flexible-seats-credits-toll.md、Business-20261017-deepseek-flash1017-costcurve-searchtoll.md、Business-20261023-vercel-deployment-storage-toll.md、Business-20261021-salesforce-headless-agent-api-toll.md、Business-20261023-visa-b2b-embedded-payment-toll.md 与 Business-20261020-eu-customs-handling-fee-pid-toll.md，本轮已执行跨历史核对与去重
+	输出逻辑位置
+	Opportunity Runtime/Signals/Business/
+	实际输出文件夹 URL
+	Google Drive Folder
+	待研究 Signal (Qualified Signals)
+Signal ID: Business-20261022-openai-decisions-api-costcurve
+* Type: Business
+* What Changed: 2026年10月22日，OpenAI 官方正式宣布面向全球开发者全面开放"决策接口"（Decisions API）通用可用性（General Availability, GA）。核心结构性变更为：OpenAI 基于 GPT-6 Luna 模型架构，专门针对应用流与智能体（Agents）高频执行的分支路由、意图分类与行动判定场景推出结构化推理端点。商业定价模型发生革命性重构：官方牌价定为 输入 Token 仅 $0.10 / 100万 tokens，命中提示词缓存（Prompt Caching）后仅 $0.01 / 100万 tokens，并且官方承诺完全免除输出 Token 费用（Zero Output-Token Charges）；同时单次请求支持并发提出最多 400 个结构化问题（涵盖 predicate 条件判断、choice 多选一选择、score 评分三类确定性格式），端到端运行速度较标准 Responses API 提升最高 10 倍（p95 延迟压低至 280ms 以内）。此变更属于典型的 Cost Curve Shift（高频分类与编排决策成本呈现断崖式下降，将智能体中间多轮路由成本削减 90%，并彻底打通实时语音与视觉热路径交互）与 Budget Migration（企业应用开发预算从通用大模型全量对话式生成接口，快速迁移至超低价、零输出费用的专用结构化决策端点）。
+* Money: 涉及全球数百万采用大模型构建企业 Agent 工作流、客服中继、代码执行守卫及实时音视频交互的应用预算。此前，开发者无论执行简单的"下一步调用哪个工具"还是"该输入是否合规"，均需调用完整的 Chat Completions / Responses API，承担按生成字数计费的高昂输出 Token 费用（通常输出费用为输入的 3–4 倍，单次决策成本约 $0.01–$0.05 且延迟达数秒）；新规下，Decisions API 彻底取消输出计费，将单次决策纯推理成本压减至 $0.0001 以下。早期企业实测数据显示：客户服务独角兽 Sierra 验证单次调用成本骤降 90%（且 p95 延迟降至 280ms 降低 3 倍）；金融科技 Ramp 证实归因与分类成本降低 30% 且提速 4 倍；实时语言学习平台 Speak 证实下一步决策延迟从 1.4 秒压缩至 0.13 秒（降低 90%），彻底扭转了实时决策负毛利的财务模型。
+* Evidence:
+   1. OpenAI 官方产品发布公告《Build more responsive apps with the Decisions API》（发布日期：2026-10-22）：官方正式宣布 GA，载明核心技术指标"helps applications and agents make near real-time decisions from text, images, and structured inputs up to 10x faster than GPT-6 Luna through the Responses API... ask up to 400 questions per request"；公布明确标价"Decisions API costs $0.10 per million input tokens. Cached input costs $0.01 per million tokens... You only pay for input tokens: there are no output-token charges"；并披露 Sierra（90% lower cost per call, <280ms p95）、Datadog（40x faster p95）、Ramp（4x faster, 30% cheaper）、Speak（action time reduced from 1.4s to 0.13s）等头部企业的生产环境降本数据。
+   2. OpenAI 开发者官方文档与定价页面《Decisions API Pricing & Caching Guide》（2026年10月更新）：详细载明三类结构化结果（predicate 概率判断、choice 离散选择、score 梯度打分）的响应规范，证实其原生无缝挂载于 GPT-Live 实时语音会话触发器（session.triggers），支持实时返回表情与动作分发。
+   3. Adlega 2026 头部 SaaS 定价范式实证调研《SaaS Pricing Study 2026: 62 Public Pricing Pages》（更新日期：2026-10-23）：证实当前全球头部云厂商中已有 16% 将按量积分用于 AI 高频消耗，指明企业客户对降低不可控的推理调用账单具备最高优先级的采购诉求，验证了底层模型推理成本剪刀差对下游软件毛利的重构。
+* Mechanism:
+   1. 从"单次昂贵全量生成"到"双层分离架构（Two-Tier Architecture）"（事实）：传统 LLM 在处理决策时必须逐字生成长文本（包含 CoT 思维链），导致算力大量浪费在非必要的自然语言表达上。Decisions API 将推理约束在有限概率分布空间（Bounded Answers），免去自回归生成输出 Token 开销，使 OpenAI 能够在维持高准确率的前提下实现 10x 吞吐与零输出计费，直接推动应用层单位工时成本急剧下挫（Cost Curve Shift）。
+   2. 智能体执行"热路径（Hot Path）"的技术与经济可行性（事实/推断）：此前由于延迟高于 1 秒且每步扣费数美分，企业不敢将大模型置于核心数据管道的热路径上（如 Datadog 审查每一条 Shell 命令、实时客服在通话中毫秒级换表情）。超低成本与 <280ms 延迟使模型第一次能够无缝嵌入每一行代码的执行守卫与实时视频渲染环路中。
+   3. 小团队轻资产进入节点（推断）：
+      * 智能体热路径决策压缩与路由中间件（Decisions-First Agent Router）：面向 LangChain、CrewAI、AutoGen 及自研 Agent 团队开发即插即用型网关。拦截原本调用 GPT-6 或 Claude 的复杂判断提示词，自动将其降维编译为 Decisions API 的结构化 Choice/Predicate 调用，直接将开发者智能体编排流水线的 Token 消耗费用降低 70%–90%，延迟缩短至毫秒级，按月收取性能加速订阅费。
+      * 高并发实时互动音视频状态机（Real-Time GPT-Live State Controller）：利用 Decisions API 与 GPT-Live 现成的原生事件触发接口，为海外游戏 NPC、AI 陪练、虚拟客服形象开发者提供端到端表情/动作决策微服务，在用户说话同时并发决策情绪表情，提供即插即用 SDK。
+      * 极度符合 1–3 人小团队形态：纯 API / Webhook 驱动的软件中间件与开发者基础设施，零实体资产、零重售后、高毛利 SaaS 订阅。
+* Magnitude: Large。依据：OpenAI 是全球覆盖面最广的商业 AI API 平台，Decisions API 的 GA 与零输出费定价策略直接改写了全球 AI 智能体应用的单位经济学（Unit Economics），对下游编排框架与开发范式产生系统性深远冲击。
+* Persistence: Persistent。依据：已正式作为 OpenAI API 核心 GA 产品发布，且与新一代旗舰模型 GPT-6 Luna 及 GPT-Live 实时语音基础设施深度绑定，属于底层长期产品架构重塑而非短期打折。
+* Next Question: 面对 OpenAI 零输出费的 Decisions API，Anthropic 与 Google 是否会迅速跟进推出类似的专用决策原语（Primitives）？开源社区是否会快速将 DeepSeek V4.1 等开源轻量模型微调为本地私有化部署的超低延迟决策引擎？
+* Task Version: business-sensor@0.2.1
+* Generated At: 2026-10-27T09:23:56+08:00
+* Role Spec Status: reviewed
+观察与过滤池 (Watch & Ignore List)
+1. 线索: AWS Shield Advanced 终结免费评估，向 AWS WAF Anti-DDoS AMR 自动切换并引发 IaC 架构漂移（2026-10-25 执行）
+* 判定: WATCH
+* 原因: 2026-10-25 经 AWS Security Blog 证实，AWS Shield Advanced 正式结束为期 3 个月的免费评估期，全面启动合规 Web ACL 的强制自动升级，将 L7 防护替换为 50 WCU 的 AWSManagedRulesAntiDDoSRuleSet。自 10月25日 起，留在 Count 模式的规则集将不再享受攻击流量免计费特权；且云端变更导致全球使用 Terraform/CDK 的企业 CI/CD 流水线发生全局状态漂移（State Drift）。虽然属于重大架构与计费调整，但主要影响高预算的企业级安全用户，且 AWS 官方已开源提供 IaC 迁移示例模板，独立小团队切入自动化迁移工具的直接付费池规模有待观察。
+* 等待证据: 观察是否有大量中大型企业因 CI/CD 流水线漂移报错或 Count 模式流量计费激增，而产生对第三方自动化 WAF 规则审计工具的采购需求。
+2. 线索: Cloudflare AI Search 全面进入 GA 并公布 11月1日 正式计费阶梯（2026-10-01 发布，2026-10-24 确认提醒）
+* 判定: WATCH
+* 原因: Cloudflare 官方更新确认 AI Search 将于 2026年11月1日 正式启动用量计费（包含向量摄入、存储、语义查询与全文匹配），且已原生打包 Workers AI 嵌入与重排模型（参考 Cloudflare Changelog）。由于其将向量检索与关键词搜索无缝混合（Hybrid Search）并内置在 CDN 边缘，正对专用向量数据库（Pinecone、Qdrant）形成边缘吞噬压力。
+* 等待证据: 观察 11 月 1 日计费生效后，边缘 AI Search 对独立向量数据库在中小企业中的真实预算挤出效应。
+3. 线索: Brownsville 公用事业委员会与 Republic Services 剥离商业垃圾清运账单（2026-10-25 通告）
+* 判定: IGNORE (快速 Kill)
+* 原因: 属于地方市政公用事业对线下重资产实体商业垃圾清运（Commercial Trash）的账单代收方式调整（参考 Brownsville 市政通告），完全依赖线下重资产环卫车队与本地市政特许经营，缺乏轻资产数据/软件自动化介入空间。

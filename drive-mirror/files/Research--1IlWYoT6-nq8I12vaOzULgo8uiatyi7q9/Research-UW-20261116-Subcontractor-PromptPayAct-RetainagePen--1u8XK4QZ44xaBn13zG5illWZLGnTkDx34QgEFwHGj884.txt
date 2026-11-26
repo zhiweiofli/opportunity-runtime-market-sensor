@@ -1,0 +1,87 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261116-Subcontractor-PromptPayAct-RetainagePenaltyDemand
+* Source Signal References:
+   * Signal ID: UW-20261116-Subcontractor-PromptPayAct-RetainagePenaltyDemand
+   * Generated At: 2026-11-16T00:56:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: UW-20261116-Subcontractor-PromptPayAct-RetainagePenaltyDemand.md
+   * Source File Modified At: 2026-11-16T01:00:04+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+1. 各州及时支付法案与刚性 2%/月滞纳罚息：商业建筑工程中，专业分包商（暖通、机电、消防、钢结构）普遍被扣押 5%–10% 的工程留置保留金（Retainage，通常在 $5,000–$35,000 之间）。全美各州普遍通过立法设立《及时支付法案》（Prompt Payment Act），以加州民法典 § 8814 为代表，总包在收到业主支付的留置金后，必须在 10 个自然日内转付给各分包商；民法典 § 8818 更规定超期未付必须按每月 2%（年化 24%）向分包商支付惩罚金，且法院必须强制判令败诉总包承担全额律师费；加州最高法院判例（United Riggers & Erectors v. Coast Iron & Steel Co.）进一步确立约束性规则——争议仅允许扣留争议额的最高 150%，严禁全额恶意扣押。
+2. 总包拖欠与分包商维权困境：工程实质竣工后，总包普遍以"业主还没付款、存在微小整改"为由无理扣押留置金 12–18 个月作为无息周转金。57% 的分包商将留置金列为最主要现金流危机。面对单笔一两万美元，请工程律师发函需预付 $1,500–$3,000，导致分包商被迫接受 20%–30% 折扣或长期挂账。
+3. AI 多模态比对县公开竣工通知书（NOC）破局：分包商通常不知道总包何时拿到业主的钱。通过多模态解析分包合同与完工请款单，自动调取县地籍公开备案的《工程竣工通知书》（Notice of Completion, NOC），依法锁定业主验收放款时间戳，秒级计算 2%/月法定罚息，一键生成引用 United Riggers 判例的《法定留置金清算与 2% 罚息催缴正式公函》，并附带抄送加州承包商执照委员会（CSLB）的合规材料，迫使总包财务在 10 天内放款。
+Unknown
+在雇员 5–50 人的中型商业分包商中，总包合同中包含合法有效的"Pay-if-Paid"（业主不付则总包免责）条款且未被州法判定为违宪失效的比例。
+Decision-Critical Unknown
+对于被拖欠留置金超过 90 天的分包企业主或财务总监，一款定价 $199–$399（或承诺回款后按追回金额抽取 5%–10%）的"NOC 公开时间戳核验 + 2%/月罚息精确测算 + 引用 United Riggers 判例的正式催款公文包生成工具"，其付费意愿与总包收到公函后的全额放款率。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	真实资金流明确：单笔沉没留置金 $5,000–$35,000，附带年化 24% 的法定惩罚罚息；传统施工律师收费昂贵，百美元级工具为分包商挽回数万美元真金白银，投资回报率极高。
+	Mechanism
+	通过 (PASS)
+	法定依据与司法判例极其坚固：加州民法典 § 8814/8818 的 10 天时限与 2%/月惩罚金、United Riggers 的 150% 争议上限均属不可推翻的法定事实；AI 打通县公开 NOC 时间戳与合同解析，以极低成本消除信息不对称并施加致命法律震慑。
+	Persistence
+	通过 (PASS)
+	结构性持久痛点：建筑行业层层分包与工程款拖延是深层次结构性痼疾；留置金制度在全美延续数十年，未来多年依然是分包商的核心现金流痛点。
+	Capture
+	通过 (PASS)
+	极佳的轻资产契合度：纯只读合同解析 + 公开地籍数据核验 + 标准化 PDF 函件生成，不介入工程实体操作，无施工安全责任，高毛利轻资产交付。
+	3. Evidence & Counter Evidence
+Supporting Evidence
+1. 加州及时支付法典实务指南（2026-08-05）：Stone LLP: California Prompt Payment Act Guide —— 详述民法典 § 8814 的 10 天转付要求、§ 8818 的每月 2% 惩罚金及 United Riggers 判例的 150% 争议扣留上限。
+2. 全美工程付款行为基准调查：Levelset: National Construction Payments Report —— 证实超过 57% 分包商将留置金列为主要现金流危机，平均工程款拖延周期达 83 天。
+3. 2026 年工程留置金全美法规白皮书（2026-11-05）：Ahrom Labs: Retainage in Construction —— 确认多州 Prompt Pay 立法以及分包商缺乏核实总包何时从业主处收款的证据链工具。
+Counter Evidence
+1. 若总包确实持有一份在实质竣工前向分包商正式发出、且包含确凿工程缺陷照片的书面整改通知（Cure Notice），总包可在 150% 范围内合法主张抗辩。
+2. 部分特定州允许通过主合同条款设立"Pay-if-Paid"，若业主彻底违约破产，分包商需转向工程支付保函（Payment Bond）或行使留置权。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过充分独立法律判例与行业调研数据核实，逻辑闭环，满足 HYPOTHESIS_READY。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 建筑分包商在工程关门阶段将广泛采用自动抓取县 NOC 时间戳并计算 2%/月罚息的公函工具，终结总包借故无限拖延留置金的潜规则。
+* What became less likely: 总包在收到明确列出加州民法典 § 8818 惩罚金且附带 NOC 登记号的正式公函后，仍能以"业主没付"为由拖延 12 个月以上。
+* What did we rule out: 排除了总包有权以零星修补瑕疵为借口全额扣押分包商全部留置金的合法性（已被 United Riggers 判例禁止）。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-16T17:09:14+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+Title: 建筑分包商法定留置金清算与 2%/月滞纳罚息催索公文包 (Prompt Pay Retainage & 2% Penalty Clawback Agent)
+Source Signal References
+* Signal ID: UW-20261116-Subcontractor-PromptPayAct-RetainagePenaltyDemand
+* Generated At: 2026-11-16T00:56:00+08:00
+* Task Version: uneconomic-work@0.1
+* Source File URL: UW-20261116-Subcontractor-PromptPayAct-RetainagePenaltyDemand.md
+* Source File Modified At: 2026-11-16T01:00:04+08:00
+Money
+全美数十万家雇员 5–50 人的专业分包商，单项目沉淀 $5,000–$35,000 工程留置金，被总包无理拖欠长达 12–18 个月。分包商愿支付 $199–$399 买断催收公文包或按回款支付 5%–10% 分成以快速回流现金。
+Mechanism
+多模态长文本解析分包合同与请款单，调取县公开备案的工程竣工通知书（NOC），依法锁定业主放款节点，精确按加州民法典 § 8818 计算 2%/月复利罚息，一键生成引用 United Riggers 判例的法定留置金清算公函，施加 CSLB 执照处分与全额律师费双重法律威慑。
+Capture
+1–2 人团队构建垂直施工法务 SaaS/工具，纯软交付、零线下介入、零工程垫资风险。
+Durability
+工程留置金与总包现金流压榨是建筑行业数十年不衰的潜规则，法律赋权明确但履约执行断裂，自动化催收工具具备长久生命力。
+Evidence
+1. 加州及时支付法典实务指南（2026-08-05）
+2. 全美工程付款行为基准调查
+3. Ahrom Labs 工程留置金白皮书（2026-11-05）
+Counter Evidence
+1. 总包持有合规的书面质量整改通知（Cure Notice），可在 150% 额度内抗辩。
+2. 业主破产且存在合法有效的"Pay-if-Paid"免责条款。
+Critical Unknown
+专业分包企业主在面对合作过的总包时，对使用带法律威慑的正式 Prompt Pay 公函追款的心理顾虑（是否担忧未来投标受影响）及和解成功率。
+Falsification
+若各州立法推行留置金强制政府第三方信托账户（Direct Retainage Escrow）并在竣工后直接直付分包商，总包的扣押机制将被彻底消除。
+Next Test
+针对加州建筑分包商联合会或机电分包商论坛发布"免费核验：你的工程竣工备案（NOC）是否已过 10 天？测算总包欠你的 2%/月滞纳罚金"，测试分包商上传合同的意向与付费率。
+
+
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-16T17:09:14+08:00
+* Role Spec Status: reviewed

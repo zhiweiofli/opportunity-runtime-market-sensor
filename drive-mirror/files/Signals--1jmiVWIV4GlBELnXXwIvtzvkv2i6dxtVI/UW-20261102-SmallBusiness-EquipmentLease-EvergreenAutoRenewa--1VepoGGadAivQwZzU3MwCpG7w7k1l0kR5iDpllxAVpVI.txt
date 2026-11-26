@@ -1,0 +1,56 @@
+﻿signal_id: UW-20261102-SmallBusiness-EquipmentLease-EvergreenAutoRenewalAudit
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年10月核实（IoT Solutions 2026-10-19合同指南、PCN Copiers 2026-06分析及Kraft Business Systems指南），全美复印机、打印机、商用POS机及企业IT硬件第三方融资租赁机构（如GreatAmerica、Marlin/PEAC Solutions、DLL、CIT等）普遍在租赁合同背面小字中深度嵌套“常青自动展期条款”（Evergreen Auto-Renewal Clause）：硬性规定承租方若未在租期届满前严格的“90至120天时间窗口”内以USPS挂号信（Certified Mail）向特定托管信箱送达《终止租赁意向书》（Letter of Intent to Return/Cancel），合同将自动展期12个月，租金维持原价甚至上浮，且禁止中途退出。
+money: 涉及全美诊所、律所、会计所、中小学校及餐饮等数百万家小微企业（SMBs）。单台商用复印机或POS机月租金通常在$150–$500，一旦错过通知窗口被自动展期1年，企业直接面临$1,800–$6,000的无谓现金沉没；若涉及5–10台分散设备，多付支出达数万美元。
+evidence:
+  - id: E1
+    source: https://www.iotsolutions.com/how-to-read-a-copier-lease-agreement/
+    source_date: '2026-10-19'
+    accessed_at: '2026-11-02T00:22:00+08:00'
+    fact: 拆解2026年办公设备租赁合同核心陷阱：常青条款（Evergreen Clause）通常限定在到期前60至90天甚至90至120天的窄窗口期；一旦错过窗口，合同自动续期12个月；要求必须提前书面通知且需指定特定送达方式，未按条款执行会导致数千美元隐性支出。局限：为设备供应商科普博文。
+  - id: E2
+    source: https://pcncopiers.com/the-copier-lease-trap-how-auto-renewals-and-end-of-term-clauses-quietly-cost-you-thousands/
+    source_date: '2026-06-11'
+    accessed_at: '2026-11-02T00:24:00+08:00'
+    fact: 揭示租赁公司自动展期机制：以3月31日到期且要求90天通知为例，法定截止日实为前一年的12月31日；租赁公司故意不发到期提醒，依赖企业遗忘赚取高额续租费；如果错后1天通知，企业将被硬性锁定再付整整一年老旧设备租金（单台多付$2,400–$6,000）。局限：为专业设备代理商宣传资料。
+  - id: E3
+    source: https://kraftbusiness.com/blog/office-photocopier-lease/
+    source_date: null
+    accessed_at: '2026-11-02T00:25:00+08:00'
+    fact: 详述退租与终止意向书（LOI）的法定义务：必须使用公司正式信笺排版、准确列明租赁合同编号与设备序列号、明确勾选到期退回（Return）、必须由法定负责人签字，并通过USPS Certified Mail挂号信寄出并留存回执。局限：未提供各租赁公司的标准违约判例汇编。
+mechanism: 事实：设备租赁合同通常在36、48或60个月前签署，条款隐藏在多页密集格式文本中；租赁机构要求在“到期前不早于120天且不晚于90天”的极窄窗口内，以挂号信方式将包含完整合同号与序列号的意向书送达指定信箱，早发无效，晚发自动续期12个月（E1, E2, E3）。推断：中小企业文秘或办公室经理人员流动大，没有专职法务或合同管理系统，面对5–15份零散的复印机、饮水机、POS机合同，人工建立Excel追踪并阅读数十页法律小字极其繁琐且极易疏漏；而聘请律师审查旧设备合同单次收费$500–$1,000，远超单次审查意愿，因此企业普遍在“被动遗忘”中全额吞下自动展期损失。利用多模态LLM解析扫描版或手机拍照的租赁合同PDF，3秒内提取出租方主体、租赁到期日、自动续期触发条件、确切通知窗口起止日、受票地址及格式要求；自动在企业日历中注入关键倒计时提醒，并在窗口开启时自动生成带合同编号的规范退租LOI函件，结合云端邮政API（Lob等）完成挂号信自动寄送与存证，将单案管理成本从数百美元律师费或数千元续租惩罚压缩至十几美元的自动化风控服务。
+persistence: Structural
+next_question: 在拥有5–20名员工的中小诊所、律所与会计所中，当前正在履约且包含90天挂号信常青展期条款的设备租赁合同平均数量是多少？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-02T00:36:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work: {task: 中小企业办公室管理人员在设备租赁合同到期前90–120天的法定窄窗口内，核查租赁到期日与常青展期条款、起草符合格式要求的终止租赁意向书（LOI）、并通过挂号信寄达租赁公司指定信箱并归档回执, structure: 微价值×海量 / 规则遵从 / 等待 / 厌恶工作, abandoned_value: 全美中小企业因错过90天挂号信通知窗口而被租赁公司强制自动展期12个月所额外多付的单台$1,800–$6,000废弃设备租金（E1, E2）, human_failure_reason: 租约长达3–5年，经手人离职导致档案断代；小企业无专职法务，雇佣律师审查小合同得不偿失；时间窗口双向锁定且要求实体挂号信，人工追踪极易遗忘（E2, E3）}
+ai_unlock: {changed_cost: 将原本需耗费人工翻找合同、逐段排查常青条款法条小字、计算倒计时并撰写挂号信文书的繁重工作压缩至手机拍照秒级提取与自动化日历托管, capability_basis: 多模态合同OCR结构化提取 + 法律条款时效计算规则引擎 + 标准化终止意向书生成与云端挂号信API直连（E1, E3）, limitations: 1）若合同原件严重污损或丢失无法辨认合同编号，需联系出租方补打；2）部分特殊租赁协议要求承租方在退机时自行承担高额打包与指定物流运费，需提前在合同中提示}
+unit_economics:
+  unit: 1份商业设备租赁合同（复印机/POS/IT硬件）的常青展期条款风险排查、日历窗口托管、标准化退租LOI函件生成与挂号信自动代发
+  currency: USD
+  region_and_date: 美国市场 / 2026年10月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖合同OCR解析、时效逻辑提取、自动化日历同步、USPS Certified Mail挂号信物理打印与寄送通道费（API约$6–$8/封）及电子回执跟踪；人工基准为企业外部律师或兼职合同合规顾问审查费用（$300–$500/份）或被动承受$2,400+续租罚金
+  excluded_or_unknown_costs: 若租赁公司恶意拒绝签收挂号信时的二次律师函跟进成本、设备物理退还物流协调工时、获客成本（CAC）尚未量化
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1与E2证实了单台设备展期12个月造成$2,400–$6,000损失的行业基准，E3明确了必须以挂号信提前90天寄送LOI的刚性法定要求，通过轻量级多模态模型秒级提取并托管日历在技术与经济上完全可行，判定为Plausible；因缺乏全美中小企业合同自动化预警后的实际退租成功率大盘统计，数值严格置为null
+value_capture: {beneficiary: 全美使用租赁复印机、打印机、商用厨房设备、医疗仪器及POS系统的小型独立诊所、律所、会计所、学校与零售商户（E1, E2）, payer: 小微企业主、诊所合伙人、办公室主管或财务出纳, payment_evidence: 传统设备经销商以“协助换新代偿老租约”为幌子诱导套利（E3），针对纯独立第三方中立预警工具的按件或订阅收费属待验证商业假设, capture_node: 提供“手机拍照上传现有设备租约PDF/图片 → 10秒标出展期陷阱并一键同步Google/Outlook日历窗口 → 窗口期自动推送已填妥的正式LOI挂号信直发确认”, pricing_hypothesis: 假设采用“单份合同解析与全周期日历托管$19”或“企业多租约监控包$49/年”；标记为待验证商业假设, customer_net_benefit: 企业以十几美元的小额支出，彻底封堵数千美元的强制展期财务黑洞，并在设备到期时掌握主动议价权}
+scale: {aggregation_unit: 企业现有存量设备租赁合同签署后的第30至第55个月履约监控期, repeatability: 全美四大租赁机构（GreatAmerica, Marlin, DLL, CIT）的底层格式合同条款高度格式化、全国通用，解析规则可无缝批量复用, reachable_volume: null, basis: 全美中小企业超3,000万家，商用复印机与POS机在保租赁合同保有量超数千万份}
+action_loop: {observe: 企业上传的设备租赁协议扫描件或手机翻拍图片, judge: 提取合同生效日、租赁期长、通知提前天数（如90天）及是否包含Auto-Renewal/Evergreen字样，计算出精准的通知起止日窗口, act: 设想自动生成日历事件推送并在窗口期渲染包含合同号与设备序列号的标准LOI函件，仅描述执行机制, verify: 检查USPS Certified Mail追踪回执签收时间戳是否落在合同约定的法定窗口期内}
+required_access: {resources: 企业设备租赁合同照片/PDF、企业办公日历授权（Google/Outlook Calendar）、云端挂号信API（Lob/Postalytics）, availability: Available, authorizer: 企业办公室负责人, authorization_status: 未取得, basis: 租约属于企业自身私有资产，授权仅需客户自愿上传，云端邮政为公开商业API}
+defensibility: {basis: 沉淀全美主流B2B设备金融机构（Captive & Independent Lessors）的展期条款特征库、通知送达地址数据库以及免踩坑法律防伪规范, alternatives_and_counterevidence: 现成替代为企业自行在白板/Excel记日期（通常因人员流动而遗漏），或任由设备商推销以旧换新滚入新债；最强反证为若企业本就打算继续续租使用老机器，则该通知功能对其实际价值降低}
+personal_actionability: {fit: Good, target_customer: 拥有3台以上租赁办公或商用设备、行政管理轻量化的小型独立专业服务机构（诊所、事务所）, deliverable: 1份《设备租赁合同常青条款风险诊断报告》 + 1套自动日历预警事件 + 1份即用型USPS挂号信LOI退租公函, customer_entry: 中小企业行政/Office Manager交流论坛、会计师同行协会及Reddit r/smallbusiness, prerequisites: 熟悉商用动产租赁合同（Equipment Finance Agreement / Fair Market Value Lease）典型结构与UCC动产担保准则, basis: 纯文本抽取、规则判断与邮件/日历交付，零重资产投入，极高人效比}
+seven_day_experiment: {critical_unknown: 小企业主在看到自己租约中存在隐性展期扣款条款后，是否愿意花$19使用自动化工具为其托管到期提醒与代发退租信？, test: 联络5家熟悉的本地诊所或律所行政主管，索取其办公室正在使用的复印机或POS机租赁合同首页与背面小字，免费帮其解读并计算精准退租窗口，测试其对自动防坑工具的付费意愿, artifact: 1份《商用复印机常青条款实测审查与标准退租LOI样例》, time_and_cost_budget: 7天 / 预算$30以内, success_signal: 至少有2家机构发现自己的合同即将进入或曾经踩过展期陷阱，并表达愿意为现有所有设备合同购买该预警服务, kill_signal: 企业行政普遍表示“到期设备商会主动上门换新，多租一年无所谓”，对展期成本完全不敏感}

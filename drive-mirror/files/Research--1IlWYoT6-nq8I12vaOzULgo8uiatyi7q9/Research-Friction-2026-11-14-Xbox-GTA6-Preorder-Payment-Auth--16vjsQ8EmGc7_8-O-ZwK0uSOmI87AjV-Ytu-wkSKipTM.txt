@@ -1,0 +1,36 @@
+﻿Research Underwriting Record: Friction-2026-11-14-Xbox-GTA6-Preorder-Payment-Auth-Failure
+* Signal Source Document: Friction-2026-11-14-Xbox-GTA6-Preorder-Payment-Auth-Failure.md
+* Signal ID: Friction-2026-11-14-Xbox-GTA6-Preorder-Payment-Auth-Failure
+* Signal Generated At: 2026-11-14T09:37:00+08:00
+* Sensor Task Version: friction-sensor@0.2.1
+* Research Evaluation Date: 2026-11-14T17:02:22+08:00
+* Researcher Task Version: researcher@0.2.2
+* Underwriting Verdict: KILL
+* Disqualification Gates: Gate 2 (Structural vs. Ephemeral), Gate 3 (Persistence), Gate 4 (Capture & Addressability)
+1. Executive Summary & Verdict
+* Verdict: KILL
+* Core Finding: 该 Signal 反映的是微软 Xbox 商店在特定高并发/高单价（GTA 6 预购与发售窗口期，特别是 Ultimate Edition 等高客单价档位）下的支付网关二次授权失败与订单死锁问题。用户在预购扣款触发时收到"We're having trouble authorising your payment"，由于 Xbox 平台缺少手动重新授权/改绑卡按钮且无法直接取消预购，导致用户订单陷入自动重试循环或被迫转向购买礼品卡、转战 PS5 等规避方案。
+* Kill 核心判定理由:
+   1. 瞬态非结构性问题（Gate 2 & Gate 3 失败）: 摩擦完全绑定于《GTA 6》单一顶级数字发行事件的时间窗口（2026-11-09 至 2026-11-19 预购与预载扣款期）。该问题属于微软商店/收单机构在短时突发峰值下的系统级/收单网关 Bug，随着发售窗口结束或微软平台侧补丁更新将自然消退，不具备跨周期的持续市场需求。
+   2. 封闭生态无法商业化捕获（Gate 4 失败）: 该问题发生于主机闭环数字商店（Xbox Store / Microsoft Commerce Platform）的结账底层。第三方独立软件或初创团队根本无法介入 Xbox 主机端支付协议与订单状态流转，不存在合法的独立软件、SaaS 或工具产品的切入空间。用户自发的临时替代方案（如转买数字礼品卡兑换、改用 UPI 重新购买标准版）已充分满足临时对冲，无商业产品化价值。
+2. Signal 原始事实核查与背景
+* 现象描述: 针对《GTA 6》预购用户，微软 Xbox 商店在发售前扣款阶段（约发售前 10 天开始批量扣款）出现大面积银行卡授权失败。系统提示"We're having trouble authorising your payment"，但 UI 上不提供立即重试扣款按钮，也不允许用户在扣款失败锁定状态下主动取消订单更换支付方式，系统仅进入每隔若干天的自动化重试队列，导致用户面临预购取消与无法按时预载的焦虑。
+* 证据链核查:
+   * Reddit r/XboxIndia 社区讨论记录：Reddit: GTA 6 pre order 2nd payment attempt failed too
+   * 用户反馈案例证实，多位用户在第二次自动扣款失败后尝试各种临时自救方案，包括购买 Xbox Gift Cards 充值余额、联系银行开启国际在线支付、甚至直接在 PS5 平台重复下单。
+* 原始 Signal 持久度评级: Signal 原始标记即为 Temporary（明确绑定 GTA 6 发售窗口）。
+3. 五门严谨性审查 (Underwriting Gate Analysis)
+Gate 1: 真实痛点存在性 (Problem Authenticity) —— PASS
+* 核实: 痛点客观真实。用户支付意愿极高（$50-$100+ 高客单价），且因无法正常扣款面临失去预购权益与预载特权的实质困扰，社群情绪摩擦显著。
+Gate 2: 结构性 vs. 瞬态性 (Structural vs. Ephemeral) —— FAIL (KILL)
+* 核实: 属于典型的瞬态事件驱动型运营/技术故障。此摩擦本质是微软全球账务处理引擎在应对极端单点流量冲击时的风控/重试策略失调，而非长期的行业结构性真空。
+Gate 3: 持续性与生命周期 (Persistence & Horizon) —— FAIL (KILL)
+* 核实: 预期生命周期极短（< 14 天）。一旦游戏正式发售、批量预购扣款窗口关闭，或微软商店更新网关重试逻辑，该类特定摩擦立即消失。无法支撑任何商业软件生命周期。
+Gate 4: 捕获能力与可达性 (Capture & Addressability) —— FAIL (KILL)
+* 核实: 封闭平台壁垒导致外部无从切入。主机平台数字商店是索尼、微软高度垄断的底层基础设施，第三方无法注入中间件或外部结账插件。
+Gate 5: 商业模型与单位经济效益 (Unit Economics) —— N/A
+* 核实: 由于前序关键门禁均未通过，不具备开展单位经济学推演的前提。
+4. 结论与归档状态
+* 终审裁定: KILL
+* 后续处理: 终止进一步立项调研，不推进至 Business Model 建模阶段，作为摩擦传感器典型"单点事件突发故障"样本归档。
+* 归档路径: Research-Friction-2026-11-14-Xbox-GTA6-Preorder-Payment-Auth-Failure.md 已固化保存于 Research Output 根目录。

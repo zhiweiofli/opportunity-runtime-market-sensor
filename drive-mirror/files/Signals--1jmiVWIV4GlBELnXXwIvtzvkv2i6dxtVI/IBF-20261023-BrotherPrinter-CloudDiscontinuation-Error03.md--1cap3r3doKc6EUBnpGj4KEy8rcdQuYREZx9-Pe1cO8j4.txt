@@ -1,0 +1,111 @@
+﻿signal_id: IBF-20261023-BrotherPrinter-CloudDiscontinuation-Error03
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: 2026年4月起，Brother（兄弟）官方服务器永久终止了对初代Web Connect云服务及老款激光多功能一体机（如MFC-9330CDW、MFC-9340CDW、MFC-L2700DW系列等）的云端支持。原因是老款机型主控固件无法支持现代TLS 1.2+强加密套件，被原厂云端全面阻断，导致面板上的“Easy Scan to Email”、“Web”及“Apps”功能在按击后直接报错“Connection Error 03（连接服务器失败）”，大批存量设备云扫描功能瘫痪。
+money: 机械及打印/扫描硬件寿命完好（普遍仍可稳定服役5-8年以上），耗材廉价且极度耐用。若因软件云服务关停而直接整机报废换新，采购同级别现代商用彩色/黑白激光一体机（如MFC-L3770CDW / L3780CDW）单台需$350-$650美元；小型诊所、律所、会计所若配置2-4台设备，换新成本达$1,000-$2,500美元。
+
+
+evidence:
+  - id: E1
+    source: https://www.reddit.com/r/printers/comments/1sacjig/fixed_brother_printer_connection_error_03_scan_to/
+    source_date: '2026-04-02'
+    accessed_at: '2026-10-23'
+    fact: 详尽披露2026年4月Brother永久关停旧机型云端中继的底层原因（TLS 1.2加密套件缺失），记录全球大量存量MFC用户遭遇Connection Error 03报错。
+  - id: E2
+    source: https://www.reddit.com/r/printers/comments/1sb28p1/brother_mfc_cannot_scan_or_connect_to_web_connect/
+    source_date: '2026-04-03'
+    accessed_at: '2026-10-23'
+    fact: 多名用户报告重置网络与重启无法修复，证实原厂云服务彻底死亡，仅能通过直连SMTP-AUTH或局域网中继旁路修复。
+
+
+mechanism: 办公外设厂商为缩减老旧机型服务器维护开销并规避合规风险，单方面关停老旧协议云中继；而设备嵌入式硬件算力不足且固件不再更新，造成“机械性能健全但云端连接报废”的物理/数字断层。
+persistence: Structural
+next_question: 在遭遇Error 03的用户中，有多少人具备独立登录打印机Web控制台配置SMTP-AUTH的能力？
+task_version: installed-base-friction@0.2
+generated_at: '2026-10-23T17:45:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+
+
+asset:
+  category: 办公外设与商用多功能激光一体机
+  brand: Brother
+  model: MFC-9330CDW / MFC-9340CDW / MFC-L2700DW 等存量激光一体机
+friction:
+  type: 原厂云服务退出与加密协议不兼容
+  symptom: 硬件正常但一键扫描到邮件报Connection Error 03，云连接与快捷邮件发送彻底失效
+installed_base:
+  estimate: 全球数百万台存量处于服役状态的Brother激光一体机
+  basis: Brother MFC系列是全球SOHO、诊所、律所及家庭办公室最畅销的常青树激光打印机系列，机械寿命极长且市场保有量庞大。
+
+
+current_solution:
+  description: 1) 被迫报废换购$400+的新款打印机；2) 插U盘物理对拷或通过USB线连接单台PC扫描；3) 翻阅极客论坛手动配置复杂的SMTP-AUTH与应用专用密码。
+  oem_part_price: 450.0
+  technician_repair_price: null
+  currency: USD
+  basis: 官方渠道无软硬件升级包，换新同级别主流激光一体机（如MFC-L3780CDW）官网售价约$450。
+alternative:
+  description: 运行在局域网NAS/PC上的轻量化TLS转发中继脚本，或标准化一键免配置引导包
+  estimated_solution_cost: 29.0
+  currency: USD
+  basis: 个人小团队可提供定制化的局域网自动转发网关工具或专业远程调试服务。
+gap:
+  vendor_support: discontinued
+  availability: low
+  competition: low
+  basis: 原厂彻底放弃老机型维护，市面上无大厂专门针对已停产打印机提供云端复活服务，用户基本依靠零散社区自救。
+signals:
+  recurrence: high
+  urgency: medium
+  diy_activity: high
+  basis: 每次日常扫描必现；Reddit、iFixit等社区有大量用户发帖求助如何配置替代SMTP。
+
+
+assessment:
+  installed_base: {value: high, basis: 畅销全球十余年的经典激光MFC机型，存量数以百万计}
+  friction_rate: {value: high, basis: 点击面板云扫描功能100%报Error 03}
+  failure_cost: {value: medium, basis: 换新单台设备需$350-$650，多台换新超千美元}
+  support_gap: {value: high, basis: 官方明确不再支持，固件永久停留在老版本}
+  switching_cost: {value: medium, basis: 重新采购打印机需要安装网络、采购新耗材且废弃存量副厂硒鼓粉盒}
+  vendor_repair_speed: {value: low, basis: 原厂有强烈的促换新商业诉求，绝不会恢复老服务器}
+
+
+repair_leverage:
+  ratio: 15.5
+  baseline_cost: 450.0
+  solution_cost: 29.0
+  currency: USD
+  scope: 基准成本为采购一台同档次新款彩色激光一体机（$450）；替代方案为采用轻量中继转发工具/配置服务（$29）
+  basis: 450 / 29 = 15.51
+opportunity_durability:
+  value: high
+  basis: 存量老设备耗材成本低、结构坚固，只要旁路协议打通，用户倾向于继续使用直至机械报废。
+
+
+economic_value:
+  level: Medium
+  payer: 小型法律/会计事务所、基层医疗诊所、房产中介门店店长及无专职IT的小微企业主
+  economic_anchor: 单台换新硬件支出$400-$650，机队换新$1,500+，存量未用完硒鼓墨粉残值损耗
+  capture_mechanism: 提供一键配置助手程序（桌面GUI自动探测机身并下发合法直连SMTP凭据），或便携局域网代理容器
+  repeatability: 同一系列机型Web管理后台API完全通用，交付可高度脚本化、标准化复用
+  basis: 相对于采购新打印机与丢弃存量耗材的数百美元成本，几十美元的无痛复活方案具备极强性价比
+
+
+personal_actionability:
+  fit: Good
+  route: 开发针对老款Brother MFC的“扫描修复向导（Scan Resurrect Tool）”桌面小工具与本地局域网发信网关
+  target_customer: 拥有Brother老款MFC一体机且日常需使用Scan-to-Email的中小微商户
+  deliverable: 一个单文件Windows/Mac小工具：自动扫描局域网Brother设备，一键测试并写入合规的第三方SMTP发信配置（或拉起本地无加密转发隧道）
+  pricing_hypothesis: $19.99 个人单机激活码，或 $49 商业机构3机包
+  customer_entry: Reddit r/printers、各大打印机维修技术论坛、耗材店铺售后评论区、YouTube教程评论区
+  fit_basis: 纯软件网络协议与HTTP配置交互，无物理库存、无损坏设备风险、无需上门线下操作
+  prerequisites: 熟悉Brother打印机内置嵌入式Web服务器（EWS）的HTTP/POST参数格式与主流邮箱SMTP安全策略
+  first_test: 编写一个Python自动化测试脚本，利用Requests库向局域网Brother打印机Web端发送SMTP参数更新请求，验证能否绕过手动输密完成发信测试
+  time_budget: 60分钟
+  success_signal: 打印机成功保存直连配置，并在面板按下扫描后顺利发出测试邮件
+  kill_signal: 发现打印机底层硬件在老协议握手时哪怕走纯SMTP-AUTH也会因为内存溢出直接硬件死机
+  key_unknown: 主流免费邮箱的App Password申请流程复杂度是否会导致普通非技术用户放弃自助设置

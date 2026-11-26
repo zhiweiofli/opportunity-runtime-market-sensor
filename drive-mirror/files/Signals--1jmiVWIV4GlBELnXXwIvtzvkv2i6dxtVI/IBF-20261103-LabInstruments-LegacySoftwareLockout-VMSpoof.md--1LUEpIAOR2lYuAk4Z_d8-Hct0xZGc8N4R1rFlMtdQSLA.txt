@@ -1,0 +1,116 @@
+﻿signal_id: IBF-20261103-LabInstruments-LegacySoftwareLockout-VMSpoof
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: 2026年10月下旬生命科学与生化分析科研社区（Reddit r/labrats等）高频爆发集中投诉：大量仍处于黄金服役期的高精度分析仪器（如PerkinElmer/Revvity Enspire 2300多功能酶标仪、Molecular Devices SpectraMax/SoftMax Pro、Agilent 1100/1200高效液相色谱仪HPLC、Shimadzu分光光度计等）因搭载的Windows XP/7老电脑硬件损坏，或机构IT强制升级Windows 10/11，遭遇原厂“软件绑架式停更”。原厂厂商不仅拒绝向合法设备持有者提供历史出厂软件安装包（声称已End of Life），更将提供老软件镜像强行绑定为单次高达$3,578美元的有偿上门服务（Service Call），或强推$20,000-$25,000美元的新一代软件授权/换机方案；加之原厂软件采用绑定主板MAC/CPUID的硬件加密锁（Node-locked License），直接克隆硬盘镜像无法在现代PC上启动，导致数万美元的精密硬件沦为废铁。
+money: 全球各高校、药企研发中心、CRO检测机构及中小型生物科技公司运转着数十万台原值在$20,000-$100,000+美元的高端精密生化仪器。机械铸件、步进电机与光学传感器寿命可达15-25年，但原厂软件服务收费极其昂贵：Revvity针对老软件出具的单次技术支持报价单达$3,578美元；Molecular Devices等厂商的新版SoftMax Pro软件升级报价在$20,000-$25,000美元；若被迫采购同级别全新酶标仪或色谱仪需耗费$30,000-$120,000美元。实验中断导致研发项目停滞、样品失效损失通常在每天数千美元。
+
+
+evidence:
+  - id: E1
+    source: https://www.reddit.com/r/labrats/comments/1xc2z49/dear_lab_supply_companies_please_give_me_the_free/
+    source_date: '2026-10-22'
+    accessed_at: '2026-11-03'
+    fact: 实验室研究员控诉原厂Revvity/PerkinElmer针对原值数万美元的Enspire 2300酶标仪拒发老软件，强行索要$3,578美元服务费；跟帖多位科研人员证实Molecular Devices对SoftMax Pro实行硬件锁死、对二手设备拒售软件、并开出$25,000软件换代天价账单。
+  - id: E2
+    source: https://discuss.pylabrobot.org/
+    source_date: null
+    accessed_at: '2026-11-03'
+    fact: 开源生化自动化社区PyLabRobot与逆向工程社区活跃开展“仪器解放（Liberated Instruments）”项目，证实大量老旧生化仪器通信本质为标准串口ASCII/二进制协议，社区正利用虚拟机硬件伪装与AI协议逆向绕过厂商软件封锁。
+  - id: E3
+    source: https://www.cssco.com/gcms-products/windows-11-chemstation-upgrades
+    source_date: '2026-10-20'
+    accessed_at: '2026-11-03'
+    fact: 第三方仪器升级工程商指出Agilent/HP 5973/5975/6890等经典仪器在Windows 11下面临GPIB驱动与Chemstation授权兼容断层，独立升级套件与工控虚拟机桥接方案存在明确商业需求。
+
+
+mechanism: 科学仪器机械光学硬件耐用度（20年）远超商用PC操作系统生命周期（5-8年）；仪器巨头为了维持高利润的耗材、软件订阅与维护维保合同（SMA），有意切断老软件分发并对授权施加母板硬件特征锁（Node-lock）；而中小实验室受制于研发经费与NIH基金预算周期，无法承担数万美元的纯软件换新开销，形成“物理设备完好但数字控制被厂商恶意扣为人质”的结构性摩擦。
+persistence: Structural
+next_question: 在遭遇Windows 11升级锁死或老PC损坏的生物医药研发实验室中，愿意支付$300-$500购买免重装原厂授权的硬件欺骗型P2V虚拟机恢复包的比例有多高？
+task_version: installed-base-friction@0.2
+generated_at: '2026-11-03T17:45:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+
+
+asset:
+  category: 实验室精密分析仪器与生化检测设备
+  brand: PerkinElmer / Revvity / Molecular Devices / Agilent
+  model: Enspire 2300 / SpectraMax (SoftMax Pro) / ChemStation 1100 等
+friction:
+  type: 客户端操作系统不兼容与原厂软件服务绑架
+  symptom: 仪器硬件完好，但老旧WinXP/7电脑损坏后无法在现代Win11系统上安装老驱动，或直接克隆后因硬件加密ID变动导致授权锁死
+installed_base:
+  estimate: 全球数以万计中小型实验室、高校课题组与CRO机构仍在使用经典型号仪器
+  basis: 行业公认分析仪器机械光学部件极度耐用，二手科研仪器交易市场规模超数十亿美元，存量巨大。
+
+
+current_solution:
+  description: 1) 被迫支付$3,578接受原厂一次性上门安装服务；2) 支付$20,000-$25,000购买新软件升级包；3) 报废整机并申请数十万美元预算采购新机；4) 极客研究员自行折腾VMware并手动修改VMX配置欺骗硬件ID。
+  oem_part_price: 20000.0
+  technician_repair_price: 3578.0
+  currency: USD
+  basis: 原始证据E1中原厂Revvity开出的官方服务访问费为$3,578，升级软件授权均价在$20,000以上。
+alternative:
+  description: 交付标准化的“生化仪器老PC一键P2V虚拟化与硬件指纹欺骗部署套件”（自动将老硬盘转为虚拟机镜像，在Hyper-V/VirtualBox中精准模拟原始主板BIOS序列号、MAC地址与CPU签名，并打通USB转RS232/GPIB透传通道）
+  estimated_solution_cost: 299.0
+  currency: USD
+  basis: 单台仪器虚拟化自愈脚本与自动化硬件伪装配置文件定价。
+gap:
+  vendor_support: discontinued
+  availability: low
+  competition: low
+  basis: 原厂彻底对老系统关闭下载通道并靠壁垒收割高额服务费；市面上缺乏专门针对科研实验室仪器硬件特征锁的标准化解耦工具。
+signals:
+  recurrence: high
+  urgency: high
+  diy_activity: high
+  basis: 实验日常必用设备，停机直接阻断实验流程；Reddit r/labrats近期该帖引发850+高赞与数百条共鸣讨论，大量科研人员在社区交流虚拟机避坑经验。
+
+
+assessment:
+  installed_base: {value: high, basis: 全球科研院校与药企中沉淀的数以万计精密生化仪器}
+  friction_rate: {value: high, basis: 老PC发生硬件故障或换装Win11时100%触发授权失效与驱动断代}
+  failure_cost: {value: high, basis: 官方单次排障门槛$3,578，换代软件数万美元，停机每天损失严重}
+  support_gap: {value: high, basis: 原厂主动将老版本列为EOL，拒绝提供下载包}
+  switching_cost: {value: high, basis: 更换不同品牌仪器需要重做SOP、重新校准与培训实验人员，成本极巨}
+  vendor_repair_speed: {value: low, basis: 原厂有强烈的逼迫用户升级新系统与换购新硬件的商业利益动机}
+
+
+repair_leverage:
+  ratio: 12.0
+  baseline_cost: 3578.0
+  solution_cost: 299.0
+  currency: USD
+  scope: 基准成本为原厂官方最低单次服务费（$3,578）；替代方案为标准化虚拟化与硬件伪装包（$299）
+  basis: 3578 / 299 = 11.97
+opportunity_durability:
+  value: high
+  basis: 实验仪器机械光学寿命动辄15-20年，而Windows每3-5年发生大版本更迭与安全基线收紧，该断层将长效存在。
+
+
+economic_value:
+  level: High
+  payer: 中小型Biotech研发主管、大学实验室PI、CRO检测中心仪器室管理员
+  economic_anchor: 原厂$3,578单次上门费、$20,000+新软件许可费，以及价值数万美元的现有硬件残值
+  capture_mechanism: 提供“老仪器P2V虚拟化迁移助手”（脚本自动抓取当前老电脑的硬件ID，生成带指纹伪装的通用虚拟机容器镜像，并附带串口/USB直通配置向导），按台收取激活交付费
+  repeatability: 常用Windows XP/7下SoftMax Pro、Chemstation的加密检测逻辑与虚拟化参数高度通用，方案可跨实验室无缝批量复制
+  basis: 客户在面临$3,500+原厂勒索或仪器沦为废铁的极端困境下，对几百美元能够即刻恢复实验数据采集的工具具有极高支付意愿
+
+
+personal_actionability:
+  fit: Good
+  route: 制作“分析仪器旧系统P2V迁移与Node-lock硬件欺骗配置包”
+  target_customer: 拥有PerkinElmer/Molecular Devices老款仪器但原配PC损坏或面临Win11强制升级的实验人员
+  deliverable: 一个自动化工具包：包含Disk2vhd精简提取器、VirtualBox/Hyper-V虚拟机模版、自动将虚拟机BIOS与网卡MAC改写为原机指纹的PowerShell脚本，以及FTDI USB-to-COM稳定透传指南
+  pricing_hypothesis: $299 单台仪器自愈数据包；或 $499 包含远程环境协助调试
+  customer_entry: Reddit r/labrats、r/chemistry、ResearchGate求助帖、二手科研设备交易论坛中抱怨“software license locked after PC died”的用户
+  fit_basis: 纯软件与虚拟化配置工程，无需自研复杂驱动，无库存，不承担医学/诊断法律责任（定位于科研自备设备维护辅助工具）
+  prerequisites: 掌握Windows P2V迁移技术、虚拟机底层硬件指纹（SMBIOS, MAC, CPUID）伪装修改、以及串口（RS-232/USB）通信透传规范
+  first_test: 获取一套旧版SoftMax Pro或Chemstation试用环境，在物理机记录硬件指纹并激活，将其转化为VHDX并在Windows 11宿主机上的虚拟机运行，通过脚本伪装硬件ID，验证软件能否无报错绕过Node-lock授权限制
+  time_budget: 90分钟
+  success_signal: 虚拟机在Win11顺利启动，设备控制软件正常打开无授权失效告警，虚拟串口成功与外设完成握手
+  kill_signal: 发现目标仪器软件依赖不可虚拟化的专有PCI硬件板卡（如专有非标准总线接口），导致无法通过现代PC转接
+  key_unknown: 目标实验室管理团队是否受到严格的GLP/GMP合规审计限制而禁止在虚拟机中采集生产数据

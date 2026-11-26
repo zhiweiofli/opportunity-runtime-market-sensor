@@ -1,0 +1,23 @@
+Signal ID: Friction-2026-11-20-AuthFriction-Checkout-AppHandoff-FalseDecline
+Type: Friction
+What Changed: 2026年11月17-19日 Entersekt 发布基于 2026年10月对1026名计划假期网购的美国消费者调查结果，显示银行端认证（慢审批、app handoff失败、false decline）持续阻断已意图付款的交易；调查数据覆盖过去一年，但报告于本窗口内发布并强调假期高峰风险。
+Friction: Payment / Authentication 环节：银行审批流程过慢或复杂、app内批准后返回商家checkout时订单仍pending/失败、false decline。
+Money: 商家损失 conversion / revenue（购物车放弃）与 failed transaction；发卡行/银行损失交易量与潜在 interchange 收入，并承担支持成本。用户（已准备付款）承担时间成本。具体单笔金额未知，但调查显示高意图假期购物场景。
+Evidence:
+1. Entersekt 新闻稿（2026-11-17）：39.2% 受访者过去一年因银行审批过程太久或太复杂而放弃网购；56.5% 经历至少一次认证失败（慢审批、broken app handoff 或 false decline）。https://www.entersekt.com/resources/entersekt-survey-reveals-39.2-of-holiday-online-shoppers-abandoned-a-cart-due-to-authentication-friction
+2. 同报告及页面（2026-11-19）：40% 在银行 app 批准网购后返回商家 checkout 发现订单仍 pending、失败或需重新开始；约四成因此改用其他卡。54.4% 不愿等待超过1分钟。https://www.entersekt.com/resources/safe-sound-and-abandoned-the-holiday-friction-paradox
+3. The Paypers 报道（2026-11-18）确认调查发现慢银行审批驱动购物车放弃。https://thepaypers.com/fraud-and-fincrime/news/entersekt-survey-finds-slow-bank-approvals-drive-cart-abandonment
+4. 支持事实：调查样本1026名美国成人（Centiment panel，2026年10月），针对计划假期网购者；报告免费下载。
+Mechanism: 银行端认证（3DS/app确认/风险规则）在商家 checkout 后介入，若审批慢、handoff 断裂或误拒，直接阻断已提交的付款意图，导致放弃或改卡。推断：假期高流量放大频率与经济影响；用户偏好银行介入保护，但要求速度。
+Current Workaround: 换卡、放弃该笔交易、等待或重试、使用其他支付方式。成本依据：调查显示部分用户永久离开该卡/商家；商家需处理支持与潜在 chargeback；精确单次成本未知。
+Payer: 商家（通过选择更好的认证/PSP 解决方案减少 conversion loss）；发卡行/银行（改进 auth 体验以保留交易量与客户）；认证/风险技术提供商（如 Entersekt 本身）。依据：调查直接量化对交易完成的影响，且商家/银行已为支付基础设施付费。
+Economic Effect: conversion / revenue / failed transaction（主要）；labor / support cost（次要，商家与银行侧）
+Friction Value: 频率（调查：过去一年39.2%放弃率、56.5%至少一次失败；假期高峰可能更高）× 单次经济影响（高意图购买的订单价值，未知精确值）× 可回收比例（部分可通过更快/更智能 auth 回收，依据调查中用户对“快速银行确认”的偏好，未知精确回收率）。不编造数值。
+Persistence: Structural（3DS/银行认证流程、app handoff 机制、false decline 规则长期存在；非单点临时 bug。依据：调查覆盖过去一年，且报告强调持续性挑战）。
+Next Question: 在具体商家或发卡行层面，此类 auth 失败的真实放弃率、平均订单价值与可回收比例有多少可核验数据？是否有公开的 issuer/merchant 案例显示已为此付费优化？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-20T09:37:00+08:00
+Role Spec Status: reviewed
+
+观察窗口（Asia/Taipei）：2026-11-13 00:00 至 2026-11-20 09:37（本轮实际可核实资料截止时点往前约7天）。
+已访问平台：Web（包括 Entersekt 官网、The Paypers）、Reddit（公开帖）、X（keyword）。未充分覆盖：完整 GitHub Issues、私有支持论坛、企业内部工单。

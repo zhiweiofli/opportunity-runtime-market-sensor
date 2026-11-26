@@ -1,0 +1,65 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: IBF-20261027-Shopify-AdditionalScripts-CustomPixelMigration
+* Source Signal References:
+   * Signal ID: IBF-20261027-Shopify-AdditionalScripts-CustomPixelMigration
+   * Generated At: 2026-10-27T17:15:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: https://docs.google.com/document/d/1eQk4LCwDD-aL6--ZrVErOvsE6HoJf5FXvQN5eHDK4PM/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-27T17:04:41+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Unknown Ledger:
+   * Known: Shopify 于 2026-08-26 对全球所有剩余非 Plus 及 Plus 商家强制启动感谢页与订单状态页自动升级，彻底移除了历史 Additional Scripts 输入框并阻断 ScriptTags；依赖旧字段注入的 Google Ads、Meta CAPI/像素、TikTok Pixel 及联盟跟踪在升级后发生静默失效；因无前台报错且交易正常，商家往往在数周后因投放 ROAS 崩塌才察觉；外部营销代理商重构 Custom Pixels 项目收费在 $1,500-$3,500，且大型归因 SaaS（Elevar 等）月费高达 $250-$1,000+。
+   * Unknown: 遭遇 8 月 26 日强制升级后，至今仍有至少 1 个核心广告通道处于静默断流状态的中小 Shopify 独立站存量占比。
+   * Decision-Critical Unknown: 月广告预算在 $3,000-$50,000 的 Shopify DTC 电商品牌创始人，对于一套即插即用、经过沙箱验证的主流广告平台 Web Pixels 标准脚本包与一键自测命令（售价 $49-$99 一次性买断）的在线购买意愿。
+* Gate Checks:
+   * Money: 通过。独立站卖家每月数千至数万美元广告预算直接受损，代理商重构收费 $2,000，标准化脚本包 $99 具备 20.2 倍修复杠杆。
+   * Mechanism: 通过。Shopify 结账沙箱化不可逆，Web Pixels API 规范全平台统一，将复杂的前端沙箱事件监听与 CAPI 回传标准化，单次编写可跨数千店铺复用。
+   * Persistence: 通过。属于 Shopify 平台架构硬性升级，旧接口已被彻底物理删除，沙箱化 Extensibility 具备长期持久性。
+   * Capture: 通过。1-3 人小团队制作标准化 Custom Pixel JS 代码片段与图文自测指南，纯软件与代码交付，零服务器维护、零库存、极高毛利。
+* Final Status: HYPOTHESIS_READY
+* Evidence:
+   1. 7Sea Marketing 行业实操指南《Shopify Additional Scripts to Custom Pixels Guide》（2026-10-14）：详述 2026 年 8 月 26 日强制升级细节及 Custom Pixels 重构逻辑。
+   2. Reddit r/shopify 讨论帖《Non-plus stores: Your thank you and order status scripts》（2026-08）：揭示升级静默断流的隐蔽性与杀伤力。
+   3. Shopify Community 商家通告（2026-07）：确认 8 月 26 日为全网强制死线。
+* Counter Evidence:
+   1. 官方免费 App 覆盖基础像素：Shopify 官方 Google & YouTube App 和 Facebook & Instagram App 可自动安装基础像素，但对跨域跟踪、增强型型转化（Enhanced Conversions）、TikTok/联盟营销及多像素归因无能为力。
+   2. 头部品牌已提前完成升级，主要目标客群为技术脱节的中小长尾商户。
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，痛点真实刚性，机制清晰坚固，小团队轻资产切入点极佳。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: Shopify 中小卖家将广泛采用轻量化、买断制的标准 Custom Pixel 代码包修复数据流。
+* What became less likely: Shopify 官方会在未来补丁中恢复任何全局 Additional Scripts 输入支持。
+* What did we rule out: 排除了在无沙箱化代码适配下第三方跟踪脚本能够在 Shopify 感谢页自然恢复运行的可能。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-10-27T17:38:48+08:00
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向 Shopify 独立站的 Web Pixels 沙箱转化跟踪修复包与自测验证引擎
+* Source Signal IDs: IBF-20261027-Shopify-AdditionalScripts-CustomPixelMigration
+* Source Signal References:
+   * Signal ID: IBF-20261027-Shopify-AdditionalScripts-CustomPixelMigration
+   * Generated At: 2026-10-27T17:15:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: https://docs.google.com/document/d/1eQk4LCwDD-aL6--ZrVErOvsE6HoJf5FXvQN5eHDK4PM/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-10-27T17:04:41+08:00
+* Money: 每月投放 $3,000–$50,000 广告预算的 Shopify DTC 独立站卖家；面对外部代理商 $2,000 重写报价或每月 $250+ 归因 SaaS 订阅，愿支付 $49–$99 买断开箱即用的标准修复代码。
+* Mechanism: 针对 Shopify 彻底废除 Additional Scripts 导致的广告数据静默丢失，工具提供针对主流广告平台（Google Ads Enhanced Conversions、Meta CAPI/Pixel、TikTok、Pinterest、ShareASale）的标准化 Custom Pixel 沙箱脚本，精准监听 analytics.subscribe('checkout_completed') 并解包订单金额、币种与商品详情；同时提供控制台一键自测命令，商家无需真正付款即可验证全链路回传。
+* Capture: 1-3 人小团队打包代码库与图文填报指南，提供在线配置器（填入 Pixel ID 即自动生成代码），纯数字商品，零重资产、零服务器开销。
+* Durability: Shopify 官方全盘转向 Checkout Extensibility 与 Web Pixels API，架构不可逆，新老独立站均需遵照此标准。
+* Evidence:
+   1. 7Sea Marketing 实操指南（2026-10）：https://7seamarketing.com/blogs/guides/shopify-additional-scripts-custom-pixels 确认升级与修复技术规范。
+   2. Reddit 社区讨论（2026-08）：https://www.reddit.com/r/shopify/comments/1vgjmb0/nonplus_stores_your_thank_you_and_order_status/ 揭示静默断流痛点。
+   3. Shopify Community 公告（2026-07）：明确 8 月 26 日自动切换。
+* Counter Evidence:
+   1. 部分官方插件自动处理单平台基础事件。
+   2. 复杂多币种、跨网关自定义归因仍可能需要极少数人工干预。
+* Critical Unknown: 遭遇像素静默失效的商户在 Google / Reddit 中搜索“Custom Pixel 修复”的主动转化率。
+* Falsification: 若 Shopify 官方推出全局无代码的一键式全平台 Custom Pixel 自动迁移与全量配置工具。
+* Next Test: 制作一套包含 Google Ads 与 Meta CAPI 标准 Custom Pixel 的免费代码模板与配置视频，发布在 Reddit r/shopify 与 Shopify Community，测试 48 小时内的下载量与升级定制咨询转化率。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-10-27T17:38:48+08:00
+* Role Spec Status: reviewed

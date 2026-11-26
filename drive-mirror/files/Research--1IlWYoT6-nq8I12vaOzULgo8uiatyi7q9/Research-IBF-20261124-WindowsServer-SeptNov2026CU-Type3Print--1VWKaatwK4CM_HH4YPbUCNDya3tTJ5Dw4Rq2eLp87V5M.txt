@@ -1,0 +1,53 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: IBF-20261124-WindowsServer-SeptNov2026CU-Type3PrintDriverBreakage
+* Source Signal References:
+   * Signal ID: IBF-20261124-WindowsServer-SeptNov2026CU-Type3PrintDriverBreakage
+   * Generated At: 2026-11-24T17:58:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: IBF-20261124-WindowsServer-SeptNov2026CU-Type3PrintDriverBreakage.md
+   * Source File Modified At: 2026-11-24T17:56:02+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: KILL
+* Final Status: KILL
+1. Unknown Ledger
+Known
+1. Windows 累积更新破坏 Type 3 打印框架 DLL 的运维故障：2026 年 9–11 月 Patch Tuesday 更新破坏了 spool\DRIVERS\x64\3\ 下 5 个共享打印驱动 DLL（UNIDRV.DLL、PSCRIPT5.DLL 等），导致 Server 2019/2022 RDSH 与 Win11 下的 DYMO 450、HP UPD、Epson 小票机与 Adobe PDF 报错（r/sysadmin 2026-09-16、r/sysadmin 2026-11-03）。同时微软正推进向 IPP Class Driver 迁移（2026 年 7 月起优选 IPP，2027 年 7 月限制 Windows Update 仅推安全补丁，WindowsForum 2026-09-03）。
+2. 缺乏商业付费证据（Gate 1 失败）：原信号明确披露"未检索到公开美元维修或外包报价（oem_part_price: null, technician_repair_price: null, repair_leverage: null）"，社区管理员之间均通过免费 PowerShell 片段与手动备份恢复自救，没有为"拷贝回滚 5 个系统 DLL 的脚本"付费的预算先例。
+3. 脆弱的 OS 系统文件对抗路线与成熟竞品挤压（Gate 4 失败）：
+   * 将商业软件产品建立在"定期把未修补的旧版系统 DLL 覆盖回 System32\spool 以对抗 sfc /scannow 和 Windows Update"上，存在极高的系统安全、数字签名冲突与客服售后风险（一旦下月补丁改变二进制接口即引发蓝屏或打印崩溃），完全不符合小团队低售后约束。
+   * 而在正规的"企业打印驱动清点与 IPP/WPP 迁移管理"层面，Windows 已自带免费 pnputil /enum-drivers 与 Get-PrinterDriver，且企业级打印管理软件已有 PaperCut、Pharos、PrinterLogic 等 7+ 成熟商业玩家覆盖（DevOpsSchool 2027 对比）。
+Unknown
+微软会在何次月度累积更新中正式修复 UNIDRV.DLL / PSCRIPT5.DLL 的 RtlLogUnexpectedCodepath 回归缺陷。
+Decision-Critical Unknown
+基于"对抗 sfc 自动回填旧版 Windows 系统 DLL + 免费系统命令行队列盘点"的 $99 脚本包，是否能避开安全合规风险并形成独立商业付费意愿（经审核已确认不成立，Gate 1 与 Gate 4 否决）。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	未通过 (FAIL - KILL)
+	缺少一手商业付费凭证：原信号明确确认无公开外部维修或脚本采购报价，管理员均在 Reddit 免费互助拷贝 DLL 或执行内部回滚，未证实 $99 脚本付费意愿。
+	Mechanism
+	未通过 (FAIL - Fragile Hack)
+	用商业工具强行对抗 sfc /scannow 回填旧版 OS DLL 属脆弱的临时系统 Hack，而非稳定持久的软件架构；而正规队列盘点已被系统原生 Get-PrinterDriver 与 pnputil 免费提供。
+	Persistence
+	未知 / 短期回归风险 (UNKNOWN)
+	微软随时可能在下一个 Patch Tuesday 修复该 DLL 回归 Bug；而向 IPP 迁移的长期需求则已被大型打印管理厂商吸收。
+	Capture
+	未通过 (FAIL - KILL)
+	1）修改/回填 System32 打印假脱机 DLL 极易触发安全告警与售后事故，违背小团队低售后约束；2）正规企业打印管理已有 PaperCut、Pharos 等成熟竞品覆盖。
+	3. Evidence & Counter Evidence
+Supporting Evidence (Symptom Existence)
+1. Reddit r/sysadmin Type 3 DLL 故障讨论（2026-09-16 至 11 月更新）：Shared print driver framework files break Type 3 —— 证实 9–11 月 CU 破坏 5 个共享打印 DLL，管理员手动备份恢复或回滚。
+Counter Evidence (Refutation of Opportunity)
+1. 无付费先例且已有免费原生命令：WindowsForum 2026-09-03 指南 列明 Windows 已原生内置 pnputil /enum-drivers 与 Get-PrinterDriver 完成驱动清点。
+2. 成熟打印管理厂商已覆盖 IPP 过渡：DevOpsSchool 打印管理对比 与 PaperCut 排障工具 证实商业赛道已被成熟玩家占据。
+4. Decision Trail & Metadata
+* Stop Reason: 缺乏真实独立付费凭证（Gate 1 失败），且"回填 OS DLL 对抗系统补丁"属于高售后风险的脆弱 Hack，正规打印管理已被 PaperCut 等竞品及原生 PowerShell 覆盖（Gate 2 & Gate 4 失败），裁定 KILL。
+* Resume Condition: 不适用（已裁定 KILL）。
+* What became more likely: 系统级月度补丁引发的 DLL 回归故障属于免费社区互助脚本与原厂热修范畴，不宜打包为收费软件。
+* What became less likely: 独立小团队能靠售卖 $99 "DLL 回填 + 原生 PowerShell 盘点脚本"在 MSP 市场建立可持续业务。
+* What did we rule out: 排除了介入修改 Windows System32 底层打印 DLL 的产品方向。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-25T17:52:27+08:00
+* Role Spec Status: reviewed

@@ -1,0 +1,53 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: Friction-20261122-onboarding-handoff-status
+* Source Signal References:
+   * Signal ID: Friction-20261122-onboarding-handoff-status
+   * Generated At: 2026-11-22T09:45:00+08:00
+   * Task Version: friction-sensor@0.2.1
+   * Source File URL: Friction-Signals-2026-11-22.md
+   * Source File Modified At: 2026-11-22T09:38:04+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: KILL
+* Final Status: KILL
+1. Unknown Ledger
+Known
+1. 信号源实为成熟竞品厂商的获客内容营销：本条 Signal 引用的核心证据 Flowla 博客 (2026-11-19) 与 GUIDEcx 2026 客户入职现状报告，两者本身均是专门解决"Sales-to-Onboarding Handoff 与状态自动化"的成熟商业 SaaS 厂商（Flowla 直接在同系列文章 Top Customer Onboarding Tools 2026 中推销其"Closed-Won 自动建房与 AI 状态更新代理 REX"，GUIDEcx 则直接提供 HubSpot Closed-Won 自动创建入职项目集成）。
+2. 极度拥挤且存在多家"免费版"竞品的红海赛道：经核查，该"CRM Closed-Won -> Slack 通知 -> 客户入职协同门户与周报状态同步"赛道已高度饱和：
+   * 专门的 Sales-Room-to-Onboarding 平台：Flowla、Aligned、Trumpet、Dock 均提供免费方案（Free Plans）；Valuecase 起步 €59/用户/月；Rocketlane、GUIDEcx、ChurnZero、OnRamp 覆盖中大型团队。
+   * 低代码自动化方案已标准化：Coreibytes 2026 指南 证实使用 Make.com（$10.59/月）、Zapier（$29.99/月）或自托管 n8n（免费）即可在 1 小时内打通"HubSpot Closed-Won -> 自动建文件夹/发 Slack/建任务看板"。
+3. 无独立小团队差异化捕获空间（Gate 4 失败）：在存在 4+ 家含免费版的专用平台与 $10–$30/月标准 iPaaS 的红海市场中，1–5 人新团队既无技术护城河，又面临极高的 B2B 获客成本（CAC）与重度企业客户成功支持负担，不符合小团队轻资产捕获约束。
+Unknown
+尚未采用 Flowla/Aligned/Dock 免费版或 Make/Zapier 自动化交接的 B2B 团队中，阻断其采纳的究竟是软件缺失还是内部跨部门流程未梳理。
+Decision-Critical Unknown
+在 Flowla、Aligned、Dock、Trumpet 均提供免费计划且 GUIDEcx/Rocketlane/Make/Zapier 已深度绑定 HubSpot/Salesforce 的红海市场中，1–5 人独立小团队是否还存在可防御的差异化产品切入点（经审核已确认不存在，Gate 4 直接否决）。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	B2B SaaS 与实施团队确有预算采购入职协同软件（如 Valuecase €59/月、UserGuiding $349+/月、OnRamp $15,000+），但预算已被成熟竞品高度瓜分。
+	Mechanism
+	未通过 (FAIL - Already Solved)
+	CRM Closed-Won 触发 Slack 通知、创建客户门户与周报聚合的机制已被 Flowla、GUIDEcx、Rocketlane、Make、Zapier 等成熟产品完整实现并形成标准范式，无新增机制突破。
+	Persistence
+	通过 (PASS)
+	B2B 销售向交付团队交接的痛点长期存在（属于组织惰性与跨部门协同问题）。
+	Capture
+	未通过 (FAIL - KILL)
+	严重红海不可捕获：1）原始证据方 Flowla 与 GUIDEcx 本身就是该领域的成熟商业玩家；2）Flowla、Aligned、Trumpet、Dock 四家直接竞品均已提供 Free Plan，加上 Make ($10.59/月) / Zapier ($29.99/月) 标准化连接器，1–5 人团队开发同类产品面临极高 CAC、零定价权与重度客服交付压力。
+	3. Evidence & Counter Evidence
+Supporting Evidence (Problem Existence)
+1. GUIDEcx 2026 客户入职现状报告（2026-08-17）：The State of Customer Onboarding in 2026 —— 调查 200 名专业人士，显示 28% 每周花费 >6 小时手动更新状态、仅 9% 具备实时可视性、62% 曾因入职体验差流失客户。
+Counter Evidence (Refutation of Small-Team Opportunity)
+1. 已有 10+ 成熟竞品且 4 家提供免费版：Flowla 2026 十大客户入职工具对比 证实 Flowla、Aligned、Trumpet、Dock 均提供免费计划（Free Plans），并原生支持 HubSpot/Salesforce Closed-Won 自动交接。
+2. GUIDEcx / Rocketlane / iPaaS 标准连接器成熟：GUIDEcx HubSpot 集成页 与 Coreibytes 2026 无代码交接指南 证实该流程已是 $10–$30/月即可落地的标准自动化玩法，不存在未被满足的软件空白。
+4. Decision Trail & Metadata
+* Stop Reason: 该痛点属于已被大量免费版/低价 SaaS 竞品与标准 iPaaS 彻底覆盖的红海赛道（且信号源本身即竞品获客软文），Gate 2 与 Gate 4 未通过，裁定 KILL。
+* Resume Condition: 不适用（已裁定 KILL）。
+* What became more likely: B2B 团队仍手动在 Slack 交接，主因是组织流程习惯惰性或尚未启用已有工具自动化，而非市场上缺少入职交接 SaaS。
+* What became less likely: 1–5 人独立小团队能在一个已有 4 家免费竞品的红海 SaaS 品类中仅靠"CRM 到 Slack 自动交接"建立盈利业务。
+* What did we rule out: 排除了将竞品 SaaS 厂商的行业调研软文直接作为未满足软件空白立项的路径。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-22T17:49:03+08:00
+* Role Spec Status: reviewed

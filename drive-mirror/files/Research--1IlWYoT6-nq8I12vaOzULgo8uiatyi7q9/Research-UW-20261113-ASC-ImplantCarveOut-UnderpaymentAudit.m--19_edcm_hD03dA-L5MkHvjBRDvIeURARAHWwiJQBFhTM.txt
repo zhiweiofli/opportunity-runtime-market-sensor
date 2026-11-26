@@ -1,0 +1,72 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261113-ASC-ImplantCarveOut-UnderpaymentAudit
+* Source Signal References:
+   * Signal ID: UW-20261113-ASC-ImplantCarveOut-UnderpaymentAudit
+   * Generated At: 2026-11-13T00:40:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: UW-20261113-ASC-ImplantCarveOut-UnderpaymentAudit.md
+   * Source File Modified At: 2026-11-13T00:42:37+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+全美超过 6,000 家独立非卧床日间手术中心（ASCs）在开展骨科关节置换、脊柱融合及神经调控手术时，尽管商业保司网络合同明确签署了高值植入耗材"单独除外报销条款"（Implant Carve-Out，如发票成本加成 Cost-Plus 10% 或超阈值单独报销），但保司下发 835 ERA 电子汇款单时普遍默认将 $2,000–$19,000 的植入器械按"已捆绑计入基础手术费"低额清算。由于汇款状态显示为"Paid in Full"，账单系统直接结案归档，导致单家骨科/脊柱 ASC 每年悄然流失 $100,000–$300,000 合法器械垫资款（单案差额 $1,500–$8,000），且过半账目在年度审计发现时已超过 60–90 天法定申诉时效（Timely Filing Window）。市场上现有方案如 Staffingly 依赖远程人工专员按周收费 $299–$399/周（约 $1,300–$1,700/月），而 OutcomeCatalyst/Unlimited Systems 主要面向大型多院区 MSO 集团，独立单体手术中心缺乏低成本自动化对账拦截工具。
+Unknown
+在年开展 500 例以上骨科/脊柱植入手术的独立单体 ASC 中，保司合同仍保留有效 Implant Carve-Out 条款且过去 90 天内存在"Paid 状态静默欠付"的中心比例。
+Decision-Critical Unknown
+独立骨科/脊柱 ASC 执行院长（Administrator）或财务主管（CFO），对于一款"自动连接 835 ERA 汇款流、手术室耗材记录（OR Log）与器械商发票 PDF，在回款到账 24 小时内标出静默欠付单并一键生成带合同原文引用的标准申诉包（月费 $299–$499 或按追回金额 10% 分成）"的轻量软件工具的付费转化率。
+2. Gate Checks
+* Money: 通过。单家骨科/脊柱 ASC 每年流失 $100,000–$300,000 现金，单案差额 $1,500–$8,000；对比人工外包 $1,300–$1,700/月，自动化软件 $299–$499/月或 10% 绩效分成具备极强 ROI。
+* Mechanism: 通过。保司利用"Paid"状态掩盖捆绑少付，但只要在 60–90 天内引用合同 Carve-Out 原文并附带供货商发票申诉，保司通常全额补付；多模态 LLM 自动解析各保司 PDF 合同中的非标精算公式（Cost-Plus / Threshold / Flat Add-on）并与 835 ERA 及器械发票对齐，技术闭环明确。
+* Persistence: 通过。高复杂度骨科与脊柱手术持续向门诊日间手术中心转移，保司通过默认捆绑压低赔付的博弈长期存在，60–90 天申诉时效不可逆。
+* Capture: 通过。1–3 人小团队构建轻量 SaaS 对账与申诉包生成引擎，纯软件与文档处理，零医疗器械库存、零线下驻场、高毛利。
+3. Evidence & Counter Evidence
+Supporting Evidence
+1. Staffingly ASC 实务报告（2026-07-15）：证实单家骨科 ASC 每年因保司将高达 $19,000 器械按捆绑包结算而流失六位数营收，系统标记为 Paid 导致漏查，按周外包人工审计收费 $299–$399/周。
+2. MBW RCM 植入物计费指南（2026-10-01）：详述 ASC Implant Carve-Out 合同条款差异及发票提交规则对回款的决定性影响。
+3. Medical Billers and Coders 技术报告（2026-09-09）：确认高复杂度手术向 ASC 转移背景下，保司加大对植入物 Carve-Out 的隐性降费审核。
+4. OutcomeCatalyst 行业方案分析：印证合同 PDF 散落、835 汇款与器械发票未打通是导致少付漏查的核心结构性痛点。
+Counter Evidence
+1. 若某保司在续签合同时强行取消 Implant Carve-Out 条款并改为全包病例单价（Flat Case Rate），则无差额可追讨。
+2. 若手术中心在手术计费时本身漏报了植入物 HCPCS 编码，需先走前置修正申报而非直接按少付申诉。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，单店六位数流失金额与人工外包价格锚点明确，多模态合同+发票+835 对账机制清晰。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 独立骨科与脊柱 ASC 将采用自动化 835 与器械发票实时比对工具拦截"Paid 状态静默欠付"。
+* What became less likely: 仅靠账单软件默认的"Paid"状态标记就能确保高值植入耗材按合同足额回款。
+* What did we rule out: 排除了"保司少付主要是因为诊所忘记附带发票"的误区，确认即使附上发票保司系统仍会默认捆绑。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-13T17:57:15+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+面向独立骨科/脊柱 ASC 手术中心的 Implant Carve-Out 静默欠付实时审计与申诉包生成器
+Source Signal References
+* Signal ID: UW-20261113-ASC-ImplantCarveOut-UnderpaymentAudit
+* Generated At: 2026-11-13T00:40:00+08:00
+* Task Version: uneconomic-work@0.1
+* Source File URL: UW-20261113-ASC-ImplantCarveOut-UnderpaymentAudit.md
+* Source File Modified At: 2026-11-13T00:42:37+08:00
+Money
+全美超 6,000 家独立 ASC（尤其骨科与脊柱专科），单中心每年流失 $100,000–$300,000 器械垫资款。中心院长/CFO 愿支付 $299–$499/月（对比 Staffingly 人工外包 $1,300–$1,700/月）或按追回差额收取 10% 分成。
+Mechanism
+1. 合同精算规则抽取：一次性上传各商业保司合同 PDF，自动提取每个保司的 Implant Carve-Out 公式（Cost-Plus 百分比、起付阈值、定额附加或除外清单）。
+2. 24 小时静默欠付拦截：自动读取 835 ERA 回款文件与器械商发票 PDF / OR Log，在系统标记"Paid"的当天逐行核算预期应收额与实付额，标出所有被默认捆绑少付的病例。
+3. 一键合规申诉包：在 60–90 天窗口内自动生成附带器械采购发票、差额计算表及保司合同条款原文引用的标准申诉 PDF。
+Capture
+1–3 人小团队构建轻量 HIPAA 合规 SaaS（基于零留存加密 API 处理脱敏/授权数据），纯软件与文档生成，零实体库存与线下派工。
+Durability
+商业保司合同碎片化与默认捆绑清算机制长期存在，门诊高值手术占比持续攀升，形成高频刚性月度需求。
+Evidence
+1. Staffingly (2026-07)：证实年流失六位数、$19,000 器械被捆绑及 $299–$399/周外包定价。
+2. MBW RCM (2026-10)：证实合同条款差异与发票规则。
+3. Medical Billers and Coders (2026-09)：证实门诊高值手术转移与审核趋严。
+Counter Evidence
+1. 部分保司合同转为纯 Flat Case Rate（无 Carve-Out）。
+2. 手术计费本身漏报 HCPCS 植入物编码。
+Critical Unknown
+独立骨科 ASC 在看到过去 60 天样本检出 >$8,000 静默欠付后，对纯软件自助生成申诉包（$299–$499/月）而非全托管人工外包的接受度。
+Falsification
+若全美商业保司在 835 ERA 结算中全面强制执行透明的植入物独立行项拆单，彻底消除默认捆绑少付。
+Next Test
+联系 2 家独立骨科/脊柱 ASC 财务主管，免费跑批其上个月的脱敏 835 ERA 与器械发票，验证检出的静默欠付金额与提交申诉意愿。

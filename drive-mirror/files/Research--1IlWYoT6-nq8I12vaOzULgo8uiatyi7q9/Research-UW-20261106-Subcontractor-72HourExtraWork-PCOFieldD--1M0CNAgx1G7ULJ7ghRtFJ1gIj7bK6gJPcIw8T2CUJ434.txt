@@ -1,0 +1,139 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: UW-20261106-Subcontractor-72HourExtraWork-PCOFieldDirectivePacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261106-Subcontractor-72HourExtraWork-PCOFieldDirectivePacket
+   * Generated At: 2026-11-06T01:18:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/1E9LoyjcUeDP_SieNzr4cv_5Iq_ET-UthLpECJXt02jE/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-06T01:22:45+08:00
+
+
+* Research Level: R2 — Economic Underwriting
+
+
+* Stage Result: HYPOTHESIS_READY
+
+
+* Unknown Ledger:
+
+
+   * Known: 商业建筑总承包商（GC）在分包合同中普遍强制执行严苛的“现场变更 48–72 小时通知弃权条款”（Notice of Potential Change Order / COR Clause）：总包现场工长（Superintendent）在工地上经常口头或发短信要求分包商（水暖电、暖通、泥瓦、消防）做局部额外施工（如管线绕道、开孔打洞、点位平移）；而主合同条款硬性规定，分包商若未在接到口头指令后 48 至 72 小时内以正式书面形式提交《潜在变更意向通知》（PCO Notice）并附带工料单（T&M Ticket），该项额外工作即被法律推定为“分包商自愿赠送或施工手段误差（Means and Methods）”，永久丧失追加工程款索赔权；全美专业分包商单队每月因此流失 $3,000–$8,000 美元未计费额外工作（Unbilled T&M Work，单企年均坏账 $30,000–$80,000）；带班工长因手头缺电脑、厌恶繁琐制表且怕破坏与总包关系而推迟记录，最终在竣工结算时被总包法务 100% 剔除拒付。
+   * Unknown: 拥有 10–50 名现场工人的中型机电与暖通专业分包商中，现场带班因未在 72 小时内形成书面指令记录而在工程结算时被总包最终核减的增量工时金额占合同总额的百分比。
+   * Decision-Critical Unknown: 专业分包商老板或资深项目经理，对于一款“现场带班发送 15 秒语音+拍照，30 秒自动匹配合同工时费率表并生成专业合规的《72 小时潜在变更备忘录与工单 PDF》及给总包工长温和确认短信（定价 $29–$49/带班/月 或按计费变更额抽成 3%–5%）”的工具的采购采用意愿。
+
+
+* Gate Checks:
+
+
+   * Money: 通过。单施工队每月流失 $3,000–$8,000 未计费额外工料，涉及全美数十万专业分包商；月费几十美元工具对比数万美元流失具有极高投入产出比。
+   * Mechanism: 通过。商业建筑合同（AIA A401 / AGC ConsensusDocs）普遍将 72 小时书面通知设为付款前提；多模态 LLM 提取口头语音中的指令下达人、施工部位、工种工时与耗材，自动套用合同预设的 T&M 费率生成标准 PCO PDF 与确认文本，彻底消除带班工人手写表单与人际对抗摩擦。
+   * Persistence: 通过。商业施工变更管理与 72 小时时效抗辩属于全美建筑行业的通用格式合同标准，长期稳固。
+   * Capture: 通过。1-3 人小团队构建轻量移动端语音转文书 Bot（对接 WhatsApp/SMS），纯代码与工作流自动化，零硬件资产、零施工库存、高毛利。
+
+
+* Final Status: HYPOTHESIS_READY
+
+
+* Evidence:
+
+
+   1. Fox & Santiago 建筑财务指南《Extra Work in the Field Never Gets Billed》（2026-10）：指出口头指令未及时书面化导致分包商单月即可损失约 $4,000 工料款。
+   2. Archdesk 2026 变更管理白皮书《2026 Guide to Construction Change Orders》：强调 72 小时变更包黄金时限，未及时报送工料将混入基础成本导致索赔权彻底丧失。
+   3. Briq 建筑知识库《Time and Material Ticket Compliance》：明确事后补签在法律上极难追讨，实时合规工单是唯一计费基准。
+
+
+* Counter Evidence:
+
+
+   1. 总包现场工长收到短信后立即明确书面否认曾下达过改动指令（需项目经理介入）。
+   2. 涉及百万美元级重大设计变更仍需专职造价工程师重新算量。
+
+
+* Stop Reason: 四 Gate 均已通过充分独立证据核实，合同 72 小时弃权杀伤力明确，语音生成工单机制敏捷可行，小团队轻资产切入点极佳。
+
+
+* Resume Condition: 不适用（已完成）。
+
+
+* What became more likely: 建筑分包商现场带班将普遍采用语音转 PCO 工具将口头现场额外工作实时固化为书面债权。
+
+
+* What became less likely: 总包法务能够继续依靠合同 72 小时免责条款无成本侵吞分包商的现场突发工料。
+
+
+* What did we rule out: 排除了在工程竣工结算阶段仅凭工人口头回忆能够迫使总包补发未经事先签认的额外施工款项的可能。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-06T17:44:19+08:00
+
+
+* Role Spec Status: reviewed
+
+
+________________
+
+
+Opportunity Hypothesis: 面向建筑专业分包商现场带班的 72 小时口头变更（PCO & T&M）即时语音备忘录与确认工单生成器
+* Source Signal IDs: UW-20261106-Subcontractor-72HourExtraWork-PCOFieldDirectivePacket
+
+
+* Source Signal References:
+
+
+   * Signal ID: UW-20261106-Subcontractor-72HourExtraWork-PCOFieldDirectivePacket
+   * Generated At: 2026-11-06T01:18:00+08:00
+   * Task Version: uneconomic-work@0.1
+   * Source File URL: https://docs.google.com/document/d/1E9LoyjcUeDP_SieNzr4cv_5Iq_ET-UthLpECJXt02jE/edit?usp=drivesdk&ouid=101589702958564347595
+   * Source File Modified At: 2026-11-06T01:22:45+08:00
+
+
+* Money: 全美数十万专业分包企业（机电、暖通、管道、消防）；单队每月挽回 $3,000–$8,000 未计费工料款，企业愿按带班人数支付 $29–$49/月 或按增加收款额的 3%–5% 提成。
+
+
+* Mechanism: 针对现场工人厌恶填单且怕得罪总包导致 72 小时合同弃权的痛点，工具提供：现场工长只需对微信/短信机器人发送一段 15 秒语音（“总包 Mike 让我们把 2 楼管道向西平移 3 米，用了 2 个人干了 3 小时，用了 2 根角铁”）并拍照；系统自动提取指令来源、工时材料，按合同费率自动折算金额，30 秒生成格式严谨的《72 小时潜在变更意向通知与工单 PDF》，并自动生成给总包工长确认的温和提示短信，让工人零阻力锁定工程债权。
+
+
+* Capture: 1-3 人小团队构建基于消息通道的多模态工作流，纯软件与 API，零实体设备、零库存、高毛利 SaaS。
+
+
+* Durability: 商业施工标准合同（AIA/AGC）长期沿用，72 小时变更通知是建筑业永恒博弈点，需求具有极高日常高频复购性。
+
+
+* Evidence:
+
+
+   1. Fox & Santiago（2026-10）：https://foxsantiago.com/guides/extra-work-in-the-field-never-gets-billed 证实单月损失数千美元现状。
+   2. Archdesk 变更指南：https://archdesk.com/blog/2026-guide-to-construction-change-orders 确认 72 小时黄金锁定窗口。
+   3. Briq 知识库：https://briq.ai/acu/object/time-and-material-ticket 确立实时记录法律地位。
+
+
+* Counter Evidence:
+
+
+   1. 总包现场工长极度反感任何形式的书面确认。
+   2. 重大图纸重构需要专业造价软件重算。
+
+
+* Critical Unknown: 建筑分包企业老板让一线施工带班习惯性在每天收工前发送 1 句语音备忘录的执行推动力。
+
+
+* Falsification: 若全美建筑行业废除主合同中 48–72 小时通知弃权条款，允许分包商在项目竣工后无条件据实报销一切现场口头工时。
+
+
+* Next Test: 为 2 家拥有 15–20 名工人的机电与暖通分包商配置测试短信机器人，跟踪 2 周内现场语音转化工单的采用率与总包签字确认率。
+
+
+* Task Version: researcher@0.2.2
+
+
+* Generated At: 2026-11-06T17:44:19+08:00
+
+
+* Role Spec Status: reviewed

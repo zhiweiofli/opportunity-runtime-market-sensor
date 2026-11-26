@@ -1,0 +1,37 @@
+﻿Business Sensor 观察记录：NO_SIGNAL (2026-11-17)
+* 任务版本：business-sensor@0.2.1
+* 角色规范状态：reviewed
+* 观察窗口 (Asia/Taipei)：2026-11-10 09:13:45 至 2026-11-17 09:13:45 (UTC+08:00)
+* 判定结果：NO_SIGNAL
+* 逻辑存储路径：Opportunity Runtime/Signals/Business/Business-20261117-no-signal.md
+* 实际输出目录：Opportunity Runtime/Signals/Business/
+* 历史去重核对：已核对历史 19 项商业信号及此前归档的 NO_SIGNAL 检查点
+1. 检索与核实范围 (Retrieval Scope)
+本轮感知重点覆盖 2026-11-15 至 2026-11-17（Asia/Taipei）全球最新发布的 AI 旗舰大模型 API 定价、企业级 Copilot 按量计费（UBB）节点落地、边缘计算运行时支出控制功能、新兴免输出费决策端点跟进以及国际物流旺季附加费调整。重点核实了阿里巴巴发布 Qwen4-Max 并公布 $1.50/$4.50 API 定价、微软 Dynamics 365 Sales Development Agent 按 Copilot Credits 计费于 11 月 16 日正式生效（Ignite 2026 前夜）、Cloudflare 推出 Spend Management 支出上限控制（Beta）、HeyGen Decision 1 Turbo 预览定价上线、以及 UPS 上调亚洲至美紧急高峰附加费至 $1.03/磅等候选事件。
+2. 候选动态逐项评估与过滤原因 (Evaluated Events & Filtering)
+* 候选事件 1：阿里巴巴发布 Qwen4-Max 旗舰模型并公布 $1.50/$4.50 API 费率（2026-11-16）
+   * 事实摘要：阿里巴巴于 2026 年 11 月 16 日正式发布新一代旗舰模型 Qwen4-Max（2.4T 总参数 / 71B 激活参数，1M 上下文），在 QwenCloud 标价为每百万输入 Tokens 1.50 美元、输出 Tokens 4.50 美元，在 OpenRouter 路由价为 $1.425/$4.275。官方强调相比 GPT-6 Astra（$10/$50）和 Claude Fable 5.2（$8/$40）任务成本降低约 62%。
+   * 门槛对照与过滤原因：未通过门槛 3（底层商业逻辑结构性变化）与门槛 5（小团队捕获路径）。$1.50/$4.50 处于当前主流中坚模型定价区间（与 Claude Sonnet 5.5 $2/$10、GPT-6.1 Sol $2/$10、Gemini 4 Hydrogen $1.50/$7.50 同量级竞争，且仍远高于 DeepSeek V4.1 Flash 1017 的 $0.038/$0.500），属于大模型常规商业竞争降价，未产生 90% 级别的成本结构塌陷，亦未形成独立的第三方收费站或小团队防御性捕获节点，列入 WATCH。
+* 候选事件 2：微软 Dynamics 365 Sales Development Agent 正式切换至 Copilot Credits 按量计费（2026-11-16 生效）
+   * 事实摘要：根据微软消息中心公告 MC1492151 及 MC1537490，Dynamics 365 Sales Development Agent 自 2026 年 11 月 16 日起正式转为通过 Copilot Credits 进行按量计费（Usage-Based Billing），智能来电转接（Intelligent call delegation）亦于 11 月 17 日进入公开预览并要求管理员在 Microsoft 365 管理中心配置支出策略；同时 Microsoft Ignite 2026 将于美西时间 11 月 17 日开幕。
+   * 门槛对照与过滤原因：未通过门槛 1（新增独立商业事实）。该 UBB 计费机制与 Copilot Credits 消耗规则早在 10 月 8 日即已预告，核心商业迁移逻辑已在本传感器历史信号 Business-20261105-microsoft-copilot-ubb-credits-throttling.md 中建档。11 月 16 日为既定生效节点，属于既有主题的常规推进，需等待美西时间 11 月 17 日 Ignite 开幕主题演讲是否公布新的 Copilot Credits 费率卡或超额计费规则后再作评估，列入 WATCH。
+* 候选事件 3：Cloudflare 推出 Spend Management（支出上限与自动暂停，2026-11-13 Beta 发布）
+   * 事实摘要：Cloudflare 官方博客发布 Introducing Spend Management，为 Workers 和 Durable Objects 的 PayGo 付费客户提供免费的支出阈值设置与超限自动暂停功能（Beta），与 AI Gateway 预算控制配合防止意外账单。
+   * 门槛对照与过滤原因：未通过门槛 1（一手收费/收入流）与门槛 5（小团队捕获路径）。该功能为云厂商免费提供的账单防护护栏，本身不产生新收费节点或商业分成，反而一定程度上压缩了外部第三方基础账单熔断工具的纯告警空间，列入 WATCH（作为开发者对 Agent 失控账单焦虑加剧的佐证）。
+* 候选事件 4：HeyGen Decision 1 Turbo 预览版上线 OpenRouter（2026-11-13）
+   * 事实摘要：HeyGen 在 OpenRouter 上线 heygen-decision-1-turbo 预览模型，标价为输入 $0.09 / 1M tokens、输出 $0。
+   * 门槛对照与过滤原因：属于既有"零输出费决策原语"趋势（Business-20261022-openai-decisions-api-costcurve）的次级长尾跟进，定价与 OpenAI / Google 的 $0.10/$0 基准基本持平且尚处预览状态，未形成新的结构性突破，列入 WATCH。
+* 候选事件 5：UPS 上调亚洲至美国快递紧急高峰附加费至 $1.03/磅（2026-11-16 生效）
+   * 事实摘要：自 2026 年 11 月 16 日起，UPS 将中国大陆、香港及澳门发往美国的快递紧急高峰附加费（Surge Emergency Fee）从 $0.91/磅上调至 $1.03/磅，并同步将燃油附加费上调 0.5 个百分点。
+   * 门槛对照与过滤原因：属于实体跨境物流的季节性旺季附加费上调，受限于重线下/实体履约及大客户合同议价壁垒，不符合轻资产软件/数据情报小团队的经营约束，执行快速 Kill（IGNORE）。
+3. 判定依据与准则遵循 (Justification)
+本传感器严格遵循"宁缺毋滥，证据不足不凑数"的核心准则。当选事件若仅为：大模型常规梯队的竞争性定价、既有 Copilot 按量计费信号的既定日程生效（尚待 Ignite 2026 新料）、云厂商免费的防超支功能、零输出费决策模型的同价长尾预览、或重资产实体物流的季节性附加费，均不满足 Business Sensor 必须同时具备的"一手资金凭证、非单点偶发、结构性变化、持续性、小团队可捕获"五项核心门槛。因此确认为 NO_SIGNAL。
+4. 持续追踪与忽略清单 (Watch & Ignore List)
+* 持续追踪 (Watch List)：
+   * Microsoft Ignite 2026（11 月 17 日–20 日）：重点追踪主题演讲中是否公布新的 Copilot Credits 消耗倍率、Agent 365 独立收费卡点或企业采购强制迁移条款。
+   * 决策端点（Decisions API）生态扩散：观察 Qwen4-Max、HeyGen Decision 1 Turbo 与 Google/OpenAI Decisions API 在多模型智能体路由网关中的实际预算分流。
+   * Serverless 与 Agent 防超支需求：追踪 Cloudflare Spend Management 上线后，企业针对多云混合 Agent 运行时的跨平台 FinOps 熔断与预算审计需求。
+* 明确忽略 (Ignore List)：
+   * 实体快递与货运承运商的季节性高峰附加费波动。
+   * 未改变计费结构且无独立利润池的免费控制台告警功能。
+   * 尚未突破行业主流价格带的大模型常规竞争发布。

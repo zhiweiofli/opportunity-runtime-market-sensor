@@ -1,0 +1,25 @@
+Signal ID: Friction-2026-10-26-SaaS-Scaling-Manual-Billing-Prorations-Usage
+Type: Friction
+What Changed: SaaS公司从少量企业客户（发票制）转向数百自助订阅用户时，手动计费流程（尤其是prorations、usage billing、税费、收入确认）变得难以管理；发生于2026-10-22左右公开讨论。
+Friction: Payment / Billing / Manual operation / Configuration（混合企业发票与自助卡支付、prorations与usage计量在spreadsheet中手动处理、与合同/审批分离）
+Money: 已有付费企业客户及正在收取的自助订阅收入；仍手动用spreadsheet处理prorations与usage billing，并单独管理approvals与contracts。关联labor cost与潜在revenue leakage（规模化时“everything broke”，最昂贵的部分）。具体金额未知。
+Evidence: 
+1. Reddit r/SaaS 原帖（2026-10-22）：“We're moving from a handful of enterprise clients to hundreds of self serve subscribers, and our manual billing process is becoming difficult to manage. We're looking at how to handle prorations, failed payments, taxes, revenue recognition, and pricing models like seats and usage.” URL: https://www.reddit.com/r/SaaS/comments/1xcsd0g/how_did_you_handle_subscription_billing_as_your/
+2. 同帖评论（当事人经验）：“What cost us the most was trying to handle prorations and usage billing manually in spreadsheets while also managing approvals and contracts separately. Everything broke at scale.”
+3. 其他评论确认：混合invoicing与card billing在同一手动流程中易破裂；failed payments需从第一天开启dunning否则revenue quietly leaks；usage需自己meter再聚合发送；revenue recognition（annual plans vs cash）需早期处理deferred revenue否则后期重做账。
+4. 相关近窗讨论（2026-10-21）：usage-based on Stripe edge cases（reconciliation, webhooks, mid-cycle changes）在约$5k MRR时已耗时，考虑是否迁移专用billing系统。URL: https://www.reddit.com/r/SaaS/comments/1xbst67/when_did_you_move_beyond_stripe_for_usage_based/ （页面抓取受限，依赖搜索摘要）
+Mechanism: 已付费客户的复杂定价（seats+usage、mid-cycle changes）与企业/自助混合模式无法被简单billing工具或spreadsheet可靠覆盖；手动同步导致错误、延迟、规模化崩溃，增加labor并可能漏收或错误确认收入。推断：分离quoting/billing与entitlements source of truth可减少摩擦，但当前仍靠人工。
+Current Workaround: 手动spreadsheet处理prorations/usage + 单独管理contracts/approvals；或使用Stripe Billing/Chargebee但自建entitlements与metering；混合Salesforce + 第三方。成本：规模化时“broke”、最昂贵部分（时间/错误/重做），具体小时或金额未知；有人提到cron失败两周未发现。依据：帖文与评论。
+Payer: 正在规模化的SaaS创始人/公司（已有企业付费客户，MRR增长中）愿意为专用billing平台、Stripe Partner咨询、或更好的usage metering/proration工具付钱，以避免labor爆炸与收入错误。依据：原帖主动询问工具选择，评论推荐Chargebee/Stripe/Salesforce Revenue Cloud，并有Stripe Partner主动提供服务。
+Economic Effect: labor / revenue / cost（可能包括failed transaction或revenue recognition错误导致的合规/审计成本）
+Friction Value: 频率：规模化阶段（从handful到hundreds）重复发生；单次经济影响：手动处理prorations/usage的时间成本 + 规模化崩溃风险（未知精确值，评论称“cost us the most”）；可回收比例：通过切换专用系统可大幅降低手动labor（依据推荐工具存在及成功切换案例）。具体数值因公司而异，未编造。
+Persistence: Structural（复杂定价模型、混合客户类型、usage metering与revenue recognition为SaaS持续需求，非单点临时bug；平台工具存在但集成/配置仍有摩擦）
+Next Question: 在具体公司中，手动spreadsheet处理prorations/usage每月实际耗时与错误率是多少？切换到Chargebee/Stripe Billing后labor节省与收入准确性提升的可量化数据？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-10-26T09:37:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-10-19 至 2026-10-26（Asia/Taipei），基于本轮可访问资料截止。
+已有历史Signal（Drive文件夹中存在failed-payment-recovery等），本条为新增相关但聚焦scaling manual billing（prorations/usage/spreadsheet）的证据，非重复。
+无法访问或受限平台：部分Reddit完整评论与usage-based帖全文抓取受阻（503/failed），依赖搜索摘要与公开片段；X上相关具体数字讨论较少。
+待人工保存（若Drive写入未确认）。

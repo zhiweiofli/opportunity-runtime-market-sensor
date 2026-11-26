@@ -1,0 +1,116 @@
+﻿signal_id: IBF-20261103-Salesforce-LegacyAPIRetirement-410GoneAudit
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: 随着Salesforce正式执行Platform API版本21.0至30.0的完全退役（全面阻断SOAP/REST/Bulk老端点，请求直接返回410: GONE或500: UNSUPPORTED_API_VERSION），并在2026年9月30日最新更新关于API 31.0至40.0的清退推进规范，全球数十万企业级Salesforce组织（Orgs）中沉淀的大量历史集成遭遇“静默中断”。大量建于2012-2018年间、深度嵌入企业IT中枢的旧版ERP同步任务（如SAP ECC、Sage、Informatica/Boomi老集成管道）、自建Python/Java夜间对账脚本及已停更的AppExchange受管包，其底层HTTP请求仍硬编码指向v21.0-v30.0端点。由于此类后台同步任务通常缺乏前台交互，退役后直接触发静默失败，导致线索分配停滞、发票与收款状态未同步、夜间数据仓库ETL断流。
+money: 全球超过15万家企业依赖Salesforce作为核心CRM与营收引擎。集成断流直接导致订单、出货单与付款记录无法从ERP反写至Salesforce，引发财务对账延迟与销售团队跟进错乱；在拥有数百个集成接入点的成熟企业中，若依赖传统外部专业咨询机构（如Slalom、埃森哲或独立Salesforce代维顾问）手动拉取EventLogFile日志与逐个代码库检索，排查与改造工时报价通常在$175-$250/小时，单个审计与重构项目收费普遍在$5,000-$25,000美元。
+
+
+evidence:
+  - id: E1
+    source: https://help.salesforce.com/s/articleView?id=000389618&language=en_US&type=1
+    source_date: null
+    accessed_at: '2026-11-03'
+    fact: Salesforce官方知识库明确确认：API版本21.0至30.0已正式退役并被平台永久移除；凡调用上述版本的应用程序请求直接报错：REST API返回410 GONE，SOAP API返回500 UNSUPPORTED_API_VERSION，Bulk API返回400 InvalidVersion。
+  - id: E2
+    source: https://help.salesforce.com/s/articleView?id=005321531&language=no&type=1
+    source_date: '2026-09-30'
+    accessed_at: '2026-11-03'
+    fact: Salesforce于2026年9月30日发布最新指南，明确指出排查老API依赖必须通过Event Log Browser或复杂API工具提取RestApi与ApiTotalUsage事件日志，否则管理员无法仅凭UI界面定位隐蔽的外部集成调用方。
+  - id: E3
+    source: https://www.reddit.com/r/salesforce/comments/1itmizw/benefit_to_being_on_most_up_to_date_api_version/
+    source_date: '2025-02-20'
+    accessed_at: '2026-11-03'
+    fact: Salesforce管理员社区密集讨论API清退带来的集成冲击，指出“无数部署在老Linux服务器上的夜间定时脚本还在跑v28.0，只有在收到410报错时业务部门才尖叫”。
+
+
+mechanism: 云端SaaS巨头为了缩减技术债务并提升多租户底层架构性能，定期强制硬切老旧API版本；但企业IT基础设施中，与CRM对接的ERP、财务对账与中间件由不同外包团队在多年间陆续交付，原始文档丢失且没人敢触碰稳定运行的代码；Salesforce前台原生不提供直观的“存量调用方IP与代码行号”映射表，迫使企业在发生硬故障后高价购买顾问服务，形成“API强制关停而企业无法无感定位调用者”的结构性摩擦。
+persistence: Structural
+next_question: 在收到410 GONE报错的Salesforce中型企业中，外部老集成调用源来自已离职外包人员自建私有脚本的比例实际有多高？
+task_version: installed-base-friction@0.2
+generated_at: '2026-11-03T17:45:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+
+
+asset:
+  category: 企业级CRM平台接口与ERP集成中间件
+  brand: Salesforce
+  model: Salesforce Core Platform (Platform API v21.0 - v30.0 / v40.0)
+friction:
+  type: API协议强制退出与静默断流
+  symptom: 外部ERP同步、夜间自动化脚本或老AppExchange插件调用失败，报410 GONE或500 UNSUPPORTED_API_VERSION，业务数据停止流转
+installed_base:
+  estimate: 全球数万家运行超过8年以上、拥有定制外部集成的Salesforce企业租户
+  basis: Salesforce商用客户大盘极巨，且历史积累了大量长期未重构的经典Connected Apps与SOAP集成。
+
+
+current_solution:
+  description: 1) 聘请外部专业Salesforce实施商按$175-$250/h人工排查EventLogFile与重写代码；2) 盲目全局升级代码版本导致底层Trigger与SOQL语法报错；3) 数据断流后靠人工Excel表格手动导入导出应急。
+  oem_part_price: null
+  technician_repair_price: 3500.0
+  currency: USD
+  basis: 外部咨询公司针对API版本全面盘点与修复项目，基础审计通常需20工时（按$175/h计约$3,500）。
+alternative:
+  description: 提供轻量化“Salesforce Legacy API 410断流定位与改写蓝图生成器”（通过ConnectedAppOAuthUsage与EventLogFile接口，自动提取所有低于v31.0的调用IP、客户端User-Agent及具体URL，一键生成修改指引与兼容性URL重写代理）
+  estimated_solution_cost: 149.0
+  currency: USD
+  basis: 单个Salesforce Org的自动化审计诊断包与代码升级对照表定价。
+gap:
+  vendor_support: discontinued
+  availability: low
+  competition: medium
+  basis: Salesforce官方态度坚决不再向下兼容老API；市面上现有监控工具仅能在事件发生后报警，缺乏针对老版本调用源反查与一键式重写蓝图的平价工具包。
+signals:
+  recurrence: high
+  urgency: high
+  diy_activity: high
+  basis: 接口一旦报410意味着每天持续丢失同步数据，属于业务严重故障；Salesforce开发者与管理员社区中关于“API Retirement”与Connected App升级的讨论热度极高。
+
+
+assessment:
+  installed_base: {value: high, basis: 全球超过15万家企业租户，存量API调用量达到数百亿次/天}
+  friction_rate: {value: high, basis: 凡包含未升级硬编码老API端点的集成请求100%遭平台抛出410 GONE阻断}
+  failure_cost: {value: high, basis: 财务发票不同步、潜在商机遗漏，顾问排查重构成本高昂}
+  support_gap: {value: high, basis: 原厂主动淘汰，拒绝提供向下兼容补丁}
+  switching_cost: {value: high, basis: 核心CRM系统不可能更换，迁移重构涉及多方跨系统协调}
+  vendor_repair_speed: {value: low, basis: 原厂强制推动API现代化演化，不可逆转}
+
+
+repair_leverage:
+  ratio: 23.5
+  baseline_cost: 3500.0
+  solution_cost: 149.0
+  currency: USD
+  scope: 基准成本为外部咨询顾问排查与重构均价（$3,500）；替代方案为自动化诊断工具包（$149）
+  basis: 3500 / 149 = 23.49
+opportunity_durability:
+  value: high
+  basis: 随着2026-2028年API 31.0-40.0与后续版本的轮替清退，企业将持续经历API生命周期管理的刚性阵痛。
+
+
+economic_value:
+  level: High
+  payer: 中型企业Salesforce系统管理员、企业IT应用架构师、代维MSP服务商
+  economic_anchor: 外部实施商$175-$250/h工时费、数据断流导致的业务停摆损失
+  capture_mechanism: 提供“Salesforce API 410应急诊断与重定向套件”（自动化Python/Node脚本调用Org内部日志API，3分钟输出《受阻端点与调用方清单》与代码替换指引），按扫描Org收取买断费
+  repeatability: Salesforce API退休的错误码（410/500）与EventLogFile日志结构全球完全一致，工具可100%标准化、规模化复用
+  basis: 相对于向外部咨询机构审批数千美元预算并等待数周排期，百余美元一键自查并精确定位调用源具备极强性价比
+
+
+personal_actionability:
+  fit: Good
+  route: 制作“Salesforce退役API调用源自动嗅探与修复指引脚本”
+  target_customer: 正在遭遇外部集成410 GONE报错但苦于无法在几百个代码库中定位调用者的Salesforce Admin
+  deliverable: 一个单文件Python/CLI脚本：使用OAuth登录客户Org，自动拉取过去30天的API使用量日志与Connected Apps调用凭据，自动生成《低版本API调用源拓扑报告》（列明调用IP、App名称、调用频次与升级目标版本），并提供反向代理中间件配置代码（透明将/services/data/v29.0重定向并映射至新API规范）
+  pricing_hypothesis: $99 单Org自查报告；或 $199 包含API重写反向代理代码
+  customer_entry: Reddit r/salesforce、Salesforce Trailblazer Community中搜索“410 GONE”或“API Version Retirement help”的发帖企业
+  fit_basis: 纯API调用与数据分析报告，无需部署复杂基础设施，无库存，零法律与安全合规风险
+  prerequisites: 熟练掌握Salesforce REST/SOAP API架构、Event Monitoring与EventLogFile解析规范
+  first_test: 在一个拥有历史低版本API模拟请求的Salesforce Developer Org中，运行Python脚本通过SOQL提取EventLogFile并成功解析出触发410 GONE的具体Client IP与Endpoint URL
+  time_budget: 90分钟
+  success_signal: 脚本顺利输出结构化Markdown报告，精准展示被阻断请求的调用方特征与升级建议
+  kill_signal: 发现目标客户由于购买的Salesforce Edition过低（未购买Event Monitoring附加授权）导致无法通过API提取底层详细日志
+  key_unknown: 绝大多数中小企业租户在未购买额外Event Monitoring Add-on的情况下，免费基础版API Usage日志对具体Endpoint的记录粒度是否足以定位调用方

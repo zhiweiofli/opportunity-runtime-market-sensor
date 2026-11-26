@@ -1,0 +1,33 @@
+﻿Business Sensor 观察记录：NO_SIGNAL (2026-11-18)
+* 任务版本：business-sensor@0.2.1
+* 角色规范状态：reviewed
+* 观察窗口 (Asia/Taipei)：2026-11-11 09:10:43 至 2026-11-18 09:10:43 (UTC+08:00)
+* 判定结果：NO_SIGNAL
+* 逻辑存储路径：Opportunity Runtime/Signals/Business/Business-20261118-no-signal.md
+* 实际输出目录：Opportunity Runtime/Signals/Business/
+* 历史去重核对：已核对历史 19 项商业信号及此前归档的 NO_SIGNAL 检查点
+1. 检索与核实范围 (Retrieval Scope)
+本轮感知重点覆盖 2026-11-16 至 2026-11-18（Asia/Taipei）期间开幕的 Microsoft Ignite 2026（美西时间 11 月 17 日开幕）核心商业计费发布，以及 OpenAI、AWS 与企业级 SaaS 生态的最新定价变动。重点核实了 Azure AI Gateway 正式全面开放（GA）并公布独立月费+按量收费表、Microsoft Agent 365 跨平台治理与 Business Analytics 扩展、Windows 365 for Agents 接入 Copilot Credits 按量结算、OpenAI 发布 GPT-6.2 Astra / Sol 并下调 Astra 价格 20%、以及 Amazon Bedrock AgentCore 推出免费月度网络搜索配额等候选事件。
+2. 候选动态逐项评估与过滤原因 (Evaluated Events & Filtering)
+* 候选事件 1：Azure AI Gateway 正式 GA 并公布 $500/月 + $20/百万请求独立收费表（2026-11-17）
+   * 事实摘要：微软在 Ignite 2026 官方博客 Azure AI Gateway is now generally available 宣布将原属于 Azure API Management 的 AI Gateway 拆分为独立托管服务，已在 17 个 Azure 区域上线。定价为：每月 10,000 次请求以内免费；10,000 至 1,000 万次请求收取 $500/月/网关（按小时计费）；超过 1,000 万次请求加收 $20/百万次请求（2027 年 1 月 1 日起正式计费）。功能涵盖多模型路由（OpenAI、Anthropic、Bedrock、Vertex AI）、MCP 服务器联邦代理与预算熔断。
+   * 门槛对照与过滤原因：触发快速 Kill（平台原生吃掉 / 缺乏小团队捕获路径）。虽然具有明确的一手定价凭证与"New Toll Booth"形态，但本质上是超大规模云厂商将"AI 模型网关、MCP 代理与 Token 预算控制"原生收编进云底座，直接挤压外部独立轻量化 AI 代理/网关软件的生存空间；且 $500/月的高起征门槛主要面向大型 Azure 企业内网合规采购，3–5 人独立小团队难以在该原生收费站外建立具备防御性的独立利润池，列入 WATCH。
+* 候选事件 2：Microsoft Agent 365 扩展跨平台治理与 Business Analytics，Windows 365 for Agents 接入 Copilot Credits（2026-11-17）
+   * 事实摘要：根据 What's new in Microsoft Agent 365: Ignite 2026 与 Windows 365 at Ignite 2026，微软披露 Agent 365 自 5 月上线以来已注册超过 5,000 万个 Agent，并推出跨平台 AI 支出分析（Business Analytics，需 Agent 365 或 ME7 许可）及本地影子 Agent 发现；同时宣布 Windows 365 for Agents 正式纳入 Copilot Credits 按量计费体系，将 Cloud PC 算力统一并入 Copilot 通用消费货币。
+   * 门槛对照与过滤原因：未通过门槛 5（小团队捕获路径）且与既有信号高度重叠。一方面，Agent 365 原生覆盖了跨平台（Bedrock、Vertex、Salesforce、Claude、OpenAI）的 AI FinOps 成本归因与影子 AI 审计，直接吃掉了原本独立第三方 AI 支出监控工具的生态位；另一方面，Windows 365 for Agents 接入 Copilot Credits 属于既有信号 Business-20261105-microsoft-copilot-ubb-credits-throttling.md 的能力延伸与消费场景扩容，未独立产生新的第三方小团队收费节点，列入 WATCH。
+* 候选事件 3：OpenAI 上线 GPT-6.2 Astra 与 GPT-6.2 Sol（2026-11-17）
+   * 事实摘要：根据模型定价追踪 OpenAI API Pricing (November 2026)，OpenAI 于 2026 年 11 月 17 日上线 GPT-6.2 Astra（输入 $8 / 输出 $40 per 1M tokens，缓存输入 $0.40）与 GPT-6.2 Sol（$2/$10，缓存输入 $0.10），均支持 1.05M 上下文。其中 Astra 相比前代 GPT-6 Astra（$10/$50）降价 20%，与 Anthropic 11 月 9 日发布的 Claude Fable 5.2（$8/$40）完全对齐。
+   * 门槛对照与过滤原因：未通过门槛 3（底层商业逻辑结构性变化）与门槛 5（小团队捕获路径）。属于前沿模型双寡头之间的常规 20% 价格对标通缩（Model Deflation），未改变 Token 计费范式，亦未形成新的结构性成本曲线位移或小团队捕获路径，列入 WATCH。
+* 候选事件 4：Amazon Bedrock AgentCore 推出免费月度网络搜索配额（2026-11-17）
+   * 事实摘要：AWS 公告 Amazon Bedrock AgentCore now offers free monthly web search 宣布为 AgentCore 用户提供免费月度网络搜索调用额度。
+   * 门槛对照与过滤原因：属于云厂商为拉动 Agent 运行时消耗而提供的免费工具捆绑（平台原生吃掉基础搜索工具费用），无新增商业收费或独立利润池，执行快速 Kill（IGNORE）。
+3. 判定依据与准则遵循 (Justification)
+本传感器严格遵循"宁缺毋滥，证据不足不凑数"的核心准则。本轮 Microsoft Ignite 2026 与 OpenAI、AWS 的核心发布虽然密集，但均呈现"云厂商原生收编 AI 网关/MCP 代理/FinOps 审计能力（平台原生吃掉）"或"前沿大模型常规 20% 对标降价"的特征，缺乏同时满足"一手资金凭证、非单点偶发、结构性变化、持续性、3–5人独立小团队可捕获路径"五项核心门槛的新增信号。因此本轮确认为 NO_SIGNAL。
+4. 持续追踪与忽略清单 (Watch & Ignore List)
+* 持续追踪 (Watch List)：
+   * Azure AI Gateway 2027 年 1 月 1 日正式起扣后的市场分层：观察 $500/月/网关的企标定价是否会倒逼中小开发团队转向低成本开源网关（如 LiteLLM）或轻量级第三方 MCP 托管代理。
+   * Agent 365 多租户托管服务（MSP）机会：微软明确提及合作伙伴可通过 Agent 365 多租户视图为客户提供可重复的 Agent 治理服务，持续观察其商业化伙伴分成与轻量工具缺口。
+   * Microsoft Ignite 2026 后续议程（11 月 18 日–20 日）：继续监测大会后半程是否发布新的 Copilot Credits 费率卡调整或独立应用商店抽成规则。
+* 明确忽略 (Ignore List)：
+   * 已被超大规模云厂商免费捆绑或原生吞并的基础工具调用与初级监控告警功能。
+   * 前沿大模型在同价格梯队内的常规 20% 代际对标微调。

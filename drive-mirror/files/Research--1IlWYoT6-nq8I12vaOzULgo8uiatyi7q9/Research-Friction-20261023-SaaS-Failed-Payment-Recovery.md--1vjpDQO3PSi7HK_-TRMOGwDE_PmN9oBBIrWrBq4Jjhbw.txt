@@ -1,0 +1,35 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: Friction-2026-10-23-SaaS-Failed-Payment-Recovery
+* Source Signal References:
+   * Signal ID: Friction-2026-10-23-SaaS-Failed-Payment-Recovery
+   * Generated At: 2026-10-23T09:45:00+08:00
+   * Task Version: friction-sensor@0.2.1
+   * Source File URL: https://drive.google.com/file/d/1HXRUV0j0Ba0f_NXff-Ic1N-r-8JEidqt/view?usp=drivesdk
+   * Source File Modified At: 2026-10-23T01:38:49.737Z
+* Research Level: R1 — Quick Structure
+* Stage Result: KILL
+* Unknown Ledger:
+   * Known: 订阅制 SaaS 与在线业务续费扣款失败（非自愿流失）普遍占总流失的 20%~40%，每期约有 5%~15% 的 MRR 面临失败风险；但该摩擦在市场上已被 Stripe 原生 Smart Retries / Card Account Updater 以及 Butter Payments、Churnkey、Churn Buster、Paddle/ProfitWell Retain 等成熟工具以“纯效果抽成（Contingency Revenue Share / 零预付金）”的方式彻底标准化覆盖；本输入所引用的 Reddit 帖文与 Payments Dive 报道与昨日已被研究并确认为 KILL 的 Friction-20261022-SubscriptionFailedPaymentRecovery 属于同一事实来源，无任何决策关键的新证据。
+   * Unknown: 无。
+   * Decision-Critical Unknown: 无（已在 R1 确认强反证并终止）。
+* Gate Checks:
+   * Money: 通过。SaaS 企业愿从追回的增量 MRR 中支付 10%~20% 效果分成。
+   * Mechanism: 未通过。该摩擦已有行业公认且高度成熟的“标准答案”（Stripe 原生智能重试与 Butter 等纯效果计费工具），不存在技术供给真空或底层结构性断层。优化支付挽回的核心在于训练跨数亿笔交易的发卡行拒绝码微观重试时间模型，新进入者缺乏底层交易网络数据。
+   * Persistence: 未评估（R1 阶段终止）。
+   * Capture: 未通过。纯效果分成的成熟竞品封死了简单工具的收费空间；且涉及敏感支付凭据与财务账目核算，小团队在缺乏海量历史训练数据与银行专线的情况下无法提供优于现有工具的挽回率，完全不具备竞争优势。
+* Final Status: KILL
+* Evidence:
+   1. Reddit r/SaaS 讨论帖（2026-10-20/21）：https://www.reddit.com/r/SaaS/comments/1xb4gj8/why_is_payment_recovery_so_hard_and_what_other/ 记录了 300k MRR 商户对扣款失败的苦恼，讨论集中于对比已有成熟商业工具。
+   2. Payments Dive 专题文章（2026-10-22）：https://www.paymentsdive.com/news/how-to-fix-subscription-pay-friction/811571/ 引用 Butter Payments，证实市场已被专业效果分成方案深度覆盖。
+   3. 既有持久研究记录引用：Research-Friction-20261022-SubscriptionFailedPaymentRecovery.md 已系统完成经济性核保并确立 KILL 判定。
+* Counter Evidence:
+   1. 供给端极度饱和：市场已有至少 5 款以上零门槛、纯效果分成的成熟 SaaS。
+   2. 缺乏新变量：本轮输入所依赖的事实证据与昨日已被 KILL 的信号完全重合，无决策级新证据。
+* Stop Reason: 存在足够强反证可 KILL。该场景属于已有成熟标准商业答案的红海领域，模式被“纯效果提成”的平台垄断，缺乏小团队切入空间。
+* Resume Condition: 不适用（已 KILL）。
+* What became more likely: 更多企业将直接依靠聚合支付商原生重试与 Butter 等现有巨头解决流失。
+* What became less likely: 独立 1-3 人小团队能在通用订阅支付挽回领域构建具备防御力的商业产品。
+* What did we rule out: 彻底排除了将通用 SaaS 扣款失败恢复作为新软件产品机会的可能。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-10-23T17:00:27+08:00
+* Role Spec Status: reviewed

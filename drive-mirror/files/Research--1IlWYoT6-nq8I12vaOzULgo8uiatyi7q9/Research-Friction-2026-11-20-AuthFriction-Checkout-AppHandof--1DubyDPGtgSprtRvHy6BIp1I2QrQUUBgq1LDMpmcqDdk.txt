@@ -1,0 +1,53 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: Friction-2026-11-20-AuthFriction-Checkout-AppHandoff-FalseDecline
+* Source Signal References:
+   * Signal ID: Friction-2026-11-20-AuthFriction-Checkout-AppHandoff-FalseDecline
+   * Generated At: 2026-11-20T09:37:00+08:00
+   * Task Version: friction-sensor@0.2.1
+   * Source File URL: Friction-2026-11-20-AuthFriction-Checkout-AppHandoff-FalseDecline.md
+   * Source File Modified At: 2026-11-20T09:40:06+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: KILL
+* Final Status: KILL
+1. Unknown Ledger
+Known
+1. 银行端结账认证摩擦的行业调查数据：Entersekt 于 2026 年 11 月 17–19 日发布针对 1,026 名美国假日网购消费者的调查报告（Entersekt Survey 2026-11-17、The Holiday Friction Paradox 2026-11-19、FF News 2026-11-19）：39.2% 受访者曾因银行审批过慢或复杂而放弃网购，56.5% 经历过至少一次认证失败，40% 在银行 App 内批准后返回商家结账页发现订单仍显示 Pending 或失败（Broken App Handoff），54.4% 不愿等待超过 60 秒。
+2. 闭环银行/卡组织基础设施壁垒（Gate 4 致命阻塞）：导致该摩擦的核心技术断点位于发卡行风险引擎（False Declines）、发卡行 3DS ACS 服务器与手机银行 App 跳转回传链路（App-to-App Handoff）。该链路完全运行在 Visa/Mastercard EMV 3DS 协议、持牌发卡行核心风控系统及大型企业级支付网关（Stripe/Adyen/Entersekt/Forter）内部。
+3. 无独立小团队捕获节点：独立小团队既无法向发卡行销售核心银行 App 认证引擎（银行采购周期长达数年、需 PCI-DSS/EMVCo/SOC2 金融级认证与重度企业销售团队），也无法通过给普通中小电商安装第三方外挂来加速发卡行自身的 3DS App 审批延迟或消除发卡行误拒。
+Unknown
+在中小独立站层面，除直接接入 Stripe/Adyen/Shopify Payments 原生 Passkey 与一键钱包外，是否存在任何不依赖发卡行合作即可改善 3DS App Handoff 掉单率的技术手段。
+Decision-Critical Unknown
+1–5 人独立小团队在发卡行 3DS 认证与 App Handoff 链路中是否拥有任何合法、可商业化捕获的外部软件切入点（经审核已确认不存在，Gate 4 直接否决）。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	宏观交易损失真实存在（39.2% 购物车放弃率影响商家 GMV 与发卡行 Interchange 手续费），但相关预算高度集中于大型银行与头部 PSP 的企业级反欺诈/认证采购。
+	Mechanism
+	通过 (PASS)
+	技术机理明确：3DS App Handoff 断裂、银行端审批超时与误拒导致支付意图流失，需通过 Passkeys、设备绑定凭证与静默风险评分（Silent Approvals）解决（如 Entersekt 与 Liminal 方案）。
+	Persistence
+	通过 (PASS)
+	结构性行业难题：欺诈防护与结账流畅度之间的矛盾长期存在。
+	Capture
+	未通过 (FAIL - KILL)
+	致命不可捕获：1）银行侧方案（3DS ACS、手机银行 App 跳转、Passkey 下发）属于持牌金融机构核心安全域，严禁未经重度金融审计与多年企服招投标的外部小团队接入，且 Entersekt 等老牌厂商已深度绑定；2）商家侧中小电商无法控制发卡行的审批速度与 App 回传稳定性，只能依赖 Stripe/Adyen/Apple Pay/Shop Pay 等原生钱包基础设施，独立小团队没有产品落脚点。
+	3. Evidence & Counter Evidence
+Supporting Evidence (Problem Existence)
+1. Entersekt 调查报告新闻稿（2026-11-17）：Entersekt Survey Reveals 39.2% of Holiday Online Shoppers Abandoned a Cart —— 证实 39.2% 因银行审批慢/复杂放弃结账，56.5% 遇到认证失败。
+2. Entersekt 假日摩擦悖论页面（2026-11-19）：Safe, Sound, and Abandoned —— 证实 40% 遇到 Broken App Handoff，54.4% 不愿等超过 1 分钟。
+3. FF News 行业解析（2026-11-19）：Entersekt Report Analysis —— 明确指出该问题需由 Fintech Issuers（发卡行） 推动 Passkeys 与静默审批解决，属于发卡行与大型认证厂商（Entersekt/Liminal）的 B2B 企服赛道。
+Counter Evidence (Refutation of Small-Team Capture)
+1. 发卡行重度企服与合规壁垒：信号源本身即是由企业级银行认证厂商 Entersekt 发布的公关调研，其目标客户是大型商业银行与发卡行，需要 PCI-DSS / EMVCo 认证、重度销售与长周期集成，完全违背小团队轻资产约束。
+2. 商家侧无干预权限：普通电商卖家无法修改发卡行手机银行的 3DS Handoff 逻辑，只能通过切换至 Apple Pay / Google Pay / Shop Pay 等 PSP 原生钱包绕过传统 3DS 跳转。
+4. Decision Trail & Metadata
+* Stop Reason: Gate 4（Capture & Addressability）存在明确且不可逾越的闭环金融基础设施壁垒与重企服门槛，足以裁定 KILL。
+* Resume Condition: 不适用（已裁定 KILL）。
+* What became more likely: 结账 3DS App Handoff 与发卡行误拒优化是大型发卡行、卡组织与头部 PSP（Stripe/Adyen/Entersekt）之间的基础设施之争。
+* What became less likely: 1–5 人独立小团队能开发出外部轻量级 SaaS 来修复发卡行端 3DS App 跳转断裂或银行误拒。
+* What did we rule out: 排除了将大型银行/卡组织认证基础设施调研公关稿作为小团队独立软件机会继续深入研究的路径。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-20T17:30:48+08:00
+* Role Spec Status: reviewed

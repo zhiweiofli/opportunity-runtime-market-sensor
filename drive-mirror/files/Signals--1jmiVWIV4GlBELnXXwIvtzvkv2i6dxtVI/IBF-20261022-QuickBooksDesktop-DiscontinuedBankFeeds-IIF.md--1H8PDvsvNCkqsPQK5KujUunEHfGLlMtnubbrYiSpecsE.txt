@@ -1,0 +1,30 @@
+﻿signal_id: IBF-20261022-QuickBooksDesktop-DiscontinuedBankFeeds-IIF type: installed-base-friction sensor: installed-base-friction version: '0.2' what_changed: 2026年5月31日，Intuit正式终止了对QuickBooks Desktop 2023（Pro Plus、Premier Plus、Enterprise 23.0）的服务支持，加上此前已停更的2021与2022版，所有老版本彻底脱离在线支持。Intuit不仅关闭了在线Bank Feeds自动下载，还在服务端切断了手动导入.QBO（Web Connect）文件的校验机制（提示“unable to verify the Financial Institution Information”），导致庞大拒绝升级到QBO的存量中小企业用户无法直接导入银行对账单。 money: Intuit强制推行的QuickBooks Online每年每账套需$720-$2,400，QuickBooks Enterprise起步价达$1,922/年。手工逐笔录入每月200-500笔银行流水需消耗簿记员4-10小时（按$25-$50/小时折算约$100-$500/月）。第三方商业转换工具（如Transaction Pro等）价格在$20-$100/年或$200+买断，且普遍存在财务隐私泄露与操作门槛问题。
+
+
+evidence:
+
+
+* id: E1 source: https://quickbooks.intuit.com/learn-support/en-us/help-article/feature-preferences/quickbooks-desktop-service-discontinuation-policy/L17cXxlie_US_en_US source_date: '2026-08-05' accessed_at: '2026-10-22' fact: Intuit官方明确QuickBooks Desktop 2023于2026年5月31日终止所有在线服务，包括在线银行流水（Bank Feeds）及“Uploading transactions will also get discontinued”。
+* id: E2 source: https://getutilly.com/guides/import-bank-transactions-quickbooks-desktop-without-bank-feeds source_date: '2026-10-18' accessed_at: '2026-10-22' fact: 详细记录2026年5月后Desktop 2023导入.QBO报错“unable to verify the Financial Institution Information”，证实本地导入仅剩.IIF格式可行，但要求借贷配平、科目精确匹配等复杂规则。
+* id: E3 source: https://www.reddit.com/r/QuickBooks/comments/1pbolmg/bank_of_america_no_longer_connecting_to/ source_date: '2025-12-01' accessed_at: '2026-10-22' fact: 用户持续反馈主流银行切断直接连接及老版Desktop无法识别账单导入，社区大量探讨修改BID/FID或转用第三方工具维持老系统记账。
+
+
+mechanism: Intuit将在线银行与.QBO文件导入绑定至云端验证通道，在产品停更时直接掐断，试图倒逼用户迁移至高客单价订阅制云产品；但中小企业因成本、数据自主权及库存核算习惯深度依赖桌面端存量资产，导致离线数据管道产生刚性替代需求。 persistence: Structural next_question: 在使用停更版QuickBooks Desktop的存量企业中，使用Chase/BoA/Wells Fargo标准CSV导出的比例有多大？现有开源转换脚本的主要崩溃原因是什么？ task_version: installed-base-friction@0.2 generated_at: '2026-10-22T18:30:00+08:00' role_spec_status: reviewed lead_status: LEAD research_eligible: true research_blockers: []
+
+
+asset: category: 财务与企业管理软件 brand: Intuit model: QuickBooks Desktop (2021, 2022, 2023 Pro/Premier/Enterprise) friction: type: 不兼容与服务供给退出 symptom: 在线Bank Feeds无法连接，手动导入.QBO文件提示“unable to verify Financial Institution”，无法批量导入流水 installed_base: estimate: 数十万至百万家中小企业及独立代理记账员 basis: Intuit历年财报显示桌面端用户曾超数百万，尽管官方于2024年9月30日停止向新客户销售Desktop Pro/Premier，但庞大存量买断版与老订阅用户因反感QBO高费率与弱功能仍持续运行本地系统。
+
+
+current_solution: description: 1) 妥协升级至QBO或高价QB Enterprise；2) 纯人工逐笔手工录入凭证流水；3) 使用第三方昂贵商业软件（如Transaction Pro、MoneyThumb）。 oem_part_price: 1922.0 technician_repair_price: null currency: USD basis: QuickBooks Enterprise官方起步订阅费为每年$1,922；QBO Plus常规价为$99/月（$1,188/年）。 alternative: description: 本地开源/轻量脚本将银行CSV规范化转换为双边借贷配平的.IIF文件导入 estimated_solution_cost: 49.0 currency: USD basis: 个人小团队可提供买断制离线转换验证工具或开箱即用的自动化模板。 gap: vendor_support: discontinued availability: low competition: medium basis: Intuit原厂彻底关闭技术支持且主动封杀QBO导入；现有第三方竞品普遍以SaaS订阅（$20-$100/年）收费或要求上传敏感财务明细，离线、隐私优先、自动核对科目的轻量工具存在供给缺口。 signals: recurrence: high urgency: high diy_activity: high basis: 每月记账对账周期必然发生；社区存在大量手动修改Notepad伪造BID、编写简易Excel宏的DIY行为。
+
+
+assessment: installed_base: {value: high, basis: 全美及全球数十万SMB及代记账会计依赖老版桌面账套} friction_rate: {value: high, basis: 每次进行银行月结对账均100%触发} failure_cost: {value: medium, basis: 耗费大量簿记工时或被迫承受每年上千美元订阅费} support_gap: {value: high, basis: 官方彻底停更且刻意切断验证，第三方工具体验陈旧} switching_cost: {value: high, basis: 迁移至QBO存在历史多账套数据重构、学习成本与高额月费} vendor_repair_speed: {value: low, basis: 原厂商业策略意在消灭桌面端，绝不可能主动修复}
+
+
+repair_leverage: ratio: 24.2 baseline_cost: 1188.0 solution_cost: 49.0 currency: USD scope: 基准成本按QBO Plus一年订阅费$1,188计（不含多公司加价）；替代方案按单次买断/独立转换工具$49计 basis: 1188 / 49 = 24.24，不考虑更昂贵的Enterprise（$1,922）与人工工时折算 opportunity_durability: value: high basis: QB Desktop存量迁移阻力极大，且Intuit越是提价强推QBO，留守老版本的用户粘性与维护需求越强，原厂不会回调支持。
+
+
+economic_value: level: High payer: 拥有多个公司账套的中小微企业主、个体商户、独立兼职簿记员（Bookkeeper） economic_anchor: QBO每年$720-$2,400持续支出；代记账人工逐笔录入每月4-10小时工时成本（$100-$500/月） capture_mechanism: 通过一次性付费购买离线安全转换工具，或按年提供主流银行（Chase/BoA/Citi等）格式解析更新与科目映射模板 repeatability: 银行CSV格式偶有调整，可维护通用规则库并持续支持新银行格式；可批量复用到同类会计群体 basis: 客户在面临每年上千美元软件加价与数十小时手工录入之间，对几十美元的离线买断工具有极高支付杠杆
+
+
+personal_actionability: fit: Good route: 开发本地离线运行的Bank-to-IIF格式转换与科目自校验轻量工具（Python CLI / 本地WebUI / Excel自动化插件） target_customer: 运行QuickBooks Desktop 2021-2023且需导入美国主流银行（Chase, Bank of America, Wells Fargo）流水的独立记账员与小微企业 deliverable: 单个可执行文件或脚本：输入银行CSV，自动检测日期与借贷方向，根据用户Chart of Accounts进行模糊匹配，导出合法平账的.IIF文件及差错提示 pricing_hypothesis: $39-$49 买断（包含主流银行预置模板）或 $9.9/季度规则更新 customer_entry: Reddit r/QuickBooks、Intuit Community相关停更报错帖、中小企业会计论坛、YouTube“QuickBooks bank feed discontinued”教程评论区 fit_basis: 纯软件与数据格式转换，无实体库存、无硬件损坏责任、不托管客户财务数据（零隐私合规风险），个人开发者1-2天即可完成核心引擎 prerequisites: 掌握QuickBooks IIF文件规范（TRNS/SPL语法）、熟悉主流银行CSV导出表头、具备基础桌面或脚本分发能力 first_test: 手工采集Chase与BoA各一份脱敏CSV流水，用Python生成一段标准IIF代码并在老版QuickBooks测试账套中执行导入，验证是否能零报错平账 time_budget: 90分钟 success_signal: 生成的IIF文件在QuickBooks Desktop中无弹窗顺利导入，且银行账户与待分类费用科目借贷完全配平 kill_signal: 发现Intuit在最新补丁中彻底锁死IIF导入功能，或市场已存在完全免费且体验完美的开源工具 key_unknown: 是否存在某些银行特有的多行拆分交易导致IIF无法标准映射？

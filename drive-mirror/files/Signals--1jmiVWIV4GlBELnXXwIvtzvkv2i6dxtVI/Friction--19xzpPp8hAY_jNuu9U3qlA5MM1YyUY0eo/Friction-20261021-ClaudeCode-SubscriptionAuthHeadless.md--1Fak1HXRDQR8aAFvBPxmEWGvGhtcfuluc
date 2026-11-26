@@ -1,0 +1,24 @@
+Signal ID: Friction-20261021-ClaudeCode-SubscriptionAuthHeadless
+Type: Friction
+What Changed: 已付费 Claude Max/Pro 订阅用户（含 Max 5x $100/月）在 2026 年 10 月中下旬使用 Claude Code 时，尤其在 headless server、self-hosted agent platform（如 Paperclip）或 CLI/Desktop 非交互场景，仍面临 OAuth 登录失败（CAPTCHA 后 “Couldn't complete sign-in”）、短寿命 access token（~8h）不自动刷新，以及 setup-token 被验证拒绝的问题。
+Friction: Authentication / Setup / Integration。浏览器 OAuth 流程在 CAPTCHA 后中断无 code/redirect；第三方/agent 运行时仅存储 access token 不刷新；长寿命 setup-token 在部分连接验证步骤被拒。
+Money: 用户已为 Claude Max（$100 或 $200/月，含 Claude Code 使用权）付费，仍需手动管理 token（systemd timer 重新推送、secret rotate、setup-token 复制粘贴）或回退到 ANTHROPIC_API_KEY（按 token 额外计费）。关联 labor/time 成本，以及无法充分使用已付费额度或被迫额外付费的 conversion/cost。具体小时数未知。
+Evidence:
+1. GitHub anthropics/claude-code #103056（2026-10-17 开，10-20 更新）：Max 5x 用户 CLI/Desktop /login 与 claude auth login 在 CAPTCHA 后显示 “Couldn't complete sign-in”，无 code；Linux headless paste-code 同样失败，setup-token 亦失败；“my current credentials expire on October 22”。https://github.com/anthropics/claude-code/issues/103056
+2. GitHub paperclipai/paperclip #16459（约 2026-10 中）：Anthropic subscription connections expire after ~8h，access token never refreshed；setup-token 被 fetchClaudeQuota 验证拒绝（缺 user:profile）。Workaround: systemd timer 保持 host login 新鲜并 POST 重新推送 token，或直接 rotate secret 注入 CLAUDE_CODE_OAUTH_TOKEN。https://github.com/paperclipai/paperclip/issues/16459
+3. 社区文档与工具持续存在：headless setup-token + CLAUDE_CODE_OAUTH_TOKEN 指南（2026-04 起），claude-rotate 等自动刷新多账号工具，证实手动维护是常态。
+4. 官方 Help：Max 计划明确包含 Claude Code，但 headless 推荐 setup-token 或 API key，交互 OAuth 不适合机器场景。
+Mechanism: 消费者订阅 OAuth 设计偏向交互浏览器登录与短寿命 token；agent/self-hosted 工具只捕获 access token 不处理 refresh token，或验证步骤与长寿命 token scope 不匹配，导致已付费额度无法持续无人工地流入 agent 工作流（推断基于 issue 根因描述与官方推荐路径）。
+Current Workaround: 1) claude setup-token 生成长寿命 token 后手动注入 env 或 secret（部分场景被拒）；2) systemd user timer 定期 re-login 并推送 token；3) 社区 rotator 工具；4) 改用 API key（放弃订阅额度）。成本为每次 setup/debug 的时间（issue 用户称需要尽快 workaround）及潜在 API 额外支出。依据 issue 与指南。
+Payer: Max/Pro 订阅者（尤其 self-host agent 或小团队）或其使用的 agent 平台可能为更可靠的 subscription token 管理/自动刷新付费；依据：用户主动实现 timer/rotate、第三方工具存在、平台 issue 持续讨论该痛点而非简单 API 切换。
+Economic Effect: labor / time（主要）、potential cost（API 替代）与 conversion loss（无法用满已付订阅额度）。
+Friction Value: 频率：headless/agent 用户每次 token 周期（~8h）或新 setup 时发生（中高，对持续运行 agent 尤其高）；单次经济影响：调试/维护小时成本（未知精确，但用户报告需在过期前解决）或闲置 $100–200/月额度；可回收比例：中高（官方 setup-token + 正确集成可降低，但当前工具缺口持续）。依据：多 issue 与社区 workaround 描述；未知平均维护时间。
+Persistence: Structural（依据：问题源于订阅 OAuth 与机器/agent 使用场景的持续不匹配，非单一临时 bug；历史多月类似 issue，官方提供 setup-token 但仍需手动且第三方集成不完整；社区工具持续出现）。
+Next Question: 在使用 Claude Max 做持续 agent/self-hosted 的用户中，每月平均花费多少小时在 token 维护上？有多少比例最终切换到纯 API key？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-10-21T09:45:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-10-14 至 2026-10-21（Asia/Taipei），基于本轮可核实的 GitHub issue 与同期讨论。
+无法访问平台：无特别披露（主要使用 Web 搜索、GitHub browse 与 X）。
+已有 Signal 索引：文件夹已有 Friction-20261014-B2B-QuoteToCash-ManualCollections 与 Friction-20261020-StripeQuickBooks-ManualRecon；本条为不同领域（AI 工具 auth vs B2B 财务），未重复。

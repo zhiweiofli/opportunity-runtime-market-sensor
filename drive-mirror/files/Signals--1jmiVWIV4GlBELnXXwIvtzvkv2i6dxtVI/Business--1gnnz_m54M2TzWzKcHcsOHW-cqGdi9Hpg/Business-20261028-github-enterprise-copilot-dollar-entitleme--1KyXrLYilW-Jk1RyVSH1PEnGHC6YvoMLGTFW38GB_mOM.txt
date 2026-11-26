@@ -1,0 +1,42 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+* Task Version: business-sensor@0.2.1
+* Role Spec Status: reviewed
+* 观察窗口: 2026-10-22 09:04:30 至 2026-10-29 09:04:30 (Asia/Taipei)
+* 已有 Signal 索引/全文: 已核对历史文件 Business-20261014-autodesk-aps-passthrough-billing.md、Business-20261001-whatsapp-service-message-toll.md、Business-20261015-github-agentic-autofix-metered-toll.md、Business-20261014-hubspot-flexible-seats-credits-toll.md、Business-20261017-deepseek-flash1017-costcurve-searchtoll.md、Business-20261023-vercel-deployment-storage-toll.md、Business-20261021-salesforce-headless-agent-api-toll.md、Business-20261023-visa-b2b-embedded-payment-toll.md、Business-20261020-eu-customs-handling-fee-pid-toll.md、Business-20261022-openai-decisions-api-costcurve.md 与 Business-20261025-aws-shield-waf-antiddos-migration-toll.md，本轮已执行跨历史核对与去重
+* 输出逻辑位置: Opportunity Runtime/Signals/Business/
+* 实际输出文件夹 URL: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+待研究 Signal (Qualified Signals)
+Signal ID: Business-20261028-github-enterprise-copilot-dollar-entitlement
+* Type: Business
+* What Changed: 2026年10月28日（GitHub Universe 2026 年度大会），GitHub 官方正式宣布对核心商业定价体系进行双重结构性重构。第一项重大重构：GitHub Enterprise 全面打包内置 GitHub Copilot 访问权限，但彻底转向纯按量消耗计费（零预置点数）。此前企业需独立采购 Copilot Business/Enterprise 席位（$19–$39/人/月）；新模式下，所有企业版许可用户直接获配 Copilot，但每个席位内含 0 点免费月度 AI 积分（does not include monthly AI credits per seat），除最基础的代码补全继续可用外，所有高阶 AI 任务（Copilot Chat、PR 代码审查、云端智能体会话）从第 1 次请求起直接按量扣减企业实际预算（未授权企业版的用户则可通过 $10/月 的 Copilot Standalone 获取，同样按量扣费）。第二项重大重构：彻底废弃沿用多年的 Actions 固定运行时长分钟数（Runner Minutes），转为全平台统一的"以美元计价的共享算力权益额度"（Dollar-based shared compute entitlement）。该统一度量衡不仅抵扣标准 CI/CD 构建，更直接覆盖 2026年11月 正式收费的"Copilot 云沙盒"（Cloud Sandboxes，智能体快照式运行环境）与大型托管构建机。高费率算力将更快烧尽该额度。此变更属于典型的 Budget Migration（企业软件研发预算从固定席位费，全面迁移至基于业务动作的按量 AI 预算与统一算力池消耗）与 New Toll Booth（高阶 AI 协同与跨端云沙盒执行环境成为企业日常研发必经的计量收费卡点）。
+* Money: 涉及全球数以万计使用 GitHub Enterprise 的大型企业年度研发预算（IT DevOps & Engineering Budget）。此前企业购买 Copilot 属于预算确定性极高的固定席位开销；新计费架构下，企业虽免除了数十美元的席位溢价，但高阶 AI 消耗从第一笔调用开始按量结算（Metered from the first request against enterprise budget）。更为关键的是，由于 Actions 从固定分钟数变为共享美元额度，且该额度在 11 月起将被高频消耗算力的 Copilot 云端智能体沙盒直接侵蚀，开发人员日常运行 AI 智能体任务将直接与核心 CI/CD 自动部署流水线"争抢同一笔美元预算"，若未建立严格的 SKU 分仓预算与限额，企业的月度弹性算力账单将面临不可控激增。
+* Evidence:
+   1. GitHub Changelog 官方发布《GitHub Enterprise now includes access to GitHub Copilot》（发布日期：2026-10-28）：官方明确通告"Enterprises can now get Copilot included with GitHub Enterprise for every licensed user... Copilot access through GitHub Enterprise and Copilot Standalone has the same features and models as Copilot Enterprise but does not include monthly AI credits per seat. AI usage is metered from the first request against your enterprise budget... Copilot Chat, Copilot code review, and Copilot in the cloud require available budget to use"。
+   2. GitHub Changelog 官方发布《Work from anywhere with a new, connected Copilot cloud experience》（发布日期：2026-10-28）：官方详细披露"Your included Actions compute entitlement is now one shared, dollar-based compute entitlement, instead of a fixed number of standard runner minutes. It covers standard GitHub-hosted runners, cloud sandboxes, and larger hosted runners... Usage is deducted at each product's published rate, so higher-rate compute uses the entitlement faster... Billing for cloud sandbox usage begins in November 2026 and draws from your included Actions entitlement"。
+   3. Adlega 2026 云厂商商业模式调研《SaaS Pricing Study 2026: 62 Public Pricing Pages》（更新日期：2026-10-23）：实证指出包括 GitHub、Salesforce、HubSpot、Atlassian 在内的软件巨头正全面抛弃纯席位制，通过"席位包底 + 核心功能按点按量抽税"获得高达 116.6% 的净美元留存率（NRR），证实按量算力已成为平台货币化核心引擎。
+* Mechanism:
+   1. 从"席位租用门票"向"流水计量过路费"的彻底进化（事实）：微软与 GitHub 借由在企业全员中普惠铺设 Copilot 席位，以零门槛消除研发采纳阻力；但通过将 PR 审查、跨仓协作与云端 Agent 沙盒设定为按量扣费（从第 1 次请求即计入预算），锁定了研发日常运转中最关键的高频收费卡点（New Toll Booth）。
+   2. CI/CD 生产算力与 AI 智能体实验算力的预算互蚀（事实/推断）：将 Actions 分钟数改为统一美元算力池后，智能体长时间运行的沙盒会话（支持跨 Web/Mobile/IDE 无缝保存快照并在云端多小时挂机执行）由于单价远高于标准 Linux 构建机，会极速抽干整个组织的 Actions 免费额度，导致企业 CI/CD 自动化构建遭遇预算熔断或意外高额超量账单。
+   3. 小团队轻资产进入节点（推断）：
+      * GitHub 跨团队美元算力配额熔断与智能防蚕食控制器（GitHub Entitlement FinOps Guard）：针对 11月 即将开始扣费的云沙盒与统一美元池，构建轻量 GitHub App / Webhook 中间件。实时监控组织内部 CI/CD 构建与 Copilot Agent 沙盒的美元消耗比例；当某团队的实验性智能体沙盒消耗超过其部门配额时，自动降级或暂停其云沙盒并发，强制为核心部署构建保留基本算力底线，防止流水线停摆。
+      * Copilot 云沙盒僵尸会话与快照存储自动清理工人（Sandbox Snapshot Sweeper）：针对开发人员在手机或 Web 端随手开启 Copilot 会话后遗留的云端挂起沙盒和持久化快照，开发自动化扫描与闲置回收工具，识别空闲超 15 分钟的未归档实例并自动触发关机休眠，直接帮中大型企业削减 30%–50% 的无效沙盒算力消耗。
+      * 极度符合 1–3 人小团队形态：纯 API / Webhook 驱动的软件中间件与开发者治理工具，零实体资产、零重售后、高毛利 SaaS 订阅。
+* Magnitude: Large。依据：GitHub 是全球软件研发的事实标准基础设施，数以千万计的开发者与绝大多数中大型企业均受此定价与算力权益调整直接影响，代表了全球企业软件巨头彻底将 AI 研发转化为按量消耗账单的宏观风向标。
+* Persistence: Persistent。依据：已正式作为 GitHub Universe 2026 年度旗舰商业政策发布，并已写入 GitHub Enterprise 官方许可条款与产品文档，属于长期不可逆的底层计费架构重更。
+* Next Question: 当研发团队的 CI/CD 流水线因开发人员随意触发 Copilot 云沙盒而被耗尽预算时，企业运维与安全团队是会倾向于彻底禁用云沙盒（逼退回本地自建 runner），还是急于采购第三方细粒度算力配额切分与治理中继工具？
+* Task Version: business-sensor@0.2.1
+* Generated At: 2026-10-29T09:04:30+08:00
+* Role Spec Status: reviewed
+观察与过滤池 (Watch & Ignore List)
+1. 线索: AWS Shield Advanced 核心 L7 防护强制架构替换：终结免费评估并启动 Phase 3 自动升级（2026-10-25 执行）
+* 判定: WATCH
+* 原因: AWS Shield Advanced 于 2026-10-25 结束免费评估期，正式向合规 Web ACL 自动注入 50 WCU 的 AWSManagedRulesAntiDDoSRuleSet，若仍留在 Count 模式将不再享受攻击流量免计费特权；且云端变更导致全球使用 Terraform/CDK 的企业 CI/CD 流水线发生全局状态漂移（参考 AWS Security Blog）。同时将此前绑定在 $3,000/月 Shield 底费的抗 DDoS 规则集解绑至 WAF 独立售卖（$5/月 + 用量）。属于重大云安全计费与架构重塑，持续观察中小企业采纳与企业级漂移修复工具的采购需求。
+* 等待证据: 观察企业在遭遇突发 HTTP 洪水后由于 Count 模式缺失豁免产生的意外账单争议反馈。
+2. 线索: Supabase 发布 Supabase Compute 私有预览版（Private Alpha）（2026-10-27 发布）
+* 判定: WATCH (维持追踪)
+* 原因: 2026-10-27 经 Supabase 官方博客 证实，Supabase 推出可在数据库同一网络内直接运行长时间运行任务（Long-running tasks > 400s）、完整 Docker 容器与后台智能体（AI Agents）的托管算力服务（Supabase Compute），使查询 Postgres 延迟由跨区域的 65ms 降至 2.9ms。当前处于 us-west-2 免费邀请制 Private Alpha 阶段，公开标价与商业计费阶梯尚未发布。
+* 等待证据: 观察公测阶段公布的具体定价模型（是按 vCPU/RAM 计量还是按执行时间与席位绑定）。
+3. 线索: Realgy Energy Services 发布 2026年10月 商业能源费率下调更新（2026-10-28 公布）
+* 判定: IGNORE (快速 Kill)
+* 原因: 属于线下实体商业公用事业电力与天然气供应合同的月度常规季节性费率微调（参考 Realgy 官方公告），高度依赖重资产能源管网与线下供电设施，不符合小团队轻资产数据/软件自动化偏好。

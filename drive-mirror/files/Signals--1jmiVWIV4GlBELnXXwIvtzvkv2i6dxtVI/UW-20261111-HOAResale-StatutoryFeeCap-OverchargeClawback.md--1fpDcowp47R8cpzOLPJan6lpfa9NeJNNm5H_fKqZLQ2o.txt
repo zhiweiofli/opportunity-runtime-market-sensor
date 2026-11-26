@@ -1,0 +1,56 @@
+﻿signal_id: UW-20261111-HOAResale-StatutoryFeeCap-OverchargeClawback
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年下半年核实（HOA Docs Direct 2026-09全美收费封顶指南、德州Property Code § 207.003、佛州Statute § 720.30851及内华达NRS § 116.4109现行法典），全美主要州为治理物业管理公司乱收费，普遍以强制性法典设定了房屋转售披露文件包（HOA Resale Certificate / Disclosure Package / Estoppel Letter）的法定收费上限（如德州封顶$375、佛州封顶$299、内华达封顶$185、华盛顿州封顶$275、亚利桑那封顶$400）。然而全美大型物业管理集团（FirstService Residential, Associa等）通过与其深度绑定的第三方数字垄断分发平台（如HomeWiseDocs、CondoCerts），在房屋过户交割前夕普遍巧立名目向售房业主开具$600–$1,200美元的天价账单（普遍通过强行捆绑$250加急费、$150清欠声明费及数百美元过户管理费等方式恶意突破法定封顶红线）。
+money: 涉及全美每年数百万套位于HOA社区的二手房买卖交易。在单次交易中，售房业主平均被多收取$300–$800美元的非法溢价杂费。在为期30天的房屋产权过户（Escrow Closing）倒计时的高压下，业主为了防止买家贷款审批受阻或交割延误，被迫在产权公司过户结算单（ALTA Settlement Statement / Closing Disclosure）上默认签字授权扣款。交易闭环后，由于聘请房地产律师（时薪$350–$500）维权的成本远超被多扣的几百美元，业主在“多一事不如少一事（not worth the hassle after closing）”的心态下放弃追偿，使得数以亿美元计的非法超额收费长期沉淀在物管公司与第三方软件平台的利润池中。
+evidence:
+  - id: E1
+    source: https://hoadocsdirect.com/blogs/blog.html
+    source_date: '2026-09-16'
+    accessed_at: '2026-11-11T00:20:00+08:00'
+    fact: 拆解2026年全美各州HOA转售披露费法定上限与超额实录：德州Property Code 207明确限定常规信息包不得超$375、更新费不得超$75；佛州Estoppel费限定$299；但物管公司通过HomeWiseDocs等平台将单案总收费推高至$600至$1,000以上，利用模糊名目绕开封顶；强调各州法律规定超额收费构成违规，业主有权依法追回多付部分。局限：为房产交易合规服务商博客，侧重各州法规对比。
+  - id: E2
+    source: https://myhoastory.com/stories
+    source_date: null
+    accessed_at: '2026-11-11T00:22:00+08:00'
+    fact: 业主实名维权投诉库披露常态化超额手法：多位售房业主痛陈HOA在收取法定上限费用外，强制征收不可选的‘加急费’（Rush Fee），仅仅为了在法定10天时限内交件即索要数百美元溢价；业主在交割时被绑架付款，事后投诉无门。局限：来自民间业主维权非营利平台投诉案例。
+  - id: E3
+    source: https://citizenportal.ai/articles/7928526/realtors-and-association-managers-split-on-caps-and-costs-for-resale-disclosure-packages
+    source_date: '2026-04-03'
+    accessed_at: '2026-11-11T00:25:00+08:00'
+    fact: 立法博弈与行业报告证实利益冲突：房产经纪人协会（Realtors）持续推动立法限制物管公司利用数字转售包作为暴利创收中心（Profit Center），指出电子化文档生成边际成本不足$50，而物管公司向消费者索要高达$800+，构成对业主的制度性剥削。局限：为州立法听证会媒体报道。
+mechanism: 事实：各州房产法典严格设定了转售披露包收费上限（$185–$400），且明确界定除合理更新费外不得强制捆绑非必要收费，部分州赋予受害业主追索超额费用及法定罚金或三倍赔偿的权利（E1, E2, E3）。推断：售房业主在过户交易完成后，身心俱疲且已完成搬家，面对过户单据上被扣走的$600–$1,000杂费，普通业主不熟悉各州具体的Property Code法条编号，不知道如何跨越物管公司设置的人工申诉阻碍；若咨询执业律师，光咨询费即达数张百元美钞，导致99%的业主在“金额不大就算了”的心理权衡下放弃追讨；利用多模态LLM解析过户结算单（ALTA Settlement Statement / CD）与HomeWiseDocs/CondoCerts电子发票PDF，自动定位物业所在州与对应郡县，自动匹配当地最新法定收费封顶红线（如德州§ 207.003的$375上限），精确核算出非法溢价与超额收费项目，一键生成引用州法典惩罚性条款的《HOA超额转售披露费正式法定追偿通知函》（Statutory Overcharge Demand Letter PDF）以及向州不动产监管局（Real Estate Commission / Licensing Board）的投诉证据包，将原本需专业律师起草公函的繁重工作压缩至2分钟自动化生成，使单笔$300–$800美元的物管非法溢价在过户后首次具备零门槛批量追回的经济可行性。
+persistence: Structural
+next_question: 在全美强制设立转售文件收费上限的州（如德州、佛州、内华达、弗吉尼亚）中，通过HomeWiseDocs或CondoCerts出具且实际结清的账单中，收费总额超过法定上限的违规订单比例实际有多高？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-11T00:58:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work: {task: 房屋已成交的售房业主在过户交割后，核查产权结算单与HomeWiseDocs发票中的转售披露费项目、比对所在州房产法典法定封顶上限、向物业管理公司出具正式法定追索信函索要退回超额收取的$300–$800美元杂费, structure: 微价值×海量 / 规则遵从 / 昂贵信息获取 / 对抗交互, abandoned_value: 全美售房业主因过户时被绑架支付且过户后请不起律师索赔而被迫放弃的单笔$300–$800美元非法超收披露费（全美年流失超数亿美元）（E1, E2, E3）, human_failure_reason: 过户时怕耽误交割被迫付款；过户后请律师单小时费用（$350–$500）高于索赔标的，业主不懂州法细则，面对物管公司傲慢推诿往往认定不值得折腾而放弃（E1, E2）}
+ai_unlock: {changed_cost: 将过户结算单多模态OCR解析、各州法定收费上限规则匹配、超额收费项目精准剔除及标准格式法定追偿律师函起草的边际成本从数百美元律师费降至几美分, capability_basis: 房产过户结算单（ALTA/CD）结构化解析 + 全美50州HOA转售披露费法定上限与判例数据库 + 州房产法典抗辩申索函自动生成引擎（E1, E3）, limitations: 1）若物业所在州属于极少数完全没有设立法定转售收费上限的州，无法引用州法刚性条款维权（仅能主张普通合同法合理性）；2）部分物管公司在收到公函后采取拖延战术，若涉及拒不退款可能需引导业主向州小额法庭或州不动产监管机构在线提交一键投诉}
+unit_economics:
+  unit: 1份已完成房屋过户交易的结算单与HOA第三方转售发票的法定封顶核验、超额溢价计算及正式法定追偿申索包生成
+  currency: USD
+  region_and_date: 美国市场（德州、佛州、内华达、华盛顿等设立明确法定上限州） / 2026年10月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖过户结算单多模态OCR、各州法典条款对齐计算、法定追偿PDF文书排版及邮件推送通道费；人工基准为房产律师起草正式Demand Letter单次收费（$300–$600）或业主被动放弃$500现金
+  excluded_or_unknown_costs: 挂号信物理寄送邮资（若客户选择纸质USPS Certified Mail）、若物管公司拒不退款时向小额法庭立案的诉讼规费（通常$35–$75）、获客成本（CAC）尚未量化
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1与E2证实了德州（$375）、佛州（$299）等各州法律设立的明确刚性上限，第三方平台普遍开具$600–$1,000账单形成确定性超额违法事实，通过算法比对发票与法条在技术上完全确定，判定为Plausible；因缺乏全美业主在过户后发出Demand Letter后物管公司直接退款率的大盘统计，数值严格置为null
+value_capture: {beneficiary: 全美每年出售HOA或Condo公寓、在过户单上被扣除数百美元不明披露费的数百万普通房产业主（E1, E2）, payer: 售房业主本人或协助客户维权以提升口碑的独立房产经纪人（Realtors）, payment_evidence: 传统律所不接单件小案或按小时高昂收费，针对过户后追偿包按件收费或成功后抽成属于待验证商业假设, capture_node: 提供“上传过户Closing Disclosure或HomeWiseDocs发票PDF → 15秒标出超收金额（如‘德州法定上限$375，您被多收了$425’） → 一键生成引用州房产法典的正式退款要求函，直接电邮物管公司合规部”, pricing_hypothesis: 假设采用“单次追偿包买断收费$29–$39”或“承诺退回款项后收取20%分成（不成功全额退款）”；标记为待验证商业假设, customer_net_benefit: 业主无需与物管扯皮，花几分钟即可在过户后意外挽回$300–$800现金支票，将原本被侵吞的血汗钱合法要回}
+scale: {aggregation_unit: 业主房屋交割完成（Escrow Closed）后的30至90天黄金维权窗口期, repeatability: 全美各州关于转售披露的法典条款与第三方平台发票格式高度收敛，同一套解析比对算法可在全美各热门置业州规模化批量复用, reachable_volume: null, basis: 全美HOA覆盖住宅超3,500万套，年二手房换手交易达到数百万起，超额收费现象普遍存在}
+action_loop: {observe: 售房业主提供的过户结算单（ALTA Settlement Statement）借方费用明细及HomeWiseDocs收费收据PDF, judge: 提取房屋所在州属、HOA管理公司名称、转售文件收费总额，对照该州最新法典封顶上限（如Texas Prop Code 207.003），计算出超额违法加价部分, act: 设想自动引用对应州法惩罚性条款排版标准的Demand for Refund公文，并附带法规摘录与发票证据链，仅描述执行机制, verify: 检查物业管理公司财务发回的退款支票收据或原信用卡原路退款明细}
+required_access: {resources: 房屋过户结算单PDF、HomeWiseDocs/CondoCerts电子发票PDF、物业管理公司法定接收争议邮箱/地址, availability: Available, authorizer: 售房业主本人, authorization_status: 未取得, basis: 单据由业主合法持有，州房产法典为公开现行法律，无特许排他壁垒}
+defensibility: {basis: 深入沉淀全美各州对于HOA转售披露费、更新费、加急费合法性的判例边界库，以及针对HomeWiseDocs垄断计费套路的标准化法律反制文书工程, alternatives_and_counterevidence: 现成替代为业主过户后完全放弃（最普遍现状），或自行打电话给物管前台被踢皮球；最强反证为若物管公司辩称超出部分属于社区转让费（Transfer Fee/Capital Contribution）而非披露文件工本费，需核查社区原始CC&R契约中是否明确授权该收费}
+personal_actionability: {fit: Good, target_customer: 刚卖掉房子、看到交割单上多出一千多块HOA文件费感到极其气愤但不知道如何维权的普通房主, deliverable: 1份《HOA转售披露费法定上限与超额诊断书》 + 1份引用州房产法典正式条文的退款主张公函PDF, customer_entry: 房地产交易与买卖论坛（Reddit r/RealEstate, r/HOA）、独立房产经纪人群及小红书北美置业交流圈, prerequisites: 熟练掌握德州、佛州、加州等核心州Property Code中关于Resale Disclosure/Estoppel Fee Caps的法条细则与维权流程, basis: 纯财务数据与法典比对交付，轻资产运作，客户痛点直接且具备明确的现金回流预期}
+seven_day_experiment: {critical_unknown: 刚卖房并被多收了数百美元HOA披露费的业主，在拿到一份格式严谨的法条追款函后，是否愿意花$29购买并发出？, test: 在Reddit r/RealEstate或本地业主群中寻找3位在德州或佛州刚卖房的业主，免费帮其审查过户单并出具一份正式超额退款公函，测试其向物管公司发送后的实际退款反馈与付费意愿, artifact: 1份《德州/佛州HOA转售披露费超额追索公函与实测退费样本》, time_and_cost_budget: 7天 / 预算$20以内, success_signal: 至少有1位业主在向物管公司合规部发出该函后，物管公司同意退还超出法定上限的款项（退回>$200），且业主明确表示愿为此付费, kill_signal: 物管公司一律傲慢回复‘第三方平台费用与本物业无关，概不退款’，且业主不愿向州监管部门发起在线投诉}

@@ -1,0 +1,92 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: IBF-20261120-GoogleShopping-ContentAPISunset-MerchantAPIShadowDiff
+* Source Signal References:
+   * Signal ID: IBF-20261120-GoogleShopping-ContentAPISunset-MerchantAPIShadowDiff
+   * Generated At: 2026-11-20T17:20:00+08:00
+   * Task Version: installed-base-friction@0.2
+   * Source File URL: IBF-20261120-GoogleShopping-ContentAPISunset-MerchantAPIShadowDiff.md
+   * Source File Modified At: 2026-11-20T17:13:26+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: HYPOTHESIS_READY
+* Final Status: HYPOTHESIS_READY
+1. Unknown Ledger
+Known
+1. Google Content API v2.1 渐进 410 降级与 2027 年初全面关停：Google Content API for Shopping v2.1 已于 2026 年 8 月 18 日达到 Sunset，自 2026 年 9 月 1 日起对未延期项目间歇返回 HTTP 410 Gone (content_api_sunset)，并将在 2027 年初彻底关停全部端点（含所有延期项目）（Google Deprecation & Sunset、Field Guide 2026-10-17）。
+2. Merchant API v1 的三大静默断投/错价陷阱：替代接口 Merchant API v1 并非简单换 URL，而是重构了资源模型（ProductInput 写入与 Product 生效分离）、价格格式（字符串改为 amountMicros 整数微元，×1,000,000）及强制注册流程（ProductMetrics 2026-11-06、DEV Community 实测 2026-06-15、Silent Mispricing Trap 2026-07-01）：
+   * 未执行 developerRegistration.registerGcp 时直接返回空列表而非明确权限报错；
+   * amountMicros 舍入或乘数错误导致全目录错价（亏本售卖）；
+   * (feedLabel, contentLanguage) 与 Google Ads 数据源不匹配时不报拒审错，而是直接让 Shopping 广告静默停止展示。
+3. 差异化切入点（Shadow-Diff 防呆审计而非基础 CLI）：虽然 DEV Community 已开源 MIT 协议的 @gmc-cli/cli 解决基础命令行转换，但依赖自研 ERP/PIM 脚本的中小电商与代运营机构（Agency）最担心"切换后静默错价或广告悄然停投"。提供一个低改动/零改动 HTTP 兼容垫片 + 切流前 Shadow-Diff 字段/微元/Ads 关联校验代理，能以 $99/店（或代运营 $199/店）充当安全网。
+Unknown
+在仍在直接调用 Content API v2.1（而非通过 Shopify/Feedonomics 等第三方插件）的中小自建站与 PPC 代运营团队中，因担心 amountMicros 错价或广告断投而愿意为"Shadow-Diff 校验代理/防呆体检包"支付 $99–$199 的比例。
+Decision-Critical Unknown
+面对免费开源 @gmc-cli/cli 与 Google 官方迁移指南，自研电商技术团队与代运营机构对"零改代码本地兼容垫片 + 切流前 Shadow-Diff & Google Ads feedLabel 防呆体检"的付费意愿是否足够支撑 $99/店转化。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	通过 (PASS)
+	真实经济损失风险极高：商品错价（微元转换失误）导致直接亏损，Shopping 广告静默停投直接损失 GMV；定制 API 外包改造起步 $5,000+。$99–$199 切流防呆校验包在代运营（Agency）多客户场景下 ROI 极高。
+	Mechanism
+	通过 (PASS)
+	确定性协议映射与校验：Content API v2.1 与 Merchant API v1 的数据结构、GCP registerGcp 校验、Google Ads feedLabel 关联检查及 amountMicros 精度比对均为 100% 确定性规则，可通过轻量 Docker/Node 代理实现零风险 Shadow-Diff。
+	Persistence
+	通过 (PASS)
+	中周期硬截止窗口 + 长尾运维：集中迁移窗口持续至 2027 年初全面关停（当前正处 410 降级倒计时）；关停后可延伸为 Merchant API v1 ProductInput vs Product 生效延迟与配额（429）日常监控工具。
+	Capture
+	通过 (PASS)
+	符合轻资产小团队约束：轻量 Docker/CLI 校验包或 Serverless 代理，零库存、零重度线下实施，1–2 人小团队即可快速交付。
+	3. Evidence & Counter Evidence
+Supporting Evidence
+1. Google 官方停服公告（2026-09-10）：Deprecation and Sunset —— 确认 2026-08-18 Sunset、2026-09-01 起渐进返回 410 Gone，2027 年初全量关停。
+2. ProductMetrics 2026 年 11 月迁移指南（2026-11-06）：Google Shopping APIs Guide —— 强调 ProductInput 与 Product 分离、配额限制及迁移双跑属性 Diff 必要性。
+3. DEV Community 实测排坑报告（2026-06-15）：The Content API for Shopping shuts down Aug 18, 2026 —— 揭露 registerGcp 空返回、amountMicros 错价与 feedLabel 静默停投三大陷阱。
+4. Silent Mispricing Trap 技术分析（2026-07-01）：Google Merchant API Silent Mispricing Trap —— 再次印证 price.value 转 amountMicros 的高危错价风险。
+Counter Evidence
+1. 开源免费工具已覆盖基础转换：@gmc-cli/cli 已以 MIT 协议开源，且大部分标准 Shopify/WooCommerce 卖家依赖官方插件自动升级，只有自研 ERP/PIM 与代运营团队存在直接调用痛点。
+2. 窗口期相对较短：2027 年初全量关停后，纯"迁移校验"需求将明显回落（需向持续性 Feed 健康监控转型）。
+4. Decision Trail & Metadata
+* Stop Reason: 四 Gate 均已通过 Google 官方文档、开发者实测陷阱与商业定位交叉验证，满足 HYPOTHESIS_READY。
+* Resume Condition: 不适用（已完成）。
+* What became more likely: 自研电商与代运营团队真正害怕的不是"找不到迁移文档"，而是切流后"HTTP 200 但全目录错价或 Google Ads 静默停投"。
+* What became less likely: 单纯做一个基础字段转换 CLI 还能卖出商业溢价（已被 @gmc-cli/cli 开源免费覆盖）。
+* What did we rule out: 排除了面向标准 Shopify 插件用户的需求，目标客群严格锁定为"自研 ERP/PIM 集成商与 PPC 代运营机构"。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-20T17:30:48+08:00
+* Role Spec Status: reviewed
+Opportunity Hypothesis
+Title: Google Merchant API v1 迁移 Shadow-Diff 校验代理与广告断投防呆体检套件 (MerchantSync Guard)
+Source Signal References
+* Signal ID: IBF-20261120-GoogleShopping-ContentAPISunset-MerchantAPIShadowDiff
+* Generated At: 2026-11-20T17:20:00+08:00
+* Task Version: installed-base-friction@0.2
+* Source File URL: IBF-20261120-GoogleShopping-ContentAPISunset-MerchantAPIShadowDiff.md
+* Source File Modified At: 2026-11-20T17:13:26+08:00
+Money
+全球仍通过自研 ERP/PIM 脚本同步 Google Merchant Center、正面临 HTTP 410 降级或已申请延期至 2027 年初的独立电商技术团队与 PPC 代运营机构（Agency）。错价或广告静默停投直接损失 GMV，客户愿支付 $99/店校验包（或代运营批量服务 $199/店）确保无损切流。
+Mechanism
+轻量 Docker/Node 本地兼容垫片与校验代理：1）一键体检 GCP registerGcp、Data Source 与 Google Ads feedLabel 关联是否断链；2）拦截旧 v2.1 JSON Payload 执行 Shadow 转换并与 Merchant Center 实际 Product 状态逐字段 Diff，重点拦截 amountMicros 精度偏差、库存滞后与配额合并优化建议。
+Capture
+1–2 人小团队构建轻量 Docker/CLI 工具，按单店迁移校验包（$99）或代运营多店授权售卖，零重资产、零广告资金经手。
+Durability
+集中迁移窗口持续至 2027 年初全面关停，之后可转为 Merchant API v1 常态化的 ProductInput vs Product 生效延迟与配额健康监控。
+Evidence
+1. Google Content API 官方停服公告（2026-09-10）
+2. ProductMetrics 迁移双跑指南（2026-11-06）
+3. DEV Community 三大静默陷阱实测（2026-06-15）
+4. Silent Mispricing Trap 分析（2026-07-01）
+Counter Evidence
+1. 免费 MIT 开源 @gmc-cli/cli 已覆盖基础命令行转换。
+2. 2027 年初全停后纯迁移需求会回落。
+Critical Unknown
+在免费开源 CLI 存在的情况下，自研电商与 PPC 代运营团队对"Shadow-Diff 防呆审计 + 零改代码本地垫片"的 $99–$199 付费转化意愿。
+Falsification
+若 Google 官方在 2026 年底前推出内置的 v2.1-to-v1 一键兼容代理网关或自动化 Shadow-Diff 控制台，独立第三方校验代理价值将被直接替代。
+Next Test
+联系 3–5 家仍在用自研脚本推送 Google Shopping 的独立站或 PPC 代运营，免费为其跑一次 registerGcp + feedLabel + amountMicros 精度健康体检，验证其真实痛点与 $99/$199 付费意愿。
+
+
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-20T17:30:48+08:00
+* Role Spec Status: reviewed

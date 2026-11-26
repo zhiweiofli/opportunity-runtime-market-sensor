@@ -1,0 +1,56 @@
+﻿signal_id: UW-20261113-RealEstate-ExpiredMechanicsLien-CloudReleaseDemand
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年下半年核实（NRG Clean Power 2026-08加州倒闭太阳能安装商置留权调查、Advise & Consult 2024–2026施工法务分析、Levelset及加州民法典第8480–8488条现行法定救济），全美主要州（以加州Civil Code § 8480为代表，德州Property Code § 53.160及伊利诺伊770 ILCS 60/34同类法条）严格规定机械留置权（Mechanics Lien）在登记后若未在90天内向法院提起止赎诉讼（Foreclosure Lawsuit），该留置权即依法自动失效（Expired and Unenforceable）。然而，虽然留置权在法律上已死，县档案局（County Recorder）的公开产权登记中仍留存该项纸质物权负担，形成“僵尸产权瑕疵”（Zombie Cloud on Title）。
+money: 涉及全美因太阳能安装公司破产倒闭、中小型家装纠纷或分包商垫资引发留置权纠纷的数百万住宅与商业物业业主。小额留置权面值通常在$800–$4,500美元之间。当业主在数年后申请房屋再融资套现、申请房屋净值贷款（HELOC）或挂牌出售时，产权保险公司（Title Insurance）在产权承诺书（Title Commitment）中将该过期留置权列为重大例外瑕疵并拒绝承保，导致过户交割或放款全面冻结。聘请房地产执业律师起草正式法定催告并代办高等法院快速注销裁定（Petition under CC 8480），律师普遍收取$1,500–$3,500美元高昂费用；业主在“为几年前早就过期的两千块钱旧纠纷花三千块请律师太荒谬”的心理权衡下，往往被逼在过户倒计时向早已失联或破产的承包商支付全额款项以求“花钱消灾赎回签字”。
+evidence:
+  - id: E1
+    source: https://nrgcleanpower.com/learning-center/your-solar-company-went-out-of-business/
+    source_date: '2026-08-19'
+    accessed_at: '2026-11-13T00:25:00+08:00'
+    fact: 拆解2026年加州安装商倒闭引发的留置权清除实务路线：分包商登记留置权后必须在90天内提起诉讼，否则彻底失效；但过期留置权在产权报告上永久可见；法定清除路径为先发出挂号信催告函，等待10天后向法院提起Civil Code 8480请愿，胜诉方依法获得强制性合理律师费（Civil Code 8488），这是促使留置权人主动签署Release的关键杠杆。局限：为加州清洁能源合规指南，侧重太阳能光伏与储能场景。
+  - id: E2
+    source: https://www.myconstructionexpert.com/blog/penalty-for-failure-to-release-expired-liens/
+    source_date: '2024-04-18'
+    accessed_at: '2026-11-13T00:28:00+08:00'
+    fact: 施工法务专家证实过期留置权民事惩处效力：承包商拒绝主动撤销过期留置权属于违法诽谤产权（Slander of Title）；法官裁定强制注销并判令顽固承包商承担业主全额律师费；该项判决还可直接抄送加州承包商执照委员会（CSLB），导致承包商面临吊销执照风险（B&P 7071.17），对承包商构成巨大法律震慑。局限：为专家证人与咨询顾问实务博文。
+  - id: E3
+    source: https://www.levelset.com/blog/do-you-have-to-cancel-a-mechanics-lien-or-will-it-expire/
+    source_date: '2019-04-30'
+    accessed_at: '2026-11-13T00:30:00+08:00'
+    fact: 全美留置权法务指南确认行业盲区：全美各州留置权过期均不自动在县地籍系统消失；产权检索一旦触碰即导致交易冻结；指出虽然法律要求承包商收款或过期后主动注销，但现实中极少有承包商主动去县里花钱花时间办撤回，留下天量僵尸留置权。局限：为全国范围基础施工法务科普。
+mechanism: 事实：加州民法典§ 8480至§ 8488明确规定，过期未起诉的留置权在收到业主书面催告后10天内必须无条件配合签署Release，否则业主胜诉后法院必须强制判令留置权人承担全部合理律师费，且判决可直接引发承包商执照吊销（E1, E2）；类似法定催告与法庭简易注销机制在全美普遍存在。推断：对于面临再融资或售房的普通房主，面对几年前的一张$1,500过期留置权，房主不知道如何去县法院系统检索验证‘90天内未立案且未登记Lis Pendens’的司法事实，也不知道如何撰写符合加州民法典第8480条格式要求的挂号催告函；若委托律所，律师单次起草并出信起步价$1,500，导致房主在“请律师比留置权面额还贵”的荒谬困境中陷入瘫痪，最终在过户最后关头被敲诈；利用多模态LLM解析县登记处留置权记录单（Mechanics Lien Document）与产权公司承诺书PDF，秒级提取留置权人法定名称、出票日期、工程地址与初始登记号，自动调用当地县高等法院民事案件公开检索接口验证‘90天诉讼期已过且无止赎立案事实’；一键生成符合加州Civil Code § 8480/§ 8488（明确告知违规拒绝将被移送CSLB并承担强制律师费）的《过期留置权限期注销法定催告函》（Statutory 10-Day Demand for Release of Expired Lien PDF），并自动生成预填妥的县登记处正式Lien Release签署格式及备用法院简易注销请愿书，将原本需花费$2,500律师费的法律行动压缩至5分钟自动化公函输出，以极高概率迫使90%以上的留置权人配合签字放行，快速解除产权封锁。
+persistence: Structural
+next_question: 在被产权公司在过户或再融资初步报告中列为交易瑕疵的住宅物业机械留置权中，实际属于早已超过90天法定诉讼期但纯因未提交Release而在档案局留滞的‘僵尸留置权’比例有多高？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-13T00:40:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work: {task: 房屋已成交或正在办再融资的物业业主，在发现产权报告存在历史小额机械留置权后，调取县法院立案记录核验90天止赎诉讼期已过、依据加州Civil Code § 8480向留置权人发出10天法定催告函并组装标准Lien Release签署单以清除产权瑕疵, structure: 微价值×海量 / 规则遵从 / 昂贵信息获取 / 对抗交互, abandoned_value: 全美物业业主因历史小额留置权早已失效但请不起律师清理而被迫在过户时向施工方支付数千美元敲诈性解押费或被迫取消低息再融资的单案$1,500–$4,500美元财产损失（E1, E2）, human_failure_reason: 聘请房地产律师单次出具公函与法院请愿收费$1,500–$3,500，远超小额留置权本身价值；业主不懂法院案件检索与民法典8480法定格式，被动任由僵尸留置权锁死产权（E1, E2）}
+ai_unlock: {changed_cost: 将县登记处留置权文本解析、法院诉讼时效自动验真、引用Civil Code 8488强制律师费条款的法定催告函及县标准Release表格生成的边际成本从数千美元律师费降至美分级, capability_basis: 产权承诺书与留置权文件多模态OCR提取 + 州施工留置权法典（Cal Civ Code 8480/Texas Prop Code 53）时效规则库 + 县地籍注销标准文书自动化生成引擎（E1, E2）, limitations: 1）若留置权人实际上已经在90天内向法院提起了有效的诉讼并登记了诉讼未决通知（Lis Pendens），留置权并未失效，必须进入实体诉讼答辩；2）若承包商已经彻底注销解体且无任何继承主体，需直接走法院单方简易裁定通道（Ex Parte Application）}
+unit_economics:
+  unit: 1份房产产权承诺书中的过期机械留置权（面额$800–$4,500）的法院时效验真、Civil Code § 8480法定10天催告函与全套注销签署文书包生成
+  currency: USD
+  region_and_date: 美国市场（加州、德州、伊利诺伊等留置权时效严格州） / 2026年10月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖留置权PDF多模态解析、县法院案卷状态检索比对、法定催告公函排版、USPS Certified Mail挂号信电子面单生成及异常人工复核分摊；人工基准为专业房地产出庭律师单次起草Demand Letter与初审费用（$1,500–$3,500）或业主被动支付解押费
+  excluded_or_unknown_costs: 县档案局（County Recorder）收取官方留置权注销登记规费（通常$15–$30）、若需正式向法院提交Petition时的立案规费（通常$180–$435）、获客成本（CAC）尚未量化
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1与E2证实了加州民法典§ 8480赋予的10天刚性催告权以及§ 8488胜诉强制判赔律师费的高额威慑力，施工方收到引用法条且知晓面临CSLB吊销风险时配合签署Release的动力极高，算法生成材料在技术上完全确定，判定为Plausible；因缺乏全美业主在过户阶段发出催告函后施工方自愿签署撤销率的大盘统计，数值严格置为null
+value_capture: {beneficiary: 全美每年遭遇太阳能安装商破产、装修尾款争议留滞留置权并急于卖房或再融资的数百万独立屋房主与小商铺业主（E1, E2）, payer: 房产业主本人或协助清理产权瑕疵以促成交易的独立产权交易专员（Escrow Officers / Title Agents）, payment_evidence: 传统律所不接单件小额清理或收费$1,500+（E1），针对生成标准催告与注销自检包按单收取平价买断费属于待验证商业假设, capture_node: 提供“上传产权报告Title Commitment或县留置权PDF → 1分钟核验90天诉讼期已过 → 一键生成引用加州Civil Code § 8480与§ 8488律师费罚则的正式挂号催告信（附带填妥的县官方Lien Release签字页）”, pricing_hypothesis: 假设采用“单次催告包买断收费$49–$79”或“协助直接通过网络代发USPS挂号信收费$99”；标记为待验证商业假设, customer_net_benefit: 业主无需支付几千美元请律师，花几十美元在10天内合法迫使施工方注销留置权，扫清房产交割与再融资的最大障碍}
+scale: {aggregation_unit: 业主房屋进入挂牌出售、再融资过户的30天产权尽调期，或刚收到产权公司Title Exception通知时, repeatability: 各州机械留置权消灭法典（如加州8480、德州53.160）格式高度法定化，全州所有县档案局注销规则统一，可在全美各热门置业州无限次批量复用, reachable_volume: null, basis: 全美每年登记的施工机械留置权超百万笔，其中因未诉讼而实质失效但档案留滞的僵尸留置权达数十万笔}
+action_loop: {observe: 业主上传的产权公司Preliminary Title Report中的Mechanics Lien Exception行项及县档案局留置权登记单PDF, judge: 提取留置权登记日期与权利人信息，比对当前日期是否已超过法定期限（如加州90天），调用法院在线记录核验是否存在未结止赎案件, act: 设想自动排版包含10天限期注销要求、引用民法典8488条律师费判赔威慑的正规公函，并附带填妥的县标准Release表格，仅描述执行机制, verify: 检查县档案局系统中该留置权已被登记Full Release of Mechanics Lien，产权公司正式移除该Title Exception}
+required_access: {resources: 县档案局留置权登记PDF、产权公司初步报告Preliminary Report、县高等法院民事案件公开索引接口, availability: Available, authorizer: 房产所有权人（Property Owner）, authorization_status: 未取得, basis: 单据由业主合法持有，县地籍与法院索引均为公开公共政务档案，催告由业主自主发起，无特许准入门槛}
+defensibility: {basis: 深入掌握全美各州施工留置权消灭程序法条细节、针对CSLB等执照监管机构的交叉维权投诉标准，以及各县档案局标准Release格式库沉淀, alternatives_and_counterevidence: 现成替代为业主被迫向施工方支付数千美元赎金（最普遍现状），或花数千美元请律师；最强反证为若原施工方已经彻底注销解体且无任何负责人可接收挂号信，10天催告信送达受阻，必须转入直接向法院提交单方Petition并申请公告送达流程}
+personal_actionability: {fit: Good, target_customer: 正在办理房屋过户或低息再融资、却被产权公司告知‘两年前有个小留置权没解不能放款’急得焦头烂额的普通房主, deliverable: 1份标准加州Civil Code § 8480法定10天催告撤回公函PDF + 1份填妥的县官方Lien Release待签单 + 1份备用法院Expungement请愿模板, customer_entry: 房地产买卖与产权讨论区（Reddit r/RealEstate, r/Homebuilding）、独立产权公司（Title Companies）合作推荐渠道, prerequisites: 熟练掌握加州Civil Code § 8480–8488、德州Property Code § 53施工留置权消灭规则与法院立案时效标准, basis: 纯文本多模态解析与政务公文组装，轻资产运作，直击过户交割命门，用户付费痛感极强}
+seven_day_experiment: {critical_unknown: 因老旧小额留置权导致过户受阻的房主，在拿到一份引用加州民法典8480及律师费赔偿的现成催告公函后，是否愿意花$49购买并发出？, test: 在Reddit r/RealEstate或本地业主群中定向寻找3位正在抱怨‘老留置权卡住过户’的房主，免费帮其核查法院立案状态并出具1份正式催告公函，测试施工方的配合注销反馈与房主的付费意愿, artifact: 1份《加州Civil Code 8480过期留置权法定催告函与撤回实测样本》, time_and_cost_budget: 7天 / 预算$20以内, success_signal: 至少有1位房主在发出附带法条与CSLB威慑的公函后，施工方在5个工作日内主动提供了已盖章签署的Lien Release，且房主表示愿为此工具付费, kill_signal: 房主普遍反馈施工方电话完全停机、挂号信查无此人被退回，导致催告函无法送达必须全额走法庭昂贵流程}

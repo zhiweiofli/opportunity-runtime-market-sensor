@@ -1,0 +1,42 @@
+﻿Opportunity Runtime Business Signal
+任务执行元数据
+* Task Version: business-sensor@0.2.1
+* Role Spec Status: reviewed
+* 观察窗口: 2026-10-13 09:25:46 至 2026-10-20 09:25:46 (Asia/Taipei)
+* 已有 Signal 索引/全文: 已读取历史文件 Business-20261014-autodesk-aps-passthrough-billing.md 与 Business-20261001-whatsapp-service-message-toll.md，本轮已执行跨历史核对与去重
+* 输出逻辑位置: Opportunity Runtime/Signals/Business/
+* 实际输出文件夹 URL: https://drive.google.com/drive/folders/1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg
+待研究 Signal (Qualified Signals)
+Signal ID: Business-20261015-github-agentic-autofix-metered-toll
+* Type: Business
+* What Changed: 2026年10月15日，GitHub 官方正式宣布面向 GitHub Enterprise Cloud 用户全面开放代码扫描告警自主修复（Agentic autofix for code scanning alerts）通用可用性（General Availability, GA）。关键的商业机制变更为：Agentic autofix 官方正式取代了此前在单个代码扫描告警上完全免费的"Generate Fix"选项，变更为"Assign to Copilot"工作流；且强制要求企业配置 Copilot 账单结算方式（Copilot billing method），该修复执行将从企业的 Code Security 预算中直接扣除 AI Credits，并同步计费扣减 GitHub Actions 计算分钟数（Actions minutes）。该变更属于 New Toll Booth（对过往免费的代码安全修复辅助设置必经的计量消耗卡点）与 Budget Migration（代码漏洞修复支出从研发内部人工排查工时或固定的 Advanced Security 席位授权，迁移为按修复任务触发的 AI Credits 与 Actions 算力计量预算）。
+* Money: 涉及使用 GitHub Enterprise Cloud 及 GitHub Advanced Security (GHAS) 的全球中大型企业研发与应用安全（AppSec）预算。此前单个告警生成修复建议属于平台随附的免费辅助工具（0 边际成本）；新规下，企业必须接入 Copilot 结算通道，每次指派修复均直接消耗 Code Security AI Credits 额度并产出 Actions runner 计费分钟数。针对历史积压数千至数万条安全告警的大型代码库，若批量执行自主修复（支持单次聚合最多 25 条 alerts 进单个 PR），单月将产生数百至数千美元不等的 AI 信用与 CI 算力新增支出，迫使企业管理员必须在企业后台单独配置 SKU 级别的 Code Security AI Credits 预算上限与消费熔断。
+* Evidence:
+   1. GitHub Changelog 官方发布《Agentic autofix for code scanning alerts general availability》（发布日期：2026-10-15）：官方明确载明"When enabled, agentic autofix replaces the free Generate Fix option on individual code scanning alerts with an Assign to Copilot button"；准入条件规定"Access also requires a Copilot billing method to be defined"；计费细则明确"Agentic autofix for code scanning alerts consumes AI Credits from your Code Security budget and GitHub Actions minutes. AI Credit usage will be displayed in the ‘AI usage’ section of enterprise billing and licensing as the ‘Advanced Security’ product"。支持事实证明原免费修复功能被全面替换为按次消耗 AI Credits + CI 分钟数的收费卡点。可访问 URL: https://github.blog/changelog/2026-10-15-agentic-autofix-for-code-scanning-alerts-general-availability/
+   2. GitHub Changelog 官方发布《AI Scan for pull requests generally available》（发布日期：2026-10-15）：宣布针对 PR 的 AI 代码扫描正式进入 GA（覆盖 PHP、Shell、Terraform HCL、Dockerfile 等 CodeQL 盲区），虽无需 Copilot 个人席位 License，但明确规定"Uses Code Security AI Credits"，证实 GitHub 将整个代码安全生命周期（扫描发现与自主修复）全线锚定至统一的"Code Security AI Credits"消耗计量池。可访问 URL: https://github.blog/changelog/2026-10-15-ai-scan-for-pull-requests-generally-available/
+   3. 网络安全与 AI 治理独立分析《GitHub AI Scan vs agentic autofix: GA, limits and billing》（作者：P.K. Sharma，发布日期：2026-10-16）：从企业实操角度系统核实了 GA 后的计费与风控架构，明确指出"Agentic autofix requires an enterprise policy, Copilot billing method, and consumes Code Security AI Credits plus Actions minutes; replaces free generation... Budget for credits before enabling it widely"。证实企业安全团队在规模化开启该能力前面临直接的预算管控与计量成本压力。可访问 URL: https://www.pk-sharma.com/briefing/github-ai-scan-pull-requests-agentic-autofix-security-comparison
+* Mechanism:
+   1. 免费单轮生成向闭环自主 Agent 计费卡点的演进（事实）：原先"Generate Fix"仅依赖单次静态提示词推理，成本可由平台吸收；而"Agentic autofix"需跨代码库探索相关文件、多轮重试、并实际在 Actions 容器内重新运行 CodeQL 编译验证，系统开销大增，促使 GitHub 顺势切断免费入口，建立按量计费 Toll Booth。
+   2. 从"席位费（Seat-based）"向"混合计量（Consumption-based Credits）"的预算收割（推断）：GHAS 此前主要按 Committer 数量按年收取高额固定席位费；引入 AI Credits 后，开启了第二增长曲线，将企业在代码安全上的日常运维动作直接货币化。
+   3. 小团队轻资产进入节点（推断）：
+      * 预检与去噪中间件（Pre-triage & Noise Filtering）：企业面对海量历史 alerts 不敢盲目开启 Assign to Copilot（防止 AI Credits 与 Actions 分钟数迅速烧尽），急需轻量工具在本地或低成本网关处先做"误报过滤、依赖关系聚类、修复可行性打分"，仅将高确定性、高危漏洞批量打包（达到 GitHub 25 条上限）后调用 REST API（copilot-swe-agent[bot]）。
+      * Code Security 预算审计与配额路由器：针对多团队/多仓库的 AI Credits 消耗监控看板与策略联动工具，防止单仓失控消耗全企业配额。
+      * 符合 1-3 人小团队形态：纯 API / Webhook 驱动的轻量 SaaS 或开源商业化插件，零重资产、零线下交付、高毛利。
+* Magnitude: Medium。依据：影响所有使用 GitHub Enterprise Cloud、GitHub Advanced Security (GHAS) 的中大型企业与开源组织研发预算，但属于软件研发安全垂直场景，非全社会通用支付/通信重构，故评为 Medium。
+* Persistence: Persistent。依据：GitHub 将 Agentic autofix 正式列为 GA（而非预览），并在企业安全策略、REST API（支持 copilot-swe-agent[bot] 自动化指派）及企业计费后台（Enterprise Billing AI Usage）中完成了底层管道闭环，代表向"基础功能免费/席位许可 -> 深度自主任务消耗计量"长期商业模式的战略确立。
+* Next Question: 企业 CISO 与研发效能团队在多大程度上愿意为"自动化修复"支付独立于原有席位费之外的 AI Credits 与 Actions 账单？高频触发后的修复成功率与人工审查验收成本比率（ROI）临界点在哪里？
+* Task Version: business-sensor@0.2.1
+* Generated At: 2026-10-20T09:25:46+08:00
+* Role Spec Status: reviewed
+观察与过滤池 (Watch & Ignore List)
+1. 线索: Apple 欧盟 App Store 26/20/15/5 新商业条款与 5% CTC 正式生效（2026-10-01 生效，2026-10 持续推进）
+* 判定: WATCH
+* 原因: 苹果正式以 26/20/15/5 统一费率卡取代原有的每安装 0.50 欧元核心技术费（CTF），并废除了初始获取费与商店服务费，且首次允许应用内同时并存苹果 IAP 与第三方支付渠道。虽然重构了欧盟数字商品支付通道抽成（New Toll Booth），但生效时间为 2026-10-01，略早于本轮 7 天观测窗口（2026-10-13 至 2026-10-20）；且面临欧盟反垄断持续合规审查与苹果严格的月度交易审计报表要求，小团队切入第三方支付 SDK 的合规阻力较高。
+* 等待证据: 观察欧洲主流独立应用接入第三方支付后的净收入变化，以及欧盟委员会是否对 5% CTC 结构追加反垄断裁决。
+2. 线索: GitHub 集中下线旧代模型（Gemini 3.7 Flash、GPT-5.5、GPT-5.4 等，2026-10-19 截止）并推出 Model Policy API
+* 判定: WATCH
+* 原因: 属于常规的 AI 模型代际交替与生命周期退役，配合企业 Model Policy API 实现集中治理。本身未改变 Copilot 基础计费模型，属于一次性配置与兼容性迁移需求，尚未形成持续付费的独立利润池。
+* 等待证据: 观察是否催生跨模型迁移自动化测试与 Prompt 回归评测的稳定付费采购需求。
+3. 线索: Steam Next Fest: October 2026 游戏节开启（2026-10-19）
+* 判定: IGNORE (快速 Kill)
+* 原因: 属于 Valve 平台周期性新品宣发营销活动，无底层收费卡点或预算结构性迁移，且游戏开发属于重资产、长周期、高失败率的重内容赛道，不符合小团队轻资产、高毛利的数据/自动化运营偏好。

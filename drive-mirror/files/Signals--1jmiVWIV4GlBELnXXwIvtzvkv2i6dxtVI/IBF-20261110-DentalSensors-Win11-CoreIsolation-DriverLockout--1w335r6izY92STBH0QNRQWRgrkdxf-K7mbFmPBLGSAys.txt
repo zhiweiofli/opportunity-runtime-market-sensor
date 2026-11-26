@@ -1,0 +1,116 @@
+﻿signal_id: IBF-20261110-DentalSensors-Win11-CoreIsolation-DriverLockout
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: 随着Windows 10在2025年10月正式终止支持，全美及全球数以万计的牙科诊所被强制将各诊室（Operatories）电脑升级至Windows 11。然而Windows 11默认强启的“内核隔离/内存完整性（Core Isolation / Memory Integrity, HVCI）”安全机制直接全面阻断了经典款数字口腔口内X光传感器（如Dentsply Sirona Schick 33 / Elite USB 2.0模块、Dexis Platinum、Carestream等，原值$6,000-$12,000/条）的硬件驱动加载，设备管理器中黄色感叹号报错且无法识别。此外，登士柏西诺德（Dentsply Sirona）官方宣布终结Schick Driver v5.16、AE Interface及CDR TWAIN支持，加之2026年9月微软安全补丁物理移除了WMIC核心组件，导致全行业主流影像采集软件（Sidexis 4.4、Eaglesoft、Dentrix）在拍摄瞬间频繁报错中断。
+money: 一家标准牙科私人诊所通常拥有3-6间诊室，每间诊室配备一套专用口内传感器与高规格工作站。口内传感器物理硅芯片与闪烁体光学寿命长达10-15年，机械完好无损；但在诊所电脑升级Win11后，设备耗材经销商（Patterson Dental、Henry Schein）的技术代表普遍宣称老款USB 2.0传感器已“彻底过时淘汰”，强推更换单台售价高达$8,500-$12,000美元的全新USB 3.0传感器套件（整所换代耗资$25,000-$50,000美元）。如果简单关闭内核隔离，诊所将违反HIPAA医疗数据安全审计合规；而传感器无法拍摄导致当天患者无法进行根管、拔牙与种植手术，单诊室日均产值损失超$2,000-$5,000美元。
+
+
+evidence:
+  - id: E1
+    source: https://www.dentsplysironasupport.com/content/dam/websites/dentsplysironasupport/schick-brand-software/Tech%20Bulletin%20Core%20Isolation.pdf
+    source_date: null
+    accessed_at: '2026-11-10'
+    fact: 登士柏西诺德官方技术公报确认：Windows 11默认启用的内核隔离（Core Isolation）与Schick USB 2.0模块驱动直接冲突，设备管理器中黄色感叹号报警且影像软件无法识别；官方承认老机型不兼容但警告不建议关闭安全隔离。
+  - id: E2
+    source: https://www.dentsplysironasupport.com/en-us/user_section/user_section_imaging/schick_brand_software.html
+    source_date: '2026-09-25'
+    accessed_at: '2026-11-10'
+    fact: 登士柏西诺德于2026年9月密集发布补丁公告，确认旧驱动（v5.16及CDR TWAIN）全面停止服务；同时指出2026年9月最新Windows 11补丁移除WMIC组件，导致Sidexis 4.4在拍摄时频发未知崩溃错误。
+  - id: E3
+    source: https://www.prodentshop.com/blogs/news/dental-sensor-software-compatibility
+    source_date: '2026-03-19'
+    accessed_at: '2026-11-10'
+    fact: 牙科设备兼容性指南深度解析：诊所从Win10迁往Win11时遭遇严重的传感器驱动断代，跨品牌影像软件（Eaglesoft与Dexis/Schick）集成链条极度脆弱。
+
+
+mechanism: 医疗数字化外设研发认证周期长达数年，且受FDA医疗器械法规约束，原厂极少为停产老外设跟进现代操作系统的高级内核安全架构升级；设备经销商与厂商深度捆绑，倾向于利用操作系统升级作为逼迫诊所整体置换硬件的抓手；而牙医属于高收入但极度缺乏深度IT调试技能的客群，面对复杂的TWAIN桥接与驱动签名机制无所适从，形成“高价值医疗硬件被消费级操作系统安全策略强行作废”的结构性摩擦。
+persistence: Structural
+next_question: 在面临Core Isolation报错的牙科诊所中，有多大比例的牙医愿意支付$300-$500购买一套无需降低Windows安全等级、且经HIPAA合规验证的自动化驱动修复与WMIC补丁工具包？
+task_version: installed-base-friction@0.2
+generated_at: '2026-11-10T17:15:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+
+
+asset:
+  category: 医疗与数字化牙科影像硬件系统（Dental Imaging）
+  brand: Dentsply Sirona / Schick / Dexis
+  model: Schick 33 / Elite (USB 2.0 Interface) 及主流口内X光传感器
+friction:
+  type: 操作系统内核安全隔离阻断与底层驱动断更
+  symptom: 电脑升级Win11后传感器报内核隔离不兼容黄色叹号，影像软件闪退或报WMIC组件缺失，无法触发拍片
+installed_base:
+  estimate: 全球超过8万家牙科独立诊所与专科连锁，存量老款USB传感器数十万条
+  basis: Schick与Dexis是过去15年北美与欧洲市场占有率第一梯队的传感器品牌，耐用度极高，存量极巨。
+
+
+current_solution:
+  description: 1) 接受经销商建议，花费$8,500-$12,000/室采购全新USB 3.0传感器；2) 冒险完全关闭Windows 11 Core Isolation（面临勒索病毒与HIPAA违规罚款风险）；3) 每天反复拔插重试或退回旧慢电脑。
+  oem_part_price: 8500.0
+  technician_repair_price: 800.0
+  currency: USD
+  basis: 官方授权经销商针对单套现代传感器硬件更新报价普遍在$8,500以上；专业牙科IT服务商上门安装与重新绑定TWAIN每诊室收费约$600-$1,000。
+alternative:
+  description: 交付一套“牙科诊室Win11传感器免降级安全自愈套件”（自动化PowerShell安装包：静默部署官方最新兼容版IOSS/USB驱动，自动修补缺失的WMIC采集依赖，并在不关闭整机Core Isolation的前提下精准注入受保护硬件规则）
+  estimated_solution_cost: 299.0
+  currency: USD
+  basis: 单套诊所多诊室自动修复脚本与远程激活验证定价。
+gap:
+  vendor_support: discontinued
+  availability: low
+  competition: low
+  basis: 原厂对旧版TWAIN/驱动停止支持且推销新硬件；市面上普通IT外包缺乏牙科影像软件（Sidexis/Eaglesoft）底层挂接的专有经验。
+signals:
+  recurrence: high
+  urgency: high
+  diy_activity: high
+  basis: 拍片是牙科诊疗第一道门槛，不能拍片直接导致停诊；Reddit r/Dentistry与专业牙科维修社区中关于Windows 11驱动报错与换机抱怨频繁涌现。
+
+
+assessment:
+  installed_base: {value: high, basis: 全球海量成熟牙科诊所广泛使用的经典高精度口内传感器}
+  friction_rate: {value: high, basis: 凡配属电脑升级至Win11且开启默认内存完整性的老传感器100%报错}
+  failure_cost: {value: high, basis: 官方硬件整机换购单条上万美元，全所换代数万美元，停诊损失巨大}
+  support_gap: {value: high, basis: 原厂正式发文终止旧驱动支持，经销商全力推销新硬件}
+  switching_cost: {value: high, basis: 更换其他品牌传感器需要重新培训牙医手感、重构全所影像数据库挂载}
+  vendor_repair_speed: {value: low, basis: 原厂有强烈的促换新商业诉求，绝不会为停产旧模块重构无缝向下驱动}
+
+
+repair_leverage:
+  ratio: 28.4
+  baseline_cost: 8500.0
+  solution_cost: 299.0
+  currency: USD
+  scope: 基准成本为采购单室替代传感器套件官方报价（$8,500）；替代方案为诊所多室自愈修复工具包（$299）
+  basis: 8500 / 299 = 28.43
+opportunity_durability:
+  value: high
+  basis: 传感器机械光学寿命长达15年，全美诊所正在集中经历Win10至Win11的换机潮，需求在未来2-3年内高度紧迫。
+
+
+economic_value:
+  level: High
+  payer: 私人牙科诊所诊所主（Practice Owner Dentist）、牙科连锁诊所运营合伙人、专属牙科MSP维护商
+  economic_anchor: 经销商单台换新报价$8,500-$12,000，全诊所升级预算$25,000+；停诊每天数千美元营业额损失
+  capture_mechanism: 提供“牙科诊室Win11影像合规恢复向导”（提供一键式自动环境修复程序，3分钟打通驱动识别、补全WMIC库并完成Eaglesoft/Dentrix挂载测试），按诊所收取服务授权费
+  repeatability: 传感器USB芯片（Cypress/FTDI）与主流行医软件的交互逻辑高度标准化，脚本一次开发可在全美成千上万家诊所零边际成本复制
+  basis: 牙医属于极高时薪客群（每小时产值$400+），相对于耗费上万美元购买新硬件或停诊等待，数百美元立竿见影的合规修复工具具有极强采购冲动
+
+
+personal_actionability:
+  fit: Good
+  route: 制作“牙科诊室Windows 11传感器免换新修复套件”
+  target_customer: 正在升级Win11但传感器报黄色叹号或拍片报错的独立牙医与诊所网管
+  deliverable: 一个单文件Windows自动化配置安装包：自动检测传感器硬件ID，一键安装官方最新通过Core Isolation签名的新版底层驱动组件，静默注册WMIC仿真运行库，并在本地生成通过HIPAA兼容验证的自检报告
+  pricing_hypothesis: $199 单诊室自愈包；$399 全诊所多室畅享包（含远程联调保障）
+  customer_entry: Reddit r/Dentistry、Dental Town论坛、Facebook“Dental Office IT & Technology”群组中发帖求助“Schick sensor not working on Windows 11”的牙医
+  fit_basis: 纯驱动安装编排与系统环境注册表补丁，无需拆机修硬件，零实体库存，不触碰患者敏感医疗隐私数据
+  prerequisites: 掌握Windows 11驱动签名机制、内核隔离（HVCI）策略配置规范，熟悉牙科TWAIN与Sidexis/Eaglesoft影像驱动链条
+  first_test: 在一台启用了严格Core Isolation的全新Windows 11电脑上，运行自研PowerShell部署脚本，验证能否免关闭内存完整性成功加载Schick USB 2.0模块并调通模拟取相接口
+  time_budget: 90分钟
+  success_signal: 运行脚本后设备管理器黄色感叹号消失，传感器状态灯转绿，第三方测试软件成功接收16位灰度测试图像
+  kill_signal: 发现传感器内置固件存在硬件级死锁（如晶振或早期ROM芯片不支持现代USB 3.0/3.1主控握手协议）
+  key_unknown: 诊所使用的特定第三方电子病历（EMR）软件是否对传感器硬件驱动版本存在写死的强制版本黑名单

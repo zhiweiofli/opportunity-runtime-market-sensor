@@ -1,0 +1,56 @@
+﻿signal_id: UW-20261102-IndieMusic-MLC-UnmatchedMechanicalRoyaltiesClaimPacket
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年10月核实（Chartlex 2026-10-30最新指南与行业监测、The MLC官方数据及Reddit r/musicbusiness讨论），虽然2021年根据美国《音乐现代化法案》（MMA）由数字流媒体（Spotify, Apple Music, YouTube, Amazon）转移给机械版权集体管理机构（The MLC）的4.24亿美元历史“黑盒子”（Black Box）版税已大部分完成初始结算，但每月各流媒体平台产生的新流媒体消费中，仍有大量数字机械版税因缺乏ISWC与词曲创作者的确定性绑定而持续流入“未匹配待认领池”（Unmatched Royalties）。独立音乐人（Indie Songwriters & Self-Published Artists）平均每年流失约$800美元版税，超过60%在Spotify活跃推广的独立音乐人从未在The MLC注册会员。
+money: 涉及全美数十万名通过DistroKid、TuneCore、CD Baby发行歌曲的独立词曲创作者。现行法定数字机械版税率约为每播放$0.0008–$0.0012美元（每50万次美区流媒体播放对应$400–$600纯词曲版税）。对于拥有5–20首原创曲目、年播放量在10万至100万次的长尾音乐人，每年合法应得却未被领取的版税资金通常在$100–$1,000美元之间。由于单首歌金额分散且需逐首提交元数据，长尾音乐人普遍放弃认领，导致资金在满3年法定保留期后被按市场份额稀释分摊给头部大型唱片出版商。
+evidence:
+  - id: E1
+    source: https://www.chartlex.com/blog/money/mlc-unclaimed-royalties-claim-guide-2026
+    source_date: '2026-05-16'
+    accessed_at: '2026-11-02T00:15:00+08:00'
+    fact: 详述2026年独立音乐人流失MLC版税的机制：1）分销商（DistroKid等）只代收录音母带版税（Master），不收词曲机械版税；2）超过60%在Spotify做推广的独立艺人从未注册The MLC；3）独立音乐人平均每年漏领$800版税；4）明确揭示放弃原因：创作者认为流媒体单曲微额“不值得为繁琐文书费劲（not worth the paperwork）”，直到歌曲在播放列表累积数万播放；5）注册与认领需逐曲录入100%词曲分摊比例、录音ISRC与词曲ISWC对齐，耗时30–90分钟。局限：为音乐推广分析平台报告，样本偏向有主动营销行为的活跃创作者。
+  - id: E2
+    source: https://www.reddit.com/r/musicbusiness/comments/1kb8lzn/royalties_owed/
+    source_date: '2025-04-30'
+    accessed_at: '2026-11-02T00:18:00+08:00'
+    fact: 音乐行业创作者讨论确认：多数黑盒子版税追溯期仅为3年，超期未领取的资金将根据法律规定永久按大厂牌市场份额清算；长尾创作者普遍抱怨“为了一点零碎版税去到处注册太折腾（not worth the hassle of trying to collect）”。局限：来自社区讨论个案。
+  - id: E3
+    source: https://www.copyright.gov/policy/unclaimed-royalties/unclaimed-royalties-final-report.pdf
+    source_date: '2021-07-08'
+    accessed_at: '2026-11-02T00:20:00+08:00'
+    fact: 美国版权局《未认领版税最终报告》官方确认：未匹配资金形成的核心症结是数字音乐产业链中“录音标识符（ISRC）与词曲作品标识符（ISWC）的数据断层”，长尾自出版创作者缺乏专业出版人协助建立元数据链接，导致大量合法资金滞留。局限：为政策与制度分析报告。
+mechanism: 事实：数字流媒体向The MLC支付的版税基于词曲作品（ISWC），而独立音乐人通过分销商发歌时只生成录音识别码（ISRC）；The MLC虽然对创作者完全免费，但要求音乐人自行注册出版人实体、填写W-9税务表、在Member Hub逐首录入完整创作者所有权拆分（Splits）、手工关联ISRC并在Unmatched Portal中检索认领（E1, E3）。推断：对于年收入几百美元的长尾音乐人，花3–5小时在多个互不相通的后台（Spotify for Artists, DistroKid, BMI/ASCAP, The MLC）手工排查比对元数据，因“人工工时价值远高于单次期望值”而被视为不划算；而第三方商业版权代理（如Songtrust）抽成15%–20%并收取$100建档费，传统大出版商直接设立$5,000+年版税准入门槛，使得长尾创作者被彻底排除。利用LLM结合Spotify Web API及MusicBrainz开源音乐库，自动提取音乐人现有目录全部曲目名、发行日期、合作者名单及ISRC编码，自动比对The MLC公开数据库筛选出漏报及未匹配行项，自动组装符合The MLC官方格式的批量Catalog CSV注册表与未匹配版税认领清单，将原本需半天的繁琐跨库整理工作压缩至2分钟自检，使单曲仅$20–$50的小额机械版税首次具备低成本唤醒价值。
+persistence: Structural
+next_question: 在使用DistroKid/TuneCore发行超过5首歌曲且美区累计流媒体播放量在10万至50万之间的独立自出版音乐人群体中，已在The MLC Member Hub完成完整ISRC与词曲绑定的比例实际有多低？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-02T00:36:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work: {task: 独立词曲创作者/自出版音乐人在歌曲发布后，前往The MLC建立出版人档案、逐首输入词曲所有权拆分、将录音ISRC与词曲ISWC编码跨库绑定，并在未匹配黑盒子数据库中认领过去3年积压的数字机械版税, structure: 微价值×海量 / 昂贵信息获取 / 多方协调 / 规则遵从, abandoned_value: 全美独立音乐人单人平均每年漏领约$800美元、单曲沉淀$20–$200不等但超3年即被永久分摊给大唱片公司的合法数字机械版税（E1, E2）, human_failure_reason: 创作者误以为分销商已代管全套版税；手动跨库录入与元数据对齐耗费数小时，面对零散小额版税认定“不值得为繁琐文书费劲”；商业代理抽成加收建档费排除长尾创作者（E1）}
+ai_unlock: {changed_cost: 将原本需人工跨平台逐首查找ISRC、核对合作作者拆分比例并手动编制The MLC批量表格的数小时时间成本压缩至近乎零边际成本的自动化秒级生成, capability_basis: 音乐流媒体元数据API抓取 + ISRC/ISWC跨库关系对齐算法 + The MLC标准化批量Catalog CSV模板映射引擎（E1, E3）, limitations: 1）若创作者与多位合作作者存在版权纠纷（如口头约定无明确Split Sheet），MLC系统会触发冻结争议，需人工签署协议；2）The MLC账户注册最终需音乐人本人提交SSN/W-9以完成身份实名认证}
+unit_economics:
+  unit: 1位独立自出版音乐人存量曲目库（5–20首原创单曲）的元数据自动提取、The MLC未匹配版税检索与标准化批量注册CSV数据包生成
+  currency: USD
+  region_and_date: 美国市场 / 2026年10月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本涵盖Spotify/流媒体API数据调用、The MLC公开库比对计算、批量CSV文件组装及异常人工复核分摊；人工基准为创作者耗费2–4小时手动排查录入工时或商业版权代理$100建档费
+  excluded_or_unknown_costs: 音乐人提现时的银行跨境转账手续费、后续复杂合作者版权争议的人工接管成本、获客成本（CAC）尚未量化
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1直接提供了独立音乐人平均每年漏领$800以及每50万次播放$400–$600版税的明确基准，E1与E3指明了“因文书繁琐与编码断层放弃”的原始依据，自动化脚本一键生成批量映射表格机制完全成立，判定为Plausible；因缺乏全美小长尾音乐人批量上传后实际回款转换率的大盘统计，数值严格置为null，不虚构估算
+value_capture: {beneficiary: 全美数十万名在Spotify/Apple Music有持续流媒体播放但未签约传统大出版商的独立音乐人与独立乐队（E1）, payer: 独立音乐人或其经纪人/独立工作室负责人, payment_evidence: 商业版权代理公司（Songtrust等）收取$100建档费并抽成15%（E1），针对极轻量自动化数据包收取小额买断费属待验证假设, capture_node: 提供“输入Spotify Artist主页链接或上传DistroKid曲目CSV → 30秒出具《MLC未认领版税与漏报曲目审计报告》 → 一键生成可直接上传至MLC后台的批量注册CSV与操作指引”, pricing_hypothesis: 假设采用“单次自检报告免费 + 完整可提交CSV包收费$19–$29”或“自愿打赏/成功到账后收取10%分成”；标记为待验证商业假设, customer_net_benefit: 音乐人无需把未来版税让渡15%–20%给第三方代理，只需花费不到半小时与极低成本，即可永久打通属于自己的每月直发机械版税管道，并追回过去3年沉睡的数百美元}
+scale: {aggregation_unit: 独立音乐人每年新发专辑/单曲上线后的常规版权维护周期，以及每3年黑盒子清算截止日前夕, repeatability: The MLC数据格式全美通用且唯一，批量导入CSV规范高度标准化，一套解析算法可在全网独立音乐人中零边际成本批量复用, reachable_volume: null, basis: 全球Spotify活跃创作者数百万，其中美区有流媒体收入且未加入出版协会的长尾群体达数十万}
+action_loop: {observe: 音乐人在Spotify/DistroKid上的公开发行曲目清单、ISRC识别码及The MLC公开的Missing Member/Unmatched数据库, judge: 筛选在美区流媒体有播放记录、但在The MLC库中未完成词曲登记或存在未分配版税记录的合格曲目, act: 设想自动排版符合The MLC官方格式的批量CSV文件，并给出填报教程，仅描述执行机制, verify: 检查The MLC后台生成的注册确认回执及随后两月分配报表中的机械版税入账明细}
+required_access: {resources: 音乐人公开Artist主页URL或分销商导出的曲目清单CSV、The MLC公开数据库搜索接口, availability: Available, authorizer: 音乐人本人, authorization_status: 未取得, basis: 流媒体与MLC搜索均为公开公共接口，曲目数据由创作者自愿提供，无特许准入门槛}
+defensibility: {basis: 深入解析音乐出版元数据底层映射规范（ISRC、ISWC、CWR协议）以及针对独立音乐人低认知盲区的极简工程化产品体验, alternatives_and_counterevidence: 现成替代为人工放弃不管，或签约Songtrust等全流程代理商（但需让渡15%版税）；最强反证为若创作者流媒体播放量极低（年播放不足1万次），追回金额可能低于$10，导致付费意愿不足}
+personal_actionability: {fit: Good, target_customer: 拥有10首以上原创歌曲、在Spotify有数万至数十万次美区流媒体播放、但从未接触过音乐出版概念的独立音乐人, deliverable: 1份《MLC版税漏报诊断书》 + 1份即插即用的The MLC批量注册导入CSV文件, customer_entry: 独立音乐制作讨论区（Reddit r/WeAreTheMusicMakers, r/musicbusiness, r/DistroKid）及独立音乐人社群, prerequisites: 掌握音乐产业词曲版权（Mechanical vs Performance vs Master）流转机制与The MLC数据批量上传标准, basis: 纯数据抓取、跨库比对与CSV格式转化，轻资产、零库存、极低算力开销}
+seven_day_experiment: {critical_unknown: 独立音乐人在看到自己有歌曲在The MLC处于未认领状态时，是否愿意花$20购买一份自动化生成的批量上传数据包？, test: 在Reddit相关音乐板块寻找5位在Spotify有数万播放但从未注册MLC的独立音乐人，免费为其出具诊断报告并生成批量导入CSV，测试其完成注册与认领的意愿及对付费工具的反馈, artifact: 1份《独立音乐人MLC版税补领与批量注册实测样本》, time_and_cost_budget: 7天 / 预算$0–$20（公开API调用）, success_signal: 至少有2位创作者在指引下成功将CSV上传至The MLC并确认找回了未匹配版税，且表示若有现成工具愿为此付费$20, kill_signal: 创作者普遍嫌去The MLC注册出版人账号本身过于繁琐而直接放弃，哪怕有现成CSV也懒得去上传}

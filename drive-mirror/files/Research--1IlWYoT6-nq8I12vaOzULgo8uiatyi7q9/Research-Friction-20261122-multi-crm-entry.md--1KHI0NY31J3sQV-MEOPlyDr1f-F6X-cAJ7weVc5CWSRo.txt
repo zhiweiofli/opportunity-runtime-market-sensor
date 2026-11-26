@@ -1,0 +1,51 @@
+﻿Opportunity Runtime Research Record
+* Source Signal IDs: Friction-20261122-multi-crm-entry
+* Source Signal References:
+   * Signal ID: Friction-20261122-multi-crm-entry
+   * Generated At: 2026-11-22T09:45:00+08:00
+   * Task Version: friction-sensor@0.2.1
+   * Source File URL: Friction-Signals-2026-11-22.md
+   * Source File Modified At: 2026-11-22T09:38:04+08:00
+* Research Level: R2 — Economic Underwriting
+* Stage Result: KILL
+* Final Status: KILL
+1. Unknown Ledger
+Known
+1. 多系统重复录入的组织管理根因：2026 年 11 月 20 日 Reddit r/sales 热帖（r/sales: Update: 'Management has us filling out 3 different CRMs.' Now its 4）记录了一名销售被迫同时维护 HubSpot、内部 vibe-coded CRM、Excel 与新增 MEDDIC 独立表格的经历。
+2. 已有成熟且低成本的标准解法（无软件技术真空）：将 HubSpot 与 Excel/内部数据库同步、或在 HubSpot 内直接建立 MEDDIC 自定义属性与视图，在技术上已被 HubSpot 原生 Custom Properties、HubSpot Data Sync 以及大众化 iPaaS（Make.com $10.59/月、Zapier $29.99/月、n8n 免费自托管）彻底商品化解决。
+3. 组织治理失调与安全封锁阻断外部采购（Gate 4 致命阻塞）：原帖评论明确揭示了该痛点无法被外部轻量软件捕获的本质：1）属于公司管理层自身未统一"单一数据源（Single Source of Truth）"，管理层为图看报表方便不断叠加临时表格；2）销售个人若尝试使用外部 AI/脚本自动同步数据会直接违反公司合规红线（原帖作者明确回应"I'd be fired on the spot if someone found out I was doing that"）。
+Unknown
+在存在多套 CRM/Excel 并行录入的中型 B2B 销售团队中，管理层愿意出面采购第三方同步软件而非直接指派内部 RevOps 在 HubSpot/Make 中配置现有连接器的比例。
+Decision-Critical Unknown
+面对 HubSpot 原生自定义属性、$10–$30/月的成熟 iPaaS 生态以及企业内部对员工私接外部同步工具的合规禁令，1–5 人独立小团队是否拥有任何可行的软件切入点（经审核已确认不存在，Gate 4 直接否决）。
+2. Gate Checks
+评估维度
+	审核结果
+	详细结论与验证分析
+	Money
+	未知 / 存疑 (UNKNOWN)
+	销售人工浪费确实存在，但引发问题的管理层本身往往正是拒绝投资 RevOps 整合或随意堆叠免费 Excel/内部工具的一方，真实独立软件采购预算未获证实。
+	Mechanism
+	未通过 (FAIL - Commoditized)
+	多系统字段同步与 MEDDIC 结构化在现有 CRM 自定义字段与 Zapier/Make/n8n 中已有完整标准答案，不存在未被满足的技术机制空白。
+	Persistence
+	通过 (PASS)
+	组织内部官僚主义与系统碎片化在企业界长期存在。
+	Capture
+	未通过 (FAIL - KILL)
+	致命不可捕获：1）底层能力已被 HubSpot 原生属性及 Make ($10.59/月) / Zapier ($29.99/月) / n8n (免费) 高度商品化；2）终端痛苦者（一线销售）无采购权且私自接入同步脚本会被解雇；3）决策者（管理层）缺乏整合意愿，外部小团队无法切入。
+	3. Evidence & Counter Evidence
+Supporting Evidence (Symptom Existence)
+1. Reddit r/sales 一线吐槽帖（2026-11-20）：Update: 'Management has us filling out 3 different CRMs.' Now its 4 —— 证实部分企业销售被迫同时填报 HubSpot、内部系统、Excel 与 MEDDIC 文件。
+Counter Evidence (Refutation of Opportunity)
+1. 原帖内已明确指出属管理治理失调与安全封锁：同帖高赞回复指出管理层应直接在 HubSpot 整合单一视图，且原帖主确认未经授权使用外部自动化工具同步公司数据将导致立即被解雇。
+2. 标准 iPaaS 生态已高度商品化：Coreibytes 2026 自动化指南 证实 Make.com（$10.59/月）、Zapier（$29.99/月）与免费自托管 n8n 已成熟覆盖此类连接场景。
+4. Decision Trail & Metadata
+* Stop Reason: 属于组织内部治理失调而非软件技术真空，且同步能力已被 HubSpot 原生特性及廉价 iPaaS 彻底商品化解决，符合 Friction Sensor 排除规则与 Gate 4 KILL 条件。
+* Resume Condition: 不适用（已裁定 KILL）。
+* What became more likely: "员工被迫填多套表格"绝大多数源于管理层懒政与内部权限孤岛，而非市场上缺少数据同步工具。
+* What became less likely: 独立小团队能靠开发又一个"CRM-to-Excel 同步插件"从管理混乱的企业中赚取持续 SaaS 收入。
+* What did we rule out: 排除了将单点职场吐槽帖直接转化为通用 CRM 同步 SaaS 机会的路径。
+* Task Version: researcher@0.2.2
+* Generated At: 2026-11-22T17:49:03+08:00
+* Role Spec Status: reviewed

@@ -1,0 +1,26 @@
+Signal ID: Friction-20261111-agency-multisass-onboarding
+Type: Friction
+What Changed: 营销代理机构已订阅多个SaaS工具（ClickUp、HubSpot、Slack、Notion、QuickBooks、Google Drive），但客户入职流程仍高度手动，跨工具交接耗时，发生于2026年11月7日前后披露的案例。
+Friction: Onboarding / Integration / Manual operation（跨SaaS系统不互通，导致39步手动交接与状态报告）
+Money: 22人营销代理机构已为6个SaaS支付订阅费，但仍需账户经理每周12+小时手动制作状态报告，新客户入职耗时10天；关联labor cost与潜在revenue delay/churn风险。未知具体订阅金额与单客户损失额。
+Evidence:
+1. Luke Pierce (@lukepierceops) 原帖，2026-11-07 23:21 UTC：描述22人营销代理机构客户入职39步跨6个SaaS，10天交接，账户经理每周12+小时状态报告；已试ClickUp自动化、Zapier与兼职ops无效，因系统不互通。修复后前4客户零手动步骤。URL: https://x.com/lukepierceops/status/2119208526190907739
+2. 同帖回复显示问题持续，直至外部层介入才消除手动步骤。
+3. 相关模式：Depesh Vyas 2026-11-04帖提及客户因入职延迟（4天变25天）损失$120k/年客户，支持慢入职导致收入损失。URL相关搜索确认模式存在，但非同一事件。
+Mechanism: 多SaaS工具已付费但缺乏原生互操作，强制人工在工具间复制数据、创建文件夹/频道/任务、定制报告，阻断入职速度与运营效率，增加劳动成本并延迟客户价值交付，提高流失风险。
+Current Workaround: 手动跨工具交接、使用Zapier/ClickUp自动化（失败）、雇佣兼职ops；成本为每周12+小时账户经理时间 + 入职延迟。依据为原帖描述。修复后由外部自动化层替代。
+Payer: 代理机构本身（已付费购买自动化层消除摩擦）；依据为帖主为其构建解决方案并报告零手动步骤结果。其他类似代理/MSP可能支付集成层或咨询。
+Economic Effect: labor（账户经理时间）、revenue delay / potential churn（入职延迟影响客户启动与保留）
+Friction Value: 频率=每新客户（机构规模暗示中高频）× 单次经济影响=至少每周12小时劳动（约0.3 FTE）+ 10天延迟风险 × 可回收比例=高（已有成功案例零手动）。具体金额未知，不编造。
+Persistence: Structural（多工具栈固有互操作缺口，非单点bug；已尝试标准自动化失败，需自定义层）
+Next Question: 类似中型代理机构中，跨SaaS入职手动劳动的平均每周小时数与因此延迟/流失的客户比例是多少？是否有可标准化的轻量集成层需求？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-11T09:45:00+08:00
+Role Spec Status: reviewed
+
+---
+
+观察窗口：2026-11-04 00:00 至 2026-11-11 09:37 Asia/Taipei（首次试跑）。
+已有Signal索引：无。
+无法访问或未充分覆盖的平台：完整GitHub Issues深度搜索、部分私有支持论坛；主要依赖公开X与Web/Reddit。
+本条符合交Research标准：真实经济活动（已付SaaS）、重复摩擦（机构级）、经济损失（劳动+延迟）、有payer（已购买解决方案）、非平台即将原生解决。

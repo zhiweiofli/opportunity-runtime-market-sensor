@@ -1,0 +1,22 @@
+Signal ID: Friction-2026-11-25-Stripe-SmartRetries-HardDecline-Manual
+Type: Friction
+What Changed: SaaS operators already paying for Stripe Billing (including Smart Retries) encounter friction where hard declines such as expired_card and authentication_required continue to trigger scheduled retries that cannot succeed without customer intervention. Observed in primary discussion around 2026-11-23 to 2026-11-24.
+Friction: Payment recovery and dunning layer for non-retryable decline codes; default retry schedule proceeds without immediate optimized customer action path.
+Money: Businesses pay Stripe processing/Billing fees and often additional recovery tools or engineering time; still must manually implement webhook logic or custom dunning to handle hard declines separately. Associated with revenue loss via unrecovered involuntary churn (industry benchmarks indicate 20-40% of total SaaS churn is involuntary from failed payments). Exact per-business amounts unknown.
+Evidence:
+1. Reddit r/stripe post (2026-11-23): User reviewing webhook logs notes Stripe Smart Retries continue 3-4 attempts on expired_card (which cannot succeed) and authentication_required (requires customer present for 3DS). Asks how others structure listeners to suppress or escalate immediately. URL: https://www.reddit.com/r/stripe/comments/1y3t4lf/why_do_stripe_smart_retries_keep_reattempting/
+2. Supporting analyses (2026): Multiple sources (e.g., Baremetrics, Rebounce, DunnAI) confirm retries do not recover expired_card, lost/stolen, or authentication_required; require customer update or authentication flow. Card updater covers some but not all cases.
+3. Benchmark context: Recurly July 2026: involuntary churn ~1.06% for SaaS; 20-40% of total churn attributed to failed payments across sources.
+Mechanism: Uniform default retry logic treats hard declines like soft ones, generating failed attempts, delaying customer notification, and reducing recovery window before subscription cancels. Inferred from platform behavior and user reports.
+Current Workaround: Custom webhook handlers on invoice.payment_failed to detect specific decline codes, suppress further retries, and trigger targeted dunning (email/in-app with update link). Cost is engineering effort (unknown quantified hours per team); some use third-party recovery tools.
+Payer: SaaS founders and operators using Stripe for subscriptions, evidenced by purchase of dedicated dunning/recovery tools (e.g., Churnkey starting ~$250/mo) and ongoing custom development discussions.
+Economic Effect: revenue (lost MRR from unrecovered payments), labor (custom code and monitoring), failed transaction.
+Friction Value: Frequency: recurring for any subscription business with card payments (exact monthly failed rate unknown, often 5-10% of renewals per sources). Single event impact: lost ARPU for that period if unrecovered. Recoverable rate: higher with prompt customer action (tools report 30-50%+ recovery on addressable failures); specific for hard declines lower without intervention. Numbers approximate from industry reports; per-instance unknown.
+Persistence: Structural. Card network decline codes and platform default retry behaviors are longstanding; not a temporary bug.
+Next Question: What share of real-world Stripe invoice.payment_failed events for mid-size SaaS are hard declines (expired_card, authentication_required, etc.) versus soft, and how much engineering time is typically spent customizing around them?
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-25T09:45:00+08:00
+Role Spec Status: reviewed
+
+Observation window used: 2026-11-18 00:00 to 2026-11-25 09:37 Asia/Taipei. Primary evidence from within window; supporting analyses included for mechanism.
+Note: Existing historical Signals in folder include prior payment recovery topics; this focuses on specific Smart Retries hard-decline handling observed in latest primary post. No cross-history dedup claimed as per input.

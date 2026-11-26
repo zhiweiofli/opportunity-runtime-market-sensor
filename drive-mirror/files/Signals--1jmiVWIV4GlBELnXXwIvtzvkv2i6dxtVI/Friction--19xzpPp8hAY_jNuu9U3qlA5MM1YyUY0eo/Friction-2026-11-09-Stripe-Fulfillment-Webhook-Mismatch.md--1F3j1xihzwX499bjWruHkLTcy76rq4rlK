@@ -1,0 +1,24 @@
+Signal ID: Friction-2026-11-09-Stripe-Fulfillment-Webhook-Mismatch
+Type: Friction
+What Changed: 在已付费的 Stripe 订阅/结账流程中，支付成功但应用/CRM 未自动升级计划或创建记录，导致支持人员需手动处理。持续发生，近期（2026-11）多篇技术讨论与指南集中出现，尤其在 AI 构建应用与 n8n 集成中。
+Friction: Payment 成功后的 fulfillment / access grant / CRM sync 环节（webhook 投递失败、事件未监听、用户匹配失败、测试/生产环境差异、超时/限流导致静默丢失）。
+Money: SaaS 创始人/运营已为 Stripe 订阅与处理费付费，客户已付款，但仍需支持手动翻旗（flag）、重发事件或手动在 CRM 标记。关联 labor cost（支持时间）、潜在 revenue loss / churn（客户因无法访问付费功能而投诉或流失）、failed transaction（支付已完成但服务未交付）。具体损失金额未知。
+Evidence:
+1. Continuum (Matthew Turley) 2026-11-05 博客 “Customer Paid But Still on Free Plan”: “The payment cleared. The customer is in Stripe as an active subscriber. In your app, they are still on the free plan... Support gets an email, you flip the flag by hand, and it happens again next week.” https://uxcontinuum.com/blog/app-security/customer-paid-still-on-free-plan
+2. Indie Hackers 2026-11-03 “Paid in Stripe, still free in your app? The 9 causes I check first” 及评论：多位创始人确认 webhook/环境问题导致付费用户停留在 free，建议 nightly reconciliation job。https://www.indiehackers.com/post/paid-in-stripe-still-free-in-your-app-the-9-causes-i-check-first-88779aa30e
+3. Reddit r/n8n 2026-11-05 “How we eliminated silent webhook drops between Stripe & HubSpot in n8n”: “You now have paying customers who were charged in Stripe but never provisioned or tagged in HubSpot, and you only find out when support tickets pile up 48 hours later.”（原文可见于搜索结果）
+4. Continuum 同期多篇 webhook checklist（Paid Order Never Reached CRM 等），确认相同模式。
+Mechanism: Stripe 事件与应用状态同步依赖可靠 webhook + 正确用户关联 + 幂等处理。任一环节失败（环境密钥错误、事件未订阅、限流、部署中断）导致付费状态未传播，钱已收但访问/fulfillment 未完成，需人工介入。
+Current Workaround: 支持手动在后台翻计划旗、从 Stripe Dashboard 重发事件、每日 reconciliation job 对比 Stripe active subs 与内部 DB、或使用 DLQ/重试架构。成本为支持工时（每事件数分钟至数十分钟）+ 开发维护时间；频率未知但被描述为“下周又发生”。
+Payer: 中小型 SaaS 创始人/技术负责人（已在付费使用 Stripe + 自建或低代码集成），或支付额外工具/咨询费用消除摩擦。依据：多篇文章由创始人撰写并分享 checklist，表明问题足够痛且愿投入时间解决。
+Economic Effect: labor（支持与工程时间）/ potential churn / failed transaction（服务未交付）
+Friction Value: 频率（每部署/每批支付事件中偶发，未知精确率） × 单次经济影响（支持工时 + 潜在流失客户 LTV，未知） × 可回收比例（高，因可通过正确 webhook + reconciliation 解决，未知精确）。依据：反复出现的技术指南与“support tickets pile up”描述。
+Persistence: Structural（webhook 可靠性、环境差异、事件顺序不保证是 Stripe + 自建系统的固有特性，非一次性 bug；AI 低代码工具放大问题）。
+Next Question: 实际中小型 SaaS 每月因该问题产生的支持工单数量与平均处理时间？是否已有付费使用专门 reconciliation 或 webhook 可靠性工具？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-09T09:37:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-11-02 至 2026-11-09 Asia/Taipei（本轮可核实资料截止时点往前约 7 天）。
+
+注：Drive 目录中已有历史 failed-payment 相关 Signal，本条聚焦 fulfillment 同步而非 dunning 本身。无法访问部分平台（如完整 Reddit 线程原文）。待人工保存。

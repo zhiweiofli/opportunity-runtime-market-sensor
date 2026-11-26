@@ -1,0 +1,22 @@
+Signal ID: Friction-2026-11-15-stripe-webhook-provisioning-leak
+Type: Friction
+What Changed: Stripe 成功收费后，下游 webhook 到 CRM/工作区 provision（如 HubSpot、自建 DB、n8n）因 silent failure（429、timeout、error swallow、success-page-only logic、signing secret 错配等）导致记录未创建；问题在 2026-11 初至中持续被报告，尤其在 AI 生成应用与自定义集成中。
+Friction: Payment 成功 → Provisioning / Onboarding / CRM 记录创建环节阻断。已付费用户无法立即获得访问或被追踪。
+Money: SaaS 创始人/运营方已通过 Stripe 收到付款（subscription 或 one-time），仍需手动 flip 权限、backfill CRM 记录、处理 angry support ticket。关联 revenue loss（潜在 refund/churn）、support cost、failed transaction（服务未交付）。具体金额未知。
+Evidence:
+1. Reddit r/SaaS 帖 “The silent revenue leak: Paying customers charged in Stripe but never provisioned in CRM” (2026-11-05): “The customer was charged, but their account was never provisioned. You usually only find out 48 hours later when an angry founder or user emails support asking why they paid but can't log in.” 作者部署 DLQ 后 “support tickets regarding billing discrepancies dropped to zero.” https://www.reddit.com/r/SaaS/comments/1xoswm7/
+2. 同主题 r/n8n 帖 (2026-11-05): 描述 high-volume Stripe→HubSpot via n8n 中 429/timeout 导致 silent drop，“paying customers who were charged in Stripe but never provisioned or tagged in HubSpot”。评论中有人跑 nightly reconciliation 比较 paid invoices vs HubSpot records。 https://www.reddit.com/r/n8n/comments/1xosnxv/
+3. Indie Hackers 帖 by Badii Boutar (2026-11-03): “The bug I look for first in any AI-built app with Stripe: the customer pays, Stripe says succeeded, and the app still shows the free plan.” 列出 9 种常见原因（signing secret、body parse、Supabase JWT 等），评论讨论 nightly diff 作为安全网。 https://www.indiehackers.com/post/paid-in-stripe-still-free-in-your-app-the-9-causes-i-check-first-88779aa30e
+4. uxcontinuum.com “A customer paid, but the order is not in my CRM. Why?” (更新 2026-11-05): 详细拆解 chain break 点（webhook never ran、handler swallows error、CRM reject 等），并指出 “money and customer trust are involved”。 https://uxcontinuum.com/fix/paid-order-not-in-crm
+Mechanism: Stripe 事件与下游 provision 是独立 hop；任一 silent fail（无 retry、无 durable queue、error 被 catch 后仍 200）使钱已流入但服务/记录未交付。推断：重复发生时导致 support labor 增加与信任流失。
+Current Workaround: 手动在 Stripe Dashboard 重发事件、support 手动 provision 权限、夜间 script diff Stripe vs DB/CRM 后 backfill。依据：多帖与评论提及 “flip the flag by hand”、“nightly job that pulls active subscriptions... and diffs them”、“resend the failed events”。成本：支持时间（未知精确小时）+ 延迟访问导致的潜在 churn。
+Payer: 已付费 SaaS 运营方（尤其 indie/AI-built 应用、使用 n8n/自定义 webhook 的团队）。依据：他们已支付 Stripe 费并承担 support/refund 成本；帖中作者主动构建 DLQ 与 reconciliation 表明有行动意愿。第三方咨询（如 uxcontinuum Ship Check $299 / Fix 更高）已存在付费解决路径。
+Economic Effect: failed transaction / support labor / potential churn / revenue (refund risk)
+Friction Value: 频率未知（高 volume 时 burst 更易触发，帖中称 “common” 于 AI-built 与自定义集成）；单次经济影响：一次支持工时（估 15-60 min）+ 可能 refund 全额或部分订阅（未知）；可回收比例高（DLQ + reconciliation 可接近 100%，帖中报告 tickets 归零）。依据仅来自定性报告，无精确数值。
+Persistence: Structural（webhook 可靠性、rate limit、idempotency 与 success-page 依赖是长期架构问题，非单次 bug；平台未原生解决所有自定义/AI-generated 路径）。
+Next Question: 实际发生率（每月多少 paid-but-not-provisioned 事件 / 受影响 MRR 比例）与平均 manual fix 时间？哪些垂直（AI-built SaaS、n8n 用户、特定 CRM）最高？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-15T09:45:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-11-08 至 2026-11-15 Asia/Taipei（证据主要集中 11-03 至 11-05，略早于窗口起点但高度相关；窗口内无更强新证据）。已有 Signal 索引：无（首次试跑）。
