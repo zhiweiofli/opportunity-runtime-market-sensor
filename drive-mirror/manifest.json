@@ -2786,6 +2786,20 @@
       "source_status": "present"
     },
     {
+      "id": "1fBLVbuVh3VwH3rI0Vk0a8GIeOfsk2pykke8A3xet8VI",
+      "title": "2026-11-26-1633-judge",
+      "folder_path": [
+        "Judge"
+      ],
+      "mime_type": "application/vnd.google-apps.document",
+      "export_mime_type": "text/plain",
+      "modified_at": "2026-11-26T08:33:45.141Z",
+      "drive_url": "https://docs.google.com/document/d/1fBLVbuVh3VwH3rI0Vk0a8GIeOfsk2pykke8A3xet8VI/edit?usp=drivesdk",
+      "path": "drive-mirror/files/Judge--1-fRzmIOMtYvZDWljCiyBDvTWmwcmPD69/2026-11-26-1633-judge--1fBLVbuVh3VwH3rI0Vk0a8GIeOfsk2pykke8A3xet8VI.txt",
+      "sha256": "b1707e0d509a1125f7479f6c4aa799ef57a4376094f642bdbe9ea1bda3d43358",
+      "source_status": "present"
+    },
+    {
       "id": "1fEilcJDO9YgO9eCRFTddyj6r_THnMwfHYN22MgQAhAM",
       "title": "Research-Business-20261022-openai-decisions-api-costcurve.md",
       "folder_path": [
@@ -4068,5 +4082,5 @@
       "source_status": "present"
     }
   ],
-  "last_changed_at": "2026-11-26T06:39:49.849463+00:00"
+  "last_changed_at": "2026-11-26T09:30:18.423316+00:00"
 }

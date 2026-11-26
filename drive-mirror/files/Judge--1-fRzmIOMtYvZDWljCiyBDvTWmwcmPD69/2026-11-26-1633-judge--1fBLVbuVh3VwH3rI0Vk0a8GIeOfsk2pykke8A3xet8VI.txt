@@ -1,0 +1,87 @@
+﻿Opportunity Runtime — Judge | 2026-11-26 16:33:41 Asia/Taipei
+Task Version: judge@0.2.2 | RUN: manual invocation of existing scheduled automation
+Source of Truth: Google Drive Research + Judge. Human decisions are sought exclusively in GitHub PR, not this chat.
+IMPORTANT: Github repository zhiweiofli/opportunity-runtime-market-sensor is PUBLIC. This full confidential report must not be mirrored to the public repository. Public PR can include only a separately written sanitized summary.
+
+
+A. 本轮结论
+本轮建议唯一 NOW：核算 Google Workspace Agent/MCP 新计费规则下的真实绝对节省上限，仅允许作为低成本经济性证伪任务提请人类审核；不批准开发网关、触达潜在客户或付款。新的价格与规则来自平台原始文档，但“企业愿付 $49–199/月”只是 Research 的商业推断。Lemon Squeezy 迁移截止窗口是更紧迫的运营问题，但泛授权码迁移竞品迅速增加，优先保留 PayPal 订阅重授权细分为 NEXT。历史 QuickBooks/Cloudflare 验证执行状态未确认；本周已占用的机会推进名额也未查到可核验记录，不能默认空闲。
+本轮更新窗口：2026-11-19 16:33:41 Asia/Taipei 至 2026-11-26 16:33:41 Asia/Taipei。最近 7 天源目录 25 份文件：18 份 Research（按源最终状态 12 HYPOTHESIS_READY，6 KILL）与 7 份执行回执，均已读取。Google Drive 历史 Judge 最近 11/15、11/08、11/01 已读；其他更老 Judge 文件已列举但未逐份重读。Market paused；demo/PILOT excluded。
+
+
+B. 本轮决策看板
+优先级 | 机会与变化 / 受影响者 | 钱与最轻价值捕获 | 唯一关键未知 | Judge
+1 | Google Workspace Agent/MCP 成本防护。2026-11-24 发布新的使用层级和计费计划，2027-02-01 起 Agent 需走 Google 官方 MCP，2027-04-01 起收费规则生效；受影响者是批量调用 Gmail/Drive/Calendar 的 Agent/SaaS 团队。 | Google 官方价格是成本锚；最轻捕获先是只读用量核算/预算建议，不开发代理。 | 真实可节省的绝对月额是否超过买方愿付费用？ | NOW（只读证伪，需 PR 审批）
+2 | Lemon Squeezy 商家迁移：2027-03-31 停止交易处理，PayPal 原有订阅需重新授权；受影响者为使用 PayPal recurring 的独立 SaaS 创始人。 | 防止存量 MRR 流失；$99–199 工具费仅是 Research 假定，轻方案为迁移风险诊断与重授权清单。 | 能否找到足够 PayPal 存量、真的会为重授权付费的商家？ | NEXT
+3 | QuickBooks Desktop 退出后历史账簿归档：会计与小企业迁移后难以查询旧账；此前研究提供续订价/竞品价锚。 | 只读历史账簿导出与迁移核对服务。 | 上一轮真实验证是否做过，以及能否联系到实际买方？ | NEXT（旧验证状态未知）
+4 | 金蝶 KIS / 用友 T3 历史账套离线归档：旧软件迁云带来历史账务访问与试算平衡风险；受影响者是中国代理记账和小微财务团队。 | 研究提出 199 元本地批量归档/体检包，未见已付款证据。 | 有无代理记账机构愿使用其真实脱敏导出与付款？ | NEXT
+5 | VMware → Proxmox/Hyper-V 迁前风险扫描：Broadcom 订阅涨价激励迁移，但复杂虚拟机使停机风险高；受影响者是中小企业 IT 与 MSP。 | 研究提出 $299 的 RVTools 离线风险审计；免费 MSP 评估构成主要竞争。 | 有没有买方愿为独立只读清单而非免费评估付费？ | WATCH
+
+
+C. 重点机会：Google Workspace MCP 新计费
+旧流程：团队直接用 Gmail/Drive/Calendar API 或 Agent 工具 → 新规则要求 AI Agent 使用官方 MCP、Scaled Tier 付费 → 某些反复检索、过量正文拉取和错误调用可能成为账单。
+经济证据：Google 官方平台单价从 $0.10 到 $0.50/1000 billable units（不同操作按 units 加权），不等于每次工具请求同价。Research 提出用户支付 $49–199/月给优化中间件，但未给出真实成交、样本用量或企业采购证据。
+反向计算（非实际客户账单）：在最高档 $0.50/1000 单位，假设优化能减少 50% 单位，每月需 396,000 个可计费单位，才省下 $99/月；如成本处于 $0.10/1000 档，则需 1,980,000 单位。低于这些阈值的长尾客户即使 50% 优化成功也难支撑 $99/月订阅。单位权重、访问层级和客户原生优化空间必须实测，不能把每月几十美元的节省描述成高客单价商机。
+最小验证（本轮唯一建议，尚未授权）：用官方定价和公开的 API/MCP operation weights，建立 3 组 realistic use-case 的请求构成（轻量/中等/高量），展示 Standard 与 Scaled、零失败与有失败重试、不同 full vs minimal 比例下的每月可节省绝对美元。边界：只读官方资料和离线计算，无账号数据、外部触达、付费服务或产品开发；建议最多 1 小时待人类在 GitHub 确认。
+Decision after：如果目标客群必须接近或超过 ≥396k premium-equivalent units/month 才有 $99 价值，且真实买方流量与预算均无证据，降 WATCH；若找到可核实更大绝对节省和愿付买方，后续单独 PR 请求访谈授权；若官方已有等价优化或计费前提不成立，则 DROP。
+官方来源：https://developers.google.com/workspace/guides/quota-pricing ; https://developers.google.com/workspace/guides/quota-usage-tiers
+
+
+C2. Lemon Squeezy 迁移（NEXT）
+交易停处理日与 PayPal 订阅不能迁移由官方迁移文档支持，因而是真实时限的 installed-base friction；但“第三方 PayPal 挽回工具有人付 $99–199”仍未验证。2026-11-18 源 Research 广泛建议 License Key 桥接，11-24 增量研究承认近一周涌现多家免费/低价 License Key 导入工具，收窄到 PayPal 旧价 re-consent；这是新增反证与范围变化，而非独立新增机会。
+最小后续验证：先只向 1 名真实正在迁移的 LS SaaS 商家取得匿名 PayPal 订阅占比及其现有重授权处理流程（联系行为需独立 PR 人类授权）。若实际 PayPal 比例低或 Stripe/平台现成流程足够，降 WATCH/DROP；若客户有明显 MRR 风险且明确愿付，再升级。官方来源：https://docs.lemonsqueezy.com/migration
+
+
+D. 二阶机会结构
+新收费站 / Agent-era FinOps：官方定价与配额变化本身很容易确认，但它仅证明“有账单”，不证明“有足够大的可优化账单、更不证明愿为第三方付费”。先基于绝对金额算 break-even，再投入访谈/开发。
+Installed-base Friction：Lemon Squeezy、QuickBooks、金蝶/用友、VMware 均来自存量资产迁出问题。价值节点往往是迁前差异/历史资料只读审计，不是再造迁移平台；竞争方免费迁移工具、原厂服务和买方接触难度是重要反证。
+
+
+E. 其余队列
+NEXT：Google Workspace MCP（NOW 仅证伪）；Lemon Squeezy PayPal 重绑；历史 QuickBooks；金蝶/用友旧账归档；Dynamics GP 旧账保留（继承历史，暂无新硬证据）。
+WATCH：VMware 迁移预检；SharePoint Workflow/InfoPath 本地盘点；Google Merchant API shadow-diff；小商户能源费率与租约 CAM 审计；AirCover 图片举证；工伤险保费、IRS 罚款减免、房屋小额保险复检等需专业复核或数据样本的细分；Cloudflare AI Search 旧验证（11/09-15 暂缓已过期，执行状态仍不明）。
+DROP：Stripe SmartRetries decline-code 催付（同质竞品拥挤）；Windows 打印 Type 3 DLL 覆写（脆弱和售后安全风险）；GitHub 内部计费 UI 故障（第三方无法修复）；多 CRM 重复录入、客户 onboarding 状态交接（成熟/免费替代）；银行 3DS App handoff（第一方封闭）；继续沿用 11/09 Stripe paid-not-provisioned 既有 KILL，除非出现独有新付费切口。
+WATCH 升级条件：明确可接触的实际买方、可证伪真实账单/客户证据与新增区分于现有厂商的机制。没有配置自动 WATCH，不代表系统正在监视。
+
+
+F. Runtime 反馈
+过去 7 天 18 份研究中 12 份源状态为 HYPOTHESIS_READY，实际带有独立付费凭证的机会仍无可确认样本。建议 Research 输出固定拆分：官方成本/同行报价/研究者愿付猜测/真实付款，禁止用价目表推出“愿意支付”。
+Negative Memory 仍失灵：11/09 Stripe paid-not-provisioned 被 KILL；11/15 Judge 再次发现换皮 HYPOTHESIS_READY；11/17 后续 Research 继续将同源技术机制提出为 HYPOTHESIS_READY，只增加前端 Restore Purchase 外壳，尚未证明真实可捕获付费差异。增加 canonical fingerprint 检索和 delta-evidence 门槛，复活旧 KILL 必须给出确实新增客户或付款数据。
+
+
+G. Human Decision Needed（仅在 GitHub PR 评论或 review 中决定）
+1. 是否同意仅核算 Google MCP 的成本阈值，不开发产品、不花钱、不联系客户？A 接受只读验证；B 继续 WATCH；C 其它。
+2. 上次 QuickBooks 与 Cloudflare 验证是否确有已执行结果？已执行并提供证据 / 尚未确认。未确认保持 Unknown。
+3. 下一周期 Lemon Squeezy 是 A 寻找 PayPal 商家做匿名痛点验证（需新 PR 授权），还是 B 仅观察官方工具/竞品？
+
+
+H. 审计
+Generated At: 2026-11-26T16:33:41+08:00
+Role Spec Status: reviewed
+Task Version: judge@0.2.2
+Research folder: https://drive.google.com/drive/folders/1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9
+Historical Judge folder: https://drive.google.com/drive/folders/1-fRzmIOMtYvZDWljCiyBDvTWmwcmPD69
+Read: 18 Research full text (12 HYPOTHESIS_READY, 6 KILL), 7 Execution Receipt full text, 3 historical Judge full text; folder listed 6 historical Judge documents. Review window metadata derived from Drive updated_at. Some more distant history (11/16-18) inventoried and selected files read but not exhaustive; no claim of full historical backfill.
+Input Research References (name | Google Doc ID | last modified UTC | research final status):
+1. Research-Business-20261125-google-workspace-mcp-api-toll.md | 1ZNzeeQF0jCwQeSGgeM6NQKppX_eu5vkDHJUFt2V8fSA | 2026-11-25T09:58:40.204Z | HYPOTHESIS_READY
+2. Research-Friction-2026-11-25-Stripe-SmartRetries-HardDecline-Manual.md | 17Vu2nPiLO-yXSYFyaU8J-TsdrluRwf-ofkmPawyUifU | 2026-11-25T09:57:52.451Z | KILL
+3. Research-UW-20261125-STRHost-AirCoverSmallDamagePacket.md | 1Dseq03oYMTkNNoU_ezX9cSZVX6mCJKhJbMJPZPKFVb8 | 2026-11-25T09:57:20.854Z | HYPOTHESIS_READY
+4. Research-UW-20261125-SmallBusiness-UtilityBillTariffAudit.md | 1jxijl2w4f6nrMkeCXkkYPeSeycXz64TGxw3HElVpLyc | 2026-11-25T09:56:41.136Z | HYPOTHESIS_READY
+5. Research-IBF-20261124-WindowsServer-SeptNov2026CU-Type3PrintDriverBreakage.md | 1VWKaatwK4CM_HH4YPbUCNDya3tTJ5Dw4Rq2eLp87V5M | 2026-11-25T09:56:00.925Z | KILL
+6. Research-IBF-20261124-KingdeeKIS-YongyouT3-2026Sunset-LedgerMigrationAudit.md | 1Cyv5tA5cZEMquK1MS6TtXq1ZLHfYTK-AT8lVYnsZ69Q | 2026-11-25T09:55:23.942Z | HYPOTHESIS_READY
+7. Research-IBF-20261124-VMware-BroadcomSubscriptionShock-ProxmoxMigrationAudit.md | 12cRwQdXItg1rPsuA3nwFFtLAmyuShPkTj2V0qovXvWM | 2026-11-25T09:54:39.063Z | HYPOTHESIS_READY
+8. Research-Friction-2026-11-24-lemonsqueezy-migration.md | 1g4wE3ZYw-LDbfYAIKmOQ9i0Juh5R290PusKN-onR_UY | 2026-11-24T09:07:10.577Z | HYPOTHESIS_READY
+9. Research-Friction-20261123-github-billing-ui-failure.md | 1WM66pnOjxofg8o5rpccf0r_w90TkGrw0-FER8BlHZ-c | 2026-11-23T09:40:32.317Z | KILL
+10. Research-UW-20261123-SmallTenant-CAMReconciliationAudit.md | 1tEfpJ3GJW3HuOc_X-lLWHvUqlCxp8BOO0hMf1x3TiGA | 2026-11-23T09:40:05.273Z | HYPOTHESIS_READY
+11. Research-UW-20261123-SmallContractor-WorkersCompAuditDispute.md | 1fO3XC59cj6MM-9OkGT_Otv7DDInpcHnGzLYNxnqSGtY | 2026-11-23T09:39:20.945Z | HYPOTHESIS_READY
+12. Research-Friction-20261122-onboarding-handoff-status.md | 1fcyM4pYkYYhefwvBVKW7D_3FcfDbcgC0KMOdR-L3XCE | 2026-11-22T09:51:09.655Z | KILL
+13. Research-Friction-20261122-multi-crm-entry.md | 1KHI0NY31J3sQV-MEOPlyDr1f-F6X-cAJ7weVc5CWSRo | 2026-11-22T09:50:39.200Z | KILL
+14. Research-IBF-20261120-GoogleShopping-ContentAPISunset-MerchantAPIShadowDiff.md | 1D8EqngKxbuq3t450xBe5HFm_NsswbeZQ1bByIxRlCmA | 2026-11-20T09:35:44.068Z | HYPOTHESIS_READY
+15. Research-IBF-20261120-SharePoint-SP2010Workflow-InfoPath-July2027Removal.md | 1lcSxMNe46GUN3L6DBDdG7tEjr1Dw7-hZYqSeVpTIbwE | 2026-11-20T09:34:55.975Z | HYPOTHESIS_READY
+16. Research-Friction-2026-11-20-AuthFriction-Checkout-AppHandoff-FalseDecline.md | 1DubyDPGtgSprtRvHy6BIp1I2QrQUUBgq1LDMpmcqDdk | 2026-11-20T09:34:11.000Z | KILL
+17. Research-UW-20261120-SmallBusiness-IRSReasonableCauseForm843.md | 1LYp38Srv6DFW6lg84YELE42H8Fw2HTkGKkPdu-DREyY | 2026-11-20T09:33:18.000Z | HYPOTHESIS_READY
+18. Research-UW-20261120-Homeowner-Sub10kPropertyClaimSupplement.md | 1sbFdUYjKxK10XQELL6RwL_LpB8vOEoHDJsySLPULG6A | 2026-11-20T09:32:49.465Z | HYPOTHESIS_READY
+Historical Judges: 2026-11-15-1901-judge | 1igblYtRuwdU68IzxLsBXrlHu9yEyZvwtxCQ-_9zMA38; 2026-11-08-1857-judge | 1hszVWvg_VwgMUbP9xY73gULa1Rp0-jngzj64IHL27OA; 2026-11-01-1900-judge | 1dThfQ_emyVqsALYHJxEV0iWy01tuPx21lADZjydEZ4k.
+Human state: historical Cloudflare 11/09-11/15 postponed; QuickBooks/Cloudflare prior execution UNKNOWN. No main-branch accepted real business review PR found by targeted repo search; this does not prove absence of all actions. Weekly new-opportunity slot UNKNOWN.
+GitHub status: pending sanitized report PR creation. Public repo means NO raw doc mirroring. Pages status: NOT verified, NO publish action.
+Archive Status: pending Google Doc write/readback verification; no claim of success until observed.
