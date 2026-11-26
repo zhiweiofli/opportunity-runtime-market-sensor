@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from build_archive_index import build, extract
+from build_archive_index import build, card, extract
 
 
 class ArchiveIndexTest(unittest.TestCase):
@@ -38,6 +38,16 @@ class ArchiveIndexTest(unittest.TestCase):
             result = build(root)['entries']
             self.assertEqual([x['status'] for x in result], ['KILL', 'HYPOTHESIS_READY'])
             self.assertEqual([x['tags'] for x in result], [['IBF'], ['IBF']])
+
+
+class ReceiptSummaryTest(unittest.TestCase):
+    def test_receipt_summary_reports_batch_not_research_text(self):
+        text = ('Execution Receipt: Researcher Batch 20261125\n* Batch Processing Status: COMPLETED\n* Queue Status: NO_PENDING_SIGNALS\n'
+                '\tHYPOTHESIS_READY\n\t四 Gate 全数通过：这是一段研究结论，不应成为回执摘要，需要足够长才能被兜底规则选中的那种句子。\n'
+                '\tResearch-IBF-20261124-A.md\n\tResearch-UW-20261125-B.md\n\tResearch-IBF-20261124-A.md\n')
+        c = card(text, 'Execution-Receipt-20261125.md', 'x', 'receipt', None)
+        self.assertEqual(c['summary'], 'Researcher 批次回执 · 批次 COMPLETED · 队列 NO_PENDING_SIGNALS · 本批产出研究 2 份')
+        self.assertIsNone(c['status'])
 
 
 if __name__ == '__main__':
