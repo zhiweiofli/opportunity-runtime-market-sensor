@@ -45,7 +45,7 @@
     if (!items.length) return;
     var allOk = items.every(function (item) { return item && item.status === 'ok'; });
     if (allOk) {
-      healthEl.append(el('div', 'box brief-health-ok', '流水线正常 · 简报生成于 ' + (generatedAt || '未知')));
+      healthEl.append(el('div', 'box brief-health-ok', '流水线正常 · 简报生成于 ' + localTime(generatedAt)));
       return;
     }
     var box = el('div', 'box brief-health');
@@ -59,7 +59,7 @@
       var cls = item.status === 'warn' ? 'brief-health-warn' : 'brief-health-unknown muted';
       box.append(el('p', cls, (item.label || item.id) + '：' + (item.detail || '状态未知')));
     });
-    var footer = '简报生成于 ' + (generatedAt || '未知') + (okCount ? ' · 其余 ' + okCount + ' 项正常' : '');
+    var footer = '简报生成于 ' + localTime(generatedAt) + (okCount ? ' · 其余 ' + okCount + ' 项正常' : '');
     box.append(el('p', 'small', footer));
     healthEl.append(box);
   }
@@ -98,8 +98,8 @@
     }
     var box = el('article', 'box brief-judge brief-focus');
     box.append(el('h3', '', '重点关注'));
-    var metaParts = [judge.title || '最新 Judge', '生成时间：' + (judge.generated_at || '未知')];
-    if (judge.modified_at) metaParts.push('镜像更新：' + judge.modified_at);
+    var metaParts = [judge.title || '最新 Judge', '生成时间：' + localTime(judge.generated_at)];
+    if (judge.modified_at) metaParts.push('镜像更新：' + localTime(judge.modified_at));
     box.append(el('p', 'small', metaParts.join(' · ')));
 
     if (!judge.parse_ok) {
@@ -391,12 +391,26 @@
     researchEl.append(det);
   }
 
+  function localTime(value) {
+    if (!value) return '未知';
+    var d = new Date(value);
+    if (!isFinite(d.getTime())) return String(value);
+    try {
+      return d.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) + '（UTC+8）';
+    } catch (_) { return d.toISOString(); }
+  }
+
   function show(data) {
     if (!data || data.schema_version !== 'or-brief@1') {
       throw new Error('不支持的简报格式');
     }
     statusEl.textContent = '';
     statusEl.hidden = true;
+    var meta = document.getElementById('meta');
+    if (meta) {
+      var lastJudge = data.judge && data.judge.modified_at;
+      meta.textContent = '简报生成：' + localTime(data.generated_at) + ' | 最近 Judge：' + localTime(lastJudge);
+    }
     renderHealth(data.health, data.generated_at);
     renderJudge(data.judge);
     renderTrends(data);

@@ -109,4 +109,5 @@ def build(root):
 
 if __name__ == '__main__':
     output = ROOT / 'site/data/archive.json'
+    output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(build(ROOT), ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

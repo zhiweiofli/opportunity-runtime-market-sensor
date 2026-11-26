@@ -41,5 +41,5 @@ Cloud 执行不应获得 Tushare Secret；真实 API 验证在 GitHub Actions �
 
 - Judge 定时：每 3 天 Asia/Taipei 19:00，仍回看最近 7 天 Research；每自然周最多主动推进 1 个新机会。
 - [私有 Google Docs 镜像](or-archive/README.md)：`or-archive/research/` 和 `or-archive/judge/`，查看 [manifest](or-archive/manifest.json) 的已同步与待回填数。
-- [Pages 看板源码](site/index.html)：数据来自脱敏的 `site/data/latest.json`。只发布 `site/`，不得发布原始 Research。
+- [Pages 看板源码](site/index.html)：构建时由 `build_brief.py` 与 `build_archive_index.py` 从 `drive-mirror/` 生成 `site/data/brief.json`、`site/data/archive.json`。只发布 `site/`。
 - [Pages 发布工作流](.github/workflows/judge-pages.yml)：Settings → Pages 中启用 GitHub Actions 发布源后确认实际部署。私有仓库不保证 Pages 当前已可用；站点一旦发布可能公开访问。

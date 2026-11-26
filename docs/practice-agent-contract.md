@@ -12,7 +12,7 @@ practice/results/<task_id>/<run_id>/result.json
 practice/results/<task_id>/<run_id>/report.md
 protocols/practice.md
 or-archive/manifest.json
-site/data/latest.json
+site/data/brief.json（构建生成）
 ```
 
 JSON 使用 UTF-8，时间为含时区 ISO 8601。schema_version 初版为 1。所有 ID 持久唯一，重跑沿用任务 ID，run_id 每次实际运行不同；机会身份按业务问题与目标客户归并，不能仅凭标题或相似词自动合并。路径必须为仓库内安全相对路径，校验禁止逃逸、重复 ID 和失效引用。
