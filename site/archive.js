@@ -12,7 +12,9 @@
   var loading = false;
   var lastChanged = null;
   var root = 'https://github.com/zhiweiofli/opportunity-runtime-market-sensor/blob/main/';
-  var kinds = {research:'Research', judge:'Judge', signals:'Signals', receipt:'运行回执', archive:'Archive', other:'其他'};
+  var L = window.OR_LABELS || { label: function (t, c) { return c || '未标明'; }, maps: { kind: {} } };
+  var kinds = {research:'研究', judge:'评审', signals:'信号', receipt:'研究批次回执', archive:'归档', other:'其他'};
+  function srcText(tags) { return tags.map(function (t) { return L.label('source', t); }).join('、'); }
   var noSignalRe = /\bno[- ]signal\b/i;
 
   function render() {
@@ -32,7 +34,7 @@
       var item = document.createElement('li');
       var meta = document.createElement('span');
       meta.className = 'small';
-      meta.textContent = kinds[entry.kind] + ' · ' + (entry.modified ? entry.modified.slice(0, 10) : '时间未知') + (entry.status ? ' · 原文状态：' + entry.status : '') + (entry.tags && entry.tags.length ? ' · 来源：' + entry.tags.join('、') : '') + (entry.source_status === 'not_seen' ? ' · 源端暂不可见' : '');
+      meta.textContent = kinds[entry.kind] + ' · ' + (entry.modified ? entry.modified.slice(0, 10) : '时间未知') + (entry.status ? ' · 研究结论：' + L.label('status', entry.status) : '') + (entry.tags && entry.tags.length ? ' · 来源：' + srcText(entry.tags) : '') + (entry.source_status === 'not_seen' ? ' · 源端暂不可见' : '');
       var heading = document.createElement('h3');
       heading.textContent = entry.title;
       var summary = document.createElement('p');
@@ -58,8 +60,8 @@
           var safePath = /^or-archive\/(research|judge)\/[^/]+\.md$/.test(entry.path) || /^drive-mirror\/files\/(?:[A-Za-z0-9._-]+\/)*[A-Za-z0-9._-]+$/.test(entry.path);
           return safePath && typeof entry.title === 'string' && typeof entry.summary === 'string' && Object.prototype.hasOwnProperty.call(kinds, entry.kind);
         }).sort(function (a, b) { return (b.modified || '').localeCompare(a.modified || ''); });
-        Array.from(new Set(entries.map(function (entry) { return entry.status; }).filter(Boolean))).sort().forEach(function (value) { var o = document.createElement('option'); o.value = value; o.textContent = value; verdict.append(o); });
-        Array.from(new Set(entries.flatMap(function (entry) { return entry.tags || []; }))).sort().forEach(function (value) { var o = document.createElement('option'); o.value = value; o.textContent = value; tag.append(o); });
+        Array.from(new Set(entries.map(function (entry) { return entry.status; }).filter(Boolean))).sort().forEach(function (value) { var o = document.createElement('option'); o.value = value; o.textContent = L.label('status', value) + '（' + value + '）'; verdict.append(o); });
+        Array.from(new Set(entries.flatMap(function (entry) { return entry.tags || []; }))).sort().forEach(function (value) { var o = document.createElement('option'); o.value = value; o.textContent = L.label('source', value) + '（' + value + '）'; tag.append(o); });
         render();
       }).catch(function () {
         status.textContent = '资料清单暂不可用，请使用下方 GitHub 目录入口；关闭后重新打开可重试。';

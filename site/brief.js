@@ -32,6 +32,17 @@
     return true;
   }
 
+  var L = window.OR_LABELS || { label: function (t, c) { return c || '未标明'; } };
+  function zh(type, code) { return L.label(type, code); }
+  function codeTag(cls, type, code) {
+    var node = el('span', cls, zh(type, code));
+    if (code) node.title = String(code);
+    return node;
+  }
+  function srcText(tags) {
+    return Array.isArray(tags) && tags.length ? tags.map(function (t) { return zh('source', t); }).join('、') : '未标明';
+  }
+
   function statusClass(status) {
     if (status === 'HYPOTHESIS_READY') return 'state focus';
     if (status === 'KILL') return 'state drop';
@@ -93,18 +104,18 @@
   function renderJudge(judge) {
     judgeEl.replaceChildren();
     if (!judge) {
-      judgeEl.append(el('p', 'box muted', '暂无已镜像的 Judge 记录。'));
+      judgeEl.append(el('p', 'box muted', '暂无已镜像的评审记录。'));
       return;
     }
     var box = el('article', 'box brief-judge brief-focus');
     box.append(el('h3', '', '重点关注'));
-    var metaParts = [judge.title || '最新 Judge', '生成时间：' + localTime(judge.generated_at)];
+    var metaParts = [judge.title || '最新评审', '生成时间：' + localTime(judge.generated_at)];
     if (judge.modified_at) metaParts.push('镜像更新：' + localTime(judge.modified_at));
     box.append(el('p', 'small', metaParts.join(' · ')));
 
     if (!judge.parse_ok) {
       box.append(el('p', 'muted', '原文结构非标准，暂无法自动解析结论与条目，请直接查看原文。'));
-      appendSafeLink(box, judge.path, '查看 Judge 原文 ↗');
+      appendSafeLink(box, judge.path, '查看评审原文 ↗');
       judgeEl.append(box);
       return;
     }
@@ -118,7 +129,7 @@
       nowItems.forEach(function (item) {
         var card = el('div', 'brief-now');
         var head = el('div', 'itemhead');
-        head.append(el('span', 'vtag v-now', 'NOW'), el('span', 'small', '#' + item.rank));
+        head.append(codeTag('vtag v-now', 'verdict', 'NOW'), el('span', 'small', '#' + item.rank));
         card.append(head, el('p', 'brief-now-title', item.title || '未命名'));
         if (item.verdict_note && item.verdict_note !== item.verdict) card.append(el('p', 'brief-now-note', item.verdict_note));
         var line = firstLine(item);
@@ -126,11 +137,11 @@
         box.append(card);
       });
     } else {
-      box.append(el('p', 'muted', '本期没有 NOW 条目。'));
+      box.append(el('p', 'muted', '本期没有“本周推进”条目。'));
     }
 
     if (nextItems.length) {
-      box.append(el('h4', 'brief-minor-title', 'NEXT（' + nextItems.length + '）'));
+      box.append(el('h4', 'brief-minor-title', zh('verdict', 'NEXT') + '（' + nextItems.length + '）'));
       var nextList = el('ul', 'brief-next');
       nextItems.forEach(function (item) {
         var li = el('li');
@@ -142,7 +153,7 @@
 
     if (restItems.length) {
       var countOf = function (v) { return restItems.filter(function (i) { return i.verdict === v; }).length; };
-      var label = '另有 WATCH ' + countOf('WATCH') + ' · DROP ' + countOf('DROP');
+      var label = '另有' + zh('verdict', 'WATCH') + ' ' + countOf('WATCH') + ' · ' + zh('verdict', 'DROP') + ' ' + countOf('DROP');
       var others = restItems.length - countOf('WATCH') - countOf('DROP');
       if (others) label += ' · 其他 ' + others;
       var more = el('details', 'brief-rest');
@@ -150,7 +161,7 @@
       var restList = el('ul', 'brief-next');
       restItems.forEach(function (item) {
         var li = el('li');
-        li.append(el('span', 'vtag ' + verdictTone(item.verdict), item.verdict || '未标明'), el('span', '', ' #' + item.rank + ' ' + (item.title || '未命名')));
+        li.append(codeTag('vtag ' + verdictTone(item.verdict), 'verdict', item.verdict), el('span', '', ' #' + item.rank + ' ' + (item.title || '未命名')));
         restList.append(li);
       });
       more.append(restList);
@@ -159,7 +170,7 @@
 
     if (judge.conclusion) {
       var concl = el('details', 'brief-rest');
-      concl.append(el('summary', '', 'Judge 结论'), el('p', 'brief-conclusion', judge.conclusion));
+      concl.append(el('summary', '', '评审结论'), el('p', 'brief-conclusion', judge.conclusion));
       box.append(concl);
     }
 
@@ -174,7 +185,7 @@
 
     var actions = el('div', 'brief-actions');
     externalLink(actions, DECIDE_URL, '去 GitHub 决策 ↗', 'brief-btn');
-    appendSafeLink(actions, judge.path, '查看 Judge 原文 ↗');
+    appendSafeLink(actions, judge.path, '查看评审原文 ↗');
     box.append(actions);
     judgeEl.append(box);
   }
@@ -207,7 +218,7 @@
       totals.other += w.research_other;
       totals.judges += w.judge_runs;
     });
-    var aria = weeks.length + ' 周 Research 堆叠柱状图：READY ' + totals.ready + '、KILL ' + totals.kill + '、其他 ' + totals.other + '；共 ' + totals.judges + ' 次 Judge 运行。';
+    var aria = weeks.length + ' 周研究堆叠柱状图：假设就绪 ' + totals.ready + '、已否决 ' + totals.kill + '、其他 ' + totals.other + '；共 ' + totals.judges + ' 次评审运行。';
     var root = svg('svg', { viewBox: '0 0 ' + width + ' ' + height, role: 'img', 'aria-label': aria, class: 'trend-svg', preserveAspectRatio: 'xMinYMin meet' });
     root.append(svg('title', {}, aria));
     var baseY = padT + plotH;
@@ -221,8 +232,8 @@
       var g = svg('g', {});
       var total = w.research_ready + w.research_kill + w.research_other;
       var src = w.by_source || {};
-      var srcText = Object.keys(src).filter(function (k) { return src[k]; }).map(function (k) { return k + ' ' + src[k]; }).join('，') || '无';
-      g.append(svg('title', {}, w.week_start + ' 起一周：Research ' + total + '（READY ' + w.research_ready + ' / KILL ' + w.research_kill + ' / 其他 ' + w.research_other + '）；来源 ' + srcText + '；信号 ' + w.signals_total + '（no-signal ' + w.signals_no_signal + '）；Judge ' + w.judge_runs + ' 次'));
+      var srcSummary = Object.keys(src).filter(function (k) { return src[k]; }).map(function (k) { return zh('source', k) + ' ' + src[k]; }).join('，') || '无';
+      g.append(svg('title', {}, w.week_start + ' 起一周：研究 ' + total + '（假设就绪 ' + w.research_ready + ' / 已否决 ' + w.research_kill + ' / 其他 ' + w.research_other + '）；来源 ' + srcSummary + '；信号 ' + w.signals_total + '（无信号 ' + w.signals_no_signal + '）；评审 ' + w.judge_runs + ' 次'));
       [['research_ready', 'bar-ready'], ['research_kill', 'bar-kill'], ['research_other', 'bar-other']].forEach(function (pair) {
         var v = w[pair[0]] || 0;
         if (!v) return;
@@ -241,7 +252,7 @@
     });
     parent.append(root);
     var legend = el('p', 'small trend-legend');
-    legend.append(el('span', 'dot dot-ready'), el('span', '', 'READY '), el('span', 'dot dot-kill'), el('span', '', 'KILL '), el('span', 'dot dot-other'), el('span', '', '其他 '), el('span', 'judge-tri', '▲'), el('span', '', 'Judge 运行周'));
+    legend.append(el('span', 'dot dot-ready'), el('span', '', '假设就绪 '), el('span', 'dot dot-kill'), el('span', '', '已否决 '), el('span', 'dot dot-other'), el('span', '', '其他 '), el('span', 'judge-tri', '▲'), el('span', '', '评审运行周'));
     parent.append(legend);
   }
 
@@ -249,13 +260,14 @@
     if (!rows.length) return;
     var table = el('table', 'brief-table');
     var head = el('tr');
-    ['来源', '总数', 'READY', 'KILL', '可能重复 KILL', 'READY 占比'].forEach(function (h) { head.append(el('th', '', h)); });
+    ['来源', '总数', '假设就绪', '已否决', '疑似重复', '就绪占比'].forEach(function (h) { head.append(el('th', '', h)); });
     var thead = el('thead');
     thead.append(head);
     var tbody = el('tbody');
     rows.forEach(function (r) {
       var tr = el('tr');
-      tr.append(el('td', '', r.source), el('td', '', r.total), el('td', '', r.ready), el('td', '', r.kill), el('td', '', r.possible_repeat));
+      var srcCell = el('td', '', zh('source', r.source)); srcCell.title = r.source;
+      tr.append(srcCell, el('td', '', r.total), el('td', '', r.ready), el('td', '', r.kill), el('td', '', r.possible_repeat));
       var pct = r.total ? Math.round(r.ready / r.total * 100) : 0;
       var cell = el('td');
       var track = el('span', 'ratio');
@@ -289,8 +301,8 @@
         h.items.forEach(function (item) {
           var full = item.title || '未命名';
           var short = full.length > 16 ? full.slice(0, 16) + '…' : full;
-          var tag = el('span', 'vtag ' + verdictTone(item.verdict), (item.verdict || '?') + ' ' + short);
-          tag.title = '#' + item.rank + ' ' + (item.verdict || '未标明') + '：' + full;
+          var tag = el('span', 'vtag ' + verdictTone(item.verdict), zh('verdict', item.verdict) + ' ' + short);
+          tag.title = '#' + item.rank + ' ' + zh('verdict', item.verdict) + '（' + (item.verdict || '未标明') + '）：' + full;
           tags.append(tag);
         });
       }
@@ -308,14 +320,14 @@
     if (!weeks.length && !history.length && !sources.length) return;
     var box = el('section', 'box brief-trends');
     box.append(el('h3', '', '机会趋势'));
-    box.append(el('h4', 'brief-minor-title', '每周 Research'));
+    box.append(el('h4', 'brief-minor-title', '每周研究产出'));
     renderWeeklyChart(box, weeks);
     if (sources.length) {
       box.append(el('h4', 'brief-minor-title', '来源产出'));
       renderSourceTable(box, sources);
     }
     if (history.length) {
-      box.append(el('h4', 'brief-minor-title', 'Judge 判定轨迹'));
+      box.append(el('h4', 'brief-minor-title', '评审判定轨迹'));
       renderJudgeTrack(box, history);
     }
     trendsEl.append(box);
@@ -326,12 +338,12 @@
     var list = Array.isArray(gaps) ? gaps : [];
     if (!list.length) return;
     var det = el('details', 'box archive brief-more');
-    det.append(el('summary', '', 'Judge 未覆盖的 Research（' + list.length + ' 份）'));
+    det.append(el('summary', '', '评审未覆盖的研究（' + list.length + ' 份）'));
     var ul = el('ul', 'gap-list');
     list.forEach(function (g) {
       var li = el('li');
-      li.append(el('span', statusClass(g.status), g.status || '未标明'));
-      var tags = Array.isArray(g.tags) && g.tags.length ? g.tags.join('、') : '未标明';
+      li.append(codeTag(statusClass(g.status), 'status', g.status));
+      var tags = srcText(g.tags);
       li.append(el('span', 'small', ' ' + tags + ' · ' + (g.modified ? g.modified.slice(0, 10) : '时间未知') + ' '));
       li.append(el('span', '', (g.title || '未命名') + ' '));
       appendSafeLink(li, g.path, '原文 ↗');
@@ -344,21 +356,21 @@
   function buildResearchCard(entry) {
     var li = el('li');
     var metaRow = el('div', 'brief-meta-row');
-    metaRow.append(el('span', statusClass(entry.status), entry.status || '未标明'));
+    metaRow.append(codeTag(statusClass(entry.status), 'status', entry.status));
     if (Array.isArray(entry.possible_repeat_of) && entry.possible_repeat_of.length) {
-      metaRow.append(el('span', 'state repeat', '可能重复历史 KILL'));
+      metaRow.append(el('span', 'state repeat', '疑似重复已否决'));
     }
-    var tags = Array.isArray(entry.tags) && entry.tags.length ? entry.tags.join('、') : '未标明';
+    var tags = srcText(entry.tags);
     var dateStr = entry.modified ? entry.modified.slice(0, 10) : '时间未知';
     metaRow.append(el('span', 'small', tags + ' · ' + dateStr));
     li.append(metaRow);
 
-    li.append(el('h4', '', entry.title || '未命名 Research'));
+    li.append(el('h4', '', entry.title || '未命名研究'));
     li.append(el('p', '', entry.summary || '暂无可提取的摘要，请查看原文。'));
 
     if (Array.isArray(entry.possible_repeat_of) && entry.possible_repeat_of.length) {
       var repBox = el('div', 'brief-repeats small');
-      repBox.append(el('span', '', '可能重复历史 KILL：'));
+      repBox.append(el('span', '', '疑似重复已否决的研究：'));
       entry.possible_repeat_of.forEach(function (hit, idx) {
         if (idx > 0) repBox.append(el('span', '', '；'));
         var why = hit.rule === 'source_signal_id' ? '同源信号' : (Array.isArray(hit.matched) && hit.matched.length ? '共同词：' + hit.matched.join('、') : '');
@@ -377,12 +389,12 @@
   function renderResearch(list, counts, hasJudge) {
     researchEl.replaceChildren();
     var c = counts || { total: 0, ready: 0, kill: 0, unknown: 0 };
-    var prefix = hasJudge ? '上次 Judge 之后的新 Research' : '全部已镜像 Research（暂无 Judge 基线）';
+    var prefix = hasJudge ? '上次评审之后的新研究' : '全部已镜像研究（暂无评审基线）';
     var det = el('details', 'box archive brief-more');
-    det.append(el('summary', '', prefix + '：' + c.total + ' 份（READY ' + c.ready + ' / KILL ' + c.kill + '）'));
+    det.append(el('summary', '', prefix + '：' + c.total + ' 份（假设就绪 ' + c.ready + ' / 已否决 ' + c.kill + '）'));
     var entries = Array.isArray(list) ? list : [];
     if (!entries.length) {
-      det.append(el('p', 'muted', '暂无新增 Research。'));
+      det.append(el('p', 'muted', '暂无新增研究。'));
     } else {
       var ul = el('ul', 'archive-list');
       entries.forEach(function (entry) { ul.append(buildResearchCard(entry)); });
@@ -409,7 +421,7 @@
     var meta = document.getElementById('meta');
     if (meta) {
       var lastJudge = data.judge && data.judge.modified_at;
-      meta.textContent = '简报生成：' + localTime(data.generated_at) + ' | 最近 Judge：' + localTime(lastJudge);
+      meta.textContent = '简报生成：' + localTime(data.generated_at) + ' | 最近评审：' + localTime(lastJudge);
     }
     renderHealth(data.health, data.generated_at);
     renderJudge(data.judge);

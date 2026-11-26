@@ -478,9 +478,9 @@ class TrendsAndCoverageTest(unittest.TestCase):
         self.assertEqual(gap['tags'], ['Friction'])
         coverage = next(h for h in result['health'] if h['id'] == 'judge_coverage')
         self.assertEqual(coverage, {
-            'id': 'judge_coverage', 'label': 'Judge 覆盖', 'status': 'warn',
+            'id': 'judge_coverage', 'label': '评审覆盖', 'status': 'warn',
             'last_at': None, 'age_hours': None, 'threshold_hours': None,
-            'detail': '1 份 Research 未进入任何 Judge 回看窗口',
+            'detail': '1 份研究未进入任何评审回看窗口',
         })
 
     def test_judge_coverage_ok_without_gaps(self):

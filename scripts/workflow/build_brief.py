@@ -283,12 +283,12 @@ def _health_bucket(entry):
 def compute_health(entries, now_dt, manifest_missing=False):
     """Compute pipeline freshness health items relative to `now_dt`."""
     specs = (
-        ('judge', 'Judge 评审', JUDGE_STALE_HOURS),
-        ('signals_business', 'Business 信号', SIGNAL_STALE_HOURS),
-        ('signals_friction', 'Friction 信号', SIGNAL_STALE_HOURS),
-        ('signals_ibf', 'IBF 信号', SIGNAL_STALE_HOURS),
-        ('signals_uw', 'UW 信号', SIGNAL_STALE_HOURS),
-        ('research', 'Research 研究', RESEARCH_STALE_HOURS),
+        ('judge', '评审（Judge）', JUDGE_STALE_HOURS),
+        ('signals_business', '利润池变化信号', SIGNAL_STALE_HOURS),
+        ('signals_friction', '付费摩擦信号', SIGNAL_STALE_HOURS),
+        ('signals_ibf', '存量困局信号', SIGNAL_STALE_HOURS),
+        ('signals_uw', '人工不划算信号', SIGNAL_STALE_HOURS),
+        ('research', '研究（Research）', RESEARCH_STALE_HOURS),
     )
     buckets = {cid: [] for cid, _, _ in specs}
     for entry in entries:
@@ -447,12 +447,12 @@ def compute_coverage_gaps(research, judge_times):
 def coverage_health(gaps):
     return {
         'id': 'judge_coverage',
-        'label': 'Judge 覆盖',
+        'label': '评审覆盖',
         'status': 'warn' if gaps else 'ok',
         'last_at': None,
         'age_hours': None,
         'threshold_hours': None,
-        'detail': f'{len(gaps)} 份 Research 未进入任何 Judge 回看窗口',
+        'detail': f'{len(gaps)} 份研究未进入任何评审回看窗口',
     }
 
 

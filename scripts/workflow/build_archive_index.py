@@ -55,8 +55,21 @@ def extract(text, fallback, kind):
     return title, summary
 
 
+def receipt_summary(text):
+    batch = re.search(r'(?im)^\W*Batch (?:Processing )?Status\W*[:：]\s*([A-Z_]+)', text)
+    queue = re.search(r'(?im)^\W*Queue Status\W*[:：]\s*([A-Z_]+)', text)
+    records = len(set(re.findall(r'Research-(?:IBF|UW|Business|Friction)-[\w.-]+?\.md', text)))
+    parts = ['Researcher 批次回执']
+    if batch: parts.append('批次 ' + batch.group(1))
+    if queue: parts.append('队列 ' + queue.group(1))
+    parts.append('本批产出研究 %d 份' % records)
+    return ' · '.join(parts)
+
+
 def card(text, title, path, kind, modified, doc_id=None, source_status='present'):
     heading, summary = extract(text, title, kind)
+    if kind == 'receipt':
+        summary = receipt_summary(text)
     status = re.search(r'(?im)^[ \t]*(?:[-*][ \t]*)*(?:Stage\s*&\s*)?(?:Final (?:Status|Verdict)|Underwriting Verdict)[*]*[ \t]*[:：]?[ \t\r\n]*(HYPOTHESIS_READY|KILL|WATCH|BLOCKED)\b', text)
     source = re.match(r'(?i)^Research-(IBF|UW|Business|Friction)-', title)
     tags = [source.group(1).upper() if source.group(1).lower() in ('ibf', 'uw') else source.group(1).title()] if source else []
