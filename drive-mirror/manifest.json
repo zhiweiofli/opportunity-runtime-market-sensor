@@ -3141,6 +3141,21 @@
       "source_status": "present"
     },
     {
+      "id": "1jFGAG6tCabmvKkwVZIfKY7kuVAJyOlZg",
+      "title": "Friction-2026-11-27-GHL-Agency-Client-Onboarding-Manual.md",
+      "folder_path": [
+        "Signals",
+        "Friction"
+      ],
+      "mime_type": "text/plain",
+      "export_mime_type": null,
+      "modified_at": "2026-11-27T01:38:41.880Z",
+      "drive_url": "https://drive.google.com/file/d/1jFGAG6tCabmvKkwVZIfKY7kuVAJyOlZg/view?usp=drivesdk",
+      "path": "drive-mirror/files/Signals--1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI/Friction--19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo/Friction-2026-11-27-GHL-Agency-Client-Onboarding-Manual.md--1jFGAG6tCabmvKkwVZIfKY7kuVAJyOlZg",
+      "sha256": "86d37fc9149effd09462690509e694617421f0ee797303ac854001f7dbab976f",
+      "source_status": "present"
+    },
+    {
       "id": "1jQzPlKtPzY_c31PALPbO9vL1ZiYRANs2z50Q709doNw",
       "title": "Business-20261101-japan-jct-crossborder-platform-taxation-toll.md",
       "folder_path": [
@@ -3422,6 +3437,21 @@
       "drive_url": "https://docs.google.com/document/d/1nQjhYDQqjBdYPJKlHs9JzboZwDr--R-qpMUZPjYGEho/edit?usp=drivesdk",
       "path": "drive-mirror/files/Research--1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9/Research-Business-20261101-cloudflare-ai-search-metered-toll--1nQjhYDQqjBdYPJKlHs9JzboZwDr--R-qpMUZPjYGEho.txt",
       "sha256": "4ed25e91ad541ebe86d2a988bddbe324a699b41035620c488cd30eec339c98cb",
+      "source_status": "present"
+    },
+    {
+      "id": "1oE9bNIZFRxRmHBYX4X3fF2_M_mqg3OaN",
+      "title": "Friction-2026-11-27-Accounting-API-Idempotency-Gaps.md",
+      "folder_path": [
+        "Signals",
+        "Friction"
+      ],
+      "mime_type": "text/plain",
+      "export_mime_type": null,
+      "modified_at": "2026-11-27T01:38:19.010Z",
+      "drive_url": "https://drive.google.com/file/d/1oE9bNIZFRxRmHBYX4X3fF2_M_mqg3OaN/view?usp=drivesdk",
+      "path": "drive-mirror/files/Signals--1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI/Friction--19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo/Friction-2026-11-27-Accounting-API-Idempotency-Gaps.md--1oE9bNIZFRxRmHBYX4X3fF2_M_mqg3OaN",
+      "sha256": "ca0f98ed5b1df1a1836b3686eaac9efe4ba60a7fd83a5ae9df42830ffef4ff7f",
       "source_status": "present"
     },
     {
@@ -3707,6 +3737,21 @@
       "drive_url": "https://docs.google.com/document/d/1tvqDrlRw8Kj1jC7vW4DoRf3ahapd7EBJwBdabofI_T4/edit?usp=drivesdk",
       "path": "drive-mirror/files/Signals--1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI/Business--1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg/Business-20261119-no-signal.md--1tvqDrlRw8Kj1jC7vW4DoRf3ahapd7EBJwBdabofI_T4.txt",
       "sha256": "866c4ee89aee430c690634817314237885d9a105c7c187ee5a12e2ec2417ee1f",
+      "source_status": "present"
+    },
+    {
+      "id": "1u17er4dQX2NSVbUFRM_uMPrAZbTR9wJ6",
+      "title": "Friction-2026-11-27-Shopify-Collective-LocalPickup.md",
+      "folder_path": [
+        "Signals",
+        "Friction"
+      ],
+      "mime_type": "text/plain",
+      "export_mime_type": null,
+      "modified_at": "2026-11-27T01:38:18.647Z",
+      "drive_url": "https://drive.google.com/file/d/1u17er4dQX2NSVbUFRM_uMPrAZbTR9wJ6/view?usp=drivesdk",
+      "path": "drive-mirror/files/Signals--1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI/Friction--19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo/Friction-2026-11-27-Shopify-Collective-LocalPickup.md--1u17er4dQX2NSVbUFRM_uMPrAZbTR9wJ6",
+      "sha256": "54d4afbff25ce5e0d504666354524f3ceaad3bbc695cd9b443ac990100770583",
       "source_status": "present"
     },
     {
@@ -4082,5 +4127,5 @@
       "source_status": "present"
     }
   ],
-  "last_changed_at": "2026-11-26T09:30:18.423316+00:00"
+  "last_changed_at": "2026-11-27T03:31:42.047888+00:00"
 }

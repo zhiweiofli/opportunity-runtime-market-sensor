@@ -1,0 +1,21 @@
+Signal ID: Friction-2026-11-27-GHL-Agency-Client-Onboarding-Manual
+Type: Friction
+What Changed: 已订阅 GoHighLevel（GHL）的营销代理机构，在客户入职时仍需大量手动创建 sub-account、加载/自定义 snapshot、配置 workflows/users/calendars/landing pages 及外部任务；发生于 2026-11-20 前后的公开分享。
+Friction: Onboarding / Setup / Configuration / Manual operation — 从客户提交表单到完整可用账户的多步骤手工流程。
+Money: 代理机构已为 GHL 订阅付费，仍投入数天（有时一周）人工完成每位客户入职。关联损失类型：labor cost（代理时间或 VA）、潜在 revenue delay / churn（入职慢导致客户体验差）。具体金额未知。
+Evidence:
+1. Reddit r/gohighlevel 原帖（2026-11-20）：“Client onboarding has always been one of the most tedious parts of running an agency. Creating sub-accounts, customizing snapshots, configuring workflows, setting up users and calendars, building landing pages, creating ClickUp tasks... all manually. What used to take days, sometimes a full week, now takes less than 5 minutes.”（通过自建自动化）。URL: https://www.reddit.com/r/gohighlevel/comments/1y1hcrk/we_just_eliminated_5_days_of_client_onboarding/
+2. 多篇 2026 指南确认模式：手动入职 8–20 小时/客户，10–21 天到 go-live；自动化可降至 2–4 小时 / 4–7 天，并降低早期流失（如 15–30% vs 3–8%）。示例：https://ghldesk.com/gohighlevel-client-onboarding-checklist/ 、https://www.allthingsghl.com/gohighlevel-onboarding
+3. 补充：多家工具（Form2Account 等）专门针对此痛点提供自动化，表明持续付费意愿。
+Mechanism: GHL 提供平台与 snapshot，但标准入职仍要求代理手动创建、定制与验证多组件。缺乏一键从 intake form 到完整配置的原生流，迫使重复劳动。推断：结构性配置摩擦。
+Current Workaround: 手动操作、使用 snapshot + 检查清单、雇佣 VA/专家、或自建/购买第三方自动化（如 Form2Account）。成本为数小时至数天人工/客户。依据为原帖与多指南时间估算。
+Payer: GHL 代理机构（已付平台费，可能支付自动化工具、VA 或咨询以消除摩擦）；依据为帖主自建系统并公开分享，以及市场上存在专门工具。
+Economic Effect: labor / time（入职工时）、potential churn / revenue delay
+Friction Value: 频率=每新客户（代理规模决定）× 单次经济影响=数小时至数天人工（指南估 8–20 小时）× 可回收比例=高（已有案例降至分钟级）。未知精确金额，不编造。
+Persistence: Structural（GHL 标准流程仍需大量配置步骤；SaaS Mode 可部分自动化但许多代理仍手动或依赖外部）
+Next Question: 典型 GHL 代理平均每位客户入职工时与早期流失率因手动流程增加多少？愿意为完整自动化支付的价格点？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-27T09:37:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-11-20 00:00 至 2026-11-27 09:37 Asia/Taipei。首次试跑。相关历史 Signal 存在（如多 SaaS 入职），但本主题聚焦 GHL 特定流程。

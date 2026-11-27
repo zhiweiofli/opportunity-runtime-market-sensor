@@ -1,0 +1,21 @@
+Signal ID: Friction-2026-11-27-Shopify-Collective-LocalPickup
+Type: Friction
+What Changed: 已使用 Shopify Collective（连接供应商与零售商的付费功能）的本地商家，在尝试联合销售并全部以零售商门店自提（local pickup）方式履约时，发现导入产品不支持 local pickup；发生于 2026-11-22 前后，Shopify Support 确认此限制。
+Friction: Payment / Fulfillment / Checkout — 混合购物车（双方产品）无法在结账时提供兼容的自提选项，阻断一站式交易完成。
+Money: 商家已为 Shopify 订阅及 Collective 功能付费，仍无法完成预期的本地自提联合销售流程。关联损失类型：conversion loss / revenue loss（无法在单一结账完成混合商品自提订单）、潜在 labor cost（若改用分离流程或第三方）。具体金额未知。
+Evidence:
+1. Shopify Developer Community Forums 原帖（Jessica_Colbert，2026-11-22 10:31pm）：“Shopify Collective doesn’t support local pickup for imported products. When customers add products from both businesses to their cart, checkout cannot offer a compatible pickup method.” 已与 Support  extensively 沟通，确认是 Collective 的 supplier-to-customer shipping model 限制。URL: https://community.shopify.dev/t/shopify-collective-local-pickup-is-there-an-api-or-custom-app-workaround/39993
+2. 同帖回复（Shopify 社区）：“local pickup isn’t supported for supplier/imported products. There’s no supported API or checkout extension that can add a pickup option for those items or reroute them while keeping Collective’s automatic routing and payments intact. A third-party fulfillment app works after the order exists, so it can’t make Collective offer local pickup at checkout. This is a Collective limitation, not something a custom app can patch.”
+3. 补充事实：Collective 文档与相关分析确认 pickup in store 与 Collective 不兼容（供应商侧与零售商侧均有列出）。
+Mechanism: 商家付费使用 Collective 以实现自动订单路由与供应商付款，但平台设计假设配送模型，不支持本地自提场景。当购物车包含导入产品时，结账无法提供统一自提选项，导致交易无法完成或需拆单。推断：此为结构性平台限制，非临时 bug。
+Current Workaround: 未知具体已实施的绕过方式；帖主正评估是否继续投入时间/金钱寻找方案（如 Order Fulfillment Guru）。成本未知。依据为原帖“before investing more time or money into another solution”。
+Payer: 受影响的本地零售商/供应商（已为 Shopify+Collective 付费，可能支付自定义开发、第三方履约或放弃该模式的机会成本）；依据为帖主主动寻求技术解决并提及投资决策。
+Economic Effect: conversion / revenue（混合自提订单无法完成）
+Friction Value: 频率=使用 Collective 且依赖本地自提的商家（未知精确数量，但为特定垂直痛点）× 单次经济影响=单笔混合订单流失（金额未知）× 可回收比例=中高（若有原生支持或轻量扩展可恢复）。未知精确数值，不编造。
+Persistence: Structural（平台设计限制，无 API/扩展可绕过同时保留核心路由与付款自动化；Support 确认）
+Next Question: 有多少使用 Shopify Collective 的本地商家因自提限制放弃联合销售或拆分订单？第三方履约工具实际可覆盖的比例与成本？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-27T09:37:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-11-20 00:00 至 2026-11-27 09:37 Asia/Taipei。首次试跑。已有历史 Signal 存在于目标文件夹，但本主题无直接重复。

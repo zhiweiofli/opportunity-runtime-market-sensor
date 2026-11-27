@@ -1,0 +1,21 @@
+Signal ID: Friction-2026-11-27-Accounting-API-Idempotency-Gaps
+Type: Friction
+What Changed: 已付费使用会计/ERP 系统及统一 API 集成平台（如 maesn）的企业与集成商，在自动化写入 journal entries / 发票时，因多数目标系统缺乏 idempotency key，超时后无法安全重试；发生于 2026-11-24 前后披露的持续问题。
+Friction: Integration / Payment / Manual operation — 写入会计系统时的重试不确定性，导致重复过账或遗漏，需人工校正。
+Money: 企业已为会计软件订阅及集成平台付费，仍需处理因超时产生的重复条目或缺失记录。关联损失类型：labor cost（手动对账与更正条目）、failed transaction（过账失败或重复）、潜在 compliance/tax 成本。具体金额未知。
+Evidence:
+1. LavX News / Stack Overflow Blog 文章（Marta Kowalska，2026-11-24）：maesn 工程师描述集成 30+ 会计/ERP 系统时，多数无 idempotency key。超时后“Retry, and the entries may be booked twice. Hold back, and they may be missing.” 三种常见 workaround（document number lookup、pre-write check、post-cleanup）均会失败。URL: https://news.lavx.hu/article/accounting-apis-that-lack-idempotency-keys-force-integrators-into-three-failing-workarounds （原源：https://stackoverflow.blog/2026/11/24/idempotency-when-you-don-t-control-the-other-end）
+2. 同文细节：批次上传可产生无通知的重复；清理需反向条目（尤其月结后不可删）；部分系统搜索索引延迟导致检查失效；额外请求消耗 rate limit。
+3. 补充事实：Xero、Sage 等部分提供支持，但实现不一致（header/URL、过期时间、端点覆盖）；多数系统为人工 UI 设计，非自动化友好。
+Mechanism: 集成层已付费自动化数据流入会计系统，但目标 API 无安全重试机制。超时使调用方无法区分“已写入但响应丢失”与“未到达”，强制选择重复或遗漏。结果是账本错误需人工或反向条目修复，阻断可靠自动过账。推断：结构性设计缺口。
+Current Workaround: document number 查找（易误匹配历史编号）、写入前检查（竞态与索引延迟）、事后清理任务（反向写入自身可失败，月结后更难）。成本为额外 API 调用、人工审查通知、校正条目工时。依据为工程师实测失败案例。
+Payer: 使用会计集成的企业（已付集成平台，可能支付更好中间层或定制）及集成平台自身（需吸收不确定性）；依据为 maesn 已部分在中间层加 key 但仍无法解决终端。
+Economic Effect: labor / cost（校正） / failed transaction
+Friction Value: 频率=自动化过账中的超时事件（未知精确率，但工程师称常见）× 单次经济影响=重复/缺失条目的校正工时 + 潜在税务解释成本（未知金额）× 可回收比例=高（终端系统提供 key 或 caller reference 字段即可消除）。未知精确数值，不编造。
+Persistence: Structural（多数会计 API 历史设计针对人工操作，非集成重试；提供支持的系统实现也不一致）
+Next Question: 在实际生产集成中，因缺乏 idempotency 导致的重复/缺失过账频率与平均校正成本是多少？哪些主流会计系统完全无支持？
+Task Version: friction-sensor@0.2.1
+Generated At: 2026-11-27T09:37:00+08:00
+Role Spec Status: reviewed
+
+观察窗口：2026-11-20 00:00 至 2026-11-27 09:37 Asia/Taipei。首次试跑。已有历史 Signal 存在于目标文件夹，但本主题无直接重复。
