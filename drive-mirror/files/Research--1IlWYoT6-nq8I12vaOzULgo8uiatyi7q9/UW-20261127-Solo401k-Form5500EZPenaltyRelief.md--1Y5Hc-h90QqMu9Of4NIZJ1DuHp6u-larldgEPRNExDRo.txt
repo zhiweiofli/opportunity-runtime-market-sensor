@@ -1,0 +1,50 @@
+﻿Research Record: UW-20261127-Solo401k-Form5500EZPenaltyRelief
+* Source Signal IDs: UW-20261127-Solo401k-Form5500EZPenaltyRelief
+* Source Signal References:
+   * Signal ID: UW-20261127-Solo401k-Form5500EZPenaltyRelief | Generated At: 2026-11-27T01:22:00+08:00 | Task Version: uneconomic-work@0.1 | Source File URL: UW-20261127-Solo401k-Form5500EZPenaltyRelief.md | Source File Modified At: 2026-11-28T03:47:23.049Z
+|---|---|---|
+   * Stage Result: HYPOTHESIS_READY
+   * Final Status: HYPOTHESIS_READY
+   * Task Version: researcher@0.2.2
+   * Generated At: 2026-11-28T17:49:00+08:00
+   * Role Spec Status: reviewed
+Unknown Ledger
+   * Known: Solo 401(k) plans exceeding $250,000 in combined year-end assets (or in their final plan year) must file Form 5500-EZ; statutory penalties reach $250/day up to $150,000/return (IRS, Hughes Noff Tax Law, Bennett Financials). Under Rev. Proc. 2015-32, pre-CP 283 late filers can cap penalties at $500/return ($1,500/plan max) via paper-only historical-year Form 5500-EZ + Form 14704 (IRS 2025 Instructions). Market pricing benchmarks exist: CPAs/plan administrators charge $150–$350+, and Solo 5500 Desk charges $49 for packet preparation.
+   * Unknown: Exact share of traditional-brokerage (Fidelity/Schwab/Vanguard) Solo 401(k) holders who have multi-year unfiled $250k+ returns and would pay $49–$149 for automated multi-year threshold backtracking + historical packet generation.
+   * Decision-Critical Unknown: Whether automated multi-year custodian-statement $250k backtracking + historical-year PDF mapping commands $79–$149 willingness-to-pay over Solo 5500 Desk ($49) and free DIY guides.
+Gate Checks
+   * Money: 通過 (PASS) — High-value penalty avoidance ($150,000/return cap vs $500/$1,500 relief); active commercial pricing verified at $150–$350+ (CPAs/administrators) and $49 (Solo 5500 Desk).
+   * Mechanism: 通過 (PASS) — Strict paper-only Rev. Proc. 2015-32 rules (year-matched historical PDFs, Box D / red-ink margin notice, Form 14704, EIN vs SSN, EFAST2 disqualification) create a steep DIY failure cliff (IRS Instructions, Rubric Financial).
+   * Persistence: 通過 (PASS) — Structural federal IRS statutory rule (IRC § 6652(e)) and Rev. Proc. 2015-32 reaffirmed in Feb 2026 (IRS); traditional brokerages (Fidelity/Schwab/Vanguard) do not track combined multi-account $250k thresholds.
+   * Capture: 通過 (PASS) — A 1–3 person team can operate a zero-licensing self-serve diagnostic + historical PDF packet generator (no Circular 230 representation, user prints/signs/mails), targeting traditional-brokerage Solo 401(k) holders via Bogleheads/White Coat Investor SEO.
+Opportunity Hypothesis
+   * Opportunity Hypothesis: Traditional-Brokerage Solo 401(k) Multi-Year $250k Threshold Backtracker & Rev. Proc. 2015-32 Paper Packet Generator
+   * Source Signal IDs: UW-20261127-Solo401k-Form5500EZPenaltyRelief
+   * Source Signal References:
+   * Signal ID: UW-20261127-Solo401k-Form5500EZPenaltyRelief | Generated At: 2026-11-27T01:22:00+08:00 | Task Version: uneconomic-work@0.1 | Source File URL: UW-20261127-Solo401k-Form5500EZPenaltyRelief.md | Source File Modified At: 2026-11-28T03:47:23.049Z
+   * Money: Self-employed Solo 401(k) holders at traditional brokerages (Fidelity, Schwab, Vanguard) avoiding $250/day ($150,000/return) IRS penalties (Bennett Financials), anchored against $150–$350+ CPA/TPA fees and $49 software (Solo 5500 Desk).
+   * Mechanism: Automated year-by-year 12/31 combined-asset parsing from custodian PDFs + CP 283 eligibility gating + exact historical-year Form 5500-EZ & Form 14704 PDF assembly prevents fatal DIY errors (EFAST2 e-filing, wrong-year form, SSN instead of EIN).
+   * Capture: Self-serve compliance packet software (free $250k multi-year threshold check + $49–$99 Rev. Proc. 2015-32 packet generation), zero hardware/inventory/tax-representation liability.
+   * Durability: Structural IRS paper-only Rev. Proc. 2015-32 rules (IRS) and ongoing brokerage non-tracking of combined plan assets.
+   * Evidence:
+   1. IRS Penalty Relief Program (2026-02-26) — Confirms paper-only historical-year Form 5500-EZ + Form 14704 + $500/$1,500 cap.
+   2. IRS 2025 Instructions for Form 5500-EZ — Confirms EFAST2 prohibition and red-ink top-margin requirement for pre-Box-D years.
+   3. Hughes Noff Tax Law (2026-11-22) — Details $250/day ($150,000 cap) exposure and CP 283 disqualification cliff.
+   4. Solo 5500 Desk — Verifies active self-serve packet market ($49 software vs $150–$350+ CPA/administrator).
+   * Counter Evidence:
+   1. Direct Software Competitor: Solo 5500 Desk already offers custodian-statement packet preparation at $49, compressing standalone pricing power.
+   2. Bundled TPA Coverage: Self-directed providers like MySolo401k include Form 5500-EZ preparation at no extra charge for annual-fee clients.
+   * Critical Unknown: Whether automated multi-year $250k backtracking across Fidelity/Schwab/Vanguard statements differentiates enough to win $49–$99 conversions against Solo 5500 Desk ($49) and free DIY guides.
+   * Falsification: If >80% of delinquent Solo 401(k) filers only missed 1–2 years and easily complete IRS PDFs in <30 minutes or convert exclusively at <$29.
+   * Next Test: Audit 15 recent "missed Form 5500-EZ" threads on Bogleheads / r/personalfinance / r/tax and test a landing-page + multi-year Fidelity/Schwab 12/31 PDF parser prototype (<$20 budget, 7 days).
+   * Task Version: researcher@0.2.2
+   * Generated At: 2026-11-28T17:49:00+08:00
+   * Role Spec Status: reviewed
+Stop Reason
+Condition 2 & 3 met: All four gates are sufficiently answered; remaining critical unknown (WTP vs Solo 5500 Desk $49) requires live market/prototype testing.
+Resume Condition
+N/A (HYPOTHESIS_READY).
+Learning Summary
+   * What became more likely: There is a real, validated commercial willingness-to-pay ($49 software / $150–$350+ CPA) for Form 5500-EZ packet preparation.
+   * What became less likely: Charging $149+ without clear differentiation over existing $49 packet software (Solo 5500 Desk).
+   * What did we rule out: Pricing above $150 for a pure PDF packet without CPA/representation sign-off.

@@ -1,0 +1,50 @@
+﻿Research Record: IBF-20261127-OracleNetSuite-TBACutoff2027-OAuth2MigrationAudit
+* Source Signal IDs: IBF-20261127-OracleNetSuite-TBACutoff2027-OAuth2MigrationAudit
+* Source Signal References:
+   * Signal ID: IBF-20261127-OracleNetSuite-TBACutoff2027-OAuth2MigrationAudit | Generated At: 2026-11-27T17:45:00+08:00 | Task Version: installed-base-friction@0.2 | Source File URL: IBF-20261127-OracleNetSuite-TBACutoff2027-OAuth2MigrationAudit.md | Source File Modified At: 2026-11-28T03:47:16.524Z
+|---|---|---|R2 (Economic Underwriting)
+   * Stage Result: HYPOTHESIS_READY
+   * Final Status: HYPOTHESIS_READY
+   * Task Version: researcher@0.2.2
+   * Generated At: 2026-11-28T17:50:30+08:00
+   * Role Spec Status: reviewed
+Unknown Ledger
+   * Known: Oracle NetSuite blocks new TBA (OAuth 1.0) integrations starting in NetSuite 2027.1, enforces PKCE on OAuth 2.0 Authorization Code grants and 2FA on all roles, and ends SOAP + existing TBA support in 2028.2 (Oracle Help Center, Apideck, 2026-11-02). Sandbox Refreshes wipe OAuth 2.0 authorizations and M2M certificate mappings, and M2M certificates (RSA 3072/4096-bit or EC) expire at most every 2 years per integration+entity+role (NHIMG, 2026-11-08, TryCadbury, 2026-11-05). Independent consultants (SuiteHeroes) charge £2,500–£7,500 for Health Checks and fixed-price upgrade projects.
+   * Unknown: Exact share of mid-market NetSuite tenants running in-house custom REST/SOAP scripts vs. fully managed iPaaS connectors (Celigo, Boomi, Apideck).
+   * Decision-Critical Unknown: Whether in-house NetSuite admins will pay £199–£299 ($249–$399) for a turnkey Saved Search inventory + RSA/JWT M2M rotation & sandbox-recovery CLI toolkit rather than assembling it from free Oracle/Apideck docs.
+Gate Checks
+   * Money: 通過 (PASS) — Verified consultant pricing anchor of £2,500–£7,500 for NetSuite Health Checks & OAuth 2.0/SuiteScript 2.1 upgrades (SuiteHeroes).
+   * Mechanism: 通過 (PASS) — SOAP+TBA has no auth-only upgrade path (must rewrite to REST/RESTlets), M2M requires per-(app, entity, role) 2-year certificates (max 5 active slots), and Sandbox Refresh clears all OAuth 2.0 & M2M mappings (Apideck, NHIMG).
+   * Persistence: 通過 (PASS) — Two-year structural migration window (2027.1 -> 2028.2) plus recurring 2-year certificate rotation and every Sandbox Refresh cycle.
+   * Capture: 通過 (PASS) — A 1–3 person team can ship a pure read-only Saved Search template + local RSA/EC certificate & JWT rotation + sandbox-recovery CLI kit (£199–£299) with 8.36x price leverage over £2,500 consultant engagements and zero production credential exposure.
+Opportunity Hypothesis
+   * Opportunity Hypothesis: NetSuite 2027.1 TBA/SOAP Pre-Migration Inventory & OAuth 2.0 M2M Sandbox-Recovery Toolkit
+   * Source Signal IDs: IBF-20261127-OracleNetSuite-TBACutoff2027-OAuth2MigrationAudit
+   * Source Signal References:
+   * Signal ID: IBF-20261127-OracleNetSuite-TBACutoff2027-OAuth2MigrationAudit | Generated At: 2026-11-27T17:45:00+08:00 | Task Version: installed-base-friction@0.2 | Source File URL: IBF-20261127-OracleNetSuite-TBACutoff2027-OAuth2MigrationAudit.md | Source File Modified At: 2026-11-28T03:47:16.524Z
+   * Money: Mid-market NetSuite admins & finance IT teams avoiding £2,500–£7,500 external Health Check/scoping fees (SuiteHeroes) and month-end/sandbox integration outages.
+   * Mechanism: Turnkey Login Audit Trail Saved Search bundle + SOAP/RESTlet dependency mapper + local 3072-bit RSA certificate generator, 5-slot rotation script, and Sandbox Refresh recovery SOP eliminates manual trial-and-error.
+   * Capture: One-time downloadable admin toolkit ($249–$399 / £199–£299), zero SaaS hosting, zero customer credential handling.
+   * Durability: 2027.1 new-TBA cutoff through 2028.2 SOAP/TBA removal (Oracle Help Center), plus ongoing 2-year M2M certificate rotations and sandbox refreshes.
+   * Evidence:
+   1. Oracle Help Center — Authentication — Confirms 2027.1 TBA cutoff, PKCE requirement, and 2FA default.
+   2. Apideck Migration Guide (2026-11-02) — Details SOAP rewrite, M2M 2-year cert rules, Login Audit Trail Saved Search, and Sandbox Refresh clearing.
+   3. NHIMG Security Guide (2026-11-08) — Confirms 5-certificate slot limit, rotation endpoint, and sandbox refresh reset.
+   4. SuiteHeroes Offer (2026-11-08) — Establishes £2,500–£7,500 market pricing anchor.
+   * Counter Evidence:
+   1. iPaaS Absorption: Tenants relying solely on managed iPaaS connectors (Apideck, Celigo, Boomi) have auth migration handled by the vendor (pre-2027.1 bundled records even retain TBA until 2028.2).
+   2. Free DIY Documentation: Oracle, Apideck, and TryCadbury already publish the exact Login Audit Trail Saved Search filters and OpenSSL/M2M mapping steps for free.
+   * Critical Unknown: What share of mid-market NetSuite admins maintain custom in-house REST/SOAP scripts (rather than iPaaS) and will pay £199–£299 to skip assembling the audit + M2M rotation scripts themselves.
+   * Falsification: If >80% of target mid-market NetSuite accounts outsource all integrations to Celigo/Boomi/Apideck or prefer free DIY scripts from Apideck/Oracle docs.
+   * Next Test: Build the local RSA 3072-bit M2M cert/JWT rotation CLI + Saved Search audit template (90-minute budget) and validate pain/WTP with 3 NetSuite admins on r/Netsuite.
+   * Task Version: researcher@0.2.2
+   * Generated At: 2026-11-28T17:50:30+08:00
+   * Role Spec Status: reviewed
+Stop Reason
+Condition 2 & 3 met: All four gates are sufficiently answered; remaining critical unknown (in-house script share & WTP) requires direct admin validation.
+Resume Condition
+N/A (HYPOTHESIS_READY).
+Learning Summary
+   * What became more likely: Targeting in-house NetSuite admins (rather than iPaaS-only shops) with a local M2M certificate/sandbox-recovery + Saved Search kit is the cleanest wedge.
+   * What became less likely: Selling an auth-migration tool to SaaS vendors who already route NetSuite through unified APIs like Apideck.
+   * What did we rule out: Full-service NetSuite SuiteScript rewriting or managed integration hosting.

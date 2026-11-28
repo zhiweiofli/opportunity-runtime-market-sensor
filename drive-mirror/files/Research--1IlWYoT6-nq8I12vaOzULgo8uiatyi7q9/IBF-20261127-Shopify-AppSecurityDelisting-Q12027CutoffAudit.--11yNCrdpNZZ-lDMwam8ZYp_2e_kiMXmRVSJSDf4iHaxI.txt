@@ -1,0 +1,35 @@
+﻿Research Record: IBF-20261127-Shopify-AppSecurityDelisting-Q12027CutoffAudit
+* Source Signal IDs: IBF-20261127-Shopify-AppSecurityDelisting-Q12027CutoffAudit
+* Source Signal References:
+   * Signal ID: IBF-20261127-Shopify-AppSecurityDelisting-Q12027CutoffAudit | Generated At: 2026-11-27T17:45:00+08:00 | Task Version: installed-base-friction@0.2 | Source File URL: IBF-20261127-Shopify-AppSecurityDelisting-Q12027CutoffAudit.md | Source File Modified At: 2026-11-28T03:47:16.761Z
+|---|---|---|(Economic Underwriting)
+   * Stage Result: KILL
+   * Final Status: KILL
+   * Task Version: researcher@0.2.2
+   * Generated At: 2026-11-28T17:50:00+08:00
+   * Role Spec Status: reviewed
+Unknown Ledger
+   * Known: Shopify's security deadlines (Nov 12 Bulk Ops block, Nov 20 IP allowlist delisting, Dec 1 custom app expiring tokens, Jan 1 public app expiring tokens, Jan 15 merchant admin warning, Mar 1 ScriptTag removal, Apr 1 403 cutoff) are verified (Shopify Developer Blog, 2026-11-19, Netalico, 2026-11-10). Crucially, Shopify Admin (Settings > Apps) already displays each app's IP allowlist and expiring-token compliance status natively and flags non-compliant apps directly in the merchant's dashboard, with full admin warning banners starting Jan 15, 2027.
+   * Unknown: Exact count of active SMB stores still running abandoned long-tail public apps after Nov 20, 2026.
+   * Decision-Critical Unknown: Whether SMB merchants will pay $49–$99 for a third-party audit checklist when Shopify Admin (Settings > Apps) already flags non-compliant apps natively for free and agencies publish free replacement guides.
+Gate Checks
+   * Money: 通過 (PASS) — Shopify Plus agency Netalico markets an "App Risk Audit" service around these deadlines, and merchants face real inventory sync / storefront breakage risk.
+   * Mechanism: 部分通過 (PARTIAL) — Multi-stage deadlines create confusion for non-technical merchants, though existing installs continue running until April 1, 2027.
+   * Persistence: 未通過 (FAIL — 4 個月短窗口) — The high-urgency window closes on April 1, 2027 (~4 months), after which non-compliant public apps are permanently disconnected and compliant apps remain.
+   * Capture: 未通過 (FAIL — 平台原生解決 + 免費替代清單) — (1) Native Platform Solution: Both Shopify's Developer Blog and Netalico's 10-minute guide confirm Settings > Apps inside Shopify Admin already shows each app's exact IP allowlist & expiring-token status and flags non-compliant apps for free, with automated merchant warnings arriving Jan 15, 2027; (2) Free Content Saturation: Agencies (Netalico, Solo Media Group) already publish free 10-minute check SOPs and replacement guides (Rebuy, Boost AI, Swym, Hulk, Selleasy, Privy alternatives). A standalone $49–$99 audit checklist has no defensible capture wedge for SMBs, while agency-level custom replacements require human service delivery.
+Evidence
+   1. Shopify Developer Blog (2026-11-19) — Confirms Nov 20 delisting and states: "Existing installs keep working but will be flagged in merchant Settings > Apps if they're not compliant."
+   2. Netalico Digest (2026-11-10) — Confirms Settings > Apps already shows each app's security setup (IP allowlist + expiring tokens), provides a free 10-minute check SOP, and links free replacement guides.
+   3. Solo Media Group (2026-11-20) — Publishes free merchant checklist for Nov 20 delistings.
+Counter Evidence
+   1. Native Admin Flagging: Shopify Admin (Settings > Apps) already exposes per-app compliance status natively for free, plus Jan 15, 2027 admin warning banners (Shopify Dev Blog).
+   2. Free Agency SOPs & Alternative Lists: Netalico already gives away the exact 10-minute audit steps and major app replacement guides for free as lead-gen for custom agency retainers.
+   3. Ephemeral 4-Month Window: Urgency ends April 1, 2027.
+Stop Reason
+Condition 1 & 2 met: Native Shopify Admin flagging (Settings > Apps) and free agency SOPs eliminate the standalone $49–$99 SMB audit checklist wedge, while the 4-month window fails Persistence.
+Resume Condition
+N/A (KILL).
+Learning Summary
+   * What became more likely: Agencies use this deadline as free lead-gen content for custom Shopify Plus migration/development retainers, not as a standalone $79 checklist product.
+   * What became less likely: SMB merchants paying $49–$99 for an audit checklist when Shopify Admin already flags non-compliant apps in Settings > Apps.
+   * What did we rule out: Standalone Shopify app-delisting audit checklists/directories.

@@ -1,0 +1,50 @@
+﻿Research Record: IBF-20261127-Rockwell-RSLogix5EOL-PLC5MigrationAudit
+* Source Signal IDs: IBF-20261127-Rockwell-RSLogix5EOL-PLC5MigrationAudit
+* Source Signal References:
+   * Signal ID: IBF-20261127-Rockwell-RSLogix5EOL-PLC5MigrationAudit | Generated At: 2026-11-27T17:45:00+08:00 | Task Version: installed-base-friction@0.2 | Source File URL: IBF-20261127-Rockwell-RSLogix5EOL-PLC5MigrationAudit.md | Source File Modified At: 2026-11-28T03:47:16.975Z
+|---|---|---|R2 (Economic Underwriting)
+   * Stage Result: HYPOTHESIS_READY
+   * Final Status: HYPOTHESIS_READY
+   * Task Version: researcher@0.2.2
+   * Generated At: 2026-11-28T17:49:30+08:00
+   * Role Spec Status: reviewed
+Unknown Ledger
+   * Known: Rockwell Automation ended new RSLogix 5 activations on Dec 31, 2025 and discontinued 1771 I/O (Rockwell Blog, Industrial Monitor Direct). Certified Allen-Bradley integrators charge $150–$250/hr (independent $45–$125+/hr), with PLC-5-to-ControlLogix migrations costing $50,000–$200,000+ (Lashley, Cohen and Associates). Rockwell's official conversion tool (1756-RM085) does not automatically convert MSG, BTR/BTW, SFC, or DH+ networks.
+   * Unknown: Exact share of brownfield plants that retain .DAT ASCII exports and are permitted by OT cybersecurity policies to submit sanitized files for external offline auditing.
+   * Decision-Critical Unknown: Whether plant maintenance engineers and small SIs will pay $399–$699 for an automated read-only .DAT pre-migration audit report rather than relying on Rockwell's free RSLogix Project Migrator PCE logs.
+Gate Checks
+   * Money: 通過 (PASS) — Verified Rockwell SI rates of $150–$250/hr ($2,400 conservative 16-hour pre-audit baseline) and $50,000–$200,000+ total migration projects (Lashley, Cohen and Associates).
+   * Mechanism: 通過 (PASS) — Studio 5000 / RSLogix Project Migrator leaves MSG instructions, 1771 BTR/BTW block transfers, SFCs, indirect addressing, and DH+ networks unconverted (Industrial Monitor Direct, r/PLC).
+   * Persistence: 通過 (PASS) — Structural multi-year brownfield migration tail; Rockwell will not revive RSLogix 5 or 1771 I/O (Rockwell Migration).
+   * Capture: 通過 (PASS) — Pure offline static .DAT text parser + standardized Excel/Markdown risk matrix ($399–$699/program) requires zero hardware, zero site liability, and zero RSLogix 5 license.
+Opportunity Hypothesis
+   * Opportunity Hypothesis: Read-Only PLC-5 .DAT Pre-Migration Refactoring Audit & 1771 I/O Mapping Report
+   * Source Signal IDs: IBF-20261127-Rockwell-RSLogix5EOL-PLC5MigrationAudit
+   * Source Signal References:
+   * Signal ID: IBF-20261127-Rockwell-RSLogix5EOL-PLC5MigrationAudit | Generated At: 2026-11-27T17:45:00+08:00 | Task Version: installed-base-friction@0.2 | Source File URL: IBF-20261127-Rockwell-RSLogix5EOL-PLC5MigrationAudit.md | Source File Modified At: 2026-11-28T03:47:16.975Z
+   * Money: Brownfield manufacturing, water, and mining plants + small SIs avoiding $2,400+ SI pre-scoping fees ($150–$250/hr) and $50k–$200k+ migration downtime overruns (Lashley, Cohen and Associates).
+   * Mechanism: Automated static parsing of ASCII .DAT exports extracts every 1771 rack/slot, BTR/BTW, MSG, SFC, and indirect-addressing dependency into a Studio 5000 effort-estimation matrix without touching live controllers.
+   * Capture: Data/intelligence deliverable ($399–$699 one-time offline audit report or local CLI tool), zero hardware, zero on-site liability.
+   * Durability: Multi-year PLC-5-to-ControlLogix retirement cycle following RSLogix 5 EOL (Dec 31, 2025) (Rockwell Blog).
+   * Evidence:
+   1. Rockwell RSLogix 5 EOL Blog — Confirms RSLogix 5 EOL and migration necessity.
+   2. Industrial Monitor Direct (2026-09-09) — Confirms Dec 31, 2025 activation cutoff, 1771 discontinuation, and Studio 5000 import gaps (MSG, BTR/BTW, SFC, indirect addressing).
+   3. Lashley, Cohen and Associates (2026-02-24) — Verifies $150–$250/hr SI rates and $50k–$200k+ migration costs.
+   4. r/PLC Discussion (2026-11-27) — Confirms active Nov 2026 brownfield PLC-5 migration pain.
+   * Counter Evidence:
+   1. Native Free Conversion Tool: Rockwell provides RSLogix Project Migrator & 1756-RM085 which already flag PCE (Program Conversion Error) rungs for engineers who own Studio 5000.
+   2. OT Security Constraints: Industrial plants frequently prohibit sending .PC5 or .DAT ladder logic files outside the plant network, which may require shipping a local offline executable rather than a cloud upload service.
+   * Critical Unknown: Whether plant maintenance teams already have .DAT exports and are permitted (or prefer a local offline CLI) to run a $499 pre-migration audit.
+   * Falsification: If >80% of target plants cannot export .DAT files without an active RSLogix 5 seat, refuse external file sharing due to OT security, or find Rockwell's free Project Migrator log sufficient.
+   * Next Test: Build a Python .DAT parser prototype (2-hour budget) against a public PLC-5 sample and recruit 2+ engineers on r/PLC / PLCS.net to test sanitized .DAT output.
+   * Task Version: researcher@0.2.2
+   * Generated At: 2026-11-28T17:49:30+08:00
+   * Role Spec Status: reviewed
+Stop Reason
+Condition 2 & 3 met: All four gates are sufficiently answered; remaining critical unknown (.DAT availability & OT security acceptance) requires direct engineer validation.
+Resume Condition
+N/A (HYPOTHESIS_READY).
+Learning Summary
+   * What became more likely: A local/offline .DAT parser CLI or NDA read-only report fits OT security constraints better than a cloud upload SaaS.
+   * What became less likely: Selling to large enterprises that already retain full-service Rockwell SIs on $100k+ turnkey contracts.
+   * What did we rule out: Hardware/gateway reselling or live PLC programming services.
