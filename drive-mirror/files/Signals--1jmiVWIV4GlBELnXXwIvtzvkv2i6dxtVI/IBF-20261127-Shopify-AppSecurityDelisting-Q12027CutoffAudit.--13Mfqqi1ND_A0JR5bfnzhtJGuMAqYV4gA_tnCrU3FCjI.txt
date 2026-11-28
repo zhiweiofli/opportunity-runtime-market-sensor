@@ -1,0 +1,114 @@
+﻿---
+signal_id: IBF-20261127-Shopify-AppSecurityDelisting-Q12027CutoffAudit
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: 继 2026 年 8 月结账页 Additional Scripts 停用之后，Shopify 于 2026 年 11 月初宣布并在黑五前夕密集落地新一轮应用安全与架构强制清理（Shopify Dev Docs 2026-11 更新及 Netalico 2026-11-10 指南）：1）2026 年 11 月 12 日起，未配置 IP 白名单的公共应用 Bulk Operations（批量目录/库存/价格/ERP 同步）已被拦截失败；2）2026 年 11 月 20 日起，未配置 IP 白名单的公共应用已从 Shopify App Store 下架并禁止新安装（商户一旦卸载即无法重装）；3）2027 年 1 月 1 日，未使用过期离线令牌（expiring offline tokens，有效期仅 1 小时）及未声明网络访问的公共应用也将被下架（1 月 15 日商户后台将出现红色告警）；4）2027 年 3 月 1 日，全平台彻底停止向店面注入 ScriptTag（必须改用默认关闭且按主题生效的 App Embed Block）；5）2027 年 4 月 1 日，仍未合规的公共应用调用 Admin API 将直接返回 HTTP 403 并彻底断连。
+money: Shopify Plus Premier Partner（Netalico，2026-11-10）已专门推出“App Risk Audit”商业服务以应对 11/20、1/1、3/1、4/1 四个强制节点（但未公开固定标价，具体报价与商户客单价待验证）；此外，r/ShopifyAppDev（2026-10-19）引用 Letsmetrix Q3 数据显示 Shopify App Store 应用移除率单季翻倍至约 6%，大量商户面临已下架长尾插件失联及黑五后库存同步静默失败的风险。
+evidence:
+  - id: E1
+    source: https://shopify.dev/docs/apps/build/security
+    source_date: '2026-11-26'
+    accessed_at: '2026-11-27'
+    fact: Shopify 官方安全文档列出完整强制时间表：2026-11-12 拦截无 IP 白名单的 Bulk 操作；2026-11-20 下架无 IP 白名单公共应用；2026-12-01 新建自定义应用强制过期令牌；2027-01-01 下架非过期令牌应用；2027-03-01 停载所有 ScriptTag；2027-04-01 对非过期令牌返回 403 拒绝服务。
+  - id: E2
+    source: https://netalico.com/blogs/netalico-digest/shopify-apps-delisted-november-2026
+    source_date: '2026-11-10'
+    accessed_at: '2026-11-27'
+    fact: 指出 11 月 12 日后批量同步（ERP/库存/Feed）已可能静默失败，11 月 20 日下架后“切勿卸载重装测试（因已禁止新安装）”，且代理商已将其打包为专门的 App Risk Audit 服务，引导商户核查 Settings > Apps 并制定替代方案。
+  - id: E3
+    source: https://www.reddit.com/r/ShopifyAppDev/comments/1x9q379/two_shopify_deadlines_land_9_weeks_apart_in_q1/
+    source_date: '2026-10-19'
+    accessed_at: '2026-11-27'
+    fact: 开发者社区确认 2027 Q1 两大死线仅隔 9 周：1 小时过期令牌若与前端并发刷新竞争会导致后台任务静默 401/403 停摆；ScriptTag 迁往 Theme App Extension 后默认关闭且绑定单套主题，商户切换主题即静默失效；Letsmetrix Q3 报告显示 App Store 移除率翻倍至 ~6%。
+mechanism: Shopify 在 2026 年 10 月安全事件后急剧收紧应用安全基线，在短短 5 个月内连续叠加 IP 白名单、1 小时过期刷新令牌、网络声明与 ScriptTag 退场四道刚性门槛。大量长尾插件开发者已放弃维护（或错过了 11 月升级窗口），导致插件虽在老店铺“看似还能跑”，实则已被下架且将在 2027 年 3-4 月彻底断连；同时普通独立站运营既不懂分辨哪些 Bulk/Admin API 正在静默失败，也常在排障时误删已下架插件造成不可逆业务中断。
+persistence: Structural
+next_question: 2026 年 11 月 20 日实际被 Shopify App Store 下架的公共应用具体名单与受影响商户规模有多大？中小独立站更愿意为“只读风险审计+替代清单”还是“代为配置替代方案”付费？
+task_version: installed-base-friction@0.2
+generated_at: '2026-11-27T17:45:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+asset:
+  category: 独立站电商平台第三方应用生态
+  brand: Shopify
+  model: Shopify App Store 公共应用 & Custom Apps / Storefront ScriptTag
+friction:
+  type: 平台强制安全升级导致的存量应用下架与 API 断连
+  symptom: 11/12 后批量库存/目录同步静默失败，11/20 后未合规应用被下架无法重装，2027/1/15 后台大面积告警，3/1 前台 ScriptTag 停载、4/1 后台 API 彻底返回 403
+installed_base:
+  estimate: 全球数百万家依赖 Shopify App Store 长尾插件的活跃独立站，以及数千款存量长尾公共应用（精确受波及店铺数待核实）
+  basis: Shopify 为全球主流独立站建站平台，2026 Q3 应用移除率已升至 ~6%，且 11 月至 4 月连续 5 个强制节点覆盖全部公共应用与部分自定义应用。
+current_solution:
+  description: 1) 商户管理员自行进入 Settings > Apps 逐个发邮件询问几十个插件开发者并人工核对；2) 聘请 Shopify Plus 代理商（如 Netalico）采购定制 App Risk Audit 与替代开发服务；3) 拖延至 2027 年 3-4 月功能彻底断连后再紧急更换插件。
+  oem_part_price: null
+  technician_repair_price: null
+  currency: USD
+  basis: Netalico 已上线 App Risk Audit 服务但未公开标价；不同店铺挂载插件数量差异大，暂不编造固定基线价格，留待 Researcher 核实代理商报价区间。
+alternative:
+  description: 提供标准化“Shopify 店铺 2026-2027 断连应用风险自查与无痛替代迁移清单包”（或轻量化只读审计交付）
+  estimated_solution_cost: 79.0
+  currency: USD
+  basis: 待验证商业假设：针对中小独立站主或电商代运营，提供含常见已下架/高危插件替代矩阵、Settings > Apps 核查模板及原生 App Embed/Custom Liquid 替换指南的轻量包（$79，或含人工 1 小时逐店审计 $199）。
+gap:
+  vendor_support: discontinued
+  availability: medium
+  competition: medium
+  basis: 失联或放弃维护的长尾 App 开发者不会响应商户邮件；Shopify Plus 代理商主要服务高客单价大客户，面向中小独立站（月费预算有限）的标准化“防误删+断连前平替清单”供给不足。
+signals:
+  recurrence: high
+  urgency: high
+  diy_activity: high
+  basis: 11 月 20 日下架已于 7 天前发生，12 月 1 日与 1 月 1 日节点紧接其后，黑五/网一结束后的 12 月是商户集中清理店铺的窗口期。
+assessment:
+  installed_base:
+    value: high
+    basis: 全球海量 Shopify 独立站均挂载 5-20 个以上第三方公共或定制应用
+  friction_rate:
+    value: high
+    basis: 凡挂载了未在 11/20、1/1、3/1 合规的老旧公共应用或 ScriptTag 插件的店铺均会触发警告或断连
+  failure_cost:
+    value: high
+    basis: 库存/ERP 批量同步失败导致超卖，前台弹窗/搜索/加购组件 3/1 消失或 4/1 后台断连直接影响转化与履约
+  support_gap:
+    value: high
+    basis: Shopify 强制下架且禁止重装，老旧开发者弃坑后无人兜底
+  switching_cost:
+    value: medium
+    basis: 多数公共插件存在同类替代品，但数据迁移、主题 App Embed 重新配置与防误删风险需要专业指引
+  vendor_repair_speed:
+    value: low
+    basis: Shopify 明确表示 1 月 15 日与 4 月 1 日之间并非宽限期，不会回调安全规则
+repair_leverage:
+  ratio: null
+  baseline_cost: null
+  solution_cost: 79.0
+  currency: USD
+  scope: 因 Netalico 等代理商未公开 App Risk Audit 固定标价，暂不强行计算杠杆倍数，待 Researcher 核实代理商标准审计报价后补全
+  basis: 遵循不编造未核实基线报价原则，暂置 null
+opportunity_durability:
+  value: medium
+  basis: 2026 年 12 月至 2027 年 4 月 1 日为集中爆发与抢修窗口期（约 4 个月高紧迫度窗口），4 月后逐步转入长尾定制应用维护
+economic_value:
+  level: High
+  payer: 挂载多个老旧第三方插件的 Shopify 中小独立站主、DTC 品牌运营及 Shopify 代运营自由职业者
+  economic_anchor: 黑五后库存同步静默失败导致的超卖损失、误删已下架插件导致的功能永久丢失、以及代理商定制审计与开发费
+  capture_mechanism: 面向商户销售“应用断连风险审计与平替清单/1 小时代查交付”，或面向长尾 App 开发者销售“60 分钟过期令牌并发刷新 + IP 白名单合规”快速补丁模板
+  repeatability: 同一套《高危已下架应用识别指南 + 主流品类平替矩阵 + App Embed 启用自检表》可跨数千家中小店铺复用
+  basis: 12 月黑五刚过、1 月 15 日后台将弹出官方警告，商户痛点明确且紧迫度高，对百元内避坑交付接受度高
+personal_actionability:
+  fit: Good
+  route: 制作“Shopify 2027 Q1/Q2 应用断连审计清单与主流替代方案库” + 提供轻量级只读店铺插件健康度排查服务
+  target_customer: 缺乏专职技术团队、挂载 10+ 插件的 Shopify 独立站卖家（重点：依赖批量库存/ERP 同步或老旧前台组件的店铺）
+  deliverable: 1）10 分钟店铺后台只读自查 SOP（含防误删提醒与 Bulk Ops 核验法）；2）按功能分类的已下架/高风险应用替代矩阵（含原生替代方案）；3）App Embed 切换后防失效检查表
+  pricing_hypothesis: $49-$99 自助审计与替代清单包；或 $199/店人工只读排查与替代选型报告
+  customer_entry: Reddit r/shopify、Shopify Community 论坛、跨境电商独立站卖家社群
+  fit_basis: 纯信息整理、只读后台核查与替代方案匹配，零代码托管运维负担、零库存、无需触碰商户支付或订单敏感数据
+  prerequisites: 熟悉 Shopify Admin Settings > Apps 安全标识、Theme Editor App Embeds 机制及常见第三方插件生态
+  first_test: 梳理 2026 年 10-11 月已被下架或公告风险的 10 个高频 Shopify 插件品类（如弹窗、产品选项、心愿单、ERP 批量同步），整理成一页自查表发布至 r/shopify 或独立站社群测试点击与付费咨询意向
+  time_budget: 90分钟
+  success_signal: 48 小时内收到至少 3 位 Shopify 店主询问其后台被标记警告的应用如何处理或替换
+  kill_signal: 95% 以上的头部常用公共应用均已在 11 月 20 日与 1 月 1 日前自动完成合规更新，商户后台几乎无告警产生
+  key_unknown: 实际被 11 月 20 日下架且仍在大量中小店铺活跃运行的公共应用真实占比（是否高度集中在极少数已弃坑长尾插件）
+---

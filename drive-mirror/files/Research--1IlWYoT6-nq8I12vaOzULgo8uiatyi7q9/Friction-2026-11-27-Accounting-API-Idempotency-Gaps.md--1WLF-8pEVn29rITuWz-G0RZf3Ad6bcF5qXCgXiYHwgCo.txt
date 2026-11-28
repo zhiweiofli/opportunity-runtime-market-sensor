@@ -1,0 +1,72 @@
+﻿Research Record: Friction-2026-11-27-Accounting-API-Idempotency-Gaps
+Metadata Overview
+Property
+	Details
+	Source Signal ID
+	Friction-2026-11-27-Accounting-API-Idempotency-Gaps
+	Source Signal References
+	Signal ID: Friction-2026-11-27-Accounting-API-Idempotency-GapsGenerated At: 2026-11-27T09:37:00+08:00Task Version: friction-sensor@0.2.1Source File: Friction-2026-11-27-Accounting-API-Idempotency-Gaps.mdSource File Modified At: 2026-11-27T01:38:19.010Z
+	Research Level
+	R2 (Economic Underwriting)
+	Stage Result
+	KILL
+	Final Status
+	KILL
+	Task Version
+	researcher@0.2.2
+	Generated At
+	2026-11-27T17:47:30+08:00
+	Role Spec Status
+	reviewed
+	
+
+________________
+
+
+Unknown Ledger
+* Known: maesn CTO Lennart Svensson (Stack Overflow Blog, 2026-11-24) documented that when target accounting APIs lack idempotency keys, middleware retries cannot prevent duplicate/missing journal entries ("A key in the middle moves the uncertainty one step down the chain. Only the system that stores the entry can remove it"). Meanwhile, unified API Apideck (2026-10-31) already maps Idempotency-Key natively across QuickBooks (requestid), Intuit Enterprise Suite (requestid), NetSuite (externalId), Xero (Idempotency-Key header), Sage Intacct (controlid), and Sage Intacct REST (Idempotency-Key).
+* Unknown: Exact duplicate/missing posting rate across long-tail regional European/local ERPs that lack any externalId or requestid field.
+* Decision-Critical Unknown: Whether any external 3–5 person software team can mathematically guarantee idempotent writes to a third-party accounting API that itself lacks idempotency or unique caller-reference enforcement.
+
+
+________________
+
+
+Gate Checks
+* Money: 通過 (PASS) — Companies pay for accounting software and unified API layers (maesn, Apideck), and bear reconciliation labor and VAT/month-end correction costs when timeouts cause duplicate or missing entries.
+* Mechanism: 通過 (PASS) — Without target-side idempotency, timeouts leave callers unable to distinguish "written, response lost" from "never arrived"; document-number lookups, pre-write checks (race conditions and search index lag), and post-hoc reversal jobs all fail in production (Stack Overflow Blog).
+* Persistence: 未通過 (FAIL — 雙向壓縮) — Major cloud accounting/ERP platforms already provide native idempotency mechanisms that unified APIs expose out-of-the-box: QuickBooks (24h requestid), NetSuite (permanent externalId), Xero (6m Idempotency-Key), and Sage Intacct (24h controlid / 1h REST Idempotency-Key) (Apideck Guide, Xero Developer, Oracle NetSuite Docs).
+* Capture: 未通過 (FAIL) — Two structural blockers prevent an external 3–5 person team from capturing value:
+   1. Architectural impossibility: As maesn CTO explicitly proved, an intermediary cannot create true end-to-end idempotency if the destination ledger does not enforce it (Stack Overflow Blog);
+   2. Incumbent absorption: Unified API platforms (Apideck, maesn, Truto) already bundle idempotency-key translation and deterministic lookup fallbacks as standard platform features.
+
+
+________________
+
+
+Evidence
+1. Stack Overflow Blog (2026-11-24): Lennart Svensson (CTO at maesn) details why document-number lookups, pre-write checks, and post-cleanup jobs fail across 30+ accounting/ERP integrations, concluding only the target accounting system can fix it (Stack Overflow Blog).
+2. Apideck Documentation (2026-10-31): Unified API already ships Idempotency-Key support mapped to native mechanisms in QuickBooks, Intuit Enterprise Suite, NetSuite, Xero, and Sage Intacct, and falls back to 400 IdempotencyKeyUnsupportedError or lookup patterns where unsupported (Apideck).
+3. Xero & NetSuite Docs: Native idempotency guides confirm major cloud ledgers already support Idempotency-Key (Xero 6-minute window) and externalId / X-NetSuite-idempotency-key (Xero Developer, Oracle NetSuite).
+
+
+________________
+
+
+Counter Evidence
+1. Middleware Architectural Impossibility: Primary source explicitly states middleware keys only shift uncertainty one hop downstream; an external startup cannot solve missing target-API idempotency (Stack Overflow Blog).
+2. Existing Unified API Coverage: Apideck and Truto already implement standardized Idempotency-Key middleware for QuickBooks, Xero, NetSuite, and Sage Intacct as an included feature, not a standalone product.
+
+
+________________
+
+
+Conclusion & Learnings
+Stop Reason
+Condition 1 & 2 met: Primary architectural counter-evidence confirms middleware cannot solve target-side missing idempotency, while unified API incumbents already absorb the solvable tier-1 ledger cases.
+Resume Condition
+N/A (KILL).
+Learning Summary
+* What became more likely: Idempotency gaps in legacy accounting APIs are an upstream vendor API design issue, not a solvable third-party SaaS wedge.
+* What became less likely: A standalone "idempotency proxy" startup succeeding when unified APIs (Apideck, maesn) already ship this natively where supported and cannot bypass target limitations where unsupported.
+* What did we rule out: Standalone idempotency-as-a-service middleware for accounting APIs.

@@ -1,0 +1,114 @@
+﻿---
+signal_id: IBF-20261127-OracleNetSuite-TBACutoff2027-OAuth2MigrationAudit
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: Oracle 在 NetSuite 2026.1/2026.2 发布说明中明确时间表：自 NetSuite 2027.1 起，禁止创建任何新的使用 TBA（Token-Based Authentication，基于 OAuth 1.0）的集成（涵盖 SOAP、REST Web Services 及 RESTlets，包括 IssueToken 接口与三步 TBA 授权流）；同时要求所有新 OAuth 2.0 授权码集成强制启用 PKCE，并默认对所有角色开启双因素认证（2FA）。此外，Oracle 计划于 2028.2 彻底移除 SOAP Web Services 并终止既有 TBA 支持。2026 年 10-11 月技术深度拆解（Apideck 2026-11-02 更新）及顾问商业报价（SuiteHeroes 2026-11-08）揭示了三大现实摩擦：1）SOAP+TBA 无纯认证平滑升级路径，必须整体重写为 REST 或 SuiteScript 2.1 RESTlets；2）OAuth 2.0 M2M（Client Credentials）需要为每个“集成记录+角色+实体”组合维护有效期最长 2 年的 RSA/EC 证书，且每次刷新沙盒（Sandbox Refresh）都会清空 OAuth 2.0 授权与 M2M 证书映射；3）2027.1 之后刷新沙盒若依赖新建 TBA Token 将直接报错中断测试流水线。
+money: 独立 NetSuite 顾问机构（SuiteHeroes，2026-11-08）已公开将“SuiteScript 2.1 & OAuth 2.0 Upgrade”打包为固定总价项目（先行免费盘点，再给出书面固定报价，小规模资产约 2 周+交付）；作为定价锚点参考，该机构同类 NetSuite Health Check 固定报价为 £2,500-£7,500（5-10 个工作日）。
+evidence:
+  - id: E1
+    source: https://www.apideck.com/blog/netsuite-tba-to-oauth-2-migration
+    source_date: '2026-11-02'
+    accessed_at: '2026-11-27'
+    fact: 确认 NetSuite 2027.1 起禁止新建 TBA 集成并强制新 OAuth 2.0 启用 PKCE 及全角色 2FA，2028.2 移除 SOAP；指出 SOAP+TBA 必须重写为 REST/RESTlets，且 Sandbox Refresh 会清除生产环境未同步的 OAuth 2.0 授权与 M2M 证书映射。
+  - id: E2
+    source: https://suiteheroes.com/offers/suitescript-oauth-upgrade/
+    source_date: '2026-11-08'
+    accessed_at: '2026-11-27'
+    fact: 独立 NetSuite 顾问已针对 2027.1 与 2028.2 截止期推出标准化“盘点 + 固定总价”升级服务（含 TBA 转 OAuth 2.0、SOAP 转 REST/SuiteQL、SuiteScript 1.0 转 2.1），其同类 Health Check 报价为 £2,500-£7,500。
+  - id: E3
+    source: https://www.reddit.com/r/Netsuite/comments/1vvqtyj/oauth1_deprecation/
+    source_date: '2026-08-22'
+    accessed_at: '2026-11-27'
+    fact: NetSuite 管理员与开发者社区讨论 2027.1 截止对现有第三方集成、Bundle 及沙盒刷新后重建 TBA Token 流程的破坏性影响。
+mechanism: TBA（OAuth 1.0a 静态四元组凭证）过去因其配置简单（后台生成 Token ID/Secret 粘贴即可用）成为 NetSuite 企业 ERP 生态的事实标准。Oracle 转向 OAuth 2.0 后，UI 无法直接生成永久凭证，迫使企业管理员在“每周/每月人工重新登录授权”与“每套角色维护 2 年期非对称加密证书+沙盒刷新重建”之间二选一，同时叠加 SOAP 退场与 SuiteScript 1.0 冻结，大量缺乏专职 NetSuite 架构师的中型企业不知自己到底有多少隐性 TBA/SOAP 依赖。
+persistence: Structural
+next_question: 在即将迎来 2027.1 升级的中型 NetSuite 企业中，有多少比例尚未建立完整的 TBA/SOAP 集成清单与沙盒刷新后自动化恢复 SOP？
+task_version: installed-base-friction@0.2
+generated_at: '2026-11-27T17:45:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+asset:
+  category: 企业云 ERP 集成认证与 API 架构
+  brand: Oracle
+  model: NetSuite (TBA / OAuth 1.0, SOAP Web Services, SuiteScript)
+friction:
+  type: 原厂认证协议强制截止与沙盒不兼容
+  symptom: 2027.1 起无法创建新 TBA 集成记录，沙盒刷新后 OAuth 2.0 授权与 M2M 证书映射被清空导致测试断裂，老旧 SOAP/TBA 脚本面临重写压力
+installed_base:
+  estimate: 全球数万家运行 NetSuite 并挂载了 Celigo、Boomi、自建脚本或第三方 SaaS 连接器的企业租户（精确存量待核实）
+  basis: NetSuite 为主流中大型云 ERP，过去十余年绝大部分自建与第三方连接器默认采用 TBA 静态凭证。
+current_solution:
+  description: 1) 聘请 NetSuite 认证顾问机构进行全面 Health Check（£2,500-£7,500）与多周代码重写项目；2) 企业内部管理员在 Login Audit Trail 中人工翻找过去 12 个月的 TBA 记录并逐一排查；3) 拖延至 2027.1 沙盒刷新报错后临时救火。
+  oem_part_price: null
+  technician_repair_price: 2500.0
+  currency: GBP
+  basis: 公开引用 SuiteHeroes（2026-11-08）NetSuite Health Check 固定服务起步报价 £2,500（5-10 个工作日，覆盖盘点与风险评估）。
+alternative:
+  description: 轻量级“NetSuite 2027.1 TBA/SOAP 依赖盘点脚本包 + 沙盒刷新 OAuth 2.0 证书自动重建 SOP 工具”
+  estimated_solution_cost: 299.0
+  currency: GBP
+  basis: 待验证商业假设：向 NetSuite 内部管理员或财务 IT 团队销售一次性只读审计 Saved Search 模板/盘点清单与 M2M 证书轮换自动化脚本包（£299）。
+gap:
+  vendor_support: discontinued
+  availability: medium
+  competition: medium
+  basis: Oracle 仅提供散落的官方帮助文档；传统 NetSuite 咨询公司起价高（£2,500+）且重交付，缺乏针对内部 IT 团队的“自助式前置盘点 + 沙盒证书恢复”轻量工具包。
+signals:
+  recurrence: high
+  urgency: high
+  diy_activity: high
+  basis: 距离 2027.1 仅剩数月，r/Netsuite 与各大 iPaaS（Apideck、Celigo、Patchworks）密集发布迁移指南，管理员对沙盒刷新断裂高度焦虑。
+assessment:
+  installed_base:
+    value: high
+    basis: 全球主流中端及中大型云 ERP，第三方与自建集成密度极高
+  friction_rate:
+    value: high
+    basis: 凡涉及新建集成、Sandbox Refresh 或 SOAP 调用的企业均受 2027.1/2028.2 路线图直接冲击
+  failure_cost:
+    value: high
+    basis: 订单、发票、库存或财务对账同步中断将直接影响企业日结与月结
+  support_gap:
+    value: high
+    basis: Oracle 明确停止新建 TBA 并移除 SOAP，且明确不随沙盒刷新迁移 OAuth 2.0/M2M 配置
+  switching_cost:
+    value: high
+    basis: 更换 ERP 不现实；全面重写 SOAP 与 SuiteScript 1.0 成本高昂且需严密回归测试
+  vendor_repair_speed:
+    value: low
+    basis: 属于 Oracle 强制安全与架构演进，不会回调
+repair_leverage:
+  ratio: 8.36
+  baseline_cost: 2500.0
+  solution_cost: 299.0
+  currency: GBP
+  scope: 仅比较顾问机构 Health Check / 盘点评估起步价（£2,500）与自助式只读盘点及沙盒恢复工具包（£299 待验证假设）
+  basis: 2500 / 299 = 8.36（均以 GBP 计价，同范围对比前置盘点与方案制定环节）
+opportunity_durability:
+  value: high
+  basis: 2027.1（禁新建 TBA + 强制 PKCE/2FA）与 2028.2（停用 SOAP 与既有 TBA）构成长达两年的连续迁移窗口
+economic_value:
+  level: High
+  payer: 使用 NetSuite 的企业内部 ERP 管理员、财务系统负责人（RevOps/IT）、中小型 NetSuite 独立实施顾问
+  economic_anchor: £2,500-£7,500 的外部顾问盘点起步费、以及沙盒刷新断连或月结集成中断造成的财务运营延误
+  capture_mechanism: 提供即拿即用的 NetSuite 只读盘点包（含 Login Audit Trail 12 个月 TBA 聚合 Saved Search 定义、SOAP/RESTlet 清点清单、OAuth 2.0 M2M 证书 5 槽位轮换脚本及沙盒刷新恢复手册）
+  repeatability: 标准化 Saved Search 字段与 Oracle 官方 OAuth 2.0/证书轮换端点在所有 NetSuite 租户通用，一次开发可无限复用
+  basis: 内部管理员花不到 £300 即可在 1 小时内摸清全部风险并向管理层提交立项预算，比直接外包 £2,500+ 调研更具性价比
+personal_actionability:
+  fit: Good
+  route: 制作标准化只读盘点模板 + OAuth 2.0 M2M 证书生成/轮换 CLI 脚本及沙盒恢复手册（纯工具包与信息交付，零生产数据接触）
+  target_customer: 尚未启动 2027.1 审计的企业 NetSuite 管理员，以及需要快速帮客户出迁移评估报告的中小实施顾问
+  deliverable: 包含 1）TBA/SOAP 风险盘点 Saved Search 配置指南；2）按集成类型匹配 OAuth 2.0 流（M2M vs PKCE）的决策矩阵；3）符合 NetSuite 3072/4096-bit RSA 规范的一键证书生成与沙盒恢复脚本
+  pricing_hypothesis: $249-$399（或 £199-£299）一次性购买企业内部工具包
+  customer_entry: Reddit r/Netsuite、NetSuite Professionals Slack 社群、LinkedIn NetSuite 管理员群组
+  fit_basis: 纯配置模板、只读查询逻辑与本地脚本，无 SaaS 运维负担、无库存、不接触客户财务生产凭证
+  prerequisites: 理解 NetSuite Login Audit Trail 结构、Integration Record 权限模型及 OAuth 2.0 Client Credentials JWT 签名规范
+  first_test: 根据 Oracle 公开文档编写本地 RSA 3072-bit 密钥对生成与 JWT 签名验证脚本，并在测试环境下输出一份标准的 NetSuite TBA 盘点检查清单模板，在 r/Netsuite 征集 3 名管理员反馈实用性
+  time_budget: 90分钟
+  success_signal: 至少 2 名在职 NetSuite 管理员确认其“沙盒刷新后 M2M 映射丢失”与“TBA 历史调用清单难汇总”痛点真实存在，并索取完整工具包试用
+  kill_signal: 目标企业已全部将集成外包给 Celigo/Boomi/Apideck 等统一 iPaaS 托管，内部无需自行盘点或管理证书
+  key_unknown: 中型 NetSuite 企业中自行维护定制 REST/SOAP 脚本（而非完全依赖 Celigo/Boomi 托管连接器）的真实比例
+---

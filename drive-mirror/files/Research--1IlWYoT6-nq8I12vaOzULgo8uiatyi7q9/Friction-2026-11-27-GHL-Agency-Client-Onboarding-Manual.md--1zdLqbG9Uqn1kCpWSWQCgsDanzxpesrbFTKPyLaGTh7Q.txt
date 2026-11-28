@@ -1,0 +1,35 @@
+﻿Research Record: Friction-2026-11-27-GHL-Agency-Client-Onboarding-Manual
+* Source Signal IDs: Friction-2026-11-27-GHL-Agency-Client-Onboarding-Manual
+* Source Signal References:
+   * Signal ID: Friction-2026-11-27-GHL-Agency-Client-Onboarding-Manual | Generated At: 2026-11-27T09:37:00+08:00 | Task Version: friction-sensor@0.2.1 | Source File URL: Friction-2026-11-27-GHL-Agency-Client-Onboarding-Manual.md | Source File Modified At: 2026-11-27T01:38:41.880Z
+|---|---|---|R2 (Economic Underwriting)
+   * Stage Result: KILL
+   * Final Status: KILL
+   * Task Version: researcher@0.2.2
+   * Generated At: 2026-11-27T17:47:00+08:00
+   * Role Spec Status: reviewed
+Unknown Ledger
+   * Known: GoHighLevel (GHL) agencies pay $97–$497/month for the platform (BaseCloud CRM) and spend 8–20 hours per client on manual onboarding; existing white-label support/onboarding incumbents (Extendly, HL Pro Tools) charge $99–$999/month or $99–$149 per onboarding, while free/low-cost n8n GHL onboarding workflows and GHL native AI onboarding guides already exist.
+   * Unknown: Exact net churn reduction attributable solely to third-party onboarding SaaS vs. agency-built n8n/Make workflows.
+   * Decision-Critical Unknown: Whether any unserved sub-segment of GHL agencies lacks access to free n8n/Make templates and white-label onboarding providers (Extendly, HL Pro Tools, Growthable) and would pay a standalone 3–5 person software team without demanding bundled human A2P/support fulfillment.
+Gate Checks
+   * Money: 通過 (PASS) — GHL agencies pay $97/mo (Starter), $297/mo (Unlimited), or $497/mo (Agency Pro / SaaS Mode) plus usage fees (GHL Scale Up), and actively spend $299–$999/mo on white-label support/onboarding (Extendly) or $1,500–$5,000 on custom n8n/Make onboarding builds (Hamza Automates).
+   * Mechanism: 通過 (PASS) — GHL's SaaS Configurator only supports attaching one snapshot per billing level (HighLevel Ideas), and cross-tool provisioning (Drive, Slack, Calendar, ClickUp, A2P registration) requires external orchestration.
+   * Persistence: 未通過 (FAIL) — GHL natively publishes AI-only client onboarding workflows (HighLevel Blog) and SaaS Configurator updates (HighLevel Support), while open/commodity automation templates (n8n Workflow 9138, n8n Workflow 7658) continuously erode standalone automation value.
+   * Capture: 未通過 (FAIL) — Market is saturated across three layers: (1) free/cheap n8n/Make templates (n8n Markets), (2) entrenched white-label GHL support + onboarding incumbents (Extendly at $99–$999/mo, HL Pro Tools at $197–$997/mo, Growthable at $549/mo), and (3) GHL's native SaaS Configurator & Marketplace. A 3–5 person team has no defensible software moat and faces high support/service expectations (e.g., A2P registration).
+Evidence
+   1. Reddit r/gohighlevel (2026-11-20): Agency eliminated 5 days of manual sub-account, snapshot, workflow, calendar, landing page, and ClickUp setup via custom automation (r/gohighlevel).
+   2. GHL Pricing & SaaS Mode (2026-10 / 2026-11): Agencies pay $97–$497/mo base plus usage fees (BaseCloud CRM, HighLevel Support).
+   3. HighLevel Ideas (2026-03-25): SaaS Configurator currently restricts agencies to one snapshot per billing level (HighLevel Ideas).
+Counter Evidence
+   1. Heavy Incumbent Saturation: Extendly ($0–$999/mo, $99–$149/onboarding), HL Pro Tools ($197–$997/mo), and Growthable ($549/mo) already bundle done-for-you onboarding, snapshots, and A2P registration (GHL Ops).
+   2. Commodity Free/Low-Cost Templates: Ready-to-import workflows on n8n.io (Workflow 9138), n8n.io (Workflow 7658), and n8n Markets already automate GHL -> Drive/Gmail/Calendar/Slack onboarding.
+   3. Native Platform Absorption: HighLevel actively publishes native onboarding automation and AI Employee onboarding sequences (HighLevel Blog).
+Stop Reason
+Condition 1 & 2 met: Strong counter-evidence proves the Capture and Persistence gates fail due to commoditized automation templates, entrenched white-label service incumbents, and native GHL expansion.
+Resume Condition
+N/A (KILL).
+Learning Summary
+   * What became more likely: GHL agency onboarding friction is primarily solved via low-cost n8n/Make workflows or bundled white-label support retainers rather than standalone third-party SaaS.
+   * What became less likely: A 3–5 person team building a defensible, high-margin standalone GHL onboarding automation SaaS without heavy human support/A2P services.
+   * What did we rule out: Standalone GHL client onboarding orchestration as an underserved greenfield software opportunity.

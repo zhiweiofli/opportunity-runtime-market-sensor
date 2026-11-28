@@ -363,6 +363,20 @@
       "source_status": "present"
     },
     {
+      "id": "13Mfqqi1ND_A0JR5bfnzhtJGuMAqYV4gA_tnCrU3FCjI",
+      "title": "IBF-20261127-Shopify-AppSecurityDelisting-Q12027CutoffAudit.md",
+      "folder_path": [
+        "Signals"
+      ],
+      "mime_type": "application/vnd.google-apps.document",
+      "export_mime_type": "text/plain",
+      "modified_at": "2026-11-28T03:47:16.761Z",
+      "drive_url": "https://docs.google.com/document/d/13Mfqqi1ND_A0JR5bfnzhtJGuMAqYV4gA_tnCrU3FCjI/edit?usp=drivesdk",
+      "path": "drive-mirror/files/Signals--1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI/IBF-20261127-Shopify-AppSecurityDelisting-Q12027CutoffAudit.--13Mfqqi1ND_A0JR5bfnzhtJGuMAqYV4gA_tnCrU3FCjI.txt",
+      "sha256": "454e64835982b65b364ea5df8269c1a0d50d24490aeea1d40daf32674af3e956",
+      "source_status": "present"
+    },
+    {
       "id": "13NviD0Cp1CkUaZQ1rCaDC_i677bwSGbm1di2-QLaFHM",
       "title": "IBF-20261106-AWSRDS-MySQL-ExtendedSupport-ZombieTax.md",
       "folder_path": [
@@ -863,6 +877,20 @@
       "source_status": "present"
     },
     {
+      "id": "1BZMwFnuJ5DUgmIMkUxS12D8K8iUxcMjp9OQO5KBPILw",
+      "title": "Execution-Receipt-20261127.md",
+      "folder_path": [
+        "Research"
+      ],
+      "mime_type": "application/vnd.google-apps.document",
+      "export_mime_type": "text/plain",
+      "modified_at": "2026-11-28T03:48:59.799Z",
+      "drive_url": "https://docs.google.com/document/d/1BZMwFnuJ5DUgmIMkUxS12D8K8iUxcMjp9OQO5KBPILw/edit?usp=drivesdk",
+      "path": "drive-mirror/files/Research--1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9/Execution-Receipt-20261127.md--1BZMwFnuJ5DUgmIMkUxS12D8K8iUxcMjp9OQO5KBPILw.txt",
+      "sha256": "c56f07bbd5595eea03e3d9027531d46ed72780b2c97cdcb3666853b7d04fcdec",
+      "source_status": "present"
+    },
+    {
       "id": "1BfERSvUN_FZcJmNR_065Soqt_OdyWdW7TnFyFuKLEGY",
       "title": "Research-IBF-20261103-LabInstruments-LegacySoftwareLockout-VMSpoof.md",
       "folder_path": [
@@ -1086,6 +1114,21 @@
       "drive_url": "https://docs.google.com/document/d/1FF4gpnhgCGQ6i-tZ9yXui9IrgnC7oNg6d5x9I_dlm9Y/edit?usp=drivesdk",
       "path": "drive-mirror/files/Signals--1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI/UW-20261113-ASC-ImplantCarveOut-UnderpaymentAudit.md--1FF4gpnhgCGQ6i-tZ9yXui9IrgnC7oNg6d5x9I_dlm9Y.txt",
       "sha256": "4f5339a22c15e942bbf5a797cb9d5b01d73ceed81319647061c7bab7272bc7ee",
+      "source_status": "present"
+    },
+    {
+      "id": "1F_Iio7E3662bWLUXzYXxRFH_TjWFxoPyXLyK7fmvQ28",
+      "title": "Business-20261128-no-signal.md",
+      "folder_path": [
+        "Signals",
+        "Business"
+      ],
+      "mime_type": "application/vnd.google-apps.document",
+      "export_mime_type": "text/plain",
+      "modified_at": "2026-11-28T03:47:42.340Z",
+      "drive_url": "https://docs.google.com/document/d/1F_Iio7E3662bWLUXzYXxRFH_TjWFxoPyXLyK7fmvQ28/edit?usp=drivesdk",
+      "path": "drive-mirror/files/Signals--1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI/Business--1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg/Business-20261128-no-signal.md--1F_Iio7E3662bWLUXzYXxRFH_TjWFxoPyXLyK7fmvQ28.txt",
+      "sha256": "fa5f7df7bf5f504a5f88d3c6ebe74ee277c8a9942647964d7f8fd050d32d1afa",
       "source_status": "present"
     },
     {
@@ -2257,6 +2300,20 @@
       "source_status": "present"
     },
     {
+      "id": "1WLF-8pEVn29rITuWz-G0RZf3Ad6bcF5qXCgXiYHwgCo",
+      "title": "Friction-2026-11-27-Accounting-API-Idempotency-Gaps.md",
+      "folder_path": [
+        "Research"
+      ],
+      "mime_type": "application/vnd.google-apps.document",
+      "export_mime_type": "text/plain",
+      "modified_at": "2026-11-28T03:48:13.857Z",
+      "drive_url": "https://docs.google.com/document/d/1WLF-8pEVn29rITuWz-G0RZf3Ad6bcF5qXCgXiYHwgCo/edit?usp=drivesdk",
+      "path": "drive-mirror/files/Research--1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9/Friction-2026-11-27-Accounting-API-Idempotency-Gaps.md--1WLF-8pEVn29rITuWz-G0RZf3Ad6bcF5qXCgXiYHwgCo.txt",
+      "sha256": "c7d18ce094e6055e74522e106d646389479fbf20671eaf079bebb8dc41a864b7",
+      "source_status": "present"
+    },
+    {
       "id": "1WM66pnOjxofg8o5rpccf0r_w90TkGrw0-FER8BlHZ-c",
       "title": "Research-Friction-20261123-github-billing-ui-failure.md",
       "folder_path": [
@@ -2324,6 +2381,20 @@
       "drive_url": "https://docs.google.com/document/d/1WgG1t_z76X8xYbF7Bnk89NrtmM_OZfl3DmYtCkYw0B4/edit?usp=drivesdk",
       "path": "drive-mirror/files/Research--1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9/Execution-Receipt-20261122.md--1WgG1t_z76X8xYbF7Bnk89NrtmM_OZfl3DmYtCkYw0B4.txt",
       "sha256": "363434b952ed266f349328404a6577adeb7bf7834afa6e871db8060f3bf5ebb4",
+      "source_status": "present"
+    },
+    {
+      "id": "1Wy872AA5gsdsUH-SnqI_FZIC4iF59WLJWDpTHRWzjZg",
+      "title": "UW-20261127-Solo401k-Form5500EZPenaltyRelief.md",
+      "folder_path": [
+        "Signals"
+      ],
+      "mime_type": "application/vnd.google-apps.document",
+      "export_mime_type": "text/plain",
+      "modified_at": "2026-11-28T03:47:23.049Z",
+      "drive_url": "https://docs.google.com/document/d/1Wy872AA5gsdsUH-SnqI_FZIC4iF59WLJWDpTHRWzjZg/edit?usp=drivesdk",
+      "path": "drive-mirror/files/Signals--1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI/UW-20261127-Solo401k-Form5500EZPenaltyRelief.md--1Wy872AA5gsdsUH-SnqI_FZIC4iF59WLJWDpTHRWzjZg.txt",
+      "sha256": "642814e0b4c3c01044520370d153ba9e5fdb12067010332ec4115aa5dc922426",
       "source_status": "present"
     },
     {
@@ -3455,6 +3526,20 @@
       "source_status": "present"
     },
     {
+      "id": "1oc2ecaNsQmE5-LSlLn2bAp8VFeYYdEHkJYbKuoykC-Y",
+      "title": "IBF-20261127-Rockwell-RSLogix5EOL-PLC5MigrationAudit.md",
+      "folder_path": [
+        "Signals"
+      ],
+      "mime_type": "application/vnd.google-apps.document",
+      "export_mime_type": "text/plain",
+      "modified_at": "2026-11-28T03:47:16.975Z",
+      "drive_url": "https://docs.google.com/document/d/1oc2ecaNsQmE5-LSlLn2bAp8VFeYYdEHkJYbKuoykC-Y/edit?usp=drivesdk",
+      "path": "drive-mirror/files/Signals--1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI/IBF-20261127-Rockwell-RSLogix5EOL-PLC5MigrationAudit.md--1oc2ecaNsQmE5-LSlLn2bAp8VFeYYdEHkJYbKuoykC-Y.txt",
+      "sha256": "59a95eee2f707317db1b3703bf7b7f6cd53d38965978b93e32c2b93621e8d107",
+      "source_status": "present"
+    },
+    {
       "id": "1omNOuv-cQ-luvg1f8hE0Ivkh5M1HWYVAmXngRxkBuR0",
       "title": "UW-20261120-Homeowner-Sub10kPropertyClaimSupplement.md",
       "folder_path": [
@@ -3567,6 +3652,20 @@
       "source_status": "present"
     },
     {
+      "id": "1rahi01XeoLOznqGsLs0SDZuLKG2QbM0EJWXhaAF6DdE",
+      "title": "IBF-20261127-OracleNetSuite-TBACutoff2027-OAuth2MigrationAudit.md",
+      "folder_path": [
+        "Signals"
+      ],
+      "mime_type": "application/vnd.google-apps.document",
+      "export_mime_type": "text/plain",
+      "modified_at": "2026-11-28T03:47:16.524Z",
+      "drive_url": "https://docs.google.com/document/d/1rahi01XeoLOznqGsLs0SDZuLKG2QbM0EJWXhaAF6DdE/edit?usp=drivesdk",
+      "path": "drive-mirror/files/Signals--1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI/IBF-20261127-OracleNetSuite-TBACutoff2027-OAuth2MigrationAud--1rahi01XeoLOznqGsLs0SDZuLKG2QbM0EJWXhaAF6DdE.txt",
+      "sha256": "6f6d7693b9b88eeb5871fc8654e0fa925911f880d234eb34c54143edbcc62987",
+      "source_status": "present"
+    },
+    {
       "id": "1reIBUpKSuwXM9k7hlnEt-ob64Kat_0DnM1d1J91He68",
       "title": "UW-20261028-DentalClinic-Sub50Denial-BatchReconsideration.md",
       "folder_path": [
@@ -3650,6 +3749,20 @@
       "drive_url": "https://docs.google.com/document/d/1sL6XIXZHkJLroP7pPDX1-7b5o0qKsvrTypeYhMS4SJc/edit?usp=drivesdk",
       "path": "drive-mirror/files/Signals--1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI/Business--1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg/Business-20261107-no-signal.md--1sL6XIXZHkJLroP7pPDX1-7b5o0qKsvrTypeYhMS4SJc.txt",
       "sha256": "0b0829064784db6a2035145290fd8259c05af463b08bcfe4ae6669fca91f736b",
+      "source_status": "present"
+    },
+    {
+      "id": "1sLV9bwl7sbc7qPKJFIO1W4riNQVcdHuM-qB1jCfksCo",
+      "title": "Friction-2026-11-27-Shopify-Collective-LocalPickup.md",
+      "folder_path": [
+        "Research"
+      ],
+      "mime_type": "application/vnd.google-apps.document",
+      "export_mime_type": "text/plain",
+      "modified_at": "2026-11-28T03:48:34.444Z",
+      "drive_url": "https://docs.google.com/document/d/1sLV9bwl7sbc7qPKJFIO1W4riNQVcdHuM-qB1jCfksCo/edit?usp=drivesdk",
+      "path": "drive-mirror/files/Research--1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9/Friction-2026-11-27-Shopify-Collective-LocalPickup.md--1sLV9bwl7sbc7qPKJFIO1W4riNQVcdHuM-qB1jCfksCo.txt",
+      "sha256": "b6bfbcf524c9bdf38b9ecad6263da6368064850ffb7cbbfd67ff1a0eb8c2d1c7",
       "source_status": "present"
     },
     {
@@ -4125,7 +4238,21 @@
       "path": "drive-mirror/files/Signals--1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI/Business--1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg/Business-20261023-vercel-deployment-storage-toll.md--1zTsCbZuIX2iHYV_dR_e4OKNBp2QzAs3R9U_54m658EI.txt",
       "sha256": "17df3e8e0498bbb6ef163c38d41d6bde34961bd521c082e395784833087472da",
       "source_status": "present"
+    },
+    {
+      "id": "1zdLqbG9Uqn1kCpWSWQCgsDanzxpesrbFTKPyLaGTh7Q",
+      "title": "Friction-2026-11-27-GHL-Agency-Client-Onboarding-Manual.md",
+      "folder_path": [
+        "Research"
+      ],
+      "mime_type": "application/vnd.google-apps.document",
+      "export_mime_type": "text/plain",
+      "modified_at": "2026-11-28T03:47:48.998Z",
+      "drive_url": "https://docs.google.com/document/d/1zdLqbG9Uqn1kCpWSWQCgsDanzxpesrbFTKPyLaGTh7Q/edit?usp=drivesdk",
+      "path": "drive-mirror/files/Research--1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9/Friction-2026-11-27-GHL-Agency-Client-Onboarding-Manual.md--1zdLqbG9Uqn1kCpWSWQCgsDanzxpesrbFTKPyLaGTh7Q.txt",
+      "sha256": "aecf12791d58cf5440ae37fa88e8f717c67742da2b44995cad0900407db01dec",
+      "source_status": "present"
     }
   ],
-  "last_changed_at": "2026-11-27T03:31:42.047888+00:00"
+  "last_changed_at": "2026-11-28T05:50:46.306251+00:00"
 }

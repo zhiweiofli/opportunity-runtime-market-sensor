@@ -1,0 +1,114 @@
+﻿---
+signal_id: IBF-20261127-Rockwell-RSLogix5EOL-PLC5MigrationAudit
+type: installed-base-friction
+sensor: installed-base-friction
+version: '0.2'
+what_changed: Rockwell Automation 已正式将 RSLogix 5（Allen-Bradley PLC-5 编程软件）列为 End-of-Life（EOL），自 2025 年 12 月 31 日起停止销售新的软件激活许可，且 1771 系列 I/O 模块已退出在产序列。2026 年 9 月至 11 月的行业技术文档与一线工程师实操反馈（r/PLC 2026-11-27 讨论及 Industrial Monitor Direct 2026-09-09 技术指南）表明：大量矿山、水务、电力与制造工厂仍在生产线上运行 PLC-5 控制器，但面临老旧 XP/Win7 虚拟机与 1784-PCMK（USB-to-DH+）驱动维护困境；同时，官方 Studio 5000 Logix Designer 内置的 PLC-5 导入工具（Tools > Import > PLC-5）无法自动转换 MSG 指令、1771 模拟量/专用模块的 BTR/BTW 块传输、SFC 顺序功能图及 PLC-5/250 冗余结构，DH+ 网络也无法在 ControlLogix 迁移后直接保留，导致迁前评估与人工重构工作量极高。
+money: 已核验公开行业报价（Lashley, Cohen and Associates，2026-02-24）显示：Rockwell 认证系统集成商小时费率为 $150-$250/小时，独立承包商为 $45-$125+/小时；完整将遗留 PLC-5 或 SLC-500 产线迁移至 ControlLogix 的工程总造价通常达 $50,000-$200,000+（取决于 I/O 点数与定制逻辑复杂度）。
+evidence:
+  - id: E1
+    source: https://industrialmonitordirect.com/blogs/knowledgebase/rslogix-5-end-of-life-licensing-migration-and-plc-5
+    source_date: '2026-09-09'
+    accessed_at: '2026-11-27'
+    fact: 确认 RSLogix 5 已达 EOL，2025 年 12 月 31 日后不再出售新激活许可，1771 I/O 已停产；详细记录 Studio 5000 导入工具无法自动处理 MSG、BTR/BTW 块传输、SFC 文件与 PLC-5/250 冗余，且间接寻址（如 N7:[N10:0]）与 DH+ 网络需人工重构。
+  - id: E2
+    source: https://www.reddit.com/r/PLC/comments/1y6ldlm/still_supporting_plc5s_in_2026_what_are_you_using/
+    source_date: '2026-11-27'
+    accessed_at: '2026-11-27'
+    fact: 矿山、水务与电力领域的棕地（brownfield）系统集成商反馈 2026 年 11 月仍在密集处理 PLC-5 向 ControlLogix 迁移，但 RSLogix 5 与 Emulate 5 依赖老旧 XP/Win7 虚拟机，且切机前数据趋势采集与无硬件离线逻辑验证极为繁琐。
+  - id: E3
+    source: https://lashleycohen.com/feeds/blog/allen-bradley-plc-programmer-ga
+    source_date: '2026-02-24'
+    accessed_at: '2026-11-27'
+    fact: 披露认证 Allen-Bradley PLC 集成商报价为 $150-$250/小时（独立工程师 $45-$125+/小时），PLC-5/SLC-500 至 ControlLogix 遗留迁移项目常见费用为 $50,000-$200,000+。
+mechanism: 工业现场的 PLC-5 与 1771 机架硬件寿命长达 20-30 年，但原厂编程环境（RSLogix 5）与通信总线（DH+）已被原厂逐步停售退出。由于早期梯形图采用字地址（N7/B3/F8/T4）及大量非标 BTR/BTW、MSG 与间接寻址，无法像现代 IT 代码那样一键无损编译迁移，工厂和小型集成商在停机窗口前缺乏低成本的“离线逻辑依赖与人工重构清点”工具。
+persistence: Structural
+next_question: 中小型制造/水务工厂维护工程师是否愿意直接发送导出的 .DAT 文本数据库（而非完整专有 .PC5 源码）来做外部离线审计与重构工作量评估？
+task_version: installed-base-friction@0.2
+generated_at: '2026-11-27T17:45:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+asset:
+  category: 工业自动化控制器与编程软件
+  brand: Allen-Bradley / Rockwell Automation
+  model: PLC-5 系列控制器 & RSLogix 5 / 1771 I/O
+friction:
+  type: 原厂软件停售新激活与平台迁移不兼容
+  symptom: RSLogix 5 新激活停售后备件与新工程师工作站难以扩充；迁移至 Studio 5000 时 MSG、BTR/BTW、SFC 与 DH+ 无法自动转换，且老旧 VM 环境下离线排查与趋势记录困难
+installed_base:
+  estimate: 北美及全球仍在运行的数万套棕地（brownfield）制造、矿山、水务与能源 PLC-5 产线（具体精确在网台数待 Researcher 核实）
+  basis: Rockwell 历史上主力大型产线控制器平台，2026 年 11 月 r/PLC 社区与多家集成商仍将其列为高优遗留迁移业务。
+current_solution:
+  description: 1) 在老旧笔记本或 Win7/XP 虚拟机中保留唯一已激活 RSLogix 5 席位；2) 聘请认证系统集成商（$150-$250/h）进行全套 $50,000-$200,000+ 的迁移工程；3) 借助 Prosoft DHRIO 网关做临时过渡。
+  oem_part_price: null
+  technician_repair_price: 2400.0
+  currency: USD
+  basis: 按认证集成商最低公开费率 $150/小时 × 16 小时（约 2 个工作日）进行前期离线代码盘点与重构范围评估的保守调研基线（$2,400）；整套迁移工程可达 $50,000-$200,000+。
+alternative:
+  description: 基于只读解析 .DAT 文本导出库与项目配置文件的“PLC-5 迁前人工重构点审计与地址映射报告服务”
+  estimated_solution_cost: 499.0
+  currency: USD
+  basis: 待验证商业假设：面向工厂维护主管或小型集成商，按单套 PLC-5 程序收取一次性离线审计与迁移清点报告费 $499（无需触碰现场控制器或承担在线下载风险）。
+gap:
+  vendor_support: discontinued
+  availability: low
+  competition: medium
+  basis: Rockwell 已于 2025-12-31 停售 RSLogix 5 新激活，1771 I/O 已停产；Studio 5000 导入器对 BTR/BTW、MSG、SFC 留有大量手工缺口，市场上缺乏轻量级、固定低价的纯离线迁前盘点交付物。
+signals:
+  recurrence: high
+  urgency: medium
+  diy_activity: high
+  basis: r/PLC 社区持续出现自建 XP/Win7 虚拟机、手动导出 .DAT 文本与排查截断交叉引用表（cross-reference）的讨论。
+assessment:
+  installed_base:
+    value: medium
+    basis: 聚焦矿山、水务、电力与传统制造业存量重资产产线，虽不如消费级软件基数大，但单产线停机损失极高
+  friction_rate:
+    value: high
+    basis: 凡涉及 1771 模拟量模块（BTR/BTW）、DH+  peer MSG 或 SFC 的 PLC-5 程序在导入 Studio 5000 时均需人工介入
+  failure_cost:
+    value: high
+    basis: 停机窗口内若因遗漏 BTR/BTW 或间接寻址导致无法按时复产，单日产线停产损失远超工程服务费
+  support_gap:
+    value: high
+    basis: 原厂停售新激活且 1771 硬件退出在产，不会再修复旧版 RSLogix 5 工具链
+  switching_cost:
+    value: high
+    basis: 整套迁往 ControlLogix 需 $50,000-$200,000+ 及计划停机窗口
+  vendor_repair_speed:
+    value: low
+    basis: 原厂明确推进产品退市，无任何回调可能
+repair_leverage:
+  ratio: 4.81
+  baseline_cost: 2400.0
+  solution_cost: 499.0
+  currency: USD
+  scope: 仅比较“迁前程序盘点与人工重构点清点”这一前置信息服务环节（集成商 $150/h × 16h = $2,400 vs 标准化离线审计包 $499 待验证假设），不含现场硬件更换与施工
+  basis: 2400 / 499 = 4.81；若计入资深集成商 $250/h 或更长工时，杠杆更高，但保守按最低公开费率与 16h 估算
+opportunity_durability:
+  value: high
+  basis: 只要存量 PLC-5 仍在向 CompactLogix/ControlLogix 逐步淘汰迁移（预计持续多年），每一座待改造工厂均需经历迁前盘点
+economic_value:
+  level: High
+  payer: 运行 PLC-5 的制造/水务/矿山工厂自动化主管、以及人手紧张的中小型系统集成商
+  economic_anchor: 认证集成商 $150-$250/小时的人工调研费、以及 $50,000-$200,000+ 迁移项目中因漏判 BTR/BTW/MSG 导致的停机返工风险
+  capture_mechanism: 只读分析客户提供的 .DAT 纯文本导出文件（或脱敏 .PC5 副本），输出结构化的《I/O 映射表、BTR/BTW/MSG/SFC 人工改造清单与工时风险矩阵》
+  repeatability: 依赖静态文本/梯形图规则解析脚本，核心解析器编写一次即可跨不同工厂 PLC-5 程序复用
+  basis: 相比集成商数千美元的前期现场调研费，数百美元的只读预审计既能帮厂方锁定集成商报价范围，也能帮小型集成商加速出方案
+personal_actionability:
+  fit: Good
+  route: 开发静态 .DAT / .PC5 导出文本解析脚本 + 交付标准化《PLC-5 迁前重构审计报告》（纯数据与情报服务，零硬件与现场责任）
+  target_customer: 计划在 2027 年安排停机改造的中小型制造/水务/矿山工厂维护工程师，或承接棕地迁移的独立 PLC 承包商
+  deliverable: 一份结构化审计报告（Excel/Markdown），自动列出所有 1771 机架槽位、BTR/BTW 指令位置、MSG 节点通信路径、SFC 段落及间接寻址清单，附带 Studio 5000 映射对照表
+  pricing_hypothesis: $399-$699/套控制器程序（按单次只读审计报告计费，待市场验证）
+  customer_entry: Reddit r/PLC、PLCS.net 论坛及 LinkedIn 工业自动化/棕地改造工程师社群
+  fit_basis: 纯离线静态文件解析，不接触现场生产设备，不承担在线停机或工业安全连带责任，无需购买昂贵的硬件或 RSLogix 5 激活许可（.DAT 为纯 ASCII 文本）
+  prerequisites: 熟悉 PLC-5 数据表寻址规则（I/O/B/T/C/N/F）、BTR/BTW 与 MSG 语法结构，以及 .DAT ASCII 导出格式
+  first_test: 从公开教程或测试样本获取一份标准 PLC-5 .DAT 导出文本，编写 Python 解析脚本在 2 小时内自动提取所有 BTR/BTW、MSG 及间接寻址列表并生成对照表
+  time_budget: 120分钟
+  success_signal: 解析脚本能 100% 准确识别样本中的 1771 机架地址、BTR/BTW 块传输与间接寻址，且在 r/PLC 社区征集到 2 名以上愿意提供脱敏 .DAT 样本试测的工程师
+  kill_signal: 绝大多数潜在客户既无办法导出 .DAT 文本，又因保密合规严禁将任何脱敏程序文件传出厂区
+  key_unknown: 工厂维护团队在没有活跃 RSLogix 5 席位的情况下，有多大比例已经留存了历史 .DAT 文本导出文件，以及他们对外部只读文件审计的保密顾虑程度
+---

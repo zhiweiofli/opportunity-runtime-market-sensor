@@ -1,0 +1,31 @@
+﻿Execution Receipt: Batch 2026-11-27 (researcher@0.2.2)
+* Task Version: researcher@0.2.2
+* Role Spec Status: reviewed
+* Timezone: Asia/Taipei (UTC+08:00)
+* Batch Cutoff Timestamp: 2026-11-27T17:45:39+08:00
+* Generated At: 2026-11-27T17:49:00+08:00
+* Queue Status: ALL_PENDING_SIGNALS_PROCESSED (3 new qualified signals underwritten; 0 remaining pending)
+1. Directory Coverage
+* Signals Root (1jmiVWIV4GlBELnXXwIvtzvkv2i6dxtVI): Full coverage verified (createdTime > 2026-11-25T10:00:00Z returned 0 new files).
+* Business Input (1gnnz_m54M2TzWzKcHcsOHW-cqGdi9Hpg): Full coverage verified (1 new operational record Business-20261126-no-signal.md found and excluded).
+* Friction Input (19xzpPp8hAY_jNuu9U3qlA5MM1YyUY0eo): Full coverage verified (3 new qualified Friction signals created at 2026-11-27T01:38Z / 2026-11-27T09:38+08:00).
+* Market Input (12UTQ8sbPG0Ryv3mA0YB7EtWTjH3Ri0G2): Full coverage verified (0 files).
+* Research Output (1IlWYoT6-nq8I12vaOzULgo8uiatyi7q9): Full coverage verified (prior baseline: 111 cumulative signals through Execution-Receipt-20261125.md).
+2. Batch 2026-11-27 Research Results (3 Underwritten, 0 Pending)
+* Friction-2026-11-27-GHL-Agency-Client-Onboarding-Manual (2026-11-27T09:37:00+08:00, friction-sensor@0.2.1)
+   * Source: Friction-2026-11-27-GHL-Agency-Client-Onboarding-Manual.md
+   * Research Output: Friction-2026-11-27-GHL-Agency-Client-Onboarding-Manual.md
+   * Result: R2 | KILL (Capture & Persistence fail: Extendly/HL Pro Tools/Growthable saturation + free n8n templates + native GHL AI/SaaS Configurator).
+* Friction-2026-11-27-Accounting-API-Idempotency-Gaps (2026-11-27T09:37:00+08:00, friction-sensor@0.2.1)
+   * Source: Friction-2026-11-27-Accounting-API-Idempotency-Gaps.md
+   * Research Output: Friction-2026-11-27-Accounting-API-Idempotency-Gaps.md
+   * Result: R2 | KILL (Capture & Persistence fail: architectural impossibility for external middleware when target ledger lacks idempotency + unified API incumbents like Apideck already ship native mapping).
+* Friction-2026-11-27-Shopify-Collective-LocalPickup (2026-11-27T09:37:00+08:00, friction-sensor@0.2.1)
+   * Source: Friction-2026-11-27-Shopify-Collective-LocalPickup.md
+   * Research Output: Friction-2026-11-27-Shopify-Collective-LocalPickup.md
+   * Result: R2 | KILL (Capture fail: Shopify explicitly marks Pickup in store incompatible with Collective, restricts custom pickup services to Shopify Plus, and provides no API/checkout extension preserving Collective routing).
+3. Exclusions, Skips & Cumulative Coverage
+* Excluded Operational Non-Signals: Business-20261126-no-signal.md (business-sensor@0.2.1, NO_SIGNAL checkpoint).
+* Previously Underwritten Skipped: 111 historical signals (Batch 20261125 and prior).
+* Waiting for Resume / Pending History Verification / Failed: 0.
+* Cumulative Underwritten Signals: 114 (100% coverage up to 2026-11-27T17:45:39+08:00).

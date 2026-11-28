@@ -1,0 +1,96 @@
+﻿signal_id: UW-20261127-Solo401k-Form5500EZPenaltyRelief
+type: uneconomic-work
+sensor: uneconomic-work
+version: '0.1'
+what_changed: 截至2026年11月核实（IRS 2026-02官方指南、Hughes Noff Tax Law 2026-11-22及Accountably 2026-10实务指南），持有单人退休计划（Solo 401(k)）的自雇人士与小微企业主一旦年底合并计划资产超过$250,000（或处于计划终止的最后一年，不论余额），即须按年申报Form 5500-EZ。受SECURE Act提高罚则影响，逾期申报法定IRS罚款高达每天$250、单份年报上限$150,000外加利息（IRC § 6652(e)）。虽然IRS长期设有Rev. Proc. 2015-32固定费率减免通道——在尚未收到CP 283正式罚款通知前（收到CP 403/CP 406催报函仍符合资格），每份逾期年报仅需缴$500、同一计划封顶$1,500——但该通道严格要求纯纸质邮寄、按漏报年份逐年调取对应历史版本表格、勾选Box D（2020年前旧表须红笔手写指定声明）、附Form 14704汇总页与美国财政部支票寄往犹他州Ogden；一旦误通过EFAST2电子补报、用错当年新版表格或误先提交合理事由抗辩遭拒并触发CP 283，固定$500/$1,500低价减免通道将永久关闭。
+money: 涉及全美数十万开设Solo 401(k)的高收入自由职业者、医生、顾问及夫妻小微企业主。随着近年美股上涨，大批此前资产低于$250,000、从未申报过Form 5500-EZ的账户在不知情中跨过$250,000红线，面临每份逾期年报最高$150,000（逾期30天即$7,500、90天即$22,500）的巨额敞口（E1, E2）。由于普通报税CPA常漏查Solo 401(k)年底资产汇总，而专业税务律师/ERISA顾问处理多年度历史补报与CP 283合规排查收费高昂，许多计划主要么直到收到CP 283天价罚单才求助律师，要么自行盲目在EFAST2补报反而丧失Rev. Proc. 2015-32资格（E1, E3）。
+evidence:
+- id: E1
+  source: https://hntaxlaw.com/tax-law/form-5500-ez-late-filing-penalty/
+  source_date: '2026-11-22'
+  accessed_at: '2026-11-27T01:18:00+08:00'
+  fact: 全文核实：详述Solo 401(k)资产跨过$250,000或计划终止当年必须申报Form 5500-EZ，逾期罚款为$250/天（上限$150,000/份）；明确区分CP 403/406催报通知仍可使用Rev. Proc. 2015-32固定费率减免（$500/份、同计划上限$1,500），但一旦收到CP 283即失去资格；警告通过EFAST2电子补报不计入减免且自行混用合理事由申请被拒将直接锁死低价通道。局限：为税务律所实务指南，未公开律所单案固定报价。
+- id: E2
+  source: https://www.irs.gov/retirement-plans/penalty-relief-program-for-form-5500-ez-late-filers
+  source_date: '2026-02-26'
+  accessed_at: '2026-11-27T01:18:00+08:00'
+  fact: 全文核实：IRS官方2026年2月更新页面确认Rev. Proc. 2015-32现行操作要求——必须使用对应漏报年份的历史Form 5500-EZ纸质表格（1990年至今须用当年对应版本）、勾选Part I Box D（无Box D年份须在顶部用红字标注指定声明）、首页附Form 14704、随附payable to United States Treasury支票并邮寄至Ogden, UT；明确电子申报无效。局限：官方规则页未统计每年使用人数。
+- id: E3
+  source: https://accountably.com/irs-forms/f14704/
+  source_date: '2026-10-23'
+  accessed_at: '2026-11-27T01:16:00+08:00'
+  fact: 仅读取搜索摘要（Search Snippet）：指出Form 14704与Rev. Proc. 2015-32实操中最易卡死的三类错误——1）用错当年新版Form 5500-EZ替代历史年份表格导致退件；2）在Line 4误填个人SSN而非计划发起人EIN；3）将两个不同计划合并在一张Form 14704上以图凑$1,500封顶导致整包失效。局限：未读取全文。
+mechanism: 事实：Solo 401(k)跨过$250,000门槛后的漏报补救在规则上存在极其陡峭的“合规悬崖”——纸质寄送对应年份历史Form 5500-EZ + Form 14704 + $500/$1,500支票可将高达$150,000/份的潜在罚金锁死在极低水平，但用错年份表格、误走EFAST2电子通道、填错EIN或误发Reasonable Cause引出CP 283都会直接导致程序失败（E1, E2, E3）。推断：大批Solo 401(k)个人持有人与普通家庭CPA既不懂得逐年回溯合并账户余额以判定“究竟哪几年真的超了$250,000”，又容易在IRS官网翻找多年份历史PDF时填错版本或漏掉红字标注。通过AI自动读取持有人过去5–10年券商年底对账单（12/31余额）与已收IRS信函，按年份精确判定实际触发申报义务的年度与CP 283状态，自动调取对应历史年份官方Form 5500-EZ PDF并填充数据、生成Form 14704、红字标注提示、支票备注及Ogden挂号邮寄清单，可把原本极易踩雷的高风险合规打包工作变成低成本自助文书产品。
+persistence: Structural
+next_question: 在资产已超过$250,000的美国Solo 401(k)个人持有人中，有多少比例因未意识到多账户合并计算或终止年度规则而存在历史漏报，且在未收到CP 283前愿为“逐年余额回溯+Rev. Proc. 2015-32历史表格打包工具”付费$99–$199？
+task_version: uneconomic-work@0.1
+generated_at: '2026-11-27T01:22:00+08:00'
+role_spec_status: reviewed
+lead_status: LEAD
+research_eligible: true
+research_blockers: []
+abandoned_work:
+  task: Solo 401(k)持有人回溯历年12月31日合并资产余额以确定漏报年份、核验是否已触发CP 283、下载对应历史年份Form 5500-EZ与Form 14704、校验计划EIN与三位数计划编号并组装合规纸质减免邮寄包
+  structure: 规则遵从 / 昂贵信息获取 / 低概率高损失事件
+  abandoned_value: 避免每份逾期年报最高$150,000的IRS法定罚金（以及因误走EFAST2或填错表单丧失$500/$1,500低价减免资格的巨额风险）（E1, E2）
+  human_failure_reason: 普通报税CPA常忽略未纳入1040的Solo 401(k)资产测试，而专业ERISA/税法律师介入成本高；DIY持有人极易因用错历史年份表格、误走EFAST2、填SSN而非EIN或误申Reasonable Cause引出CP 283而失败（E1, E3）
+ai_unlock:
+  changed_cost: 将跨多年券商年底对账单合并计算、IRS通知分流（CP 403/406 vs CP 283）、历史版本Form 5500-EZ自动匹配填充与Form 14704打包的人工排查工时降至15分钟自助向导
+  capability_basis: 多年度券商对账单PDF年底资产抽取 + IRS历史年份Form 5500-EZ模板自动映射填充 + Rev. Proc. 2015-32防错规则校验（E2, E3）
+  limitations: 1）若用户已收到CP 283正式罚款通知，该项目自动失效，必须转由合理事由抗辩或专业税务律师处理（E1, E2）；2）表格必须打印签字并随纸质支票寄往Ogden，AI不能替代物理打印与邮寄
+unit_economics:
+  unit: 1个Solo 401(k)计划的历年$250k阈值回溯核查及Rev. Proc. 2015-32纸质减免申报包生成
+  currency: USD
+  region_and_date: 美国市场 / 2026年11月
+  human_total_cost: null
+  value_per_success: null
+  success_probability: null
+  expected_recoverable_value: null
+  expected_revenue: null
+  ai_total_cost: null
+  cost_scope: AI全流程成本包括多年券商对账单OCR提取、规则引擎分流、历史年份Form 5500-EZ与Form 14704 PDF生成及红字/邮寄防错检查；不含IRS官方$500–$1,500减免费用、挂号邮费及获客成本（CAC）
+  excluded_or_unknown_costs: 专业ERISA/税法律师承接同类Rev. Proc. 2015-32打包的标准市场报价均值、以及处于CP 283前潜伏漏报期的目标用户获客成本（CAC）尚未取得公开可比基准，严格置为null
+  ai_cost_value_ratio: null
+  provider_contribution: null
+  reversal: Plausible
+  basis: E1–E3证实了该程序极高的罚金锚点（$250/天至$150,000/份 vs $500/$1,500固定费）以及DIY高频致命失误点（EFAST2/错年份/错EIN），AI自动化历史表格匹配与阈值回溯在技术上完全可行，判定为Plausible；因缺乏专业服务标准化定价与漏报率大盘数据，数值严格置为null
+value_capture:
+  beneficiary: 资产超$250,000或已关闭账户但漏报Form 5500-EZ的美国Solo 401(k)持有人（医生、咨询师、电商卖家、独立开发者）（E1, E2）
+  payer: Solo 401(k)持有人本人，或提供Solo 401(k)托管/文件服务的平台（如自托管Solo 401(k)服务商）与中小型CPA事务所
+  payment_evidence: 计划持有人对避免$150,000罚金并合规缴纳$500–$1,500官方减免费具有极强刚需（E1），但对$99–$199自助文书打包工具的付费意愿属待验证商业假设
+  capture_node: 1）投资者在White Coat Investor/Bogleheads/r/personalfinance看到“Solo 401k $250k Form 5500-EZ”惊醒自己漏报时；2）收到IRS CP 403/CP 406催报函时
+  pricing_hypothesis: 假设采用“免费$250k历年余额阈值自测 + $99–$149完整Rev. Proc. 2015-32历史表格与Form 14704防错打包包”；标记为待验证商业假设
+  customer_net_benefit: 避免因DIY误用EFAST2或错用当年表格导致的程序失效及后续CP 283数万美元罚金风险，以百美元级成本一次性规范补齐多年历史申报
+scale:
+  aggregation_unit: Solo 401(k)持有人每年7月31日申报季自查或收到CP 403/406催报通知
+  repeatability: IRS历史Form 5500-EZ版本与Rev. Proc. 2015-32规则全美联邦统一，一次构建多年份PDF映射模板即可无限次复用
+  reachable_volume: null
+  basis: 尚未统计全美资产超$250,000但存在Form 5500-EZ漏报的Solo 401(k)账户总数，reachable_volume置为null
+action_loop:
+  observe: 用户上传历年12月31日Solo 401(k)券商对账单、计划建立文件（提取EIN与Plan Number）及任何已收到的IRS信函（核查CP 403/406 vs CP 283）
+  judge: 逐年累加同一雇主名下所有单人计划年底资产，判定哪些年份超过$250,000或属于终止年度；校验各漏报年是否未收到CP 283；计算对应$500/$1,000/$1,500官方支票金额
+  act: 自动调取每个漏报年份对应的官方历史Form 5500-EZ PDF完成填充并勾选Box D（2020年前附红字打印提示），生成Form 14704首页、支票填写模板及Ogden UT挂号邮寄组装清单
+  verify: 用户核对EIN/资产数字、按清单打印签字并用挂号信寄出后，保存回执及约8–12周后IRS确认减免回函
+required_access:
+  resources: 用户自有券商年底对账单、计划成立文件（Plan Document/SS-4）及IRS公开可下载的历史Form 5500-EZ/14704 PDF模板
+  availability: Available
+  authorizer: Solo 401(k)计划发起人/持有人本人
+  authorization_status: 仅作为用户自助填表与合规自检工具（用户本人签字邮寄），无需Circular 230执业代理或IRS e-Services接口授权
+  basis: 联邦公开表格与用户自有资产记录，无第三方私有系统接入壁垒
+defensibility:
+  basis: 初期易被人工照指南模仿，壁垒在于完整收集并结构化映射1990–2025年各年度不同栏位结构的历史Form 5500-EZ PDF填充引擎、以及与White Coat Investor/Solo 401(k)服务商渠道绑定
+  alternatives_and_counterevidence: 1）现有替代：持有人对照White Coat Investor或IRS FAQ免费指南自己下载多年PDF手填（E2），或花高价聘请ERISA/税法律师（E1）；2）最强反证：部分Solo 401(k)专业服务商（如MySolo401k）已为付费年费客户提供免费或低价补报指导，但传统券商（Fidelity/Schwab/Vanguard）开户用户完全无人提醒与协助
+personal_actionability:
+  fit: Good
+  target_customer: 在Fidelity/Schwab/Vanguard等传统券商自建Solo 401(k)、资产超过$250,000且发现漏报往年Form 5500-EZ的医生、顾问及自雇人士
+  deliverable: 一套《Solo 401(k)历年阈值诊断表 + 逐年对应历史版本Form 5500-EZ & Form 14704打印邮寄包》
+  customer_entry: Bogleheads、White Coat Investor论坛、r/fatFIRE、r/tax及“missed form 5500-ez solo 401k”长尾SEO
+  prerequisites: 严禁宣称提供法律或税务代理建议，必须强提示CP 283已发年份不可用该包且严禁走EFAST2电子通道
+  basis: 联邦规则统一、目标人群高净值且对$150k罚金极度敏感、无需执业牌照即可交付PDF打包包，非常适合个人/小团队7天内验证
+seven_day_experiment:
+  critical_unknown: 传统券商Solo 401(k)漏报者在已有White Coat Investor等免费图文指南的情况下，是否愿意为“自动核对余额+精准匹配历史PDF防填错”支付$99–$149
+  test: 检索Bogleheads、r/personalfinance与r/tax近12个月15个“missed Form 5500-EZ”真实求助帖，统计最常卡住的步骤（不知哪年超$250k vs 找不到旧表 vs 错用EFAST2），并用真实历史PDF测试自动填充准确度
+  artifact: 1份《15例Solo 401(k)漏报求助痛点拆解表》及1套2021–2025年Form 5500-EZ自动填充原型脚本
+  time_and_cost_budget: 7天内完成，预算<$20（纯公开论坛调研与PDF填充测试）
+  success_signal: 多数漏报者明确表达对“怕填错年份/怕弄错流程导致$150k罚金”的强烈焦虑，且愿意为防错打包工具付费$99+
+  kill_signal: 绝大多数漏报者均为1–2年简单情况且对照免费博客半小时即可手填完成，无强烈付费意愿

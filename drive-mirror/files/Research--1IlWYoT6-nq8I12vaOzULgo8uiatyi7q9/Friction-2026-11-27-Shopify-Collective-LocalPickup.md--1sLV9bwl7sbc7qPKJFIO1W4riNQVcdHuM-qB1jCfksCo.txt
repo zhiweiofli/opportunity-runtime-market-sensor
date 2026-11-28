@@ -1,0 +1,35 @@
+﻿Research Record: Friction-2026-11-27-Shopify-Collective-LocalPickup
+* Source Signal IDs: Friction-2026-11-27-Shopify-Collective-LocalPickup
+* Source Signal References:
+   * Signal ID: Friction-2026-11-27-Shopify-Collective-LocalPickup | Generated At: 2026-11-27T09:37:00+08:00 | Task Version: friction-sensor@0.2.1 | Source File URL: Friction-2026-11-27-Shopify-Collective-LocalPickup.md | Source File Modified At: 2026-11-27T01:38:18.647Z
+|---|---|---|Underwriting)
+   * Stage Result: KILL
+   * Final Status: KILL
+   * Task Version: researcher@0.2.2
+   * Generated At: 2026-11-27T17:48:00+08:00
+   * Role Spec Status: reviewed
+Unknown Ledger
+   * Known: Shopify Help Center explicitly lists Pickup in store and Shopify POS in-person (for local pickup) as incompatible with Shopify Collective on both the retailer and supplier sides (Supplier Requirements). Furthermore, Shopify Help Center — Pickup in store restricts custom pickup-service apps to Shopify Plus stores only, and third-party hybrid pickup apps like Zapiet cannot split a single checkout order into pickup-only + shipping-only items (Shopify Community).
+   * Unknown: Exact GMV lost by local multi-brand retailers due to Collective's lack of local pickup.
+   * Decision-Critical Unknown: Whether Shopify exposes any non-Plus API or checkout extension capable of adding local pickup to Collective-imported products without breaking Collective's automatic order routing and supplier payouts.
+Gate Checks
+   * Money: 通過 (PASS) — Retailers on active Shopify plans with Shopify Payments + Shopify Collective lose mixed-cart local pickup conversions (Shopify Developer Community).
+   * Mechanism: 通過 (PASS) — Collective's supplier-to-customer shipping architecture automatically places imported items into a Collective shipping profile (Shopify Collective Shipping) and excludes Pickup in store at checkout.
+   * Persistence: 通過 (PASS — 平台結構性限制) — Explicitly documented as an architectural incompatibility by Shopify and confirmed by third-party app docs (Biscuits Bundles).
+   * Capture: 未通過 (FAIL — 平台 API 封鎖) — A 3–5 person external team cannot capture this value via a Shopify app: (1) Shopify Developer Community confirms there is no supported API or checkout extension to add local pickup to Collective items while keeping Collective's automatic routing and supplier payouts intact (Shopify Developer Community); (2) custom pickup-service replacement is restricted to Shopify Plus merchants only (Shopify Help Center); (3) established pickup/delivery apps like Zapiet cannot combine pickup-only and shipping-only products into one order (Shopify Community).
+Evidence
+   1. Shopify Help Center — Collective Retailer Requirements: Explicitly lists Pickup in store under "Incompatible apps and features with the Shopify Collective app" (Shopify Help Center).
+   2. Shopify Help Center — Collective Supplier Requirements: Confirms Pickup in store incompatibility on the supplier side as well (Shopify Help Center).
+   3. Shopify Developer Community (2026-11-22): Confirms no supported API or checkout extension can patch local pickup onto Collective items without breaking automatic routing and payments (Shopify Developer Community).
+Counter Evidence
+   1. Checkout & API Lock-In: No third-party app can override Collective's shipping profile at checkout while preserving Collective's automatic supplier routing/payouts (Shopify Developer Community).
+   2. Shopify Plus Gate on Custom Pickup Apps: Even replacing default pickup-in-store with a custom pickup service app requires Shopify Plus (Shopify Help Center), excluding the local SMB retail segment.
+   3. Existing App Limitation (Zapiet): Even leading hybrid fulfillment apps (Zapiet - Pickup + Delivery) force customers to place two separate orders for mixed pickup/shipping carts (Shopify Community).
+Stop Reason
+Condition 1 & 2 met: Platform API/checkout restrictions completely block the Capture gate for external third-party app builders.
+Resume Condition
+N/A (KILL).
+Learning Summary
+   * What became more likely: Shopify Collective local pickup is a platform-controlled lock-in that only Shopify itself can resolve natively.
+   * What became less likely: A third-party Shopify app legally and technically patching Collective mixed-cart local pickup at checkout for non-Plus local retailers.
+   * What did we rule out: Building a Shopify App Store plugin to add local pickup to Shopify Collective imported products.

@@ -1,0 +1,34 @@
+﻿Business Sensor 观察记录：NO_SIGNAL (2026-11-28)
+* 任务版本：business-sensor@0.2.1
+* 角色规范状态：reviewed
+* 观察窗口 (Asia/Taipei)：2026-11-21 09:31:17 至 2026-11-28 09:31:17 (UTC+08:00)
+* 判定结果：NO_SIGNAL
+* 逻辑存储路径：Opportunity Runtime/Signals/Business/Business-20261128-no-signal.md
+* 实际输出目录：Opportunity Runtime/Signals/Business/
+* 历史去重核对：已核对历史 20 项商业信号（含 11 月 25 日建档的 Business-20261125-google-workspace-mcp-api-toll.md）及此前归档的 NO_SIGNAL 检查点
+1. 检索与核实范围 (Retrieval Scope)
+本轮感知重点覆盖 2026-11-26 至 2026-11-28（Asia/Taipei）感恩节后美国半日市（Black Friday）窗口期内全球发布的开发者工具动态、电商直播佣金限时豁免、硬件诊断软件授权政策调整、以及 SaaS 与大模型 API 既有定价盘点。重点核实了 eBay Live 黑色星期五单日 0% 佣金豁免、CleanCommit 发布 Claude Code 团队技能共享框架、XTOOL 宣布部分汽车诊断仪终身免费软件升级、以及 Hightail / Wix / Kimi K3.1 Pro 等既有费率梳理等候选事件。
+2. 候选动态逐项评估与过滤原因 (Evaluated Events & Filtering)
+候选事件 1：eBay Live 黑色星期五单日 0% 佣金与固定订单费豁免（2026-11-27 生效）
+* 事实摘要：根据 Sell The Flip 报道，eBay 于美西时间 2026 年 11 月 27 日黑色星期五全天对合规 eBay Live 直播卖家免除 6%（或 4%）平台佣金及每笔 $0.30 固定订单费（2.9% 支付处理费照常收取），非直播订单及 11 月 28 日起恢复标准费率。
+* 门槛对照与过滤原因：未通过门槛 4（持续性）与结构性变化要求。与 Whatnot 11 月 27–30 日限时促销同样属于黑五单日营销让利活动，非长期生效的平台分成重构，执行快速 Kill（IGNORE）。
+候选事件 2：CleanCommit 发布 Claude Code 团队技能共享框架（2026-11-27）
+* 事实摘要：据 Emergent 报道，CleanCommit 于 11 月 27 日上线面向工程团队共享 Claude Code 提示词与技能工作流的协作框架。
+* 门槛对照与过滤原因：未通过门槛 1（一手资金流与商业定价凭证）。官方公告未披露商业定价与真实付费客户规模，属于早期开发工具单点发布，执行快速 Kill（IGNORE）。
+候选事件 3：XTOOL 汽车诊断仪宣布部分机型终身免费软件更新（2026-11-27 生效）
+* 事实摘要：根据 Newsfilter 披露，汽车诊断设备厂商 XTOOL 自 11 月 27 日起取消 D 系列与 INPLUS 系列既有及新购硬件的年度软件续费，改为终身免费升级。
+* 门槛对照与过滤原因：属于重线下硬件制造与实体渠道绑定的硬件促销策略（通过免除软件年费拉动黑五硬件销量），不符合轻资产软件/数据情报小团队的经营约束，执行快速 Kill（IGNORE）。
+候选事件 4：Hightail / Wix / Kimi K3.1 Pro 等既有公开价格表横向盘点（2026-11-27）
+* 事实摘要：Frooty 复盘 OpenText 旗下 Hightail 订阅费率（Lite 免费 / Pro $15 / Teams $30 / Business $45）；Clyro 对比 Wix 电商抽成；KI-AI 复核 Kimi K3.1 Pro 官方 $2/$10 定价。
+* 门槛对照与过滤原因：均属于第三方博客对既有公开定价页面的常规对比梳理，近 48 小时内无官方突发调价或商业规则变更，执行快速 Kill（IGNORE）。
+3. 判定依据与准则遵循 (Justification)
+本传感器严格遵循"宁缺毋滥，证据不足不凑数"的核心准则。受美国感恩节假期影响，本轮 48 小时窗口内全球一级云厂商与企业级 SaaS 未出现新的重大商业定价或收费节点变更；观测到的候选项均属于黑五单日营销免佣、未定价的早期开发工具、实体硬件附属软件策略或第三方既有费率盘点，不满足"一手资金凭证、非单点偶发、结构性变化、持续性、3–5人独立小团队可捕获路径"五项核心门槛。因此本轮确认为 NO_SIGNAL。
+4. 持续追踪与忽略清单 (Watch & Ignore List)
+持续追踪 (Watch List)
+* 11 月 30 日 / 12 月 1 日多模型与云服务定价切换窗口：临近月末切换节点，重点追踪 Google Gemini 4 Carbon / Argon 促销结束翻倍至 $4/$20、OpenAI GPT-5.6 Sol 促销到期，以及 Cloudflare Search for Agents（12 月 1 日起按 AI Search 计费）生效后的真实企业路由分流与账单反馈。
+* Google Workspace MCP 生态应对进展：持续追踪 Business-20261125-google-workspace-mcp-api-toll 公布后，主流 Agent 编排框架对 Scaled Tier 零免费额度规则的架构调整与 Docs/Sheets/Slides MCP 单价公布动态。
+* Canva Developer Portal API 定价页上线动态：继续等待 Canva REST API 与 Canva Craft 模型的具体调用单价表。
+明确忽略 (Ignore List)
+* 电商平台针对黑五/网一的短期单日或周末限时佣金减免活动。
+* 绑定实体硬件销售的附属软件免费升级政策。
+* 尚未披露商业定价且无一手采购证据的早期单点开发小工具。
